@@ -1,0 +1,81 @@
+{
+  "_comment": "Stickers de premio. Los detectados solos van en orden de lectura; 'omitir' saca los que no sirven y 'manual' agrega recuadros a mano (forma: circulo/rect para los que tienen fondo con dibujo). 'auto.ids' les pone nombre en ese orden. Rareza y cómo se gana cada uno: src/data/stickers.js.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/stickers",
+  "manifest": "stickers.json",
+  "grupo": "stickers",
+  "sueltos": true,
+  "holeTolerance": 8,
+  "minCell": {
+    "w": 90,
+    "h": 110
+  },
+  "auto": {
+    "prefijo": "st",
+    "cmPorPx": 0.5,
+    "ids": [
+      "ushuaia-pinguino",
+      "calafate-guanaco",
+      "madryn-ballena",
+      "buenosaires-colectivo",
+      "reconquista-garza",
+      "posadas-tucan",
+      "calafate-glaciar",
+      "madryn-golfo",
+      "rosario-monumento",
+      "santafe-puente",
+      "corrientes-puente",
+      "posadas-costanera",
+      "iguazu-ciudad",
+      "iguazu-cataratas",
+      "rosario-hornero",
+      "santafe-carpincho",
+      "ushuaia-faro",
+      "buenosaires-obelisco",
+      "bonus-ruta-argentina",
+      "bonus-sobre"
+    ]
+  },
+  "characters": [],
+  "omitir": [1, 8],
+  "manual": [
+    {
+      "x": 572,
+      "y": 224,
+      "w": 132,
+      "h": 192
+    },
+    {
+      "x": 704,
+      "y": 226,
+      "w": 132,
+      "h": 190
+    },
+    {
+      "x": 14,
+      "y": 470,
+      "w": 180,
+      "h": 248
+    },
+    {
+      "x": 578,
+      "y": 462,
+      "w": 170,
+      "h": 252
+    },
+    {
+      "x": 248,
+      "y": 1093,
+      "w": 286,
+      "h": 286,
+      "forma": "circulo"
+    },
+    {
+      "x": 590,
+      "y": 1088,
+      "w": 282,
+      "h": 300,
+      "forma": "rect"
+    }
+  ]
+}

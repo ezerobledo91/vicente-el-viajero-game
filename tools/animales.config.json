@@ -1,0 +1,349 @@
+{
+  "source": "personajes/animales/animales-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "nativos.json",
+  "grupo": "animales",
+  "_comment": "Animales y objetos del viaje (se recortan igual que los personajes). alturaCm define el tamaño en pantalla; en animales muy chicos se exagera para que se vean. Las filas con bloques pegados de anchos distintos se describen con una lista: cuántos cuadros hay en cada bloque.",
+  "minCell": {
+    "w": 40,
+    "h": 70
+  },
+  "rows": [11, [1, 1, 2, 1, 1, 2, 1, 1, 1], 8, 11, 6, 2],
+  "holeTolerance": 12,
+  "characters": [
+    {
+      "id": "pinguino",
+      "nombre": "Pingüino",
+      "alturaCm": 60,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 4,
+          "fps": 5,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guanaco",
+      "nombre": "Guanaco",
+      "alturaCm": 150,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 4,
+          "fps": 5,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "choique",
+      "nombre": "Choique",
+      "alturaCm": 110,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ballena",
+      "nombre": "Ballena",
+      "alturaCm": 60,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "nadar",
+          "label": "nadar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "hornero",
+      "nombre": "Hornero",
+      "alturaCm": 32,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 2,
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "carpincho",
+      "nombre": "Carpincho",
+      "alturaCm": 65,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "echado",
+          "label": "echado",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "garza",
+      "nombre": "Garza",
+      "alturaCm": 100,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "gaviota",
+      "nombre": "Gaviota",
+      "alturaCm": 45,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 4,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "condor",
+      "nombre": "Cóndor",
+      "alturaCm": 75,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tero",
+      "nombre": "Tero",
+      "alturaCm": 42,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "correr",
+          "label": "correr",
+          "frames": 4,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "perro",
+      "nombre": "Perro",
+      "alturaCm": 60,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "jugar",
+          "label": "jugar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mosquito",
+      "nombre": "Mosquito",
+      "alturaCm": 24,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 4,
+          "fps": 12,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "bandera",
+      "nombre": "Bandera",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mate",
+      "nombre": "Mate",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "valija",
+      "nombre": "Valija",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "huella",
+      "nombre": "Huella",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "sol",
+      "nombre": "Sol",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "estrella",
+      "nombre": "Estrella",
+      "alturaCm": 36,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "monumento",
+      "nombre": "Monumento a la Bandera",
+      "alturaCm": 300,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "grande",
+          "label": "grande",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "chico",
+          "label": "chico",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

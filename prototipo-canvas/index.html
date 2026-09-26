@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorador del Mundo · Sprites</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#1b2a3a; --panel:#243a50; --ink:#f4f1e8; --muted:#9fb3c8; --accent:#ffb83d; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:system-ui,sans-serif; padding:16px; }
+  h1, h2 { font-family:"Press Start 2P",monospace; font-weight:400; }
+  h1 { font-size:18px; color:var(--accent); margin:8px 0 4px; line-height:1.5; }
+  h2 { font-size:12px; margin:28px 0 12px; }
+  p.sub { color:var(--muted); margin:0 0 16px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+  .card { background:var(--panel); border-radius:10px; padding:12px; }
+  .card b { font-family:"Press Start 2P",monospace; font-size:11px; }
+  .card small { color:var(--muted); display:block; margin:6px 0 8px; }
+  .dirs { display:flex; gap:4px; justify-content:space-between; }
+  canvas { image-rendering:pixelated; display:block; }
+  .dirs canvas { background:#2f4a63; border-radius:6px; }
+  #stage { width:100%; max-width:960px; aspect-ratio:16/9; border-radius:10px; border:3px solid #0e1822; }
+  .row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  button { font-family:"Press Start 2P",monospace; font-size:10px; background:var(--accent); color:#2a1d1a;
+           border:0; border-radius:6px; padding:10px 12px; cursor:pointer; }
+  .pad { display:grid; grid-template-columns:repeat(3,44px); grid-template-rows:repeat(2,44px); gap:4px; }
+  .pad button { padding:0; font-size:14px; }
+  .hint { color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<h1>Explorador del Mundo</h1>
+<p class="sub">Primeros sprites (16×20 px, 4 direcciones, 4 frames de caminata).</p>
+
+<h2>Personajes</h2>
+<div class="cards" id="cards"></div>
+
+<h2>Probá caminar</h2>
+<canvas id="stage" width="480" height="270"></canvas>
+<div class="row">
+  <div class="pad">
+    <span></span><button data-k="up">▲</button><span></span>
+    <button data-k="left">◀</button><button data-k="down">▼</button><button data-k="right">▶</button>
+  </div>
+  <span class="hint">Flechas o WASD. Acercate a cada familiar para saludarlo.</span>
+</div>
+
+<h2>Sprite sheet</h2>
+<div class="row">
+  <button id="dl">Descargar PNG</button>
+  <span class="hint">Filas: personaje × dirección · Columnas: frames.</span>
+</div>
+
+<script src="sprites.js"></script>
+<script>
+const S = window.Sprites;
+const bad = S.validate();
+if (bad.length) console.warn("Sprites con filas mal:", bad);
+
+// ---------- Tarjetas con animación por dirección ----------
+const DIR_ORDER = ["down", "left", "up", "right"];
+const cardCanvases = [];
+for (const [id, c] of Object.entries(S.CHARACTERS)) {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `<b>${c.nombre}</b><small>${c.rol}</small><div class="dirs"></div>`;
+  const dirs = card.querySelector(".dirs");
+  for (const d of DIR_ORDER) {
+    const cv = document.createElement("canvas");
+    cv.width = S.W * 3 + 8; cv.height = S.H * 3 + 8;
+    dirs.appendChild(cv);
+    cardCanvases.push({ cv, id, d });
+  }
+  document.getElementById("cards").appendChild(card);
+}
+
+// ---------- Escenario ----------
+const stage = document.getElementById("stage");
+const ctx = stage.getContext("2d");
+const SC = 2; // escala del sprite en el escenario
+const SW = S.W * SC, SH = S.H * SC;
+
+// Fondo: pasto con camino y flores, generado una sola vez.
+const bg = document.createElement("canvas");
+bg.width = stage.width; bg.height = stage.height;
+(() => {
+  const g = bg.getContext("2d");
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let y = 0; y < bg.height; y += 8)
+    for (let x = 0; x < bg.width; x += 8) {
+      g.fillStyle = rnd() < 0.5 ? "#5fae4e" : "#58a448";
+      g.fillRect(x, y, 8, 8);
+    }
+  g.fillStyle = "#d9b77a";
+  for (let x = 0; x < bg.width; x += 4) {
+    const y = 130 + Math.round(Math.sin(x / 40) * 14);
+    g.fillRect(x, y, 4, 26);
+  }
+  const flores = ["#ffffff", "#ffd93d", "#ff6b8a", "#8ecbff"];
+  for (let i = 0; i < 60; i++) {
+    const x = Math.floor(rnd() * bg.width), y = Math.floor(rnd() * bg.height);
+    if (Math.abs(y - 140) < 26) continue;
+    g.fillStyle = flores[i % 4];
+    g.fillRect(x, y, 2, 2);
+    g.fillStyle = "#3d7a33";
+    g.fillRect(x, y + 2, 2, 2);
+  }
+})();
+
+const player = { id: "explorador", x: 40, y: 125, dir: "right", frame: 0, t: 0, moving: false };
+const npcs = [
+  { id: "papa", x: 150, y: 60, dir: "down" },
+  { id: "mama", x: 290, y: 190, dir: "down" },
+  { id: "abuela", x: 400, y: 70, dir: "down" },
+];
+
+const keys = new Set();
+const MAP = { ArrowUp: "up", KeyW: "up", ArrowDown: "down", KeyS: "down",
+              ArrowLeft: "left", KeyA: "left", ArrowRight: "right", KeyD: "right" };
+addEventListener("keydown", (e) => { if (MAP[e.code]) { keys.add(MAP[e.code]); e.preventDefault(); } });
+addEventListener("keyup", (e) => MAP[e.code] && keys.delete(MAP[e.code]));
+document.querySelectorAll(".pad button").forEach((b) => {
+  const k = b.dataset.k;
+  const on = (e) => { e.preventDefault(); keys.add(k); };
+  const off = () => keys.delete(k);
+  b.addEventListener("pointerdown", on);
+  b.addEventListener("pointerup", off);
+  b.addEventListener("pointerleave", off);
+});
+
+function bubble(text, x, y) {
+  ctx.font = "8px 'Press Start 2P', monospace";
+  const w = ctx.measureText(text).width + 12;
+  const bx = Math.max(4, Math.min(stage.width - w - 4, x - w / 2));
+  const by = y - 20;
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(bx, by, w, 16);
+  ctx.fillRect(x - 2, by + 16, 4, 4);
+  ctx.fillStyle = "#2a1d1a";
+  ctx.fillText(text, bx + 6, by + 11);
+}
+
+function faceTowards(n) {
+  const dx = player.x - n.x, dy = player.y - n.y;
+  if (Math.abs(dx) > Math.abs(dy)) return dx > 0 ? "right" : "left";
+  return dy > 0 ? "down" : "up";
+}
+
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+
+  // Movimiento
+  let vx = 0, vy = 0;
+  if (keys.has("left")) vx -= 1;
+  if (keys.has("right")) vx += 1;
+  if (keys.has("up")) vy -= 1;
+  if (keys.has("down")) vy += 1;
+  player.moving = vx || vy;
+  if (player.moving) {
+    player.dir = vx ? (vx > 0 ? "right" : "left") : (vy > 0 ? "down" : "up");
+    const len = Math.hypot(vx, vy);
+    player.x = Math.max(0, Math.min(stage.width - SW, player.x + (vx / len) * 70 * dt));
+    player.y = Math.max(0, Math.min(stage.height - SH, player.y + (vy / len) * 70 * dt));
+    player.t += dt;
+    player.frame = Math.floor(player.t * 8) % 4;
+  } else {
+    player.frame = 0;
+  }
+
+  // Dibujo (ordenado por Y para que se superpongan bien)
+  ctx.drawImage(bg, 0, 0);
+  const all = [...npcs.map((n) => ({ ...n, npc: n })), player].sort((a, b) => a.y - b.y);
+  const near = [];
+  for (const e of all) {
+    ctx.fillStyle = "rgba(0,0,0,.2)";
+    ctx.fillRect(e.x + 6, e.y + SH - 3, SW - 12, 4);
+    if (e.npc) {
+      const d = Math.hypot(player.x - e.x, player.y - e.y);
+      const dir = d < 60 ? faceTowards(e) : "down";
+      S.draw(ctx, e.id, dir, 0, e.x, e.y, SC);
+      if (d < 60) near.push(e);
+    } else {
+      S.draw(ctx, e.id, e.dir, e.frame, e.x, e.y, SC);
+    }
+  }
+  for (const n of near)
+    bubble(`¡Hola! Soy ${S.CHARACTERS[n.id].nombre}`, n.x + SW / 2, n.y);
+
+  // Tarjetas
+  const f = Math.floor(now / 150) % 4;
+  for (const { cv, id, d } of cardCanvases) {
+    const c = cv.getContext("2d");
+    c.clearRect(0, 0, cv.width, cv.height);
+    S.draw(c, id, d, f, 4, 4, 3);
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ---------- Sprite sheet descargable ----------
+document.getElementById("dl").onclick = () => {
+  const scale = 4, ids = Object.keys(S.CHARACTERS);
+  const cv = document.createElement("canvas");
+  cv.width = S.W * 4 * scale;
+  cv.height = S.H * DIR_ORDER.length * ids.length * scale;
+  const c = cv.getContext("2d");
+  ids.forEach((id, i) =>
+    DIR_ORDER.forEach((d, j) => {
+      for (let f = 0; f < 4; f++)
+        S.draw(c, id, d, f, f * S.W * scale, (i * DIR_ORDER.length + j) * S.H * scale, scale);
+    })
+  );
+  const a = document.createElement("a");
+  a.download = "sprites-explorador.png";
+  a.href = cv.toDataURL("image/png");
+  a.click();
+};
+</script>
+</body>
+</html>

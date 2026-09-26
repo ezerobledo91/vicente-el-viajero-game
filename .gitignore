@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.log
+tools/out/
+
+# Fotos reales de la familia: no se publican
+personajes/fotos/

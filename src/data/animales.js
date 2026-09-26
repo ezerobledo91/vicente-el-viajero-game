@@ -1,0 +1,257 @@
+// Animales nativos que aparecen en los tramos del viaje (no hacen daño: al pasar cerca cuentan un dato).
+// `sprite` es el id del animal en las láminas recortadas (npm run animales → public/assets/animales).
+// Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
+
+export const ANIMALES = {
+  jaguarete: {
+    sprite: "jaguarete",
+    nombre: "Yaguareté",
+    dato: "Es el felino más grande de América y vive en la selva de Misiones.",
+  },
+  mono: {
+    sprite: "mono",
+    nombre: "Mono carayá",
+    dato: "Es un mono aullador: ¡su grito se escucha a kilómetros!",
+  },
+  tatu: {
+    sprite: "tatu",
+    nombre: "Tatú",
+    dato: "Tiene un caparazón duro, y algunos se hacen bolita para protegerse.",
+  },
+  flamenco: {
+    sprite: "flamenco",
+    nombre: "Flamenco austral",
+    dato: "Es rosado por lo que come y descansa parado en una sola pata.",
+  },
+  pinguino: {
+    sprite: "pinguino",
+    nombre: "Pingüino de Magallanes",
+    dato: "No puede volar, ¡pero nada rapidísimo!",
+    forma: "erguido",
+    color: "#23232f",
+    panza: "#f4f4f4",
+    pico: "#f2a33a",
+    w: 44,
+    h: 72,
+  },
+  zorro: {
+    sprite: "zorro",
+    nombre: "Zorro colorado",
+    dato: "Vive en los bosques de Tierra del Fuego y tiene la cola muy peluda.",
+    forma: "cuadrupedo",
+    color: "#c8642c",
+    panza: "#f1dcc4",
+    w: 96,
+    h: 56,
+  },
+  guanaco: {
+    sprite: "guanaco",
+    nombre: "Guanaco",
+    dato: "Es pariente de la llama y vive en la estepa patagónica.",
+    forma: "cuello-largo",
+    color: "#b9814a",
+    panza: "#efe0c8",
+    w: 110,
+    h: 150,
+  },
+  choique: {
+    sprite: "choique",
+    nombre: "Choique",
+    dato: "Es un ñandú: no vuela, pero corre muy rápido con sus patas largas.",
+    forma: "ave-corredora",
+    color: "#8a7f73",
+    panza: "#c9bfb2",
+    w: 80,
+    h: 120,
+  },
+  "lobo-marino": {
+    nombre: "Lobo marino",
+    dato: "Duerme al sol en las playas y es un gran nadador.",
+    forma: "tumbado",
+    color: "#6b4a34",
+    panza: "#8f6a4c",
+    w: 170,
+    h: 64,
+  },
+  ballena: {
+    sprite: "ballena",
+    nombre: "Ballena franca austral",
+    dato: "Puede medir más de 15 metros: ¡más larga que un colectivo!",
+    forma: "ballena",
+    color: "#2e3b4f",
+    panza: "#c9d2dc",
+    w: 260,
+    h: 90,
+  },
+  mara: {
+    nombre: "Mara",
+    dato: "También la llaman liebre patagónica, aunque es pariente del cuis.",
+    forma: "cuadrupedo",
+    color: "#a88660",
+    panza: "#efe0c8",
+    w: 70,
+    h: 56,
+  },
+  vaca: {
+    nombre: "Vaca",
+    dato: "En la llanura pampeana hay muchísimas vacas.",
+    forma: "cuadrupedo",
+    color: "#f4f1ea",
+    panza: "#2b2b2b",
+    manchas: "#2b2b2b",
+    w: 200,
+    h: 140,
+  },
+  hornero: {
+    sprite: "hornero",
+    nombre: "Hornero",
+    dato: "Es el ave nacional: hace su nido de barro con forma de horno.",
+    forma: "erguido",
+    color: "#b5723a",
+    panza: "#e7c79c",
+    pico: "#6b4a2a",
+    w: 34,
+    h: 44,
+  },
+  carpincho: {
+    sprite: "carpincho",
+    nombre: "Carpincho",
+    dato: "Es el roedor más grande del mundo y le encanta el agua.",
+    forma: "cuadrupedo",
+    color: "#8a5a36",
+    panza: "#a9774f",
+    w: 116,
+    h: 72,
+  },
+  garza: {
+    sprite: "garza",
+    nombre: "Garza blanca",
+    dato: "Se para en una sola pata en las lagunas para pescar.",
+    forma: "ave-corredora",
+    color: "#f7f7f2",
+    panza: "#e2e2dc",
+    pico: "#f0c23a",
+    w: 70,
+    h: 116,
+  },
+  yacare: {
+    sprite: "yacare",
+    nombre: "Yacaré",
+    dato: "Parece un cocodrilo chico y vive en los esteros del Litoral.",
+    forma: "reptil",
+    color: "#4d6b3a",
+    panza: "#b8b27a",
+    w: 200,
+    h: 44,
+  },
+  tucan: {
+    sprite: "tucan",
+    nombre: "Tucán",
+    dato: "Tiene un pico enorme y de colores, ¡pero es liviano!",
+    forma: "erguido",
+    color: "#1f1f24",
+    panza: "#f7f2e6",
+    pico: "#f79a1e",
+    w: 44,
+    h: 56,
+  },
+  coati: {
+    sprite: "coati",
+    nombre: "Coatí",
+    dato: "Tiene la cola con anillos y la nariz larga para buscar comida.",
+    forma: "cuadrupedo",
+    color: "#8f6a45",
+    panza: "#d9bf98",
+    anillos: "#4a3524",
+    w: 100,
+    h: 48,
+  },
+};
+
+// Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
+// `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
+export const PAJAROS = {
+  tucan: { nombre: "Tucán", sprite: "tucan", anim: "volar", velocidad: 120 },
+  gaviota: {
+    sprite: "gaviota",
+    anim: "volar",
+    nombre: "Gaviota",
+    color: "#f4f4f2",
+    ala: "#9aa4ae",
+    pico: "#f2c23a",
+    w: 56,
+    h: 30,
+    velocidad: 110,
+  },
+  condor: {
+    sprite: "condor",
+    anim: "volar",
+    nombre: "Cóndor",
+    color: "#1f1f24",
+    ala: "#3a3a44",
+    pico: "#d8c9a8",
+    w: 110,
+    h: 42,
+    velocidad: 80,
+  },
+  tero: {
+    sprite: "tero",
+    anim: "correr",
+    suelo: true,
+    nombre: "Tero",
+    color: "#9aa0a6",
+    ala: "#2a2d33",
+    pico: "#d9463a",
+    w: 50,
+    h: 30,
+    velocidad: 130,
+  },
+  mosquito: {
+    sprite: "mosquito",
+    anim: "volar",
+    nombre: "Mosquito",
+    color: "#3a3a3a",
+    ala: "#cfe3ef",
+    pico: "#3a3a3a",
+    w: 26,
+    h: 18,
+    velocidad: 150,
+  },
+  loro: { nombre: "Loro", color: "#3bb54a", ala: "#1f7fd1", pico: "#f2c23a", w: 50, h: 32, velocidad: 120 },
+};
+
+// Coleccionables del camino (sprites de la lámina de animales). La mayoría son estrellas;
+// cada tanto aparece uno especial.
+export const COLECCIONABLES = {
+  comun: "estrella",
+  especiales: ["sol", "mate", "huella", "bandera", "valija"],
+  cadaCuantos: 6,
+  // Nombre y rareza para el perfil de Vicente (más adelante se pueden sumar cartas mejores o peores).
+  info: {
+    estrella: { nombre: "Estrella", rareza: "común" },
+    sol: { nombre: "Sol de Mayo", rareza: "especial" },
+    mate: { nombre: "Mate", rareza: "especial" },
+    huella: { nombre: "Huella", rareza: "especial" },
+    bandera: { nombre: "Bandera", rareza: "rara" },
+    valija: { nombre: "Valija viajera", rareza: "rara" },
+  },
+};
+
+// Vidas en cada tramo. Si se acaban, el tramo vuelve a empezar (lo ya guardado del viaje no se pierde).
+export const VIDAS = { inicio: 3, maximo: 5 };
+
+// Animales que caminan de un lado a otro. `quieto`: pose cuando se frenan a charlar con Vicente
+// (si no tiene, se congela el cuadro actual).
+export const CAMINANTES = {
+  pinguino: {},
+  guanaco: {},
+  choique: {},
+  zorro: { quieto: "sentado" },
+  coati: { quieto: "parado" },
+  tatu: {},
+  mono: {},
+  jaguarete: {},
+};
+
+// Perro trampolín: no hace daño, si Vicente cae encima rebota más alto.
+export const PERRO = { sprite: "perro", quieto: "sentado", rebote: "saltar" };

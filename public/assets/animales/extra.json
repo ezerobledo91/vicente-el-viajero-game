@@ -1,0 +1,360 @@
+{
+  "characters": [
+    {
+      "id": "jaguarete",
+      "grupo": "animales",
+      "nombre": "Yaguareté",
+      "facing": "right",
+      "alturaCm": 80,
+      "alturaPx": 107,
+      "texture": "jaguarete.png",
+      "frameWidth": 136,
+      "frameHeight": 111,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tucan",
+      "grupo": "animales",
+      "nombre": "Tucán",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 114,
+      "texture": "tucan.png",
+      "frameWidth": 116,
+      "frameHeight": 149,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro",
+      "grupo": "animales",
+      "nombre": "Zorro",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 115,
+      "texture": "zorro.png",
+      "frameWidth": 139,
+      "frameHeight": 132,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yacare",
+      "grupo": "animales",
+      "nombre": "Yacaré",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 60,
+      "texture": "yacare.png",
+      "frameWidth": 127,
+      "frameHeight": 84,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "agua",
+          "label": "agua",
+          "frames": [
+            2,
+            3
+          ],
+          "fps": 2,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coati",
+      "grupo": "animales",
+      "nombre": "Coatí",
+      "facing": "right",
+      "alturaCm": 50,
+      "alturaPx": 153,
+      "texture": "coati.png",
+      "frameWidth": 127,
+      "frameHeight": 159,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mono",
+      "grupo": "animales",
+      "nombre": "Mono carayá",
+      "facing": "right",
+      "alturaCm": 55,
+      "alturaPx": 169,
+      "texture": "mono.png",
+      "frameWidth": 117,
+      "frameHeight": 189,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "arbol",
+          "label": "arbol",
+          "frames": [
+            2,
+            3
+          ],
+          "fps": 2,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tatu",
+      "grupo": "animales",
+      "nombre": "Tatú",
+      "facing": "right",
+      "alturaCm": 32,
+      "alturaPx": 83,
+      "texture": "tatu.png",
+      "frameWidth": 126,
+      "frameHeight": 90,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "flamenco",
+      "grupo": "animales",
+      "nombre": "Flamenco",
+      "facing": "right",
+      "alturaCm": 110,
+      "alturaPx": 178,
+      "texture": "flamenco.png",
+      "frameWidth": 123,
+      "frameHeight": 187,
+      "frameCount": 4,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-amigable",
+      "grupo": "animales",
+      "nombre": "Zorro",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 182,
+      "texture": "zorro-amigable.png",
+      "frameWidth": 180,
+      "frameHeight": 186,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coati-dato",
+      "grupo": "animales",
+      "nombre": "Coatí",
+      "facing": "right",
+      "alturaCm": 50,
+      "alturaPx": 174,
+      "texture": "coati-dato.png",
+      "frameWidth": 199,
+      "frameHeight": 178,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cortadera",
+      "grupo": "animales",
+      "nombre": "Cortadera",
+      "facing": "right",
+      "alturaCm": 90,
+      "alturaPx": 177,
+      "texture": "cortadera.png",
+      "frameWidth": 207,
+      "frameHeight": 181,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "figurita-yaguarete",
+      "grupo": "animales",
+      "nombre": "Figurita",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 180,
+      "texture": "figurita-yaguarete.png",
+      "frameWidth": 169,
+      "frameHeight": 184,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

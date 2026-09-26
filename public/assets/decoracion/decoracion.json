@@ -1,0 +1,717 @@
+{
+  "characters": [
+    {
+      "id": "deco-1",
+      "grupo": "decoracion",
+      "nombre": "deco 1",
+      "facing": "right",
+      "alturaCm": 136,
+      "alturaPx": 246,
+      "texture": "deco-1.png",
+      "frameWidth": 341,
+      "frameHeight": 250,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-2",
+      "grupo": "decoracion",
+      "nombre": "deco 2",
+      "facing": "right",
+      "alturaCm": 140,
+      "alturaPx": 253,
+      "texture": "deco-2.png",
+      "frameWidth": 258,
+      "frameHeight": 257,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-3",
+      "grupo": "decoracion",
+      "nombre": "deco 3",
+      "facing": "right",
+      "alturaCm": 104,
+      "alturaPx": 187,
+      "texture": "deco-3.png",
+      "frameWidth": 266,
+      "frameHeight": 191,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-4",
+      "grupo": "decoracion",
+      "nombre": "deco 4",
+      "facing": "right",
+      "alturaCm": 100,
+      "alturaPx": 180,
+      "texture": "deco-4.png",
+      "frameWidth": 311,
+      "frameHeight": 184,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-5",
+      "grupo": "decoracion",
+      "nombre": "deco 5",
+      "facing": "right",
+      "alturaCm": 95,
+      "alturaPx": 170,
+      "texture": "deco-5.png",
+      "frameWidth": 202,
+      "frameHeight": 174,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-6",
+      "grupo": "decoracion",
+      "nombre": "deco 6",
+      "facing": "right",
+      "alturaCm": 69,
+      "alturaPx": 125,
+      "texture": "deco-6.png",
+      "frameWidth": 220,
+      "frameHeight": 129,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-7",
+      "grupo": "decoracion",
+      "nombre": "deco 7",
+      "facing": "right",
+      "alturaCm": 81,
+      "alturaPx": 146,
+      "texture": "deco-7.png",
+      "frameWidth": 169,
+      "frameHeight": 150,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-8",
+      "grupo": "decoracion",
+      "nombre": "deco 8",
+      "facing": "right",
+      "alturaCm": 73,
+      "alturaPx": 131,
+      "texture": "deco-8.png",
+      "frameWidth": 199,
+      "frameHeight": 135,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-9",
+      "grupo": "decoracion",
+      "nombre": "deco 9",
+      "facing": "right",
+      "alturaCm": 52,
+      "alturaPx": 95,
+      "texture": "deco-9.png",
+      "frameWidth": 166,
+      "frameHeight": 99,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-10",
+      "grupo": "decoracion",
+      "nombre": "deco 10",
+      "facing": "right",
+      "alturaCm": 78,
+      "alturaPx": 140,
+      "texture": "deco-10.png",
+      "frameWidth": 183,
+      "frameHeight": 144,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-11",
+      "grupo": "decoracion",
+      "nombre": "deco 11",
+      "facing": "right",
+      "alturaCm": 51,
+      "alturaPx": 91,
+      "texture": "deco-11.png",
+      "frameWidth": 122,
+      "frameHeight": 95,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-12",
+      "grupo": "decoracion",
+      "nombre": "deco 12",
+      "facing": "right",
+      "alturaCm": 44,
+      "alturaPx": 77,
+      "texture": "deco-12.png",
+      "frameWidth": 104,
+      "frameHeight": 81,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-13",
+      "grupo": "decoracion",
+      "nombre": "deco 13",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 62,
+      "texture": "deco-13.png",
+      "frameWidth": 77,
+      "frameHeight": 66,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-14",
+      "grupo": "decoracion",
+      "nombre": "deco 14",
+      "facing": "right",
+      "alturaCm": 24,
+      "alturaPx": 41,
+      "texture": "deco-14.png",
+      "frameWidth": 64,
+      "frameHeight": 45,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-15",
+      "grupo": "decoracion",
+      "nombre": "deco 15",
+      "facing": "right",
+      "alturaCm": 19,
+      "alturaPx": 32,
+      "texture": "deco-15.png",
+      "frameWidth": 53,
+      "frameHeight": 36,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-16",
+      "grupo": "decoracion",
+      "nombre": "deco 16",
+      "facing": "right",
+      "alturaCm": 109,
+      "alturaPx": 197,
+      "texture": "deco-16.png",
+      "frameWidth": 378,
+      "frameHeight": 201,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-17",
+      "grupo": "decoracion",
+      "nombre": "deco 17",
+      "facing": "right",
+      "alturaCm": 106,
+      "alturaPx": 191,
+      "texture": "deco-17.png",
+      "frameWidth": 406,
+      "frameHeight": 195,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-18",
+      "grupo": "decoracion",
+      "nombre": "deco 18",
+      "facing": "right",
+      "alturaCm": 73,
+      "alturaPx": 132,
+      "texture": "deco-18.png",
+      "frameWidth": 301,
+      "frameHeight": 136,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-19",
+      "grupo": "decoracion",
+      "nombre": "deco 19",
+      "facing": "right",
+      "alturaCm": 95,
+      "alturaPx": 180,
+      "texture": "deco-19.png",
+      "frameWidth": 335,
+      "frameHeight": 184,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-20",
+      "grupo": "decoracion",
+      "nombre": "deco 20",
+      "facing": "right",
+      "alturaCm": 74,
+      "alturaPx": 134,
+      "texture": "deco-20.png",
+      "frameWidth": 286,
+      "frameHeight": 138,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-21",
+      "grupo": "decoracion",
+      "nombre": "deco 21",
+      "facing": "right",
+      "alturaCm": 74,
+      "alturaPx": 135,
+      "texture": "deco-21.png",
+      "frameWidth": 245,
+      "frameHeight": 139,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-22",
+      "grupo": "decoracion",
+      "nombre": "deco 22",
+      "facing": "right",
+      "alturaCm": 84,
+      "alturaPx": 151,
+      "texture": "deco-22.png",
+      "frameWidth": 260,
+      "frameHeight": 155,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-23",
+      "grupo": "decoracion",
+      "nombre": "deco 23",
+      "facing": "right",
+      "alturaCm": 69,
+      "alturaPx": 126,
+      "texture": "deco-23.png",
+      "frameWidth": 169,
+      "frameHeight": 130,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-24",
+      "grupo": "decoracion",
+      "nombre": "deco 24",
+      "facing": "right",
+      "alturaCm": 101,
+      "alturaPx": 182,
+      "texture": "deco-24.png",
+      "frameWidth": 150,
+      "frameHeight": 186,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-25",
+      "grupo": "decoracion",
+      "nombre": "deco 25",
+      "facing": "right",
+      "alturaCm": 64,
+      "alturaPx": 115,
+      "texture": "deco-25.png",
+      "frameWidth": 268,
+      "frameHeight": 119,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-26",
+      "grupo": "decoracion",
+      "nombre": "deco 26",
+      "facing": "right",
+      "alturaCm": 114,
+      "alturaPx": 207,
+      "texture": "deco-26.png",
+      "frameWidth": 331,
+      "frameHeight": 211,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-27",
+      "grupo": "decoracion",
+      "nombre": "deco 27",
+      "facing": "right",
+      "alturaCm": 84,
+      "alturaPx": 150,
+      "texture": "deco-27.png",
+      "frameWidth": 258,
+      "frameHeight": 154,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-28",
+      "grupo": "decoracion",
+      "nombre": "deco 28",
+      "facing": "right",
+      "alturaCm": 82,
+      "alturaPx": 147,
+      "texture": "deco-28.png",
+      "frameWidth": 109,
+      "frameHeight": 151,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-29",
+      "grupo": "decoracion",
+      "nombre": "deco 29",
+      "facing": "right",
+      "alturaCm": 89,
+      "alturaPx": 161,
+      "texture": "deco-29.png",
+      "frameWidth": 310,
+      "frameHeight": 165,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-30",
+      "grupo": "decoracion",
+      "nombre": "deco 30",
+      "facing": "right",
+      "alturaCm": 92,
+      "alturaPx": 166,
+      "texture": "deco-30.png",
+      "frameWidth": 250,
+      "frameHeight": 170,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "deco-31",
+      "grupo": "decoracion",
+      "nombre": "deco 31",
+      "facing": "right",
+      "alturaCm": 84,
+      "alturaPx": 151,
+      "texture": "deco-31.png",
+      "frameWidth": 109,
+      "frameHeight": 155,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

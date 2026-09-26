@@ -1,0 +1,155 @@
+{
+  "source": "personajes/familia/sprites-v1.jpeg",
+  "output": "public/assets/sprites",
+  "_comment": "Las animaciones se asignan a los cuadros detectados en orden de lectura (fila por fila, de izquierda a derecha). 'frames' es la cantidad de cuadros que consume cada animación. 'alias' define animaciones extra que reutilizan cuadros de otra. 'facing' es hacia dónde mira el personaje en la lámina original (el juego lo espeja cuando hace falta). Los alias con hidden no se muestran como botón. 'alturaCm' es la altura real aproximada: el juego escala cada sprite con eso, así se respetan los tamaños de la familia.",
+  "characters": [
+    {
+      "id": "vicente",
+      "nombre": "Vicente",
+      "rol": "8 años · Jugador",
+      "alturaCm": 128,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 11,
+          "fps": 12,
+          "repeat": -1
+        },
+        {
+          "key": "pensar",
+          "label": "Pensar",
+          "frames": 4,
+          "fps": 3,
+          "repeat": 0
+        },
+        {
+          "key": "victoria",
+          "label": "Victoria",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 2
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 1
+        }
+      ],
+      "alias": [
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "from": "pensar",
+          "frames": [3],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar-der",
+          "label": "Saludar →",
+          "from": "interactuar",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "saludar-izq",
+          "label": "Saludar ←",
+          "from": "interactuar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "mama",
+      "nombre": "Mamá",
+      "rol": "Con Catalina (bebé)",
+      "alturaCm": 162,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "frames": 5,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "papa",
+      "nombre": "Papá",
+      "rol": "Ezequiel",
+      "alturaCm": 175,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "frames": 5,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 2,
+          "fps": 2,
+          "repeat": 1
+        }
+      ],
+      "alias": [
+        {
+          "key": "saludar",
+          "label": "Saludar",
+          "from": "interactuar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "anita",
+      "nombre": "Anita",
+      "rol": "Casi 4 años",
+      "alturaCm": 100,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 6,
+          "fps": 8,
+          "repeat": -1
+        }
+      ],
+      "alias": [
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "from": "caminar",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

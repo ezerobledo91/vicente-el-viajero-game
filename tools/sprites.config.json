@@ -1,0 +1,293 @@
+{
+  "source": "personajes/familia/sprites-v3.png",
+  "output": "public/assets/sprites",
+  "_comment": "Las animaciones se asignan a los cuadros detectados en orden de lectura (fila por fila, de izquierda a derecha). 'frames' es la cantidad de cuadros que consume cada animación. 'alias' define animaciones extra que reutilizan cuadros de otra. 'facing' es hacia dónde mira el personaje en la lámina original (el juego lo espeja cuando hace falta). Los alias con hidden no se muestran como botón. 'alturaCm' es la altura real aproximada: el juego escala cada sprite con eso, así se respetan los tamaños de la familia. 'rows' es la cantidad de cuadros de cada fila de la lámina (sirve para separar cuadros pegados). 'minCell' es el tamaño mínimo de un cuadro en px.",
+  "minCell": {
+    "w": 40,
+    "h": 70
+  },
+  "rows": [11, 8, 11, 11, 7, 7, 7, [2, 1, 1, 1, 1, 2, 2], [1, 2, 1, 4, 2, 1]],
+  "extras": [],
+  "characters": [
+    {
+      "id": "vicente",
+      "nombre": "Vicente",
+      "rol": "8 años · Jugador",
+      "alturaCm": 128,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 8,
+          "fps": 10,
+          "repeat": -1,
+          "archivo": "personajes/familia/vicente/caminar.png"
+        },
+        {
+          "key": "pensar",
+          "label": "Pensar",
+          "frames": 4,
+          "fps": 3,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/pensar.png"
+        },
+        {
+          "key": "victoria",
+          "label": "Victoria",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 2,
+          "archivo": "personajes/familia/vicente/victoria.png"
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 1,
+          "archivo": "personajes/familia/vicente/interactuar.png"
+        },
+        {
+          "key": "salto",
+          "label": "Salto",
+          "frames": 5,
+          "fps": 10,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/salto.png",
+          "referencia": "max",
+          "ajuste": 1.02
+        },
+        {
+          "key": "festejo",
+          "label": "Festejo",
+          "frames": 5,
+          "fps": 8,
+          "repeat": 1,
+          "archivo": "personajes/familia/vicente/festejo.png"
+        },
+        {
+          "key": "descanso",
+          "label": "Descanso",
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/descanso.png"
+        },
+        {
+          "key": "enojado",
+          "label": "Enojado",
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/enojado.png"
+        },
+        {
+          "key": "aburrido",
+          "label": "Aburrido",
+          "frames": 3,
+          "fps": 3,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/aburrido.png"
+        },
+        {
+          "key": "agachar",
+          "label": "Agacharse",
+          "frames": 3,
+          "fps": 8,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/agachar.png",
+          "referencia": "max"
+        }
+      ],
+      "alias": [
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "from": "descanso",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar-der",
+          "label": "Saludar derecha",
+          "from": "interactuar",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "saludar-izq",
+          "label": "Saludar izquierda",
+          "from": "interactuar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "aire",
+          "label": "En el aire",
+          "from": "salto",
+          "frames": [3],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "golpe",
+          "label": "Golpe",
+          "from": "enojado",
+          "frames": [1, 2],
+          "fps": 6,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "agachado",
+          "label": "Agachado",
+          "from": "agachar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ],
+      "archivos": true,
+      "cuadrosEnLamina": 41,
+      "alturaPx": 116
+    },
+    {
+      "id": "mama",
+      "nombre": "Mamá",
+      "rol": "Con Catalina (bebé)",
+      "alturaCm": 162,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 7,
+          "fps": 8,
+          "repeat": -1
+        }
+      ],
+      "alias": [
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "from": "caminar",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "papa",
+      "nombre": "Papá",
+      "rol": "Ezequiel",
+      "alturaCm": 175,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "frames": 5,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 2,
+          "fps": 2,
+          "repeat": 1
+        }
+      ],
+      "alias": [
+        {
+          "key": "saludar",
+          "label": "Saludar",
+          "from": "interactuar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "anita",
+      "nombre": "Anita",
+      "rol": "Casi 4 años",
+      "alturaCm": 100,
+      "facing": "left",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 7,
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "salto",
+          "label": "Salto",
+          "frames": 5,
+          "fps": 10,
+          "repeat": 0
+        },
+        {
+          "key": "festejo",
+          "label": "Festejo",
+          "frames": 5,
+          "fps": 8,
+          "repeat": 1
+        },
+        {
+          "key": "descanso",
+          "label": "Descanso",
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
+          "key": "enojado",
+          "label": "Enojada",
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "aburrido",
+          "label": "Aburrida",
+          "frames": 3,
+          "fps": 3,
+          "repeat": 0
+        }
+      ],
+      "alias": [
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "from": "descanso",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "aire",
+          "label": "En el aire",
+          "from": "salto",
+          "frames": [2],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    }
+  ]
+}

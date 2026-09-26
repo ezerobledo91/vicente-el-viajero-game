@@ -1,0 +1,130 @@
+{
+  "tramos": {
+    "bosque-fueguino": {
+      "piso": 600,
+      "corte": 578,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#4eaef4"
+    },
+    "estepa": {
+      "piso": 598,
+      "corte": 588,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#37a4fd"
+    },
+    "costa": {
+      "piso": 600,
+      "corte": 584,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#47aafd"
+    },
+    "pampa": {
+      "piso": 590,
+      "corte": 578,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#268dfd"
+    },
+    "rio": {
+      "piso": 603,
+      "corte": 592,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#6bb7fd"
+    },
+    "humedal": {
+      "piso": 612,
+      "corte": 603,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#3eabfd"
+    },
+    "selva": {
+      "piso": 548,
+      "corte": 500,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#2f6c6a"
+    },
+    "cataratas": {
+      "piso": 592,
+      "corte": 572,
+      "alto": 724,
+      "ancho": 4344,
+      "cielo": "#2d8ff9"
+    }
+  },
+  "ciudades": {
+    "ushuaia": {
+      "tipo": "panorama",
+      "piso": 600,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#4eaef4"
+    },
+    "calafate": {
+      "tipo": "postal",
+      "ancho": 1280,
+      "alto": 720,
+      "cielo": "#43a5fc"
+    },
+    "madryn": {
+      "tipo": "panorama",
+      "piso": 600,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#47aafd"
+    },
+    "buenosaires": {
+      "tipo": "postal",
+      "ancho": 1280,
+      "alto": 720,
+      "cielo": "#43a6fc"
+    },
+    "rosario": {
+      "tipo": "panorama",
+      "piso": 596,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#32a0fd"
+    },
+    "santafe": {
+      "tipo": "panorama",
+      "piso": 596,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#2ca1fd"
+    },
+    "reconquista": {
+      "tipo": "panorama",
+      "piso": 596,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#2da5fd"
+    },
+    "corrientes": {
+      "tipo": "panorama",
+      "piso": 596,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#25a0fd"
+    },
+    "posadas": {
+      "tipo": "panorama",
+      "piso": 594,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#2fa2fd"
+    },
+    "iguazu": {
+      "tipo": "panorama",
+      "piso": 545,
+      "ancho": 1280,
+      "alto": 724,
+      "cielo": "#3e9ffb"
+    }
+  }
+}

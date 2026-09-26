@@ -1,0 +1,107 @@
+{
+  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera).",
+  "output": "public/assets/fondos",
+  "tramos": {
+    "bosque-fueguino": {
+      "src": "personajes/paises/argentina/tramos/bosque-fueguino.png",
+      "piso": 600,
+      "corte": 578
+    },
+    "estepa": {
+      "src": "personajes/paises/argentina/tramos/estepa.png",
+      "piso": 598,
+      "corte": 588
+    },
+    "costa": {
+      "src": "personajes/paises/argentina/tramos/costa.png",
+      "piso": 600,
+      "corte": 584
+    },
+    "pampa": {
+      "src": "personajes/paises/argentina/tramos/pampa.png",
+      "piso": 590,
+      "corte": 578
+    },
+    "rio": {
+      "src": "personajes/paises/argentina/tramos/rio.png",
+      "piso": 603,
+      "corte": 592
+    },
+    "humedal": {
+      "src": "personajes/paises/argentina/tramos/humedal.png",
+      "piso": 612,
+      "corte": 603
+    },
+    "selva": {
+      "src": "personajes/paises/argentina/tramos/selva.png",
+      "piso": 548,
+      "corte": 500
+    },
+    "cataratas": {
+      "src": "personajes/paises/argentina/tramos/cataratas.png",
+      "piso": 592,
+      "corte": 572
+    }
+  },
+  "ciudades": {
+    "ushuaia": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/tramos/bosque-fueguino.png",
+      "piso": 600,
+      "x": 820
+    },
+    "calafate": {
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/calafate-glaciar.png",
+      "foco": 0.55
+    },
+    "madryn": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/tramos/costa.png",
+      "piso": 600,
+      "x": 0
+    },
+    "buenosaires": {
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/buenosaires-obelisco.png",
+      "foco": 0.6
+    },
+    "rosario": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/rosario-centro.png",
+      "piso": 596,
+      "x": 450
+    },
+    "santafe": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/santafe-costanera.png",
+      "piso": 596,
+      "x": 300
+    },
+    "reconquista": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/reconquista-casa.png",
+      "piso": 596,
+      "x": 0
+    },
+    "corrientes": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/corrientes-barrio.png",
+      "piso": 596,
+      "x": 520
+    },
+    "posadas": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/posadas-calle.png",
+      "piso": 594,
+      "x": 200
+    },
+    "iguazu": {
+      "tipo": "panorama",
+      "src": "personajes/paises/argentina/ciudades/iguazu-ciudad.png",
+      "piso": 545,
+      "x": 420
+    }
+  },
+  "_sinUsar": "En personajes/paises/argentina/extras/ hay calles y rutas sin usar todavía (y el Cabildo en ciudades/)."
+}

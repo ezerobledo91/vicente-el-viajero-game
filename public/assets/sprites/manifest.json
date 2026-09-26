@@ -1,0 +1,399 @@
+{
+  "characters": [
+    {
+      "id": "vicente",
+      "grupo": "familia",
+      "nombre": "Vicente",
+      "rol": "8 años · Jugador",
+      "facing": "right",
+      "alturaCm": 128,
+      "alturaPx": 117,
+      "texture": "vicente.png",
+      "frameWidth": 95,
+      "frameHeight": 161,
+      "frameCount": 40,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 10,
+          "repeat": -1
+        },
+        {
+          "key": "pensar",
+          "label": "Pensar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 3,
+          "repeat": 0
+        },
+        {
+          "key": "victoria",
+          "label": "Victoria",
+          "frames": [
+            12,
+            13
+          ],
+          "fps": 3,
+          "repeat": 2
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": [
+            14,
+            15
+          ],
+          "fps": 3,
+          "repeat": 1
+        },
+        {
+          "key": "salto",
+          "label": "Salto",
+          "frames": [
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "fps": 10,
+          "repeat": 0
+        },
+        {
+          "key": "festejo",
+          "label": "Festejo",
+          "frames": [
+            21,
+            22,
+            23,
+            24,
+            25
+          ],
+          "fps": 8,
+          "repeat": 1
+        },
+        {
+          "key": "descanso",
+          "label": "Descanso",
+          "frames": [
+            26,
+            27,
+            28,
+            29
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
+        {
+          "key": "enojado",
+          "label": "Enojado",
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "aburrido",
+          "label": "Aburrido",
+          "frames": [
+            34,
+            35,
+            36
+          ],
+          "fps": 3,
+          "repeat": 0
+        },
+        {
+          "key": "agachar",
+          "label": "Agacharse",
+          "frames": [
+            37,
+            38,
+            39
+          ],
+          "fps": 8,
+          "repeat": 0
+        },
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "frames": [
+            26
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": false
+        },
+        {
+          "key": "saludar-der",
+          "label": "Saludar derecha",
+          "frames": [
+            14
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "saludar-izq",
+          "label": "Saludar izquierda",
+          "frames": [
+            15
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "aire",
+          "label": "En el aire",
+          "frames": [
+            19
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "golpe",
+          "label": "Golpe",
+          "frames": [
+            31,
+            32
+          ],
+          "fps": 6,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "agachado",
+          "label": "Agachado",
+          "frames": [
+            38
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "mama",
+      "grupo": "familia",
+      "nombre": "Mamá",
+      "rol": "Con Catalina (bebé)",
+      "facing": "left",
+      "alturaCm": 162,
+      "alturaPx": 159,
+      "texture": "mama.png",
+      "frameWidth": 90,
+      "frameHeight": 164,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": false
+        }
+      ]
+    },
+    {
+      "id": "papa",
+      "grupo": "familia",
+      "nombre": "Papá",
+      "rol": "Ezequiel",
+      "facing": "left",
+      "alturaCm": 175,
+      "alturaPx": 164,
+      "texture": "papa.png",
+      "frameWidth": 96,
+      "frameHeight": 168,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "Quieto",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": [
+            5,
+            6
+          ],
+          "fps": 2,
+          "repeat": 1
+        },
+        {
+          "key": "saludar",
+          "label": "Saludar",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "anita",
+      "grupo": "familia",
+      "nombre": "Anita",
+      "rol": "Casi 4 años",
+      "facing": "left",
+      "alturaCm": 100,
+      "alturaPx": 92,
+      "texture": "anita.png",
+      "frameWidth": 93,
+      "frameHeight": 110,
+      "frameCount": 28,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "salto",
+          "label": "Salto",
+          "frames": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 10,
+          "repeat": 0
+        },
+        {
+          "key": "festejo",
+          "label": "Festejo",
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "fps": 8,
+          "repeat": 1
+        },
+        {
+          "key": "descanso",
+          "label": "Descanso",
+          "frames": [
+            17,
+            18,
+            19,
+            20
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
+        {
+          "key": "enojado",
+          "label": "Enojada",
+          "frames": [
+            21,
+            22,
+            23,
+            24
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "aburrido",
+          "label": "Aburrida",
+          "frames": [
+            25,
+            26,
+            27
+          ],
+          "fps": 3,
+          "repeat": 0
+        },
+        {
+          "key": "idle",
+          "label": "Quieta",
+          "frames": [
+            17
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": false
+        },
+        {
+          "key": "aire",
+          "label": "En el aire",
+          "frames": [
+            9
+          ],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        }
+      ]
+    }
+  ]
+}

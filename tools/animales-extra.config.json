@@ -1,0 +1,244 @@
+{
+  "source": "personajes/animales/animales-extra.png",
+  "output": "public/assets/animales",
+  "manifest": "extra.json",
+  "grupo": "animales",
+  "_comment": "Animales y objetos del viaje (se recortan igual que los personajes). alturaCm define el tamaño en pantalla; en animales muy chicos se exagera para que se vean. Las filas con bloques pegados de anchos distintos se describen con una lista: cuántos cuadros hay en cada bloque.",
+  "minCell": {
+    "w": 40,
+    "h": 70
+  },
+  "rows": [[4, 1, 1, 2], [4, 1, 1, 2], 8, 8, 4],
+  "holeTolerance": 12,
+  "characters": [
+    {
+      "id": "jaguarete",
+      "nombre": "Yaguareté",
+      "alturaCm": 80,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tucan",
+      "nombre": "Tucán",
+      "alturaCm": 45,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": 2,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro",
+      "nombre": "Zorro",
+      "alturaCm": 60,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yacare",
+      "nombre": "Yacaré",
+      "alturaCm": 45,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "agua",
+          "label": "agua",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coati",
+      "nombre": "Coatí",
+      "alturaCm": 50,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mono",
+      "nombre": "Mono carayá",
+      "alturaCm": 55,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 2,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "arbol",
+          "label": "arbol",
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tatu",
+      "nombre": "Tatú",
+      "alturaCm": 32,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "flamenco",
+      "nombre": "Flamenco",
+      "alturaCm": 110,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 3,
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-amigable",
+      "nombre": "Zorro",
+      "alturaCm": 60,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coati-dato",
+      "nombre": "Coatí",
+      "alturaCm": 50,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cortadera",
+      "nombre": "Cortadera",
+      "alturaCm": 90,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "figurita-yaguarete",
+      "nombre": "Figurita",
+      "alturaCm": 60,
+      "facing": "right",
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}
