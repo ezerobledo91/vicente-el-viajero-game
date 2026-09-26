@@ -21,22 +21,4 @@ export const DECORACION = {
     "deco-21",
     "deco-25",
   ],
-  // Adornos del camino: sin colisión, detrás de Vicente, para que el recorrido no se vea vacío.
-  adornos: [
-    "deco-11",
-    "deco-12",
-    "deco-13",
-    "deco-14",
-    "deco-15",
-    "deco-22",
-    "deco-23",
-    "deco-24",
-    "deco-26",
-    "deco-27",
-    "deco-28",
-    "deco-29",
-    "deco-30",
-    "deco-31",
-  ],
-  adornoCada: [260, 520], // px entre adorno y adorno (mínimo, máximo)
 };

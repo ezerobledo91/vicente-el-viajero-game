@@ -84,7 +84,6 @@ export class ViajeScene extends Phaser.Scene {
     this.nFiguritas = 0;
     this.rnd = mulberry32(this.tramoIndex * 131 + 7);
     for (const item of this.level.items) this.spawn(item);
-    this.ponerAdornos();
 
     this.player = new Player(this, 160, GROUND_Y, "vicente", { pxPerCm: PX_PER_CM.viaje }).setDepth(10);
     this.physics.add.collider(this.player, piso);
@@ -258,22 +257,6 @@ export class ViajeScene extends Phaser.Scene {
     const cuerpo = this.add.zone(x, GROUND_Y + 8 - h / 2, w, h);
     this.rocas.add(cuerpo);
     cuerpo.body.updateFromGameObject();
-  }
-
-  // Adornos sin colisión a lo largo del camino (piedritas, troncos, tocones...).
-  ponerAdornos() {
-    const opciones = DECORACION.adornos.filter((id) => this.textures.exists(id));
-    if (!opciones.length) return;
-    const [min, max] = DECORACION.adornoCada;
-    for (let x = 400; x < this.largo - 300; x += min + this.rnd() * (max - min)) {
-      const id = opciones[Math.floor(this.rnd() * opciones.length)];
-      this.add
-        .image(x, GROUND_Y + 10 + this.rnd() * 14, id, 0)
-        .setOrigin(0.5, 1)
-        .setDepth(4)
-        .setScale(DECORACION.escala)
-        .setFlipX(this.rnd() < 0.5);
-    }
   }
 
   spawnAnimal(item) {

@@ -23,11 +23,10 @@ const DIFICULTAD = {
       roca: 2,
       pajaroBajo: 2,
       pajaroAlto: 1,
-      perro: 2,
       plataforma: 2,
       escalera: 1,
       plataformaMovil: 1,
-      perroDoble: 1,
+      trampolin: 1,
       bandada: 0,
       descanso: 1,
     },
@@ -39,11 +38,10 @@ const DIFICULTAD = {
       roca: 2,
       pajaroBajo: 3,
       pajaroAlto: 2,
-      perro: 2,
       plataforma: 2,
       escalera: 2,
       plataformaMovil: 2,
-      perroDoble: 1,
+      trampolin: 1,
       bandada: 1,
       descanso: 1,
     },
@@ -55,11 +53,10 @@ const DIFICULTAD = {
       roca: 1,
       pajaroBajo: 3,
       pajaroAlto: 3,
-      perro: 2,
       plataforma: 2,
       escalera: 2,
       plataformaMovil: 2,
-      perroDoble: 2,
+      trampolin: 2,
       bandada: 2,
       descanso: 0,
     },
@@ -95,7 +92,6 @@ const PATRONES = {
     { tipo: "pajaro", x: x + 200, y: 210 },
     { tipo: "figurita", x, y: 50 },
   ],
-  perro: (x) => [{ tipo: "perro", x }, ...[-40, 40].map((dx) => ({ tipo: "figurita", x: x + dx, y: 250 }))],
   plataforma: (x) => [{ tipo: "plataforma", x, y: 125, w: 220 }, ...fila(x, 3, 125 + 60)],
   escalera: (x) => [
     { tipo: "roca", x: x - 120 },
@@ -103,12 +99,12 @@ const PATRONES = {
     ...fila(x + 120, 3, 190 + 60),
   ],
   plataformaMovil: (x) => [{ tipo: "plataforma", x, y: 115, w: 170, mueve: 200 }, ...fila(x, 2, 115 + 60)],
-  // Dos perros seguidos: rebotando en el primero se llega a una plataforma alta con premios.
-  perroDoble: (x) => [
+  // Perro trampolín: la única forma de llegar a la plataforma alta (y a su premio) es rebotar en él.
+  // `vida`: si el premio es un corazón en vez de estrellas.
+  trampolin: (x, { vida = false } = {}) => [
     { tipo: "perro", x: x - 130 },
-    { tipo: "perro", x: x + 250 },
     { tipo: "plataforma", x: x + 60, y: 235, w: 180 },
-    ...fila(x + 60, 3, 235 + 60),
+    ...(vida ? [{ tipo: "vida", x: x + 60, y: 235 + 60 }] : fila(x + 60, 3, 235 + 60)),
   ],
   bandada: (x) => [
     { tipo: "pajaro", x: x + 200, y: 105 },
@@ -142,26 +138,31 @@ export function buildLevel(tramo, seed = 1) {
   for (let x = desde; x < hasta; x += cfg.paso * (0.85 + rnd() * 0.3))
     bloques.push({ x, patron: pick(rnd, cfg.pesos) });
 
-  // Garantizar un mínimo de pájaros y perros (el azar solo podría dejar uno).
+  // Garantizar un mínimo de cada cosa (el azar solo podría dejar uno o ninguno).
   const minimo = Math.max(2, Math.round(largo / 1800));
-  for (const [grupo, reemplazo] of [
+  for (const [grupo, reemplazo, cuantos = minimo] of [
     [["pajaroBajo", "pajaroAlto", "bandada"], () => (rnd() < 0.6 ? "pajaroBajo" : "pajaroAlto")],
-    [["perro", "perroDoble"], () => "perro"],
-    [["plataforma", "escalera", "plataformaMovil", "perroDoble"], () => (rnd() < 0.5 ? "plataforma" : "escalera")],
+    [["trampolin"], () => "trampolin", Math.max(2, Math.round(largo / 3000))],
+    [["plataforma", "escalera", "plataformaMovil", "trampolin"], () => (rnd() < 0.5 ? "plataforma" : "escalera")],
   ]) {
     const libres = () => bloques.filter((b) => ["figuritas", "descanso", "roca"].includes(b.patron));
-    while (bloques.filter((b) => grupo.includes(b.patron)).length < minimo && libres().length) {
+    while (bloques.filter((b) => grupo.includes(b.patron)).length < cuantos && libres().length) {
       const l = libres();
       l[Math.floor(rnd() * l.length)].patron = reemplazo();
     }
   }
-  for (const b of bloques) items.push(...PATRONES[b.patron](b.x));
 
-  // Corazones para recuperar vidas, a una altura que pide saltar.
-  for (let x = desde + LEVEL.vidaCada * 0.6; x < hasta; x += LEVEL.vidaCada) items.push({ tipo: "vida", x, y: 140 });
+  // Corazones: arriba de las plataformas de los trampolines (hay que rebotar en el perro para llegar),
+  // uno cada ~LEVEL.vidaCada px.
+  let ultimaVida = -Infinity;
+  for (const b of bloques) {
+    const vida = b.patron === "trampolin" && b.x - ultimaVida >= LEVEL.vidaCada;
+    if (vida) ultimaVida = b.x;
+    items.push(...PATRONES[b.patron](b.x, { vida }));
+  }
 
   // Animales nativos repartidos a lo largo del tramo (cada uno aparece al menos una vez),
-  // corridos si caen justo donde hay una roca o un perro.
+  // corridos si caen justo donde hay una roca, un perro o una plataforma baja.
   const n = Math.max(tramo.animales.length, Math.round(largo / 1400));
   const ocupado = (x) => items.some((it) => (it.tipo === "roca" || it.tipo === "perro") && Math.abs(it.x - x) < 170);
   for (let i = 0; i < n; i++) {
