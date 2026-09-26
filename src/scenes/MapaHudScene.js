@@ -4,6 +4,7 @@ import { Button } from "../ui/Button.js";
 import { DEFINICIONES } from "../data/paises.js";
 import { getViaje } from "../data/viajes/index.js";
 import { viajeEmpezado } from "../systems/progress.js";
+import { modoPrueba, setModoPrueba } from "../systems/dev.js";
 
 const PANEL = { x: 850, y: 80, w: 412, h: 620, pad: 22 };
 const TEXTOS = {
@@ -55,6 +56,23 @@ export class MapaHudScene extends Phaser.Scene {
       "Empezar por Sudamérica",
       () => this.mapa.enterRegion("sudamerica"),
       { width: 400, height: 50, fontSize: 14 }
+    );
+
+    const prueba = new Button(
+      this,
+      92,
+      GAME_HEIGHT - 22,
+      `Prueba: ${modoPrueba() ? "sí" : "no"}`,
+      () => {
+        setModoPrueba(!modoPrueba());
+        prueba.label.setText(`Prueba: ${modoPrueba() ? "sí" : "no"}`);
+        this.toast(
+          modoPrueba()
+            ? "Modo prueba activado: atajos en el mapa del viaje, ciudades y tramos."
+            : "Modo prueba desactivado."
+        );
+      },
+      { width: 160, height: 26, fontSize: 9, variant: "secondary" }
     );
 
     this.tooltip = this.buildTooltip();

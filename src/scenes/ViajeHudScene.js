@@ -3,6 +3,7 @@ import { COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constan
 import { Button } from "../ui/Button.js";
 import { heartTexture, starTexture } from "../systems/placeholders.js";
 import { VIDAS } from "../data/animales.js";
+import { modoPrueba } from "../systems/dev.js";
 
 const BAR = { x: 250, y: 30, w: 520 };
 const PAD_ALPHA = { reposo: 0.35, apretado: 0.7 };
@@ -63,6 +64,12 @@ export class ViajeHudScene extends Phaser.Scene {
       0.5
     );
     this.tweens.add({ targets: ayuda, alpha: 0, delay: 5000, duration: 600 });
+
+    if (modoPrueba())
+      txt(GAME_WIDTH / 2, 118, "PRUEBA · N: ir al final · V: vidas infinitas", 10, "#ff6b8a", 0.5).setStroke(
+        "#1b2a3a",
+        4
+      );
 
     // Controles táctiles (también funcionan con el mouse)
     this.pad("left", 90, GAME_HEIGHT - 80, "<");

@@ -134,6 +134,15 @@ Para mostrarlo parado sobre el país:
 
 Se dibuja con 30 px de alto (en píxeles del mapa) y flota suavemente. No hace falta tocar código.
 
+## Modo prueba
+
+Para probar rápido: botón **Prueba** abajo a la izquierda del planisferio, o abrir `http://localhost:5173/?prueba`
+(`?prueba=0` lo apaga). Queda recordado en el navegador. Con el modo prueba:
+
+- **Mapa del viaje**: cada ciudad tiene botones **Ciudad** (ir directo) y **Tramo >** (jugar el tramo que sale de ahí), y **Anita: sí/no**.
+- **Ciudad**: botón **Saltar preguntas** (cuentan como perfectas, así también se prueban los stickers).
+- **Tramo**: **N** lleva al final, **V** activa vidas infinitas.
+
 ## Modo viaje
 
 Arte del viaje: `personajes/paises/argentina/` (ver `personajes/LEEME.md`). Las láminas de animales se recortan con el

@@ -2,7 +2,10 @@
 // Para ver cuál es cuál, mirá public/assets/decoracion/ (cada uno es un PNG).
 
 export const DECORACION = {
-  // Obstáculos: se puede subir encima. Se dibujan con `altoObstaculo` px de alto.
+  // Una sola escala para toda la lámina (px del juego por px de la lámina): así una piedra chica
+  // sigue siendo chica al lado de una grande, y todo combina con el tamaño de Vicente.
+  escala: 0.3,
+  // Obstáculos: se puede subir encima.
   obstaculos: [
     "deco-1",
     "deco-3",
@@ -18,7 +21,6 @@ export const DECORACION = {
     "deco-21",
     "deco-25",
   ],
-  altoObstaculo: 70,
   // Adornos del camino: sin colisión, detrás de Vicente, para que el recorrido no se vea vacío.
   adornos: [
     "deco-11",
@@ -37,5 +39,4 @@ export const DECORACION = {
     "deco-31",
   ],
   adornoCada: [260, 520], // px entre adorno y adorno (mínimo, máximo)
-  altoAdorno: [26, 70], // px (mínimo, máximo); se escala según el tamaño original
 };

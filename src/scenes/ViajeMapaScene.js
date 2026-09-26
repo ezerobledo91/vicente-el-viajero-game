@@ -4,7 +4,8 @@ import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
 import { getViaje } from "../data/viajes/index.js";
 import { getPais } from "../data/paises.js";
-import { getProgresoViaje, reiniciarViaje } from "../systems/progress.js";
+import { actualizarViaje, getProgresoViaje, reiniciarViaje } from "../systems/progress.js";
+import { modoPrueba } from "../systems/dev.js";
 
 const REGION = "sudamerica";
 const PAIS_EN_PANTALLA = { x: 380, y: 400, alto: 600 }; // dónde y de qué alto se ve el país
@@ -206,7 +207,9 @@ export class ViajeMapaScene extends Phaser.Scene {
           })
           .setOrigin(0, 0.5)
       );
+      if (modoPrueba()) this.atajosPrueba(i, y, add);
     });
+    if (modoPrueba()) this.botonAnita(add);
 
     const accion = this.accionPrincipal();
     add(
@@ -236,6 +239,59 @@ export class ViajeMapaScene extends Phaser.Scene {
           this.scene.restart({ paisId: this.paisId });
         },
         { width: 260, height: 26, fontSize: 9, variant: "secondary" }
+      )
+    );
+  }
+
+  // ---------- Modo prueba ----------
+  atajosPrueba(i, y, add) {
+    const p = PANEL;
+    const chico = { width: 84, height: 26, fontSize: 8, variant: "secondary" };
+    add(
+      new Button(
+        this,
+        p.x + p.w - 150,
+        y,
+        "Ciudad",
+        () => {
+          actualizarViaje(this.paisId, { ciudad: i, preguntasOk: false, terminado: false });
+          this.scene.start(SCENES.CIUDAD, { paisId: this.paisId, ciudad: i });
+        },
+        chico
+      )
+    );
+    if (i < this.viaje.ciudades.length - 1)
+      add(
+        new Button(
+          this,
+          p.x + p.w - 58,
+          y,
+          "Tramo >",
+          () => {
+            actualizarViaje(this.paisId, { ciudad: i, preguntasOk: true, terminado: false });
+            this.scene.start(SCENES.VIAJE, { paisId: this.paisId, tramo: i });
+          },
+          chico
+        )
+      );
+  }
+
+  botonAnita(add) {
+    const p = PANEL;
+    const viaja = this.progreso.companeros.includes("anita");
+    add(
+      new Button(
+        this,
+        p.x + p.w - 104,
+        p.y + 28,
+        `Anita: ${viaja ? "sí" : "no"}`,
+        () => {
+          actualizarViaje(this.paisId, (v) => ({
+            companeros: viaja ? v.companeros.filter((c) => c !== "anita") : [...v.companeros, "anita"],
+          }));
+          this.scene.restart({ paisId: this.paisId });
+        },
+        { width: 176, height: 28, fontSize: 9, variant: "secondary" }
       )
     );
   }

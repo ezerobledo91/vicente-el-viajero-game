@@ -409,7 +409,10 @@ async function sliceAlphaStrip(file, n) {
       for (let x = 0; x < w; x++)
         if (rgba[(y * w + x) * 4 + 3] > 16)
           ((y0 = Math.min(y0, y)), (y1 = Math.max(y1, y)), (bx0 = Math.min(bx0, x)), (bx1 = Math.max(bx1, x)));
-    return { rgba, w, h: H, box: { x0: bx0, y0, x1: bx1, y1 } };
+    // El cuadro termina justo en los pies: así todas las acciones pisan a la misma altura
+    // (en los PNG cada dibujo puede terminar a una altura distinta).
+    const h = y1 + 1;
+    return { rgba: rgba.subarray(0, w * h * 4), w, h, box: { x0: bx0, y0, x1: bx1, y1 } };
   });
 }
 

@@ -10,6 +10,7 @@ import { ANIMALES, CAMINANTES, COLECCIONABLES, PAJAROS, PERRO, VIDAS } from "../
 import { hasCharacter } from "../systems/characters.js";
 import { DECORACION } from "../data/decoracion.js";
 import { mulberry32 } from "../systems/levelBuilder.js";
+import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
 import { actualizarViaje, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
@@ -96,6 +97,20 @@ export class ViajeScene extends Phaser.Scene {
 
     this.keys = this.input.keyboard.addKeys("LEFT,RIGHT,UP,DOWN,SPACE,A,D,W,S");
     this.touch = { left: false, right: false, jump: false, down: false };
+    if (modoPrueba()) {
+      this.input.keyboard.on(
+        "keydown-N",
+        () => !this.terminado && this.player.body.reset(this.cartel.x - 20, GROUND_Y - 2)
+      );
+      this.input.keyboard.on("keydown-V", () => {
+        this.vidasInfinitas = !this.vidasInfinitas;
+        this.cartelito(
+          this.player.x,
+          this.player.getTopCenter().y - 20,
+          `Vidas infinitas: ${this.vidasInfinitas ? "sí" : "no"}`
+        );
+      });
+    }
 
     this.scene.launch(SCENES.VIAJE_HUD, { viaje: this });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scene.stop(SCENES.VIAJE_HUD));
@@ -231,7 +246,7 @@ export class ViajeScene extends Phaser.Scene {
       .image(x, GROUND_Y + 8, id, 0)
       .setOrigin(0.5, 1)
       .setDepth(6);
-    img.setScale(DECORACION.altoObstaculo / img.height).setFlipX(this.rnd() < 0.5);
+    img.setScale(DECORACION.escala).setFlipX(this.rnd() < 0.5);
     const w = img.displayWidth * 0.78,
       h = img.displayHeight * 0.8;
     const cuerpo = this.add.zone(x, GROUND_Y + 8 - h / 2, w, h);
@@ -244,16 +259,14 @@ export class ViajeScene extends Phaser.Scene {
     const opciones = DECORACION.adornos.filter((id) => this.textures.exists(id));
     if (!opciones.length) return;
     const [min, max] = DECORACION.adornoCada;
-    const [altoMin, altoMax] = DECORACION.altoAdorno;
-    const altos = opciones.map((id) => this.textures.get(id).getSourceImage().height);
-    const mayor = Math.max(...altos);
     for (let x = 400; x < this.largo - 300; x += min + this.rnd() * (max - min)) {
-      const k = Math.floor(this.rnd() * opciones.length);
-      const img = this.add
-        .image(x, GROUND_Y + 10 + this.rnd() * 14, opciones[k], 0)
+      const id = opciones[Math.floor(this.rnd() * opciones.length)];
+      this.add
+        .image(x, GROUND_Y + 10 + this.rnd() * 14, id, 0)
         .setOrigin(0.5, 1)
-        .setDepth(4);
-      img.setScale((altoMin + (altos[k] / mayor) * (altoMax - altoMin)) / img.height).setFlipX(this.rnd() < 0.5);
+        .setDepth(4)
+        .setScale(DECORACION.escala)
+        .setFlipX(this.rnd() < 0.5);
     }
   }
 
@@ -478,7 +491,7 @@ export class ViajeScene extends Phaser.Scene {
 
   golpear(desdeX) {
     if (!this.player.golpear(this.time.now, desdeX)) return;
-    this.vidas--;
+    if (!this.vidasInfinitas) this.vidas--;
     const h = this.add.image(this.player.x, this.player.getTopCenter().y, heartTexture(this)).setDepth(20);
     this.tweens.add({ targets: h, y: h.y - 70, alpha: 0, scale: 1.6, duration: 700, onComplete: () => h.destroy() });
     if (this.vidas <= 0) this.sinVidas();

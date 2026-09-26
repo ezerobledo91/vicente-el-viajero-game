@@ -10,6 +10,7 @@ import { createParallax } from "../systems/parallax.js";
 import { actualizarViaje, ganarSticker, getPerfil, getProgresoViaje } from "../systems/progress.js";
 import { RAREZAS, STICKERS, stickersDeCiudad } from "../data/stickers.js";
 import { hasCharacter } from "../systems/characters.js";
+import { modoPrueba } from "../systems/dev.js";
 import { houseTexture } from "../systems/placeholders.js";
 import { GROUND_Y } from "./ViajeScene.js";
 
@@ -59,6 +60,12 @@ export class CiudadScene extends Phaser.Scene {
       width: 220,
       variant: "secondary",
     });
+
+    if (modoPrueba())
+      new Button(this, GAME_WIDTH - 380, 38, "Saltar preguntas", () => this.saltarPreguntas(), {
+        width: 240,
+        variant: "secondary",
+      }).setDepth(60);
 
     const opts = { pxPerCm: PX_PER_CM.viaje };
     this.vicente = new Character(this, -60, GROUND_Y, "vicente", opts).setDepth(10);
@@ -120,6 +127,7 @@ export class CiudadScene extends Phaser.Scene {
 
     if (this.ciudad.evento === "hogar") await this.hogar();
 
+    if (this.saltado) return;
     if (this.progreso.preguntasOk) this.alTerminarPreguntas();
     else this.preguntas();
   }
@@ -201,6 +209,19 @@ export class CiudadScene extends Phaser.Scene {
         { texto: "Reintentar", onClick: () => this.preguntas() },
       ]);
     }
+  }
+
+  // Modo prueba: da las preguntas por respondidas perfectas (con sus stickers) y muestra cómo seguir.
+  async saltarPreguntas() {
+    if (this.saltado) return;
+    this.saltado = true;
+    this.quiz?.destroy();
+    this.quiz = null;
+    const total = PREGUNTAS_POR_CIUDAD;
+    const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
+    this.progreso = actualizarViaje(this.paisId, { preguntasOk: true, terminado: this.progreso.terminado || ultima });
+    await this.entregarStickers(total, total);
+    this.alTerminarPreguntas(total);
   }
 
   // ---------- Stickers de premio ----------
