@@ -44,6 +44,9 @@ export class ViajeScene extends Phaser.Scene {
   init({ paisId, tramo }) {
     this.paisId = paisId;
     this.tramoIndex = tramo;
+    // La escena se reutiliza entre tramos: se limpia lo que quedó del anterior.
+    this.vidasInfinitas = false;
+    this.cartel = null;
   }
 
   create() {

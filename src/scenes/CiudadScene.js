@@ -38,6 +38,9 @@ export class CiudadScene extends Phaser.Scene {
   init({ paisId, ciudad }) {
     this.paisId = paisId;
     this.ciudadIndex = ciudad;
+    // Phaser reutiliza la misma escena en cada ciudad: hay que limpiar lo que quedó de la anterior.
+    this.saltado = false;
+    this.quiz = null;
   }
 
   create() {
@@ -128,7 +131,9 @@ export class CiudadScene extends Phaser.Scene {
     if (this.ciudad.evento === "hogar") await this.hogar();
 
     if (this.saltado) return;
-    if (this.progreso.preguntasOk) this.alTerminarPreguntas();
+    // "preguntasOk" vale para la ciudad donde está parado el viaje (progreso.ciudad), no para cualquiera.
+    const respondida = this.progreso.preguntasOk && this.progreso.ciudad === this.ciudadIndex;
+    if (respondida) this.alTerminarPreguntas();
     else this.preguntas();
   }
 
@@ -199,7 +204,11 @@ export class CiudadScene extends Phaser.Scene {
 
     if (aciertos >= ACIERTOS_PARA_SEGUIR) {
       const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
-      this.progreso = actualizarViaje(this.paisId, { preguntasOk: true, terminado: this.progreso.terminado || ultima });
+      this.progreso = actualizarViaje(this.paisId, {
+        ciudad: this.ciudadIndex,
+        preguntasOk: true,
+        terminado: this.progreso.terminado || ultima,
+      });
       this.quiz.setVisible(false);
       await this.entregarStickers(aciertos, elegidas.length);
       this.quiz.setVisible(true);
@@ -219,7 +228,11 @@ export class CiudadScene extends Phaser.Scene {
     this.quiz = null;
     const total = PREGUNTAS_POR_CIUDAD;
     const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
-    this.progreso = actualizarViaje(this.paisId, { preguntasOk: true, terminado: this.progreso.terminado || ultima });
+    this.progreso = actualizarViaje(this.paisId, {
+      ciudad: this.ciudadIndex,
+      preguntasOk: true,
+      terminado: this.progreso.terminado || ultima,
+    });
     await this.entregarStickers(total, total);
     this.alTerminarPreguntas(total);
   }

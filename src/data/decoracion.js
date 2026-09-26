@@ -4,7 +4,7 @@
 export const DECORACION = {
   // Una sola escala para toda la lámina (px del juego por px de la lámina): así una piedra chica
   // sigue siendo chica al lado de una grande, y todo combina con el tamaño de Vicente.
-  escala: 0.3,
+  escala: 0.6,
   // Obstáculos: se puede subir encima.
   obstaculos: [
     "deco-1",
