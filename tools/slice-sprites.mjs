@@ -631,6 +631,12 @@ async function main() {
       facing: "right",
       animations: [{ key: "idle", label: "idle", frames: 1, fps: 1, repeat: -1 }],
     }));
+    // excluir: ids que se reemplazan por otra versión (por ejemplo stickers en alta resolución).
+    if (config.excluir) {
+      const quedan = config.characters.map((c, i) => [c, cells[i]]).filter(([c]) => !config.excluir.includes(c.id));
+      config.characters = quedan.map(([c]) => c);
+      cells = quedan.map(([, c]) => c);
+    }
   }
   const expected = config.characters.reduce(
     (n, c) => n + (c.archivos ? (c.cuadrosEnLamina ?? 0) : c.animations.reduce((m, a) => m + a.frames, 0)),

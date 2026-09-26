@@ -4,15 +4,17 @@ import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
 import { ANIMALES, COLECCIONABLES } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
-import { animalesVistos, getPerfil } from "../systems/progress.js";
+import { animalesVistos, getPerfil, hitoPreguntas } from "../systems/progress.js";
+import { getViaje } from "../data/viajes/index.js";
 import { RAREZAS, STICKERS } from "../data/stickers.js";
 
 const RAREZA = {
   común: { color: 0x9fb3c8, texto: "#9fb3c8" },
   especial: { color: 0x5fd068, texto: "#8ff09a" },
-  rara: { color: 0xffb83d, texto: "#ffb83d" },
+  rara: { color: 0x4aa8ff, texto: "#9fd0ff" },
+  tesoro: { color: 0xffb83d, texto: "#ffd27a" },
 };
-const CARTA = { w: 132, h: 176, gap: 14, x0: 330, y0: 180 };
+const CARTA = { w: 124, h: 146, gap: 12, x0: 330, y0: 162, porFila: 7 };
 const ANIMAL = { w: 92, h: 92, gap: 10, x0: 330, y0: 180, porFila: 9 };
 const STICKER = { w: 124, h: 150, gap: 10, x0: 330, y0: 140, porFila: 7 };
 const PESTANAS = [
@@ -42,11 +44,14 @@ export class PerfilScene extends Phaser.Scene {
       .setOrigin(0, 0.5);
     const total = Object.values(perfil.coleccion).reduce((a, b) => a + b, 0);
     const stickers = Object.keys(perfil.stickers ?? {}).length;
+    // Hito de preguntas del país (por ahora Argentina): mejor resultado de cada ciudad.
+    const hito = hitoPreguntas("ar");
+    const hitoTotal = (getViaje("ar")?.ciudades.length ?? 0) * 5;
     this.add
       .text(
         24,
         56,
-        `Stickers: ${stickers}/${STICKERS.length} · Coleccionables: ${total} · Animales vistos: ${vistos.size}`,
+        `Stickers: ${stickers}/${STICKERS.length} · Coleccionables: ${total} · Animales: ${vistos.size} · Preguntas: ${hito.aciertos}/${hitoTotal}`,
         {
           fontFamily: FONT,
           fontSize: "10px",
@@ -95,9 +100,16 @@ export class PerfilScene extends Phaser.Scene {
         this.sticker(st, !!perfil.stickers?.[st.id], x, y);
       });
     } else if (id === "coleccion") {
-      this.titulo(CARTA.x0, CARTA.y0 - 28, "Cartas coleccionables");
-      const tipos = [COLECCIONABLES.comun, ...COLECCIONABLES.especiales];
-      tipos.forEach((t, k) => this.carta(t, perfil.coleccion[t] ?? 0, CARTA.x0 + k * (CARTA.w + CARTA.gap), CARTA.y0));
+      // Estrellas, especiales y tesoros (uno escondido en cada tramo del país).
+      const tipos = [COLECCIONABLES.comun, ...COLECCIONABLES.especiales, ...COLECCIONABLES.tesoros];
+      tipos.forEach((t, k) =>
+        this.carta(
+          t,
+          perfil.coleccion[t] ?? 0,
+          CARTA.x0 + (k % CARTA.porFila) * (CARTA.w + CARTA.gap),
+          CARTA.y0 + Math.floor(k / CARTA.porFila) * (CARTA.h + CARTA.gap)
+        )
+      );
     } else {
       const animales = Object.entries(ANIMALES).filter(([, a]) => a.sprite && hasCharacter(this, a.sprite));
       animales.forEach(([aid, a], k) => {
@@ -150,15 +162,17 @@ export class PerfilScene extends Phaser.Scene {
     g.lineStyle(3, tiene ? r.color : 0x35536f, 1).strokeRoundedRect(x, y, w, h, 10);
 
     if (hasCharacter(this, id)) {
-      const img = this.add.image(x + w / 2, y + 66, id, 0);
-      img.setScale(Math.min(96 / img.width, 96 / img.height));
+      const img = this.add.image(x + w / 2, y + h * 0.38, id, 0);
+      img.setScale(Math.min((h * 0.52) / img.width, (h * 0.52) / img.height));
       if (!tiene) img.setTint(0x16202b);
     }
     if (!tiene)
-      this.add.text(x + w / 2, y + 66, "?", { fontFamily: FONT, fontSize: "26px", color: "#9fb3c8" }).setOrigin(0.5);
+      this.add
+        .text(x + w / 2, y + h * 0.38, "?", { fontFamily: FONT, fontSize: "26px", color: "#9fb3c8" })
+        .setOrigin(0.5);
 
     this.add
-      .text(x + w / 2, y + 128, tiene ? info.nombre : "???", {
+      .text(x + w / 2, y + h * 0.76, tiene ? info.nombre : "???", {
         fontFamily: FONT,
         fontSize: "9px",
         color: COLORS.ink,
@@ -167,7 +181,7 @@ export class PerfilScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
     this.add
-      .text(x + w / 2, y + 150, info.rareza, { fontFamily: FONT, fontSize: "8px", color: r.texto })
+      .text(x + w / 2, y + h * 0.9, info.rareza, { fontFamily: FONT, fontSize: "8px", color: r.texto })
       .setOrigin(0.5);
     if (tiene) {
       this.add.circle(x + w - 14, y + 14, 16, r.color).setStrokeStyle(2, 0x1b2a3a);

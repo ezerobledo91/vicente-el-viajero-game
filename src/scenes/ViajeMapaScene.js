@@ -4,7 +4,7 @@ import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
 import { getViaje } from "../data/viajes/index.js";
 import { getPais } from "../data/paises.js";
-import { actualizarViaje, getProgresoViaje, reiniciarViaje } from "../systems/progress.js";
+import { actualizarViaje, getProgresoViaje, hitoPreguntas, reiniciarViaje } from "../systems/progress.js";
 import { modoPrueba } from "../systems/dev.js";
 
 const REGION = "sudamerica";
@@ -154,7 +154,7 @@ export class ViajeMapaScene extends Phaser.Scene {
         .text(
           24,
           56,
-          `Figuritas: ${this.progreso.figuritas} · Animales vistos: ${this.progreso.animalesVistos.length}`,
+          `Figuritas: ${this.progreso.figuritas} · Animales: ${this.progreso.animalesVistos.length} · Preguntas: ${hitoPreguntas(this.paisId).aciertos} de ${this.viaje.ciudades.length * 5}`,
           {
             fontFamily: FONT,
             fontSize: "10px",

@@ -1,222 +1,222 @@
 {
   "characters": [
     {
-      "id": "ushuaia-pinguino",
+      "id": "reconquista-garza",
       "grupo": "stickers",
-      "nombre": "st 1",
+      "nombre": "reconquista-garza",
       "facing": "right",
-      "alturaCm": 83,
-      "alturaPx": 182,
-      "texture": "ushuaia-pinguino.png",
-      "frameWidth": 145,
-      "frameHeight": 186,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "calafate-guanaco",
-      "grupo": "stickers",
-      "nombre": "st 2",
-      "facing": "right",
-      "alturaCm": 88,
-      "alturaPx": 175,
-      "texture": "calafate-guanaco.png",
-      "frameWidth": 131,
-      "frameHeight": 179,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "madryn-ballena",
-      "grupo": "stickers",
-      "nombre": "st 3",
-      "facing": "right",
-      "alturaCm": 83,
-      "alturaPx": 180,
-      "texture": "madryn-ballena.png",
-      "frameWidth": 147,
-      "frameHeight": 184,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "buenosaires-colectivo",
-      "grupo": "stickers",
-      "nombre": "st 4",
-      "facing": "right",
-      "alturaCm": 88,
-      "alturaPx": 190,
-      "texture": "buenosaires-colectivo.png",
-      "frameWidth": 147,
-      "frameHeight": 194,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "posadas-tucan",
-      "grupo": "stickers",
-      "nombre": "st 6",
-      "facing": "right",
-      "alturaCm": 87,
-      "alturaPx": 189,
-      "texture": "posadas-tucan.png",
-      "frameWidth": 138,
-      "frameHeight": 193,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "corrientes-puente",
-      "grupo": "stickers",
-      "nombre": "st 11",
-      "facing": "right",
-      "alturaCm": 120,
-      "alturaPx": 255,
-      "texture": "corrientes-puente.png",
-      "frameWidth": 286,
-      "frameHeight": 259,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "posadas-costanera",
-      "grupo": "stickers",
-      "nombre": "st 12",
-      "facing": "right",
-      "alturaCm": 120,
-      "alturaPx": 256,
-      "texture": "posadas-costanera.png",
-      "frameWidth": 269,
-      "frameHeight": 260,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "iguazu-ciudad",
-      "grupo": "stickers",
-      "nombre": "st 13",
-      "facing": "right",
-      "alturaCm": 119,
-      "alturaPx": 247,
-      "texture": "iguazu-ciudad.png",
-      "frameWidth": 264,
-      "frameHeight": 251,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "bonus-ruta-argentina",
-      "grupo": "stickers",
-      "nombre": "st 19",
-      "facing": "right",
-      "alturaCm": 131,
-      "alturaPx": 286,
-      "texture": "bonus-ruta-argentina.png",
-      "frameWidth": 290,
-      "frameHeight": 290,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "bonus-sobre",
-      "grupo": "stickers",
-      "nombre": "st 20",
-      "facing": "right",
-      "alturaCm": 138,
+      "alturaCm": 40,
       "alturaPx": 300,
-      "texture": "bonus-sobre.png",
-      "frameWidth": 286,
+      "texture": "reconquista-garza.png",
+      "frameWidth": 213,
       "frameHeight": 304,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "rosario-hornero",
+      "grupo": "stickers",
+      "nombre": "rosario-hornero",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "texture": "rosario-hornero.png",
+      "frameWidth": 216,
+      "frameHeight": 304,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "rosario-monumento",
+      "grupo": "stickers",
+      "nombre": "rosario-monumento",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "rosario-monumento.png",
+      "frameWidth": 213,
+      "frameHeight": 305,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "santafe-carpincho",
+      "grupo": "stickers",
+      "nombre": "santafe-carpincho",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "texture": "santafe-carpincho.png",
+      "frameWidth": 218,
+      "frameHeight": 304,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "santafe-puente",
+      "grupo": "stickers",
+      "nombre": "santafe-puente",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "texture": "santafe-puente.png",
+      "frameWidth": 212,
+      "frameHeight": 304,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ushuaia-faro",
+      "grupo": "stickers",
+      "nombre": "ushuaia-faro",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "ushuaia-faro.png",
+      "frameWidth": 209,
+      "frameHeight": 305,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "buenosaires-obelisco",
+      "grupo": "stickers",
+      "nombre": "buenosaires-obelisco",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "buenosaires-obelisco.png",
+      "frameWidth": 210,
+      "frameHeight": 305,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "calafate-glaciar",
+      "grupo": "stickers",
+      "nombre": "calafate-glaciar",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "calafate-glaciar.png",
+      "frameWidth": 220,
+      "frameHeight": 305,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "madryn-golfo",
+      "grupo": "stickers",
+      "nombre": "madryn-golfo",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "madryn-golfo.png",
+      "frameWidth": 225,
+      "frameHeight": 305,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "iguazu-cataratas",
+      "grupo": "stickers",
+      "nombre": "iguazu-cataratas",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 301,
+      "texture": "iguazu-cataratas.png",
+      "frameWidth": 210,
+      "frameHeight": 305,
       "frameCount": 1,
       "animations": [
         {

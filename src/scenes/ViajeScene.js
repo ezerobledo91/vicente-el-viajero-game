@@ -13,7 +13,7 @@ import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
-import { actualizarViaje, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
+import { actualizarViaje, getPerfil, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
 import {
   animalTexture,
   birdTexture,
@@ -22,6 +22,7 @@ import {
   platformTexture,
   rockTexture,
   signTexture,
+  sparkTexture,
   CARTEL,
   starTexture,
 } from "../systems/placeholders.js";
@@ -60,7 +61,10 @@ export class ViajeScene extends Phaser.Scene {
     this.progreso = getProgresoViaje(this.paisId);
     this.vistos = new Set(this.progreso.animalesVistos);
     this.terminado = false;
-    this.vidas = VIDAS.inicio;
+    // Si en la ciudad anterior erró todas las preguntas, arranca con una vida menos.
+    this.vidas = Math.max(1, VIDAS.inicio - (this.progreso.penalidad ?? 0));
+    if (this.progreso.penalidad) actualizarViaje(this.paisId, { penalidad: 0 });
+    this.estrellasAntes = getPerfil().coleccion?.estrella ?? 0; // para la vida extra cada 100 estrellas
     this.juntadas = 0; // total de este tramo (para la interfaz)
     this.coleccion = {}; // por tipo: { estrella: 12, mate: 1, ... }
 
@@ -146,14 +150,23 @@ export class ViajeScene extends Phaser.Scene {
     const y = GROUND_Y - (item.y ?? 0);
     switch (item.tipo) {
       case "figurita": {
-        const { comun, especiales, cadaCuantos } = COLECCIONABLES;
-        const n = this.nFiguritas++;
-        const tipo =
-          n % cadaCuantos === cadaCuantos - 1 ? especiales[Math.floor(n / cadaCuantos) % especiales.length] : comun;
+        const tipo = item.especial ?? COLECCIONABLES.comun;
         const s =
           this.entidad(tipo, item.x, y, { mirando: "right", depth: 8 })?.setOrigin(0.5) ??
           this.add.image(item.x, y, starTexture(this)).setDepth(8);
         s.tipo = tipo;
+        // Los tesoros se ven más grandes y brillan, para que den ganas de ir a buscarlos.
+        if (tipo.startsWith("tesoro-")) {
+          s.setScale(s.scale * 1.4);
+          this.tweens.add({
+            targets: s,
+            angle: { from: -8, to: 8 },
+            duration: 700,
+            yoyo: true,
+            repeat: -1,
+            ease: "Sine.InOut",
+          });
+        }
         this.flotar(s, y);
         this.figuritas.push(s);
         break;
@@ -313,7 +326,12 @@ export class ViajeScene extends Phaser.Scene {
 
     const enAgua = EN_EL_AGUA.includes(item.id);
     if (enAgua) this.ponerCharco(item.x);
-    const real = !ballena && this.entidad(def.sprite, item.x, GROUND_Y + (enAgua ? 10 : 3));
+    const vuela = !!def.vuela;
+    const real = !ballena && this.entidad(def.sprite, item.x, vuela ? GROUND_Y - 150 : GROUND_Y + (enAgua ? 10 : 3));
+    if (real && vuela) {
+      real.loop(real.def.animations[0].key);
+      this.tweens.add({ targets: real, y: real.y - 30, duration: 1100, yoyo: true, repeat: -1, ease: "Sine.InOut" });
+    }
     if (real) {
       const camina = CAMINANTES[item.id] && real.has("caminar");
       const [vMin, vMax] = ANIMAL_VELOCIDAD;
@@ -473,8 +491,12 @@ export class ViajeScene extends Phaser.Scene {
     s.setActive(false);
     this.juntadas++;
     this.coleccion[s.tipo] = (this.coleccion[s.tipo] ?? 0) + 1;
-    if (s.tipo !== COLECCIONABLES.comun)
-      this.cartelito(s.x, s.y - 30, `¡${COLECCIONABLES.info[s.tipo]?.nombre ?? s.tipo}!`, "#ffd23d");
+    const tesoro = s.tipo.startsWith("tesoro-");
+    const especial = s.tipo !== COLECCIONABLES.comun;
+    this.chispas(s.x, s.y, tesoro ? 26 : especial ? 16 : 7, tesoro ? 0xffd23d : especial ? 0x9fe7ff : 0xfff2a8);
+    if (tesoro) this.festejarTesoro(s.tipo);
+    else if (especial) this.cartelito(s.x, s.y - 30, `¡${COLECCIONABLES.info[s.tipo]?.nombre ?? s.tipo}!`, "#ffd23d");
+    if (s.tipo === COLECCIONABLES.comun) this.contarEstrella();
     this.tweens.killTweensOf(s);
     this.tweens.add({
       targets: s,
@@ -484,6 +506,84 @@ export class ViajeScene extends Phaser.Scene {
       duration: 300,
       onComplete: () => s.destroy(),
     });
+  }
+
+  // Efecto al agarrar algo: chispitas que salen para todos lados y un anillo que se agranda.
+  chispas(x, y, cantidad, color) {
+    const key = sparkTexture(this);
+    for (let k = 0; k < cantidad; k++) {
+      const ang = (k / cantidad) * Math.PI * 2 + Math.random() * 0.4;
+      const dist = 40 + Math.random() * (cantidad > 10 ? 90 : 45);
+      const p = this.add
+        .image(x, y, key)
+        .setDepth(21)
+        .setTint(color)
+        .setScale(0.6 + Math.random() * 0.6);
+      this.tweens.add({
+        targets: p,
+        x: x + Math.cos(ang) * dist,
+        y: y + Math.sin(ang) * dist,
+        alpha: 0,
+        scale: 0.1,
+        angle: 180,
+        duration: 450 + Math.random() * 250,
+        ease: "Cubic.Out",
+        onComplete: () => p.destroy(),
+      });
+    }
+    const anillo = this.add.circle(x, y, 14).setStrokeStyle(4, color, 1).setDepth(21);
+    this.tweens.add({
+      targets: anillo,
+      scale: cantidad > 10 ? 4 : 2.4,
+      alpha: 0,
+      duration: 420,
+      ease: "Cubic.Out",
+      onComplete: () => anillo.destroy(),
+    });
+  }
+
+  // Cada `estrellasPorVida` estrellas (contando las de todos los viajes), una vida extra.
+  contarEstrella() {
+    const total = this.estrellasAntes + (this.coleccion[COLECCIONABLES.comun] ?? 0);
+    if (total % COLECCIONABLES.estrellasPorVida !== 0) return;
+    if (this.vidas < VIDAS.maximo) this.vidas++;
+    this.cartelito(this.player.x, this.player.getTopCenter().y - 30, `¡${total} estrellas! +1 vida`, "#ff8a96");
+    this.chispas(this.player.x, this.player.y - 60, 18, 0xff8a96);
+  }
+
+  // Tesoro: aparece grande en el centro de la pantalla un momento (el juego sigue).
+  festejarTesoro(tipo) {
+    const cam = this.cameras.main;
+    const c = this.add
+      .container(cam.width / 2, cam.height / 2 - 40)
+      .setScrollFactor(0)
+      .setDepth(40);
+    const brillo = this.add.circle(0, 0, 110, 0xffd23d, 0.3);
+    const img = this.add.image(0, 0, tipo, 0);
+    img.setScale(170 / Math.max(img.width, img.height));
+    const t1 = this.add
+      .text(0, -130, "¡Tesoro encontrado!", {
+        fontFamily: FONT,
+        fontSize: "18px",
+        color: "#ffffff",
+        stroke: "#2a1d1a",
+        strokeThickness: 6,
+      })
+      .setOrigin(0.5);
+    const t2 = this.add
+      .text(0, 118, COLECCIONABLES.info[tipo]?.nombre ?? tipo, {
+        fontFamily: FONT,
+        fontSize: "13px",
+        color: "#ffd23d",
+        stroke: "#2a1d1a",
+        strokeThickness: 5,
+      })
+      .setOrigin(0.5);
+    c.add([brillo, img, t1, t2]).setScale(0);
+    this.tweens.add({ targets: c, scale: 1, duration: 380, ease: "Back.Out" });
+    this.tweens.add({ targets: brillo, scale: 1.25, duration: 500, yoyo: true, repeat: 2 });
+    this.tweens.add({ targets: c, alpha: 0, y: c.y - 40, delay: 1900, duration: 400, onComplete: () => c.destroy() });
+    this.player.perform?.("festejo");
   }
 
   juntarVida(h) {

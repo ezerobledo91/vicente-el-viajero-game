@@ -53,10 +53,12 @@ export class QuizPanel extends Phaser.GameObjects.Container {
       this.opciones = opciones;
       const elegida = await new Promise((resolve) => {
         this.botones = opciones.map((o, k) => {
-          const b = new Button(this.scene, 0, -10 + k * 74, o.texto, () => resolve(o), {
+          // Hasta 4 opciones: se achica el espacio entre botones para que entren.
+          const paso = opciones.length > 3 ? 60 : 74;
+          const b = new Button(this.scene, 0, (opciones.length > 3 ? -56 : -10) + k * paso, o.texto, () => resolve(o), {
             width: W - PAD * 2,
-            height: 56,
-            fontSize: 12,
+            height: opciones.length > 3 ? 50 : 56,
+            fontSize: o.texto.length > 34 ? 10 : 12,
           });
           this.contenido.add(b);
           return b;

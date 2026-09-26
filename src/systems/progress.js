@@ -10,6 +10,7 @@ const nuevoViaje = () => ({
   figuritas: 0,
   companeros: [], // por ejemplo ["anita"] después de Reconquista
   animalesVistos: [],
+  penalidad: 0, // vidas de menos en el próximo tramo (por errar todas las preguntas de una ciudad)
 });
 
 let memoria = null;
@@ -89,3 +90,24 @@ export function ganarSticker(id) {
 }
 
 export const tieneSticker = (id) => !!getPerfil().stickers?.[id];
+
+// ---------- Hito de preguntas ----------
+// Se guarda el mejor resultado de cada ciudad: { ar: { ushuaia: { aciertos: 4, total: 5 } } }.
+export function registrarPreguntas(paisId, ciudadId, aciertos, total) {
+  const perfil = getPerfil();
+  perfil.preguntas ??= {};
+  perfil.preguntas[paisId] ??= {};
+  const antes = perfil.preguntas[paisId][ciudadId];
+  if (!antes || aciertos > antes.aciertos) perfil.preguntas[paisId][ciudadId] = { aciertos, total };
+  guardar();
+}
+
+// Totales de un país: { aciertos, respondidas, ciudades } (mejor resultado de cada ciudad).
+export function hitoPreguntas(paisId) {
+  const r = Object.values(getPerfil().preguntas?.[paisId] ?? {});
+  return {
+    aciertos: r.reduce((s, c) => s + c.aciertos, 0),
+    respondidas: r.reduce((s, c) => s + c.total, 0),
+    ciudades: r.length,
+  };
+}

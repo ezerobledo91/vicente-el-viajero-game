@@ -32,6 +32,8 @@ export const ASSETS = {
     "assets/animales/mas.json",
     "assets/decoracion/decoracion.json",
     "assets/stickers/stickers.json",
+    "assets/stickers/stickers-hd.json",
+    "assets/tesoros/tesoros.json",
     "assets/lugares/lugares.json",
   ],
   HOJA: (ruta) => `hoja-${ruta}`,

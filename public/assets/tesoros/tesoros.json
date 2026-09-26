@@ -1,15 +1,15 @@
 {
   "characters": [
     {
-      "id": "ushuaia-pinguino",
-      "grupo": "stickers",
-      "nombre": "st 1",
+      "id": "tesoro-pinguino",
+      "grupo": "tesoros",
+      "nombre": "Pingüino explorador",
       "facing": "right",
-      "alturaCm": 83,
-      "alturaPx": 182,
-      "texture": "ushuaia-pinguino.png",
-      "frameWidth": 145,
-      "frameHeight": 186,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-pinguino.png",
+      "frameWidth": 134,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -24,38 +24,15 @@
       ]
     },
     {
-      "id": "calafate-guanaco",
-      "grupo": "stickers",
-      "nombre": "st 2",
+      "id": "tesoro-ballena",
+      "grupo": "tesoros",
+      "nombre": "Cola de ballena",
       "facing": "right",
-      "alturaCm": 88,
-      "alturaPx": 175,
-      "texture": "calafate-guanaco.png",
-      "frameWidth": 131,
-      "frameHeight": 179,
-      "frameCount": 1,
-      "animations": [
-        {
-          "key": "idle",
-          "label": "idle",
-          "frames": [
-            0
-          ],
-          "fps": 1,
-          "repeat": -1
-        }
-      ]
-    },
-    {
-      "id": "madryn-ballena",
-      "grupo": "stickers",
-      "nombre": "st 3",
-      "facing": "right",
-      "alturaCm": 83,
-      "alturaPx": 180,
-      "texture": "madryn-ballena.png",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "texture": "tesoro-ballena.png",
       "frameWidth": 147,
-      "frameHeight": 184,
+      "frameHeight": 154,
       "frameCount": 1,
       "animations": [
         {
@@ -70,15 +47,15 @@
       ]
     },
     {
-      "id": "buenosaires-colectivo",
-      "grupo": "stickers",
-      "nombre": "st 4",
+      "id": "tesoro-carpincho",
+      "grupo": "tesoros",
+      "nombre": "Carpincho gaucho",
       "facing": "right",
-      "alturaCm": 88,
-      "alturaPx": 190,
-      "texture": "buenosaires-colectivo.png",
-      "frameWidth": 147,
-      "frameHeight": 194,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-carpincho.png",
+      "frameWidth": 146,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -93,15 +70,15 @@
       ]
     },
     {
-      "id": "posadas-tucan",
-      "grupo": "stickers",
-      "nombre": "st 6",
+      "id": "tesoro-hornero",
+      "grupo": "tesoros",
+      "nombre": "Hornero y su nido",
       "facing": "right",
-      "alturaCm": 87,
-      "alturaPx": 189,
-      "texture": "posadas-tucan.png",
-      "frameWidth": 138,
-      "frameHeight": 193,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-hornero.png",
+      "frameWidth": 163,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -116,15 +93,15 @@
       ]
     },
     {
-      "id": "corrientes-puente",
-      "grupo": "stickers",
-      "nombre": "st 11",
+      "id": "tesoro-obelisco",
+      "grupo": "tesoros",
+      "nombre": "Obelisco",
       "facing": "right",
-      "alturaCm": 120,
-      "alturaPx": 255,
-      "texture": "corrientes-puente.png",
-      "frameWidth": 286,
-      "frameHeight": 259,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-obelisco.png",
+      "frameWidth": 106,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -139,15 +116,15 @@
       ]
     },
     {
-      "id": "posadas-costanera",
-      "grupo": "stickers",
-      "nombre": "st 12",
+      "id": "tesoro-monumento",
+      "grupo": "tesoros",
+      "nombre": "Monumento a la Bandera",
       "facing": "right",
-      "alturaCm": 120,
-      "alturaPx": 256,
-      "texture": "posadas-costanera.png",
-      "frameWidth": 269,
-      "frameHeight": 260,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-monumento.png",
+      "frameWidth": 142,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -162,15 +139,15 @@
       ]
     },
     {
-      "id": "iguazu-ciudad",
-      "grupo": "stickers",
-      "nombre": "st 13",
+      "id": "tesoro-iceberg",
+      "grupo": "tesoros",
+      "nombre": "Témpano del glaciar",
       "facing": "right",
-      "alturaCm": 119,
-      "alturaPx": 247,
-      "texture": "iguazu-ciudad.png",
-      "frameWidth": 264,
-      "frameHeight": 251,
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-iceberg.png",
+      "frameWidth": 159,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {
@@ -185,15 +162,15 @@
       ]
     },
     {
-      "id": "bonus-ruta-argentina",
-      "grupo": "stickers",
-      "nombre": "st 19",
+      "id": "tesoro-cataratas",
+      "grupo": "tesoros",
+      "nombre": "Cristal de las Cataratas",
       "facing": "right",
-      "alturaCm": 131,
-      "alturaPx": 286,
-      "texture": "bonus-ruta-argentina.png",
-      "frameWidth": 290,
-      "frameHeight": 290,
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "texture": "tesoro-cataratas.png",
+      "frameWidth": 162,
+      "frameHeight": 154,
       "frameCount": 1,
       "animations": [
         {
@@ -208,15 +185,38 @@
       ]
     },
     {
-      "id": "bonus-sobre",
-      "grupo": "stickers",
-      "nombre": "st 20",
+      "id": "tesoro-tucan",
+      "grupo": "tesoros",
+      "nombre": "Tucán de la selva",
       "facing": "right",
-      "alturaCm": 138,
-      "alturaPx": 300,
-      "texture": "bonus-sobre.png",
-      "frameWidth": 286,
-      "frameHeight": 304,
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "texture": "tesoro-tucan.png",
+      "frameWidth": 162,
+      "frameHeight": 154,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tesoro-brujula",
+      "grupo": "tesoros",
+      "nombre": "Brújula del explorador",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 151,
+      "texture": "tesoro-brujula.png",
+      "frameWidth": 148,
+      "frameHeight": 155,
       "frameCount": 1,
       "animations": [
         {

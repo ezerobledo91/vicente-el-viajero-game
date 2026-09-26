@@ -1,8 +1,8 @@
 // Stickers de premio del álbum "Ruta Argentina" (recortados de personajes/premios/stickers-argentina.png).
 //
 // Cómo se gana cada uno (`gana`):
-//   "pasar"     → responder bien las preguntas de esa ciudad (2 de 3)
-//   "perfecto"  → responder bien las 3 preguntas de esa ciudad
+//   "pasar"     → acertar al menos una pregunta de esa ciudad
+//   "perfecto"  → acertar las 5 preguntas de esa ciudad
 //   "viaje"     → terminar el viaje (llegar a la Triple Frontera)
 //   "estrellas" → juntar `cantidad` estrellas en total (sumando todos los viajes)
 
@@ -42,7 +42,8 @@ export const STICKERS = [
 // Stickers que se ganan en una ciudad según cuántas preguntas se acertaron.
 export function stickersDeCiudad(ciudadId, aciertos, total) {
   return STICKERS.filter(
-    (s) => s.ciudad === ciudadId && (s.gana === "pasar" || (s.gana === "perfecto" && aciertos === total))
+    (s) =>
+      s.ciudad === ciudadId && ((s.gana === "pasar" && aciertos > 0) || (s.gana === "perfecto" && aciertos === total))
   );
 }
 

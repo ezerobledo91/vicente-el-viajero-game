@@ -7,15 +7,22 @@ import { SpeechBubble } from "../ui/SpeechBubble.js";
 import { getViaje } from "../data/viajes/index.js";
 import { PAISAJES } from "../data/paisajes.js";
 import { createParallax } from "../systems/parallax.js";
-import { actualizarViaje, ganarSticker, getPerfil, getProgresoViaje } from "../systems/progress.js";
+import {
+  actualizarViaje,
+  ganarSticker,
+  getPerfil,
+  getProgresoViaje,
+  hitoPreguntas,
+  registrarPreguntas,
+} from "../systems/progress.js";
 import { RAREZAS, STICKERS, stickersDeCiudad } from "../data/stickers.js";
 import { hasCharacter } from "../systems/characters.js";
 import { modoPrueba } from "../systems/dev.js";
 import { houseTexture } from "../systems/placeholders.js";
 import { GROUND_Y } from "./ViajeScene.js";
 
-const PREGUNTAS_POR_CIUDAD = 3;
-const ACIERTOS_PARA_SEGUIR = 2;
+const PREGUNTAS_POR_CIUDAD = 5;
+// Siempre se sigue viaje; si se erran todas, el tramo siguiente arranca con una vida menos.
 const QUIZ_POS = { x: 900, y: 360 };
 // Monumentos que aparecen en la llegada a ciertas ciudades (sprites de la lámina de animales/objetos).
 // Lugares importantes (personajes/premios/…lugares importantes…png, npm run lugares) parados en la vereda.
@@ -209,22 +216,18 @@ export class CiudadScene extends Phaser.Scene {
     const elegidas = Phaser.Utils.Array.Shuffle([...this.ciudad.preguntas]).slice(0, PREGUNTAS_POR_CIUDAD);
     const aciertos = await this.quiz.jugar(elegidas);
 
-    if (aciertos >= ACIERTOS_PARA_SEGUIR) {
-      const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
-      this.progreso = actualizarViaje(this.paisId, {
-        ciudad: this.ciudadIndex,
-        preguntasOk: true,
-        terminado: this.progreso.terminado || ultima,
-      });
-      this.quiz.setVisible(false);
-      await this.entregarStickers(aciertos, elegidas.length);
-      this.quiz.setVisible(true);
-      this.alTerminarPreguntas(aciertos);
-    } else {
-      this.quiz.mostrarFinal("¡Casi!", `Acertaste ${aciertos} de ${elegidas.length}. ¡Probemos otra vez!`, [
-        { texto: "Reintentar", onClick: () => this.preguntas() },
-      ]);
-    }
+    const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
+    registrarPreguntas(this.paisId, this.ciudad.id, aciertos, elegidas.length);
+    this.progreso = actualizarViaje(this.paisId, (v) => ({
+      ciudad: this.ciudadIndex,
+      preguntasOk: true,
+      terminado: v.terminado || ultima,
+      penalidad: aciertos === 0 ? (v.penalidad ?? 0) + 1 : (v.penalidad ?? 0),
+    }));
+    this.quiz.setVisible(false);
+    await this.entregarStickers(aciertos, elegidas.length);
+    this.quiz.setVisible(true);
+    this.alTerminarPreguntas(aciertos);
   }
 
   // Modo prueba: da las preguntas por respondidas perfectas (con sus stickers) y muestra cómo seguir.
@@ -235,6 +238,7 @@ export class CiudadScene extends Phaser.Scene {
     this.quiz = null;
     const total = PREGUNTAS_POR_CIUDAD;
     const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
+    registrarPreguntas(this.paisId, this.ciudad.id, total, total);
     this.progreso = actualizarViaje(this.paisId, {
       ciudad: this.ciudadIndex,
       preguntasOk: true,
@@ -321,11 +325,16 @@ export class CiudadScene extends Phaser.Scene {
   alTerminarPreguntas(aciertos) {
     this.quiz ??= new QuizPanel(this, QUIZ_POS.x, QUIZ_POS.y).setDepth(20);
     const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
-    const titulo = aciertos != null ? "¡Muy bien!" : this.ciudad.nombre;
-    const mensaje =
+    const titulos = ["¡Uy! Ninguna esta vez", "¡Bien!", "¡Bien!", "¡Muy bien!", "¡Muy bien!", "¡Perfecto!"];
+    const titulo = aciertos != null ? titulos[Math.min(aciertos, 5)] : this.ciudad.nombre;
+    const hito = hitoPreguntas(this.paisId);
+    const total = this.viaje.ciudades.length * PREGUNTAS_POR_CIUDAD;
+    let mensaje =
       aciertos != null
         ? `Acertaste ${aciertos} de ${PREGUNTAS_POR_CIUDAD}.`
         : "Ya respondiste las preguntas de esta ciudad.";
+    if (aciertos === 0) mensaje += "\nPerdés una vida en el próximo tramo.";
+    mensaje += `\nEn ${this.viaje.nombre}: ${hito.aciertos} de ${total} preguntas.`;
 
     if (this.ciudad.evento === "triple-frontera" || ultima) {
       actualizarViaje(this.paisId, { terminado: true });

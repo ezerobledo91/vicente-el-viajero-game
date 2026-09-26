@@ -1,0 +1,189 @@
+{
+  "_comment": "Tesoros coleccionables (personajes/premios/coleccionables/): uno escondido por tramo del país. Cuál va en cada tramo: src/data/viajes/argentina.js (tesoro).",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/tesoros",
+  "manifest": "tesoros.json",
+  "grupo": "tesoros",
+  "characters": [
+    {
+      "id": "tesoro-pinguino",
+      "nombre": "Pingüino explorador",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/pinguino.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-ballena",
+      "nombre": "Cola de ballena",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/ballena.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-carpincho",
+      "nombre": "Carpincho gaucho",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/carpincho.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-hornero",
+      "nombre": "Hornero y su nido",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/hornero.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-obelisco",
+      "nombre": "Obelisco",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/obelisco.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-monumento",
+      "nombre": "Monumento a la Bandera",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/monumento.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-iceberg",
+      "nombre": "Témpano del glaciar",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/iceberg.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-cataratas",
+      "nombre": "Cristal de las Cataratas",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/cataratas.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-tucan",
+      "nombre": "Tucán de la selva",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/tucan.png"
+        }
+      ]
+    },
+    {
+      "id": "tesoro-brujula",
+      "nombre": "Brújula del explorador",
+      "alturaCm": 40,
+      "alturaPx": 150,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/coleccionables/brujula.png"
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,17 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  buho: {
+    sprite: "buho",
+    nombre: "Lechuza bataraz",
+    dato: "Caza de noche y puede girar la cabeza muchísimo para mirar para atrás.",
+  },
+  mariposa: {
+    sprite: "mariposa",
+    nombre: "Mariposa",
+    dato: "En Misiones hay cientos de tipos de mariposas de todos los colores.",
+    vuela: true,
+  },
   rana: {
     sprite: "rana",
     nombre: "Rana",
@@ -186,6 +197,7 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  abeja: { nombre: "Abeja", sprite: "abeja", anim: "volar", velocidad: 110 },
   colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
   loro: { nombre: "Loro", sprite: "loro", anim: "volar", velocidad: 125 },
   libelula: { nombre: "Libélula", sprite: "libelula", anim: "volar", velocidad: 140 },
@@ -237,24 +249,25 @@ export const PAJAROS = {
   },
 };
 
-// Coleccionables del camino (sprites de la lámina de animales). La mayoría son estrellas;
-// cada tanto aparece uno especial.
+// Coleccionables del camino. La mayoría son estrellas (cada 100 estrellas, una vida extra).
+// Los especiales y los tesoros no son al azar: cada tramo del viaje define el suyo (`especial`, `tesoro`),
+// así hay pocos y repartidos por todo el país, en lugares difíciles de alcanzar.
 export const COLECCIONABLES = {
   comun: "estrella",
-  especiales: [
-    "sol",
-    "mate",
-    "pluma",
-    "huella",
-    "nido",
-    "bandera",
-    "hoja",
-    "huevo",
-    "valija",
-    "binoculares",
-    "huella-yaguarete",
+  especiales: ["sol", "mate", "pluma", "nido", "bandera", "hoja", "huevo", "huella-yaguarete"],
+  tesoros: [
+    "tesoro-brujula",
+    "tesoro-pinguino",
+    "tesoro-iceberg",
+    "tesoro-ballena",
+    "tesoro-obelisco",
+    "tesoro-monumento",
+    "tesoro-carpincho",
+    "tesoro-hornero",
+    "tesoro-tucan",
+    "tesoro-cataratas",
   ],
-  cadaCuantos: 6,
+  estrellasPorVida: 100,
   // Nombre y rareza para el perfil de Vicente (más adelante se pueden sumar cartas mejores o peores).
   info: {
     estrella: { nombre: "Estrella", rareza: "común" },
@@ -269,6 +282,16 @@ export const COLECCIONABLES = {
     huevo: { nombre: "Huevo", rareza: "rara" },
     binoculares: { nombre: "Binoculares", rareza: "rara" },
     "huella-yaguarete": { nombre: "Huella de yaguareté", rareza: "rara" },
+    "tesoro-brujula": { nombre: "Brújula del explorador", rareza: "tesoro" },
+    "tesoro-pinguino": { nombre: "Pingüino explorador", rareza: "tesoro" },
+    "tesoro-iceberg": { nombre: "Témpano del glaciar", rareza: "tesoro" },
+    "tesoro-ballena": { nombre: "Cola de ballena", rareza: "tesoro" },
+    "tesoro-obelisco": { nombre: "Obelisco", rareza: "tesoro" },
+    "tesoro-monumento": { nombre: "Monumento a la Bandera", rareza: "tesoro" },
+    "tesoro-carpincho": { nombre: "Carpincho gaucho", rareza: "tesoro" },
+    "tesoro-hornero": { nombre: "Hornero y su nido", rareza: "tesoro" },
+    "tesoro-tucan": { nombre: "Tucán de la selva", rareza: "tesoro" },
+    "tesoro-cataratas": { nombre: "Cristal de las Cataratas", rareza: "tesoro" },
   },
 };
 

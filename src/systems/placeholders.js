@@ -415,3 +415,22 @@ export function platformTexture(scene, w) {
     ctx.fillRect(8, 4, w - 16, 3);
   });
 }
+
+// Chispa blanca en forma de estrellita de 4 puntas (se tiñe con setTint).
+export function sparkTexture(scene) {
+  const s = 16;
+  return canvasTexture(scene, "ph-chispa", s, s, (ctx) => {
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.moveTo(s / 2, 0);
+    ctx.lineTo(s * 0.62, s * 0.38);
+    ctx.lineTo(s, s / 2);
+    ctx.lineTo(s * 0.62, s * 0.62);
+    ctx.lineTo(s / 2, s);
+    ctx.lineTo(s * 0.38, s * 0.62);
+    ctx.lineTo(0, s / 2);
+    ctx.lineTo(s * 0.38, s * 0.38);
+    ctx.closePath();
+    ctx.fill();
+  });
+}

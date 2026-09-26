@@ -15,7 +15,7 @@
     "fondos": "node tools/build-fondos.mjs",
     "animales": "node tools/slice-sprites.mjs tools/animales.config.json && node tools/slice-sprites.mjs tools/animales-extra.config.json && node tools/slice-sprites.mjs tools/animales-mas.config.json",
     "decoracion": "node tools/slice-sprites.mjs tools/decoracion.config.json",
-    "stickers": "node tools/slice-sprites.mjs tools/stickers.config.json",
+    "stickers": "node tools/slice-sprites.mjs tools/stickers.config.json && node tools/slice-sprites.mjs tools/stickers-hd.config.json && node tools/slice-sprites.mjs tools/tesoros.config.json",
     "assets": "npm run sprites && npm run animales && npm run decoracion && npm run stickers && npm run lugares && npm run fondos && npm run map",
     "lugares": "node tools/slice-sprites.mjs tools/lugares.config.json"
   },

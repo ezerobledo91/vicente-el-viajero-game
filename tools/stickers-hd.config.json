@@ -1,0 +1,189 @@
+{
+  "_comment": "Stickers en alta resolución, un PNG transparente cada uno (personajes/premios/stickers/). Reemplazan a los de la lámina con el mismo id.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/stickers",
+  "manifest": "stickers-hd.json",
+  "grupo": "stickers",
+  "characters": [
+    {
+      "id": "reconquista-garza",
+      "nombre": "reconquista-garza",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/reconquista-garza.png"
+        }
+      ]
+    },
+    {
+      "id": "rosario-hornero",
+      "nombre": "rosario-hornero",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/rosario-hornero.png"
+        }
+      ]
+    },
+    {
+      "id": "rosario-monumento",
+      "nombre": "rosario-monumento",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/rosario-monumento.png"
+        }
+      ]
+    },
+    {
+      "id": "santafe-carpincho",
+      "nombre": "santafe-carpincho",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/santafe-carpincho.png"
+        }
+      ]
+    },
+    {
+      "id": "santafe-puente",
+      "nombre": "santafe-puente",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/santafe-puente.png"
+        }
+      ]
+    },
+    {
+      "id": "ushuaia-faro",
+      "nombre": "ushuaia-faro",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/ushuaia-faro.png"
+        }
+      ]
+    },
+    {
+      "id": "buenosaires-obelisco",
+      "nombre": "buenosaires-obelisco",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/buenosaires-obelisco.png"
+        }
+      ]
+    },
+    {
+      "id": "calafate-glaciar",
+      "nombre": "calafate-glaciar",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/calafate-glaciar.png"
+        }
+      ]
+    },
+    {
+      "id": "madryn-golfo",
+      "nombre": "madryn-golfo",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/madryn-golfo.png"
+        }
+      ]
+    },
+    {
+      "id": "iguazu-cataratas",
+      "nombre": "iguazu-cataratas",
+      "alturaCm": 40,
+      "alturaPx": 300,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1,
+          "archivo": "personajes/premios/stickers/iguazu-cataratas.png"
+        }
+      ]
+    }
+  ]
+}

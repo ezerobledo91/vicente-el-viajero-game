@@ -163,6 +163,18 @@ export function buildLevel(tramo, seed = 1) {
     items.push(...PATRONES[b.patron](b.x, { vida }));
   }
 
+  // Tesoro y especial del tramo: reemplazan una estrella de las más altas (arriba de un trampolín o
+  // de una plataforma alta): el especial en la primera mitad y el tesoro en la segunda.
+  const altas = items.filter((it) => it.tipo === "figurita" && it.y >= 240);
+  const elegir = (desdeX, hastaX) => {
+    const zona = altas.filter((it) => it.x >= desdeX && it.x < hastaX && !it.especial);
+    return zona[Math.floor(zona.length / 2)] ?? altas.find((it) => !it.especial);
+  };
+  const conEspecial = tramo.especial && elegir(0, largo / 2);
+  if (conEspecial) conEspecial.especial = tramo.especial;
+  const conTesoro = tramo.tesoro && elegir(largo / 2, largo);
+  if (conTesoro) conTesoro.especial = tramo.tesoro;
+
   // Animales nativos: pocos, bien separados y sin repetir especie (encontrar uno es un hito).
   // Se corren si caen justo donde hay una roca o un perro.
   const tramoUtil = hasta - LEVEL.primerAnimal;
