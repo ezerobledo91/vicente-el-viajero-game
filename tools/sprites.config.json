@@ -224,49 +224,90 @@
       "nombre": "Anita",
       "rol": "Casi 4 años",
       "alturaCm": 100,
-      "facing": "left",
+      "facing": "right",
       "animations": [
         {
           "key": "caminar",
           "label": "Caminar",
-          "frames": 7,
-          "fps": 8,
-          "repeat": -1
+          "frames": 8,
+          "fps": 10,
+          "repeat": -1,
+          "archivo": "personajes/familia/anita/caminar.png"
+        },
+        {
+          "key": "pensar",
+          "label": "Pensar",
+          "frames": 4,
+          "fps": 3,
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/pensar.png"
+        },
+        {
+          "key": "victoria",
+          "label": "Victoria",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 2,
+          "archivo": "personajes/familia/anita/victoria.png"
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 2,
+          "fps": 3,
+          "repeat": 1,
+          "archivo": "personajes/familia/anita/interactuar.png"
         },
         {
           "key": "salto",
           "label": "Salto",
           "frames": 5,
           "fps": 10,
-          "repeat": 0
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/salto.png",
+          "referencia": "max",
+          "ajuste": 1.02
         },
         {
           "key": "festejo",
           "label": "Festejo",
           "frames": 5,
           "fps": 8,
-          "repeat": 1
+          "repeat": 1,
+          "archivo": "personajes/familia/anita/festejo.png"
         },
         {
           "key": "descanso",
           "label": "Descanso",
           "frames": 4,
           "fps": 4,
-          "repeat": 0
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/descanso.png"
         },
         {
           "key": "enojado",
           "label": "Enojada",
           "frames": 4,
           "fps": 6,
-          "repeat": 0
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/enojado.png"
         },
         {
           "key": "aburrido",
           "label": "Aburrida",
           "frames": 3,
           "fps": 3,
-          "repeat": 0
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/aburrido.png"
+        },
+        {
+          "key": "agachar",
+          "label": "Agacharse",
+          "frames": 3,
+          "fps": 8,
+          "repeat": 0,
+          "archivo": "personajes/familia/anita/agachar.png",
+          "referencia": "max"
         }
       ],
       "alias": [
@@ -282,12 +323,33 @@
           "key": "aire",
           "label": "En el aire",
           "from": "salto",
-          "frames": [2],
+          "frames": [3],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "agachado",
+          "label": "Agachada",
+          "from": "agachar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
+        },
+        {
+          "key": "saludar",
+          "label": "Saludar",
+          "from": "interactuar",
+          "frames": [1],
           "fps": 1,
           "repeat": -1,
           "hidden": true
         }
-      ]
+      ],
+      "archivos": true,
+      "cuadrosEnLamina": 28,
+      "alturaPx": 116
     }
   ]
 }

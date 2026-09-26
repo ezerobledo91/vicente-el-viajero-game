@@ -70,7 +70,8 @@ export class ViajeScene extends Phaser.Scene {
 
     const piso = this.add.zone(this.largo / 2, GROUND_Y + 60, this.largo, 120);
     this.physics.add.existing(piso, true);
-    this.solidos = this.physics.add.staticGroup(); // rocas y plataformas fijas
+    this.solidos = this.physics.add.staticGroup(); // plataformas fijas (se atraviesan desde abajo)
+    this.rocas = this.physics.add.staticGroup(); // rocas y troncos: sólidos por todos lados
     this.moviles = []; // plataformas que se mueven
     this.figuritas = [];
     this.corazones = [];
@@ -88,6 +89,7 @@ export class ViajeScene extends Phaser.Scene {
     const soloDesdeArriba = (p, r) => p.body.prev.y + p.body.height <= r.body.top + 10;
     this.physics.add.collider(this.player, this.solidos, null, soloDesdeArriba);
     this.physics.add.collider(this.player, this.moviles, null, soloDesdeArriba);
+    this.physics.add.collider(this.player, this.rocas);
 
     this.companeros = this.progreso.companeros.map((id) =>
       new Companion(this, this.player, id, { pxPerCm: PX_PER_CM.viaje }).setDepth(9)
@@ -230,11 +232,11 @@ export class ViajeScene extends Phaser.Scene {
     }
   }
 
-  // Roca o tronco real (si está la lámina de decoración) con un cuerpo sólido algo más chico que el dibujo.
+  // Roca o tronco real (si está la lámina de decoración): sólido, hay que saltarlo o subirse encima.
   ponerRoca(x) {
     const opciones = DECORACION.obstaculos.filter((id) => this.textures.exists(id));
     if (!opciones.length) {
-      this.solidos
+      this.rocas
         .create(x, GROUND_Y + 4, rockTexture(this))
         .setOrigin(0.5, 1)
         .setDepth(6)
@@ -247,10 +249,11 @@ export class ViajeScene extends Phaser.Scene {
       .setOrigin(0.5, 1)
       .setDepth(6);
     img.setScale(DECORACION.escala).setFlipX(this.rnd() < 0.5);
-    const w = img.displayWidth * 0.78,
-      h = img.displayHeight * 0.8;
+    // El cuerpo es un poco más chico que el dibujo (las rocas tienen bordes irregulares y pasto).
+    const w = img.displayWidth * 0.75,
+      h = img.displayHeight * 0.85;
     const cuerpo = this.add.zone(x, GROUND_Y + 8 - h / 2, w, h);
-    this.solidos.add(cuerpo);
+    this.rocas.add(cuerpo);
     cuerpo.body.updateFromGameObject();
   }
 
@@ -280,9 +283,10 @@ export class ViajeScene extends Phaser.Scene {
     if (real) {
       const camina = CAMINANTES[item.id] && real.has("caminar");
       const [vMin, vMax] = ANIMAL_VELOCIDAD;
+      // Ojo: `def` ya es del sprite (sus animaciones); los datos curiosos van en `info`.
       Object.assign(real, {
         animalId: item.id,
-        def,
+        info: def,
         avisado: false,
         charlando: false,
         charlaHasta: 0,
@@ -315,7 +319,7 @@ export class ViajeScene extends Phaser.Scene {
         repeatDelay: 1400,
         ease: "Sine.InOut",
       });
-    Object.assign(a, { animalId: item.id, def, avisado: false, camina: false });
+    Object.assign(a, { animalId: item.id, info: def, avisado: false, camina: false });
     this.animales.push(a);
   }
 
@@ -419,7 +423,7 @@ export class ViajeScene extends Phaser.Scene {
     a.avisado = true;
     this.vistos.add(a.animalId);
     const top = a.getBounds().top - 6;
-    this.decir({ x: bubbleX, getTopCenter: () => ({ y: top }) }, `¡${a.def.nombre}!\n${a.def.dato}`, CHARLA_MS, 12);
+    this.decir({ x: bubbleX, getTopCenter: () => ({ y: top }) }, `¡${a.info.nombre}!\n${a.info.dato}`, CHARLA_MS, 12);
   }
 
   seguirCaminando(a) {
