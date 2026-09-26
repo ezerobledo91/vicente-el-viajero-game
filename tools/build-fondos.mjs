@@ -91,7 +91,15 @@ async function main() {
         .extract({ left: 0, top, width: CIUDAD.w, height: CIUDAD.h })
         .webp(WEBP)
         .toFile(file);
-      manifest.ciudades[id] = { tipo: "postal", ancho: CIUDAD.w, alto: CIUDAD.h, cielo: colorCielo(img) };
+      // pie: y de pantalla donde pisan los personajes; parada: x donde se frena Vicente (opcionales).
+      manifest.ciudades[id] = {
+        tipo: "postal",
+        ancho: CIUDAD.w,
+        alto: CIUDAD.h,
+        cielo: colorCielo(img),
+        pie: c.pie,
+        parada: c.parada,
+      };
     }
     console.log(`✔ ciudad ${id} (${c.tipo})`);
   }

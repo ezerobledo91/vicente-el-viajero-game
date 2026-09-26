@@ -1,5 +1,5 @@
 {
-  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera).",
+  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera). En las postales, 'pie' es la altura (y en pantalla) donde se paran los personajes y 'parada' la x donde se frena Vicente.",
   "output": "public/assets/fondos",
   "tramos": {
     "bosque-fueguino": {
@@ -53,7 +53,9 @@
     "calafate": {
       "tipo": "postal",
       "src": "personajes/paises/argentina/ciudades/calafate-glaciar.png",
-      "foco": 0.55
+      "foco": 0.55,
+      "pie": 712,
+      "parada": 190
     },
     "madryn": {
       "tipo": "panorama",

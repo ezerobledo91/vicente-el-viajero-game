@@ -47,6 +47,8 @@ export class CiudadScene extends Phaser.Scene {
     this.viaje = getViaje(this.paisId);
     this.ciudad = this.viaje.ciudades[this.ciudadIndex];
     this.progreso = getProgresoViaje(this.paisId);
+    this.pisoY = GROUND_Y;
+    this.paradaX = 290;
     this.fondoIlustrado = this.dibujarFondo();
     this.dibujarMonumento();
     this.cameras.main.fadeIn(400);
@@ -71,9 +73,9 @@ export class CiudadScene extends Phaser.Scene {
       }).setDepth(60);
 
     const opts = { pxPerCm: PX_PER_CM.viaje };
-    this.vicente = new Character(this, -60, GROUND_Y, "vicente", opts).setDepth(10);
+    this.vicente = new Character(this, -60, this.pisoY, "vicente", opts).setDepth(10);
     this.companeros = this.progreso.companeros.map((id, i) =>
-      new Character(this, -140 - i * 70, GROUND_Y, id, opts).setDepth(9)
+      new Character(this, -140 - i * 70, this.pisoY, id, opts).setDepth(9)
     );
 
     this.secuencia();
@@ -87,6 +89,9 @@ export class CiudadScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor(info.cielo);
       // En los panoramas, la vereda dibujada queda a la altura del piso del juego.
       const y = info.tipo === "panorama" ? GROUND_Y - info.piso : 0;
+      // En algunas postales el lugar para pararse no está a la altura normal (el mirador del glaciar).
+      if (info.pie) this.pisoY = info.pie;
+      if (info.parada) this.paradaX = info.parada;
       this.add.image(0, y, key).setOrigin(0).setDepth(-20);
       return true;
     }
@@ -124,8 +129,8 @@ export class CiudadScene extends Phaser.Scene {
   }
 
   async secuencia() {
-    this.companeros.forEach((c, i) => c.walkTo(200 - i * 80, 200));
-    await this.vicente.walkTo(290, 200);
+    this.companeros.forEach((c, i) => c.walkTo(this.paradaX - 90 - i * 80, 200));
+    await this.vicente.walkTo(this.paradaX, 200);
     await this.say(this.vicente, this.ciudad.dato, 3200);
 
     if (this.ciudad.evento === "hogar") await this.hogar();

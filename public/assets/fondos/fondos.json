@@ -69,7 +69,9 @@
       "tipo": "postal",
       "ancho": 1280,
       "alto": 720,
-      "cielo": "#43a5fc"
+      "cielo": "#43a5fc",
+      "pie": 712,
+      "parada": 190
     },
     "madryn": {
       "tipo": "panorama",

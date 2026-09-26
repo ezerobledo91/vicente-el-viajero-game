@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
+import { FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Player } from "../entities/Player.js";
 import { Companion } from "../entities/Companion.js";
 import { Character } from "../entities/Character.js";
@@ -22,6 +22,7 @@ import {
   platformTexture,
   rockTexture,
   signTexture,
+  CARTEL,
   starTexture,
 } from "../systems/placeholders.js";
 
@@ -213,25 +214,41 @@ export class ViajeScene extends Phaser.Scene {
       case "animal":
         this.spawnAnimal(item);
         break;
-      case "cartel": {
-        const c = this.add
-          .image(item.x, GROUND_Y + 4, signTexture(this))
-          .setOrigin(0.5, 1)
-          .setDepth(4);
-        this.add
-          .text(item.x + 12, GROUND_Y - 145, this.hasta.nombre, {
-            fontFamily: FONT,
-            fontSize: "14px",
-            color: COLORS.inkDark,
-            align: "center",
-            wordWrap: { width: 190 },
-          })
-          .setOrigin(0.5)
-          .setDepth(4);
-        this.cartel = c;
+      case "cartel":
+        this.ponerCartel(item.x);
         break;
-      }
     }
+  }
+
+  // Cartel de llegada con el nombre de la ciudad; se balancea un poco para llamar la atención.
+  ponerCartel(x) {
+    const { h, tabla: t, w } = CARTEL;
+    const base = GROUND_Y + 8;
+    const c = this.add.container(x, base).setDepth(4);
+    const img = this.add.image(0, 0, signTexture(this)).setOrigin(0.5, 1);
+    const cx = t.x + t.w / 2 - w / 2,
+      top = -h + t.y;
+    const texto = (y, s, size, color) =>
+      this.add
+        .text(cx, top + y, s, {
+          fontFamily: FONT,
+          fontSize: `${size}px`,
+          color,
+          align: "center",
+          stroke: "#f6e3c4",
+          strokeThickness: 3,
+        })
+        .setOrigin(0.5);
+    const nombre = texto(t.h / 2 + 4, this.hasta.nombre, 20, "#3a2212");
+    if (nombre.width > t.w - 40) nombre.setFontSize(Math.floor((20 * (t.w - 40)) / nombre.width));
+    c.add([
+      img,
+      texto(24, "Bienvenidos a", 10, "#5e3a1e"),
+      nombre,
+      texto(t.h - 22, this.hasta.provincia ?? "", 9, "#5e3a1e"),
+    ]);
+    this.tweens.add({ targets: c, angle: 1.5, duration: 1400, yoyo: true, repeat: -1, ease: "Sine.InOut" });
+    this.cartel = c;
   }
 
   // Roca o tronco real (si está la lámina de decoración): sólido, hay que saltarlo o subirse encima.

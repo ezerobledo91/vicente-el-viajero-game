@@ -307,13 +307,65 @@ export function rockTexture(scene) {
   });
 }
 
+// Cartel de llegada: tablón de madera con vetas y clavos sobre dos postes, pasto al pie y banderín.
+// El texto (ciudad y provincia) se escribe encima desde la escena. Medidas en CARTEL.
+export const CARTEL = { w: 360, h: 300, tabla: { x: 10, y: 60, w: 340, h: 132 } };
+
 export function signTexture(scene) {
-  const w = 240,
-    h = 190;
-  return canvasTexture(scene, "ph-cartel", w, h, (ctx) => {
-    shape(ctx, "#6b4a2a", rect(ctx, w / 2 - 8, 70, 16, h - 72, 3));
-    shape(ctx, "#f4e2b8", rect(ctx, 4, 4, w - 8, 80, 10));
-    shape(ctx, "#d9463a", rect(ctx, 14, 14, 26, 26, 4), false);
+  const { w, h, tabla: t } = CARTEL;
+  return canvasTexture(scene, "ph-cartel-v2", w, h, (ctx) => {
+    const madera = "#a86b3c",
+      oscura = "#7a4a26",
+      clara = "#c98a52";
+    // Postes
+    for (const px of [70, w - 90]) {
+      shape(ctx, oscura, rect(ctx, px, t.y + 20, 20, h - t.y - 26, 3));
+      ctx.fillStyle = "#5e3a1e";
+      ctx.fillRect(px + 13, t.y + 24, 4, h - t.y - 34);
+    }
+    // Mástil y banderín (celeste y blanco)
+    shape(ctx, "#8a8f98", rect(ctx, w - 42, 4, 6, t.y + 8, 2));
+    ctx.beginPath();
+    ctx.moveTo(w - 36, 8);
+    ctx.lineTo(w - 36 + 44, 18);
+    ctx.lineTo(w - 36, 30);
+    ctx.closePath();
+    ctx.fillStyle = "#75b8ec";
+    ctx.fill();
+    ctx.strokeStyle = OUTLINE;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(w - 34, 16, 24, 4);
+    // Tablón con sombra
+    ctx.fillStyle = "rgba(0,0,0,0.25)";
+    ctx.beginPath();
+    ctx.roundRect(t.x + 5, t.y + 7, t.w, t.h, 12);
+    ctx.fill();
+    shape(ctx, madera, rect(ctx, t.x, t.y, t.w, t.h, 12));
+    // Tablas y vetas
+    ctx.fillStyle = oscura;
+    for (const y of [t.y + t.h / 3, t.y + (2 * t.h) / 3]) ctx.fillRect(t.x + 4, y - 1, t.w - 8, 3);
+    ctx.fillStyle = clara;
+    for (let k = 0; k < 9; k++)
+      ctx.fillRect(t.x + 18 + ((k * 97) % (t.w - 60)), t.y + 10 + ((k * 41) % (t.h - 20)), 26 + (k % 3) * 10, 3);
+    // Borde interior claro
+    ctx.strokeStyle = clara;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(t.x + 8, t.y + 8, t.w - 16, t.h - 16, 8);
+    ctx.stroke();
+    // Clavos
+    for (const [cx, cy] of [
+      [t.x + 16, t.y + 16],
+      [t.x + t.w - 16, t.y + 16],
+      [t.x + 16, t.y + t.h - 16],
+      [t.x + t.w - 16, t.y + t.h - 16],
+    ])
+      shape(ctx, "#d9d4c7", ellipse(ctx, cx, cy, 4, 4));
+    // Pasto al pie
+    ctx.fillStyle = "#5f9d45";
+    for (let x = 40; x < w - 40; x += 9) ctx.fillRect(x, h - 10 - ((x * 7) % 12), 5, 12 + ((x * 7) % 12));
   });
 }
 
