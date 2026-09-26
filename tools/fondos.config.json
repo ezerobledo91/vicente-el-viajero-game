@@ -66,7 +66,9 @@
     "buenosaires": {
       "tipo": "postal",
       "src": "personajes/paises/argentina/ciudades/buenosaires-obelisco.png",
-      "foco": 0.6
+      "foco": 1,
+      "pie": 692,
+      "parada": 300
     },
     "rosario": {
       "tipo": "panorama",

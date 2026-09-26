@@ -84,7 +84,9 @@
       "tipo": "postal",
       "ancho": 1280,
       "alto": 720,
-      "cielo": "#43a6fc"
+      "cielo": "#43a6fc",
+      "pie": 692,
+      "parada": 300
     },
     "rosario": {
       "tipo": "panorama",
