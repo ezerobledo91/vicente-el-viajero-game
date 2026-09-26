@@ -17,6 +17,15 @@ Después de agregar o cambiar algo, corré el comando de la última columna (o `
 | `paises/<pais>/ciudades/` | Fondos de llegada a cada ciudad: panorama 3:1 o postal 4:3                                                                        | `tools/fondos.config.json`                                | `npm run fondos`     |
 | `paises/<pais>/extras/`   | Arte que todavía no se usa (calles, rutas, objetos de ciudad)                                                                     | —                                                         | —                    |
 
+## Vicente: un PNG por acción
+
+`familia/vicente/` tiene un archivo por animación, con fondo transparente y los cuadros uno al lado del otro:
+`caminar.png`, `pensar.png`, `victoria.png`, `interactuar.png`, `salto.png`, `festejo.png`, `descanso.png`,
+`enojado.png`, `aburrido.png`, `agachar.png`. Para cambiar una animación, reemplazá su archivo (con la misma
+cantidad de cuadros, o cambiá `frames` en `tools/sprites.config.json`) y corré `npm run sprites`.
+No importa el tamaño de la imagen: cada acción se escala para que Vicente mida siempre lo mismo.
+Para sumar una acción nueva, agregá el PNG y una línea en `animations` de Vicente en la config.
+
 ## Nombres
 
 Usá nombres cortos en minúscula y con guiones: `bosque-fueguino.png`, `rosario-centro.png`,
