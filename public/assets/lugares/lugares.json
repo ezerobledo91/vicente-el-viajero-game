@@ -1,0 +1,372 @@
+{
+  "characters": [
+    {
+      "id": "obelisco",
+      "grupo": "lugares",
+      "nombre": "lugar 1",
+      "facing": "right",
+      "alturaCm": 294,
+      "alturaPx": 292,
+      "texture": "obelisco.png",
+      "frameWidth": 269,
+      "frameHeight": 296,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cabildo",
+      "grupo": "lugares",
+      "nombre": "lugar 2",
+      "facing": "right",
+      "alturaCm": 275,
+      "alturaPx": 274,
+      "texture": "cabildo.png",
+      "frameWidth": 307,
+      "frameHeight": 278,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "monumento-bandera",
+      "grupo": "lugares",
+      "nombre": "lugar 3",
+      "facing": "right",
+      "alturaCm": 305,
+      "alturaPx": 303,
+      "texture": "monumento-bandera.png",
+      "frameWidth": 288,
+      "frameHeight": 307,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "puente-colgante",
+      "grupo": "lugares",
+      "nombre": "lugar 4",
+      "facing": "right",
+      "alturaCm": 234,
+      "alturaPx": 234,
+      "texture": "puente-colgante.png",
+      "frameWidth": 483,
+      "frameHeight": 238,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "faro",
+      "grupo": "lugares",
+      "nombre": "lugar 5",
+      "facing": "right",
+      "alturaCm": 270,
+      "alturaPx": 267,
+      "texture": "faro.png",
+      "frameWidth": 271,
+      "frameHeight": 271,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "glaciar",
+      "grupo": "lugares",
+      "nombre": "lugar 6",
+      "facing": "right",
+      "alturaCm": 228,
+      "alturaPx": 226,
+      "texture": "glaciar.png",
+      "frameWidth": 376,
+      "frameHeight": 230,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cataratas",
+      "grupo": "lugares",
+      "nombre": "lugar 7",
+      "facing": "right",
+      "alturaCm": 225,
+      "alturaPx": 223,
+      "texture": "cataratas.png",
+      "frameWidth": 350,
+      "frameHeight": 227,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "puente-belgrano",
+      "grupo": "lugares",
+      "nombre": "lugar 8",
+      "facing": "right",
+      "alturaCm": 249,
+      "alturaPx": 247,
+      "texture": "puente-belgrano.png",
+      "frameWidth": 365,
+      "frameHeight": 251,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cola-ballena",
+      "grupo": "lugares",
+      "nombre": "lugar 9",
+      "facing": "right",
+      "alturaCm": 202,
+      "alturaPx": 201,
+      "texture": "cola-ballena.png",
+      "frameWidth": 303,
+      "frameHeight": 205,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "colectivo",
+      "grupo": "lugares",
+      "nombre": "lugar 10",
+      "facing": "right",
+      "alturaCm": 192,
+      "alturaPx": 190,
+      "texture": "colectivo.png",
+      "frameWidth": 292,
+      "frameHeight": 194,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "plaza-mastiles",
+      "grupo": "lugares",
+      "nombre": "lugar 11",
+      "facing": "right",
+      "alturaCm": 207,
+      "alturaPx": 205,
+      "texture": "plaza-mastiles.png",
+      "frameWidth": 379,
+      "frameHeight": 209,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "puente-selva",
+      "grupo": "lugares",
+      "nombre": "lugar 12",
+      "facing": "right",
+      "alturaCm": 210,
+      "alturaPx": 209,
+      "texture": "puente-selva.png",
+      "frameWidth": 362,
+      "frameHeight": 213,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "kiosco",
+      "grupo": "lugares",
+      "nombre": "lugar 13",
+      "facing": "right",
+      "alturaCm": 245,
+      "alturaPx": 243,
+      "texture": "kiosco.png",
+      "frameWidth": 307,
+      "frameHeight": 247,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cartel-ruta",
+      "grupo": "lugares",
+      "nombre": "lugar 14",
+      "facing": "right",
+      "alturaCm": 240,
+      "alturaPx": 240,
+      "texture": "cartel-ruta.png",
+      "frameWidth": 216,
+      "frameHeight": 244,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "bandera-mastil",
+      "grupo": "lugares",
+      "nombre": "lugar 15",
+      "facing": "right",
+      "alturaCm": 248,
+      "alturaPx": 245,
+      "texture": "bandera-mastil.png",
+      "frameWidth": 298,
+      "frameHeight": 249,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mate-gigante",
+      "grupo": "lugares",
+      "nombre": "lugar 16",
+      "facing": "right",
+      "alturaCm": 227,
+      "alturaPx": 224,
+      "texture": "mate-gigante.png",
+      "frameWidth": 323,
+      "frameHeight": 228,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

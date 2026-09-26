@@ -6,7 +6,7 @@
 // `etiqueta` (opcional): dónde va el nombre en el mapa del viaje ("izq", "der", "arriba", "abajo").
 //
 // Tramos: `paisaje` (src/data/paisajes.js), `animales` nativos (src/data/animales.js),
-// `pajaro` que hay que esquivar, `largo` en píxeles y `dificultad` de 1 a 3.
+// `pajaro` que hay que esquivar (uno o una lista: se van alternando), `largo` en píxeles y `dificultad` de 1 a 3.
 
 export const VIAJE_ARGENTINA = {
   pais: "ar",
@@ -285,9 +285,21 @@ export const VIAJE_ARGENTINA = {
       dificultad: 1,
     },
     { paisaje: "costa", animales: ["pinguino", "choique", "guanaco"], pajaro: "gaviota", largo: 10400, dificultad: 2 },
-    { paisaje: "pampa", animales: ["hornero", "tatu"], pajaro: "tero", largo: 10400, dificultad: 2 },
-    { paisaje: "rio", animales: ["carpincho", "garza"], pajaro: "tero", largo: 9400, dificultad: 2 },
-    { paisaje: "humedal", animales: ["carpincho", "garza", "yacare"], pajaro: "mosquito", largo: 9400, dificultad: 2 },
+    { paisaje: "pampa", animales: ["hornero", "tatu"], pajaro: ["tero", "colibri"], largo: 10400, dificultad: 2 },
+    {
+      paisaje: "rio",
+      animales: ["carpincho", "garza", "tortuga"],
+      pajaro: ["tero", "loro"],
+      largo: 9400,
+      dificultad: 2,
+    },
+    {
+      paisaje: "humedal",
+      animales: ["garza", "carpincho", "yacare", "rana"],
+      pajaro: ["mosquito", "libelula"],
+      largo: 9400,
+      dificultad: 2,
+    },
     { paisaje: "humedal", animales: ["yacare", "carpincho", "mono"], pajaro: "mosquito", largo: 10100, dificultad: 3 },
     { paisaje: "selva", animales: ["tucan", "coati", "mono"], pajaro: "tucan", largo: 10400, dificultad: 3 },
     { paisaje: "cataratas", animales: ["coati", "jaguarete", "tucan"], pajaro: "tucan", largo: 10800, dificultad: 3 },

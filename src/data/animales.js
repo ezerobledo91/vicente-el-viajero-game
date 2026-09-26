@@ -3,6 +3,21 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  rana: {
+    sprite: "rana",
+    nombre: "Rana",
+    dato: "Empieza su vida como renacuajo nadando en el agua, ¡y después le salen patas!",
+  },
+  tortuga: {
+    sprite: "tortuga",
+    nombre: "Tortuga de agua",
+    dato: "Cuando tiene miedo, esconde la cabeza y las patas adentro del caparazón.",
+  },
+  guara: {
+    sprite: "guara",
+    nombre: "Cuervillo de cañada",
+    dato: "Usa su pico largo y curvo para buscar bichitos en el barro de las lagunas.",
+  },
   jaguarete: {
     sprite: "jaguarete",
     nombre: "Yaguareté",
@@ -171,6 +186,9 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
+  loro: { nombre: "Loro", sprite: "loro", anim: "volar", velocidad: 125 },
+  libelula: { nombre: "Libélula", sprite: "libelula", anim: "volar", velocidad: 140 },
   tucan: { nombre: "Tucán", sprite: "tucan", anim: "volar", velocidad: 120 },
   gaviota: {
     sprite: "gaviota",
@@ -217,14 +235,25 @@ export const PAJAROS = {
     h: 18,
     velocidad: 150,
   },
-  loro: { nombre: "Loro", color: "#3bb54a", ala: "#1f7fd1", pico: "#f2c23a", w: 50, h: 32, velocidad: 120 },
 };
 
 // Coleccionables del camino (sprites de la lámina de animales). La mayoría son estrellas;
 // cada tanto aparece uno especial.
 export const COLECCIONABLES = {
   comun: "estrella",
-  especiales: ["sol", "mate", "huella", "bandera", "valija"],
+  especiales: [
+    "sol",
+    "mate",
+    "pluma",
+    "huella",
+    "nido",
+    "bandera",
+    "hoja",
+    "huevo",
+    "valija",
+    "binoculares",
+    "huella-yaguarete",
+  ],
   cadaCuantos: 6,
   // Nombre y rareza para el perfil de Vicente (más adelante se pueden sumar cartas mejores o peores).
   info: {
@@ -234,6 +263,12 @@ export const COLECCIONABLES = {
     huella: { nombre: "Huella", rareza: "especial" },
     bandera: { nombre: "Bandera", rareza: "rara" },
     valija: { nombre: "Valija viajera", rareza: "rara" },
+    pluma: { nombre: "Pluma", rareza: "especial" },
+    nido: { nombre: "Nido", rareza: "especial" },
+    hoja: { nombre: "Hoja de selva", rareza: "especial" },
+    huevo: { nombre: "Huevo", rareza: "rara" },
+    binoculares: { nombre: "Binoculares", rareza: "rara" },
+    "huella-yaguarete": { nombre: "Huella de yaguareté", rareza: "rara" },
   },
 };
 
@@ -252,6 +287,9 @@ export const CAMINANTES = {
   mono: {},
   jaguarete: {},
 };
+
+// Animales que viven en el agua: se dibujan parados en un charco o laguito.
+export const EN_EL_AGUA = ["flamenco", "garza", "guara", "tortuga", "rana"];
 
 // Perro trampolín: no hace daño, si Vicente cae encima rebota más alto.
 export const PERRO = { sprite: "perro", quieto: "sentado", rebote: "saltar" };

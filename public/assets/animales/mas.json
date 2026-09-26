@@ -1,0 +1,452 @@
+{
+  "characters": [
+    {
+      "id": "yacare",
+      "grupo": "animales",
+      "nombre": "Yacaré",
+      "facing": "right",
+      "alturaCm": 62,
+      "alturaPx": 90,
+      "texture": "yacare.png",
+      "frameWidth": 170,
+      "frameHeight": 94,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "boca",
+          "label": "boca",
+          "frames": [
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "colibri",
+      "grupo": "animales",
+      "nombre": "Colibrí",
+      "facing": "right",
+      "alturaCm": 30,
+      "alturaPx": 81,
+      "texture": "colibri.png",
+      "frameWidth": 88,
+      "frameHeight": 86,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 14,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tortuga",
+      "grupo": "animales",
+      "nombre": "Tortuga",
+      "facing": "right",
+      "alturaCm": 30,
+      "alturaPx": 70,
+      "texture": "tortuga.png",
+      "frameWidth": 107,
+      "frameHeight": 74,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 3,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "rana",
+      "grupo": "animales",
+      "nombre": "Rana",
+      "facing": "right",
+      "alturaCm": 26,
+      "alturaPx": 71,
+      "texture": "rana.png",
+      "frameWidth": 82,
+      "frameHeight": 75,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": [
+            1
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guara",
+      "grupo": "animales",
+      "nombre": "Guará",
+      "facing": "left",
+      "alturaCm": 90,
+      "alturaPx": 101,
+      "texture": "guara.png",
+      "frameWidth": 104,
+      "frameHeight": 105,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "loro",
+      "grupo": "animales",
+      "nombre": "Loro",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 101,
+      "texture": "loro.png",
+      "frameWidth": 106,
+      "frameHeight": 105,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "buho",
+      "grupo": "animales",
+      "nombre": "Búho",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 101,
+      "texture": "buho.png",
+      "frameWidth": 118,
+      "frameHeight": 105,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            1
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "libelula",
+      "grupo": "animales",
+      "nombre": "Libélula",
+      "facing": "right",
+      "alturaCm": 26,
+      "alturaPx": 80,
+      "texture": "libelula.png",
+      "frameWidth": 90,
+      "frameHeight": 95,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 12,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mariposa",
+      "grupo": "animales",
+      "nombre": "Mariposa",
+      "facing": "right",
+      "alturaCm": 26,
+      "alturaPx": 81,
+      "texture": "mariposa.png",
+      "frameWidth": 109,
+      "frameHeight": 89,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "abeja",
+      "grupo": "animales",
+      "nombre": "Abeja",
+      "facing": "right",
+      "alturaCm": 22,
+      "alturaPx": 80,
+      "texture": "abeja.png",
+      "frameWidth": 83,
+      "frameHeight": 85,
+      "frameCount": 3,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 12,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "sapito",
+      "grupo": "animales",
+      "nombre": "Sapito",
+      "facing": "right",
+      "alturaCm": 24,
+      "alturaPx": 80,
+      "texture": "sapito.png",
+      "frameWidth": 125,
+      "frameHeight": 84,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": [
+            1
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pluma",
+      "grupo": "animales",
+      "nombre": "Pluma",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 130,
+      "texture": "pluma.png",
+      "frameWidth": 135,
+      "frameHeight": 134,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "huella-yaguarete",
+      "grupo": "animales",
+      "nombre": "Huella de yaguareté",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 130,
+      "texture": "huella-yaguarete.png",
+      "frameWidth": 153,
+      "frameHeight": 134,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "nido",
+      "grupo": "animales",
+      "nombre": "Nido",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 131,
+      "texture": "nido.png",
+      "frameWidth": 142,
+      "frameHeight": 135,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "huevo",
+      "grupo": "animales",
+      "nombre": "Huevo",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 130,
+      "texture": "huevo.png",
+      "frameWidth": 150,
+      "frameHeight": 134,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "hoja",
+      "grupo": "animales",
+      "nombre": "Hoja de selva",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 131,
+      "texture": "hoja.png",
+      "frameWidth": 147,
+      "frameHeight": 135,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "binoculares",
+      "grupo": "animales",
+      "nombre": "Binoculares",
+      "facing": "right",
+      "alturaCm": 36,
+      "alturaPx": 131,
+      "texture": "binoculares.png",
+      "frameWidth": 163,
+      "frameHeight": 135,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,8 @@ export const LEVEL = {
   finLibre: 600, // zona sin obstáculos antes del cartel de la ciudad
   roca: { w: 180, h: 64 },
   vidaCada: 2600, // px: cada cuánto aparece un corazón
+  primerAnimal: 2600, // px desde el inicio: el primer animal aparece después de avanzar un poco
+  entreAnimales: 2400, // px mínimos entre un animal y el siguiente (encontrar uno es un hito)
   animalRango: 170, // px que camina cada animal a cada lado de su lugar
 };
 
@@ -161,14 +163,16 @@ export function buildLevel(tramo, seed = 1) {
     items.push(...PATRONES[b.patron](b.x, { vida }));
   }
 
-  // Animales nativos repartidos a lo largo del tramo (cada uno aparece al menos una vez),
-  // corridos si caen justo donde hay una roca, un perro o una plataforma baja.
-  const n = Math.max(tramo.animales.length, Math.round(largo / 1400));
+  // Animales nativos: pocos, bien separados y sin repetir especie (encontrar uno es un hito).
+  // Se corren si caen justo donde hay una roca o un perro.
+  const tramoUtil = hasta - LEVEL.primerAnimal;
+  const n = Math.max(1, Math.min(tramo.animales.length, 1 + Math.floor(tramoUtil / LEVEL.entreAnimales)));
+  const paso = n > 1 ? tramoUtil / (n - 1) : 0;
   const ocupado = (x) => items.some((it) => (it.tipo === "roca" || it.tipo === "perro") && Math.abs(it.x - x) < 170);
   for (let i = 0; i < n; i++) {
-    let x = desde + ((i + 0.5) / n) * (hasta - desde);
+    let x = LEVEL.primerAnimal + i * paso - (i === n - 1 && n > 1 ? 200 : 0);
     for (let intento = 0; intento < 4 && ocupado(x); intento++) x += 120;
-    items.push({ tipo: "animal", id: tramo.animales[i % tramo.animales.length], x, rango: LEVEL.animalRango });
+    items.push({ tipo: "animal", id: tramo.animales[i], x, rango: LEVEL.animalRango });
   }
 
   items.push({ tipo: "cartel", x: largo - 260 });

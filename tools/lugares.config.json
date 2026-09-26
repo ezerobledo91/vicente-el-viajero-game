@@ -1,0 +1,36 @@
+{
+  "_comment": "Lugares importantes del camino (dibujos sueltos): se usan como monumentos en las ciudades o para stickers. ids en orden de lectura.",
+  "source": "personajes/premios/para stickers o visuales lugares importantes del camino.png",
+  "output": "public/assets/lugares",
+  "manifest": "lugares.json",
+  "grupo": "lugares",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 80,
+    "h": 80
+  },
+  "auto": {
+    "prefijo": "lugar",
+    "cmPorPx": 1,
+    "ids": [
+      "obelisco",
+      "cabildo",
+      "monumento-bandera",
+      "puente-colgante",
+      "faro",
+      "glaciar",
+      "cataratas",
+      "puente-belgrano",
+      "cola-ballena",
+      "colectivo",
+      "plaza-mastiles",
+      "puente-selva",
+      "kiosco",
+      "cartel-ruta",
+      "bandera-mastil",
+      "mate-gigante"
+    ]
+  },
+  "characters": []
+}

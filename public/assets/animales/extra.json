@@ -95,13 +95,13 @@
       ]
     },
     {
-      "id": "yacare",
+      "id": "yacare-viejo",
       "grupo": "animales",
       "nombre": "Yacaré",
       "facing": "right",
       "alturaCm": 45,
       "alturaPx": 60,
-      "texture": "yacare.png",
+      "texture": "yacare-viejo.png",
       "frameWidth": 127,
       "frameHeight": 84,
       "frameCount": 4,

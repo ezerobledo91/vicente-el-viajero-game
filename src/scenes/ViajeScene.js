@@ -6,7 +6,7 @@ import { Character } from "../entities/Character.js";
 import { SpeechBubble } from "../ui/SpeechBubble.js";
 import { getViaje } from "../data/viajes/index.js";
 import { PAISAJES } from "../data/paisajes.js";
-import { ANIMALES, CAMINANTES, COLECCIONABLES, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
+import { ANIMALES, CAMINANTES, COLECCIONABLES, EN_EL_AGUA, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
 import { DECORACION } from "../data/decoracion.js";
 import { mulberry32 } from "../systems/levelBuilder.js";
@@ -197,13 +197,16 @@ export class ViajeScene extends Phaser.Scene {
         break;
       }
       case "pajaro": {
-        const def = PAJAROS[this.tramo.pajaro];
+        // Si el tramo tiene varios pájaros, se van alternando (por ejemplo tero en el piso y picaflor volando).
+        const lista = [this.tramo.pajaro].flat();
+        const pid = lista[(this.nPajaros = (this.nPajaros ?? -1) + 1) % lista.length];
+        const def = PAJAROS[pid];
         // Los que corren por el piso (tero) van apoyados; los que vuelan, a la altura del patrón.
         const by = def.suelo ? GROUND_Y + 2 : y;
         let b = this.entidad(def.sprite, item.x, by, { anim: def.anim, depth: 9 });
         if (b && !def.suelo) b.setOrigin(0.5);
         if (!b) {
-          const key = birdTexture(this, this.tramo.pajaro, def);
+          const key = birdTexture(this, pid, def);
           this.crearAnimacion(key, 8);
           b = this.add.sprite(item.x, by, key).setDepth(9).play(`${key}-anim`);
         }
@@ -276,13 +279,41 @@ export class ViajeScene extends Phaser.Scene {
     cuerpo.body.updateFromGameObject();
   }
 
+  // Laguito bajo los animales de agua (flamenco, garza...): agua con borde de barro, brillos y juncos.
+  ponerCharco(x) {
+    const g = this.add.graphics().setDepth(4);
+    const w = 190,
+      h = 30,
+      y = GROUND_Y + 8;
+    g.fillStyle(0x6b4a2a, 1).fillEllipse(x, y, w + 16, h + 10);
+    g.fillStyle(0x3f8fc9, 1).fillEllipse(x, y, w, h);
+    g.fillStyle(0x6fb8e6, 1).fillEllipse(x - 10, y - 3, w * 0.7, h * 0.45);
+    g.fillStyle(0xd8f0ff, 1);
+    for (const [dx, dy, lw] of [
+      [-50, -4, 26],
+      [20, 2, 18],
+      [55, -6, 14],
+    ])
+      g.fillRect(x + dx, y + dy, lw, 3);
+    g.lineStyle(3, 0x4f8a38, 1);
+    for (const [dx, alto] of [
+      [-w / 2 - 2, 34],
+      [-w / 2 + 10, 26],
+      [w / 2 - 6, 30],
+      [w / 2 + 4, 22],
+    ])
+      g.lineBetween(x + dx, y, x + dx + 3, y - alto);
+  }
+
   spawnAnimal(item) {
     const def = ANIMALES[item.id];
     const ballena = def.forma === "ballena";
     // Con fondo ilustrado de la costa, la ballena ya está pintada en el mar.
     if (ballena && this.parallax.imagen) return;
 
-    const real = !ballena && this.entidad(def.sprite, item.x, GROUND_Y + 3);
+    const enAgua = EN_EL_AGUA.includes(item.id);
+    if (enAgua) this.ponerCharco(item.x);
+    const real = !ballena && this.entidad(def.sprite, item.x, GROUND_Y + (enAgua ? 10 : 3));
     if (real) {
       const camina = CAMINANTES[item.id] && real.has("caminar");
       const [vMin, vMax] = ANIMAL_VELOCIDAD;
@@ -424,7 +455,10 @@ export class ViajeScene extends Phaser.Scene {
     }
     if (a.avisado) return;
     a.avisado = true;
+    // Los animales que ya descubrió en otro tramo no vuelven a contar su dato: solo lo miran.
+    if (this.vistos.has(a.animalId)) return;
     this.vistos.add(a.animalId);
+    this.cartelito(bubbleX, a.getBounds().top - 70, "¡Animal nuevo!", "#8ff09a");
     const top = a.getBounds().top - 6;
     this.decir({ x: bubbleX, getTopCenter: () => ({ y: top }) }, `¡${a.info.nombre}!\n${a.info.dato}`, CHARLA_MS, 12);
   }

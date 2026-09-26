@@ -18,7 +18,8 @@ const PREGUNTAS_POR_CIUDAD = 3;
 const ACIERTOS_PARA_SEGUIR = 2;
 const QUIZ_POS = { x: 900, y: 360 };
 // Monumentos que aparecen en la llegada a ciertas ciudades (sprites de la lámina de animales/objetos).
-const MONUMENTOS = { rosario: { id: "monumento", pose: "chico", x: 430, alturaPx: 470 } };
+// Lugares importantes (personajes/premios/…lugares importantes…png, npm run lugares) parados en la vereda.
+const MONUMENTOS = { rosario: { id: "monumento-bandera", x: 470, alturaPx: 330 } };
 const HOGAR = {
   casaX: 700,
   familia: [
@@ -108,8 +109,9 @@ export class CiudadScene extends Phaser.Scene {
     const m = MONUMENTOS[this.ciudad.id];
     if (!m) return;
     try {
-      const c = new Character(this, m.x, GROUND_Y + 6, m.id).setDepth(1);
-      c.loop(m.pose);
+      // Sombra en el piso para que quede apoyado sobre la vereda y no "pegado" al fondo.
+      this.add.ellipse(m.x, this.pisoY + 2, m.alturaPx * 1.05, 22, 0x000000, 0.28).setDepth(1);
+      const c = new Character(this, m.x, this.pisoY + 6, m.id).setDepth(1);
       c.setScale(m.alturaPx / c.def.alturaPx);
     } catch {
       // Sin el sprite del monumento, la ciudad se muestra igual.

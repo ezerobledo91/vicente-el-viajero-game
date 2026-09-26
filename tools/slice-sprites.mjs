@@ -20,6 +20,7 @@ const config = JSON.parse(await fs.readFile(configPath, "utf8"));
 
 const PAGE_TOLERANCE = 18; // distancia al color de página para considerar "no página"
 const MIN_CELL = config.minCell ?? { w: 80, h: 150 }; // lo más chico que se considera un cuadro
+const REGION_TOLERANCIA = 80; // modo región: distancia al color de fondo para borrarlo
 const SUELTO_MARGEN = 12; // px de página alrededor de cada dibujo suelto
 const ROW_TOLERANCE = 50; // diferencia de "y" para considerar dos cuadros en la misma fila
 const SPLIT_SEARCH = 24; // px alrededor del corte nominal donde se busca la separación real
@@ -371,7 +372,64 @@ const boxH = (f) => f.box.y1 - f.box.y0 + 1;
 // Se separan por columnas vacías; si quedan pedazos de más (un "?", una burbuja), se unen al vecino más cercano.
 async function sliceAlphaStrip(file, n) {
   const { data, info } = await sharp(path.join(ROOT, file)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-  const { width: W, height: H } = info;
+  return sliceAlphaBuffer(data, info.width, info.height, n, file);
+}
+
+// Región de una lámina con cuadros sobre fondo (página + color del cuadro): se vuelve transparente
+// el fondo alcanzable desde el borde y se separa igual que un PNG transparente.
+function sliceRegion(img, [rx0, ry0, rx1, ry1], n, label, { huecos = true } = {}) {
+  const W = rx1 - rx0 + 1,
+    H = ry1 - ry0 + 1;
+  const data = Buffer.alloc(W * H * 4);
+  const borde = [];
+  for (let y = 0; y < H; y++)
+    for (let x = 0; x < W; x++) {
+      const p = pixel(img, rx0 + x, ry0 + y),
+        o = (y * W + x) * 4;
+      ((data[o] = p[0]), (data[o + 1] = p[1]), (data[o + 2] = p[2]), (data[o + 3] = 255));
+      if (x === 0 || y === 0 || x === W - 1 || y === H - 1) borde.push(p);
+    }
+  // Colores de fondo: la página y el color más común del borde que no es página (el del cuadro).
+  const page = pixel(img, 5, 5);
+  const noPagina = borde.filter((p) => dist(p, page) >= PAGE_TOLERANCE);
+  const fondos = [page, ...(noPagina.length ? [[0, 1, 2].map((k) => median(noPagina.map((p) => p[k])))] : [])];
+  // El fondo de estos cuadros tiene degradé y brillitos: tolerancia más amplia que en las otras láminas.
+  const distFondo = (o) => Math.min(...fondos.map((c) => dist([data[o], data[o + 1], data[o + 2]], c)));
+  const esFondo = (o) => distFondo(o) < REGION_TOLERANCIA;
+  const quitado = new Uint8Array(W * H),
+    pila = [];
+  const empujar = (i) => !quitado[i] && esFondo(i * 4) && ((quitado[i] = 1), pila.push(i));
+  for (let x = 0; x < W; x++) (empujar(x), empujar((H - 1) * W + x));
+  for (let y = 0; y < H; y++) (empujar(y * W), empujar(y * W + W - 1));
+  while (pila.length) {
+    const p = pila.pop(),
+      x = p % W,
+      y = (p / W) | 0;
+    if (x > 0) empujar(p - 1);
+    if (x < W - 1) empujar(p + 1);
+    if (y > 0) empujar(p - W);
+    if (y < H - 1) empujar(p + W);
+  }
+  // Huecos encerrados del color del fondo (entre patas, alas...).
+  const visto = new Uint8Array(W * H);
+  for (let s0 = 0; huecos && s0 < W * H; s0++) {
+    if (quitado[s0] || visto[s0] || distFondo(s0 * 4) >= HOLE_TOLERANCE) continue;
+    const comp = [s0];
+    visto[s0] = 1;
+    for (let k = 0; k < comp.length; k++) {
+      const p = comp[k],
+        x = p % W,
+        y = (p / W) | 0;
+      for (const q of [x > 0 ? p - 1 : -1, x < W - 1 ? p + 1 : -1, y > 0 ? p - W : -1, y < H - 1 ? p + W : -1])
+        if (q >= 0 && !visto[q] && !quitado[q] && distFondo(q * 4) < HOLE_TOLERANCE) ((visto[q] = 1), comp.push(q));
+    }
+    if (comp.length >= HOLE_MIN_PIXELS) comp.forEach((p) => (quitado[p] = 1));
+  }
+  for (let i = 0; i < W * H; i++) if (quitado[i]) data[i * 4 + 3] = 0;
+  return sliceAlphaBuffer(data, W, H, n, label);
+}
+
+function sliceAlphaBuffer(data, W, H, n, file) {
   const colLlena = Array.from({ length: W }, (_, x) => {
     for (let y = 0; y < H; y++) if (data[(y * W + x) * 4 + 3] > 16) return true;
     return false;
@@ -392,6 +450,24 @@ async function sliceAlphaStrip(file, n) {
     const der = k < tramos.length - 1 ? tramos[k + 1].x0 - tramos[k].x1 : Infinity;
     const a = Math.min(k, izq <= der ? k - 1 : k + 1);
     tramos.splice(a, 2, { x0: tramos[a].x0, x1: tramos[a + 1].x1 });
+  }
+  // Menos cuadros de los esperados: hay dibujos que se tocan. Se parte el tramo más ancho por la
+  // columna con menos dibujo cerca del medio.
+  const tinta = (x) => {
+    let n0 = 0;
+    for (let y = 0; y < H; y++) if (data[(y * W + x) * 4 + 3] > 16) n0++;
+    return n0;
+  };
+  while (tramos.length < n && tramos.length) {
+    let k = 0;
+    tramos.forEach((t, i) => t.x1 - t.x0 > tramos[k].x1 - tramos[k].x0 && (k = i));
+    const t = tramos[k],
+      ancho = t.x1 - t.x0,
+      desde = t.x0 + Math.round(ancho * 0.3),
+      hasta = t.x0 + Math.round(ancho * 0.7);
+    let corte = desde;
+    for (let x = desde; x <= hasta; x++) if (tinta(x) < tinta(corte)) corte = x;
+    tramos.splice(k, 1, { x0: t.x0, x1: corte - 1 }, { x0: corte, x1: t.x1 });
   }
   if (tramos.length !== n) throw new Error(`${file}: se encontraron ${tramos.length} cuadros y se esperaban ${n}`);
   return tramos.map(({ x0, x1 }) => {
@@ -419,10 +495,12 @@ async function sliceAlphaStrip(file, n) {
 // Personaje armado con un PNG por animación (char.archivos): cada animación se escala para que el
 // personaje mida char.alturaPx. `referencia`: "mediana" (poses paradas) o "max" (salto, agacharse),
 // y `ajuste` corrige si la pose de referencia es más alta o más baja que parado.
-async function framesDesdeArchivos(char) {
+async function framesDesdeArchivos(char, img) {
   const groups = [];
   for (const anim of char.animations) {
-    const frames = await sliceAlphaStrip(anim.archivo, anim.frames);
+    const frames = anim.region
+      ? sliceRegion(img, anim.region, anim.frames, `${char.id}.${anim.key}`, { huecos: anim.huecos !== false })
+      : await sliceAlphaStrip(anim.archivo, anim.frames);
     const ref = anim.referencia === "max" ? Math.max(...frames.map(boxH)) : median(frames.map(boxH));
     const factor = (char.alturaPx * (anim.ajuste ?? 1)) / ref;
     groups.push({ anim, frames: await Promise.all(frames.map((fr) => scaleFrame(fr, factor))) });
@@ -533,7 +611,9 @@ async function buildCharacter(char, frames, outDir) {
 
 async function main() {
   const img = await loadRaw(path.join(ROOT, config.source));
-  let cells = detectCells(img, config.rows, { sueltos: !!config.sueltos });
+  // Si todos los personajes vienen de archivos o regiones, no hace falta detectar cuadros en la lámina.
+  const soloRegiones = config.characters.length && config.characters.every((c) => c.archivos);
+  let cells = soloRegiones ? [] : detectCells(img, config.rows, { sueltos: !!config.sueltos });
   // omitir: índices (desde 1) de dibujos detectados que no sirven. manual: recuadros a mano {x, y, w, h, forma?}.
   if (config.omitir) cells = cells.filter((_, i) => !config.omitir.includes(i + 1));
   for (const m of config.manual ?? []) cells.push({ ...m, suelto: !m.forma });
@@ -556,7 +636,7 @@ async function main() {
     (n, c) => n + (c.archivos ? (c.cuadrosEnLamina ?? 0) : c.animations.reduce((m, a) => m + a.frames, 0)),
     0
   );
-  if (cells.length !== expected)
+  if (!soloRegiones && cells.length !== expected)
     throw new Error(
       `Se detectaron ${cells.length} cuadros pero la config espera ${expected}. Revisá sprites.config.json.`
     );
@@ -571,7 +651,7 @@ async function main() {
     if (char.archivos) {
       // Sus cuadros de la lámina principal se saltean: usa un PNG por animación.
       cursor += char.cuadrosEnLamina ?? 0;
-      groups = await framesDesdeArchivos(char);
+      groups = await framesDesdeArchivos(char, img);
     } else
       groups = char.animations.map((anim) => {
         const g = {

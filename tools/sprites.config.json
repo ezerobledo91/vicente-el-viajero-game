@@ -164,60 +164,94 @@
       "nombre": "Mamá",
       "rol": "Con Catalina (bebé)",
       "alturaCm": 162,
-      "facing": "left",
+      "facing": "right",
       "animations": [
         {
           "key": "caminar",
           "label": "Caminar",
-          "frames": 7,
-          "fps": 8,
-          "repeat": -1
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1,
+          "archivo": "personajes/familia/mama/caminar.png"
+        },
+        {
+          "key": "interactuar",
+          "label": "Interactuar",
+          "frames": 3,
+          "fps": 3,
+          "repeat": 1,
+          "archivo": "personajes/familia/mama/interactuar.png"
         }
       ],
       "alias": [
         {
           "key": "idle",
           "label": "Quieta",
-          "from": "caminar",
-          "frames": [0],
+          "from": "interactuar",
+          "frames": [1],
           "fps": 1,
           "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "Saludar",
+          "from": "interactuar",
+          "frames": [0],
+          "fps": 1,
+          "repeat": -1,
+          "hidden": true
         }
-      ]
+      ],
+      "archivos": true,
+      "cuadrosEnLamina": 7,
+      "alturaPx": 160
     },
     {
       "id": "papa",
       "nombre": "Papá",
       "rol": "Ezequiel",
       "alturaCm": 175,
-      "facing": "left",
+      "facing": "right",
       "animations": [
         {
-          "key": "idle",
-          "label": "Quieto",
-          "frames": 5,
-          "fps": 5,
-          "repeat": -1
+          "key": "caminar",
+          "label": "Caminar",
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1,
+          "archivo": "personajes/familia/papa/caminar.png"
         },
         {
           "key": "interactuar",
           "label": "Interactuar",
-          "frames": 2,
-          "fps": 2,
-          "repeat": 1
+          "frames": 3,
+          "fps": 3,
+          "repeat": 1,
+          "archivo": "personajes/familia/papa/interactuar.png"
         }
       ],
       "alias": [
         {
+          "key": "idle",
+          "label": "Quieto",
+          "from": "interactuar",
+          "frames": [1],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [0],
           "fps": 1,
           "repeat": -1,
           "hidden": true
         }
-      ]
+      ],
+      "archivos": true,
+      "cuadrosEnLamina": 7,
+      "alturaPx": 160
     },
     {
       "id": "anita",
