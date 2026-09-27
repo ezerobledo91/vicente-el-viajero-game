@@ -176,11 +176,12 @@
   },
   "ciudades": {
     "ushuaia": {
-      "tipo": "panorama",
-      "piso": 600,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#4eaef4"
+      "alto": 720,
+      "cielo": "#43aefb",
+      "pie": 606,
+      "parada": 300
     },
     "calafate": {
       "tipo": "postal",

@@ -52,10 +52,10 @@
   },
   "ciudades": {
     "ushuaia": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/tramos/bosque-fueguino/panorama-original.png",
-      "piso": 600,
-      "x": 820
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/ushuaia-costanera.webp",
+      "pie": 606,
+      "parada": 300
     },
     "calafate": {
       "tipo": "postal",
