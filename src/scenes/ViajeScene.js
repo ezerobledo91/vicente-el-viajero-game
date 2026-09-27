@@ -14,6 +14,8 @@ import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
+import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe } from "../systems/ajustes.js";
+import { Editor } from "../systems/editor.js";
 import {
   actualizarViaje,
   animalesVistos,
@@ -84,9 +86,12 @@ export class ViajeScene extends Phaser.Scene {
     super({ key: SCENES.VIAJE, physics: { default: "arcade", arcade: { gravity: { y: GRAVEDAD } } } });
   }
 
-  init({ paisId, tramo }) {
+  init({ paisId, tramo, editorX }) {
     this.paisId = paisId;
     this.tramoIndex = tramo;
+    this.editorX = editorX ?? 0; // al reiniciar desde el editor, dónde estaba mirando
+    this.editables = []; // adornos que se pueden mover y agrandar con el editor
+    this.cuentaAdornos = {};
     // La escena se reutiliza entre tramos: se limpia lo que quedó del anterior.
     this.vidasInfinitas = false;
     this.cartel = null;
@@ -207,6 +212,11 @@ export class ViajeScene extends Phaser.Scene {
       });
     }
 
+    if (editorActivo()) {
+      this.editor = new Editor(this);
+      return;
+    }
+    this.editor = null;
     this.scene.launch(SCENES.VIAJE_HUD, { viaje: this });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scene.stop(SCENES.VIAJE_HUD));
     this.time.delayedCall(400, () => this.decir(this.player, `¡Vamos a ${this.hasta.nombre}!`, 2200));
@@ -363,12 +373,23 @@ export class ViajeScene extends Phaser.Scene {
 
   // ---------- Transiciones y ambientación (kits de Codex) ----------
   // Adorno apoyado en el piso, de `altura` px (detrás de Vicente).
-  adorno(key, x, altura, depth = 3) {
+  // Cada adorno tiene un id estable (<textura>#<n>) para que el editor pueda moverlo u ocultarlo.
+  adorno(key, x, altura, depth = 3, { fijo = false } = {}) {
     if (!this.textures.exists(key)) return null;
+    const n = (this.cuentaAdornos[key] = (this.cuentaAdornos[key] ?? -1) + 1);
+    const id = `${key}#${n}`;
+    const aj = ajusteObjeto(this, this.tramoIndex, id);
+    if (aj.oculto && !editorActivo() && !fijo) return null;
+    const bx = Math.round(x),
+      by = GROUND_Y + 6;
     const img = this.add
-      .image(Math.round(x), GROUND_Y + 6, key, 0)
+      .image(bx + (aj.dx ?? 0), by + (aj.dy ?? 0), key, 0)
       .setOrigin(0.5, 1)
       .setDepth(depth);
+    Object.assign(img, { editId: id, baseX: bx, baseY: by, adjuntos: [], fijo, altoBase: altura });
+    if (aj.oculto) img.setAlpha(0.35);
+    this.editables.push(img);
+    altura *= escalaDe(this, key);
     return img.setScale(altura / img.height);
   }
 
@@ -390,6 +411,7 @@ export class ViajeScene extends Phaser.Scene {
         .setOrigin(0.5)
         .setDepth(img.depth + 0.1);
       if (t.width > ancho) t.setFontSize(Math.floor((size * ancho) / t.width));
+      img.adjuntos?.push(t); // se mueven junto con el cartel en el editor
       return t;
     });
   }
@@ -430,7 +452,7 @@ export class ViajeScene extends Phaser.Scene {
         for (let k = 0; k < 10 && this.ocupado(mx, 60); k++) mx += 80;
         const falta = Math.max(1, Math.round(km * (1 - mx / this.largo)));
         const m = this.adorno("tr-mojon", mx, T.alturas["tr-mojon"]);
-        if (!m) break;
+        if (!m) continue;
         this.textoEnTabla(m, [0.45, 0.8], [{ s: `${falta}`, size: 11 }], "#2a1d1a", "#f4efe6");
         this.mojones.push({ x: mx, falta, visto: false });
       }
@@ -464,7 +486,8 @@ export class ViajeScene extends Phaser.Scene {
 
   // El cartel de madera del kit de transiciones, con el nombre de la ciudad escrito por el juego.
   ponerCartelMadera(x) {
-    const img = this.adorno("tr-cartel-madera", x, TRANSICIONES.alturas["tr-cartel-madera"], 4);
+    // (fijo: el editor no lo deja ocultar; sin cartel no se llega a la ciudad)
+    const img = this.adorno("tr-cartel-madera", x, TRANSICIONES.alturas["tr-cartel-madera"], 4, { fijo: true });
     this.textoEnTabla(
       img,
       [0.06, 0.44],
@@ -674,7 +697,8 @@ export class ViajeScene extends Phaser.Scene {
     // En píxeles enteros (igual que la cámara), para que no tiemble al caminar.
     const x0 = Math.round(p.x - p.w / 2),
       x1 = Math.round(p.x + p.w / 2);
-    const yAgua = GROUND_Y + PIEZAS.nivelAgua;
+    const ajuste = ajustePaisaje(this, this.tramo.paisaje);
+    const yAgua = GROUND_Y + PIEZAS.nivelAgua + (ajuste.aguaDy ?? 0);
     const t = this.add
       .tileSprite(x0, yAgua, x1 - x0, GAME_HEIGHT - yAgua, agua[0])
       .setOrigin(0)
@@ -699,8 +723,8 @@ export class ViajeScene extends Phaser.Scene {
         const { w, h, agua: a } = info[nombre];
         const img = this.add
           .image(
-            Math.round(borde - a.x * escala),
-            Math.round(yAgua - a.y * escala),
+            Math.round(borde - a.x * escala + (izq ? -1 : 1) * (ajuste.orillaDx ?? 0)),
+            Math.round(yAgua - a.y * escala + (ajuste.orillaDy ?? 0)),
             ASSETS.PIEZA(this.tramo.paisaje, nombre)
           )
           .setOrigin(0)
@@ -857,6 +881,7 @@ export class ViajeScene extends Phaser.Scene {
   update(time, delta) {
     const dt = delta / 1000;
     const cam = this.cameras.main;
+    if (this.editor) return this.editor.update(delta);
     if (this.terminado) return;
 
     const k = this.keys;

@@ -1,5 +1,6 @@
 import { mulberry32 } from "./levelBuilder.js";
 import { ASSETS } from "../config/constants.js";
+import { ajustePaisaje } from "./ajustes.js";
 
 // Velocidad relativa de las capas cuando el paisaje tiene fondo ilustrado (npm run fondos).
 const FACTOR_IMAGEN = { fondo: 0.4, suelo: 1 };
@@ -318,6 +319,7 @@ function groundTexture(scene, key, { color, borde }, alto) {
 // Fondo ilustrado: dos capas (paisaje y camino) ubicadas para que el camino quede bajo los pies.
 function createImageParallax(scene, paisajeId, info, { width, groundY }) {
   scene.cameras.main.setBackgroundColor(info.cielo);
+  const aj = ajustePaisaje(scene, paisajeId); // corrimientos hechos con el editor
   const dy = groundY - info.piso; // corrimiento vertical para alinear el piso de la imagen con el del juego
   const capa = (nombre, y, alto, depth) =>
     scene.add
@@ -326,10 +328,18 @@ function createImageParallax(scene, paisajeId, info, { width, groundY }) {
       .setScrollFactor(0)
       .setDepth(depth);
   const layers = [
-    { tile: capa("fondo", dy + (info.fondoDy ?? 0), info.altoFondo ?? info.corte, -15), factor: FACTOR_IMAGEN.fondo },
+    {
+      tile: capa("fondo", dy + (info.fondoDy ?? 0) + (aj.fondoDy ?? 0), info.altoFondo ?? info.corte, -15),
+      factor: FACTOR_IMAGEN.fondo,
+    },
     // El suelo llega siempre hasta abajo de la pantalla (algunos suelos son más bajos y quedaba una franja).
     {
-      tile: capa("suelo", dy + info.corte, Math.max(info.alto - info.corte, 720 - dy - info.corte), -5),
+      tile: capa(
+        "suelo",
+        dy + info.corte + (aj.sueloDy ?? 0),
+        Math.max(info.alto - info.corte, 720 - dy - info.corte),
+        -5
+      ),
       factor: FACTOR_IMAGEN.suelo,
     },
   ];

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { editorActivo, tramoDelEditor } from "../systems/ajustes.js";
 import { ASSETS, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { loadCharacterSheets, registerCharacters } from "../systems/characters.js";
 import { PAISES } from "../data/paises.js";
@@ -64,6 +65,8 @@ export class PreloadScene extends Phaser.Scene {
 
   create() {
     for (const [m] of this.manifests) registerCharacters(this, m);
-    this.scene.start(SCENES.MAPA);
+    // Editor de tramos (?editor=N): va directo al tramo N.
+    if (editorActivo()) this.scene.start(SCENES.VIAJE, { paisId: "ar", tramo: tramoDelEditor() });
+    else this.scene.start(SCENES.MAPA);
   }
 }
