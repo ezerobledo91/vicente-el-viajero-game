@@ -497,12 +497,27 @@ function sliceAlphaBuffer(data, W, H, n, file) {
 // y `ajuste` corrige si la pose de referencia es más alta o más baja que parado.
 async function framesDesdeArchivos(char, img) {
   const groups = [];
+  // Un mismo PNG puede tener varias animaciones (`total` cuadros; cada una toma `frames` desde `desde`).
+  // Todas las del mismo archivo usan la misma escala (la de la primera), así se respetan los tamaños
+  // entre poses (una lechuza volando no queda del mismo alto que parada).
+  const cortes = new Map(),
+    escalas = new Map();
   for (const anim of char.animations) {
-    const frames = anim.region
-      ? sliceRegion(img, anim.region, anim.frames, `${char.id}.${anim.key}`, { huecos: anim.huecos !== false })
-      : await sliceAlphaStrip(anim.archivo, anim.frames);
+    let frames;
+    if (anim.region)
+      frames = sliceRegion(img, anim.region, anim.frames, `${char.id}.${anim.key}`, { huecos: anim.huecos !== false });
+    else {
+      const total = anim.total ?? anim.frames;
+      if (!cortes.has(anim.archivo)) cortes.set(anim.archivo, await sliceAlphaStrip(anim.archivo, total));
+      const desde = anim.desde ?? 0;
+      frames = cortes.get(anim.archivo).slice(desde, desde + anim.frames);
+    }
     const ref = anim.referencia === "max" ? Math.max(...frames.map(boxH)) : median(frames.map(boxH));
-    const factor = (char.alturaPx * (anim.ajuste ?? 1)) / ref;
+    let factor = (char.alturaPx * (anim.ajuste ?? 1)) / ref;
+    if (anim.total && !anim.region) {
+      if (escalas.has(anim.archivo)) factor = escalas.get(anim.archivo);
+      else escalas.set(anim.archivo, factor);
+    }
     groups.push({ anim, frames: await Promise.all(frames.map((fr) => scaleFrame(fr, factor))) });
   }
   return groups;

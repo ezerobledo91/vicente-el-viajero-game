@@ -215,7 +215,10 @@ export function buildLevel(tramo, seed = 1) {
   // Animales nativos: pocos, bien separados y sin repetir especie (encontrar uno es un hito).
   // Se corren si caen justo donde hay una roca o un perro.
   const tramoUtil = hasta - LEVEL.primerAnimal;
-  const n = Math.max(1, Math.min(tramo.animales.length, 1 + Math.floor(tramoUtil / LEVEL.entreAnimales)));
+  const n = Math.max(
+    1,
+    Math.min(tramo.animales.length, 1 + Math.floor(tramoUtil / (tramo.entreAnimales ?? LEVEL.entreAnimales)))
+  );
   const paso = n > 1 ? tramoUtil / (n - 1) : 0;
   const ocupado = (x) =>
     items.some(

@@ -1,0 +1,265 @@
+{
+  "characters": [
+    {
+      "id": "castor",
+      "grupo": "animales",
+      "nombre": "Castor",
+      "facing": "right",
+      "alturaCm": 75,
+      "alturaPx": 111,
+      "texture": "castor.png",
+      "frameWidth": 241,
+      "frameHeight": 125,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cauquen",
+      "grupo": "animales",
+      "nombre": "Cauquén",
+      "facing": "right",
+      "alturaCm": 80,
+      "alturaPx": 111,
+      "texture": "cauquen.png",
+      "frameWidth": 160,
+      "frameHeight": 141,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            2
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "liebre",
+      "grupo": "animales",
+      "nombre": "Liebre",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 111,
+      "texture": "liebre.png",
+      "frameWidth": 174,
+      "frameHeight": 130,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guanaco",
+      "grupo": "animales",
+      "nombre": "Guanaco",
+      "facing": "right",
+      "alturaCm": 150,
+      "alturaPx": 111,
+      "texture": "guanaco.png",
+      "frameWidth": 106,
+      "frameHeight": 123,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lechuza",
+      "grupo": "animales",
+      "nombre": "Lechuza",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "texture": "lechuza.png",
+      "frameWidth": 152,
+      "frameHeight": 120,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-colorado",
+      "grupo": "animales",
+      "nombre": "Zorro colorado",
+      "facing": "right",
+      "alturaCm": 70,
+      "alturaPx": 111,
+      "texture": "zorro-colorado.png",
+      "frameWidth": 168,
+      "frameHeight": 127,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "carpintero",
+      "grupo": "animales",
+      "nombre": "Carpintero gigante",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 111,
+      "texture": "carpintero.png",
+      "frameWidth": 162,
+      "frameHeight": 132,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

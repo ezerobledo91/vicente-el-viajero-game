@@ -1,0 +1,239 @@
+{
+  "_comment": "Kit de animales del bosque fueguino (Codex): un PNG transparente por animal con todas sus poses. 'total' = cuadros del PNG; cada animación toma 'frames' desde 'desde'. La escala sale de la primera animación de cada archivo. (alturaCm un poco exagerada en los animales chicos, para que se vean bien)",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "fueguino.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "castor",
+      "nombre": "Castor",
+      "alturaCm": 75,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/bosque-fueguino/castor.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "archivo": "personajes/animales/bosque-fueguino/castor.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cauquen",
+      "nombre": "Cauquén",
+      "alturaCm": 80,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/bosque-fueguino/cauquen-comun.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 2,
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "archivo": "personajes/animales/bosque-fueguino/cauquen-comun.png",
+          "total": 5,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/bosque-fueguino/cauquen-comun.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/bosque-fueguino/cauquen-comun.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "liebre",
+      "nombre": "Liebre",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/bosque-fueguino/conejo-europeo.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/bosque-fueguino/conejo-europeo.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guanaco",
+      "nombre": "Guanaco",
+      "alturaCm": 150,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/bosque-fueguino/guanaco-fueguino.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/bosque-fueguino/guanaco-fueguino.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lechuza",
+      "nombre": "Lechuza",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/bosque-fueguino/lechuza-bataraz.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/bosque-fueguino/lechuza-bataraz.png",
+          "total": 5,
+          "desde": 1,
+          "frames": 4,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-colorado",
+      "nombre": "Zorro colorado",
+      "alturaCm": 70,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/bosque-fueguino/zorro-colorado.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/bosque-fueguino/zorro-colorado.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "carpintero",
+      "nombre": "Carpintero gigante",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/bosque-fueguino/carpintero-gigante.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/bosque-fueguino/carpintero-gigante.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

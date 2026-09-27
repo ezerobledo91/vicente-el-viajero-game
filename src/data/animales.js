@@ -3,8 +3,23 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  castor: {
+    sprite: "castor",
+    nombre: "Castor",
+    dato: "Lo trajeron de Canadá hace muchos años. Corta árboles con los dientes para hacer diques en los ríos.",
+  },
+  cauquen: {
+    sprite: "cauquen",
+    nombre: "Cauquén",
+    dato: "Es un ganso patagónico: camina por los pastizales comiendo pasto y vuela en bandadas.",
+  },
+  liebre: {
+    sprite: "liebre",
+    nombre: "Liebre europea",
+    dato: "No es de acá: la trajeron de Europa. Corre rapidísimo, ¡hasta 70 km por hora!",
+  },
   buho: {
-    sprite: "buho",
+    sprite: "lechuza",
     nombre: "Lechuza bataraz",
     dato: "Caza de noche y puede girar la cabeza muchísimo para mirar para atrás.",
   },
@@ -61,7 +76,7 @@ export const ANIMALES = {
     h: 72,
   },
   zorro: {
-    sprite: "zorro",
+    sprite: "zorro-colorado",
     nombre: "Zorro colorado",
     dato: "Vive en los bosques de Tierra del Fuego y tiene la cola muy peluda.",
     forma: "cuadrupedo",
@@ -197,6 +212,7 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  carpintero: { nombre: "Carpintero gigante", sprite: "carpintero", anim: "volar", velocidad: 100 },
   abeja: { nombre: "Abeja", sprite: "abeja", anim: "volar", velocidad: 110 },
   colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
   loro: { nombre: "Loro", sprite: "loro", anim: "volar", velocidad: 125 },
@@ -305,9 +321,12 @@ export const CUARTOS = 4;
 // (si no tiene, se congela el cuadro actual).
 export const CAMINANTES = {
   pinguino: {},
-  guanaco: {},
+  guanaco: { quieto: "idle" },
   choique: {},
   zorro: { quieto: "sentado" },
+  castor: { quieto: "comer" },
+  cauquen: { quieto: "comer" },
+  liebre: { quieto: "idle" },
   coati: { quieto: "parado" },
   tatu: {},
   mono: {},

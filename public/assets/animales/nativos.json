@@ -27,13 +27,13 @@
       ]
     },
     {
-      "id": "guanaco",
+      "id": "guanaco-viejo",
       "grupo": "animales",
       "nombre": "Guanaco",
       "facing": "right",
       "alturaCm": 150,
       "alturaPx": 119,
-      "texture": "guanaco.png",
+      "texture": "guanaco-viejo.png",
       "frameWidth": 84,
       "frameHeight": 126,
       "frameCount": 4,

@@ -117,6 +117,52 @@ async function cortarPiezas(id, file) {
   return piezas;
 }
 
+// Lámina de piezas sueltas en una fila (piedras, plataformas, troncos): cada dibujo es <tipo>-N,
+// de izquierda a derecha. `sup`: primera fila (desde arriba) que ya es "sólida", o sea donde se pisa.
+async function cortarSueltas(id, tipo, file) {
+  const { data, info } = await sharp(path.join(ROOT, file)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = info.width,
+    H = info.height;
+  const col = Array.from({ length: W }, (_, x) => {
+    for (let y = 0; y < H; y++) if (data[(y * W + x) * 4 + 3] > 40) return true;
+    return false;
+  });
+  const tramos = [];
+  for (let x = 0; x < W; x++) {
+    if (!col[x]) continue;
+    const u = tramos.at(-1);
+    if (u && x - u.x1 <= 6) u.x1 = x;
+    else tramos.push({ x0: x, x1: x });
+  }
+  const salida = path.join(OUT, "piezas", id);
+  await fs.mkdir(salida, { recursive: true });
+  const piezas = {};
+  for (const [k, t] of tramos.filter((t) => t.x1 - t.x0 > 30).entries()) {
+    const w = t.x1 - t.x0 + 1;
+    let y0 = H,
+      y1 = -1;
+    for (let y = 0; y < H; y++)
+      for (let x = t.x0; x <= t.x1; x++)
+        if (data[(y * W + x) * 4 + 3] > 40) ((y0 = Math.min(y0, y)), (y1 = Math.max(y1, y)));
+    let sup = 0;
+    for (let y = y0; y <= y1; y++) {
+      let n = 0;
+      for (let x = t.x0; x <= t.x1; x++) if (data[(y * W + x) * 4 + 3] > 40) n++;
+      if (n >= w * 0.6) {
+        sup = y - y0;
+        break;
+      }
+    }
+    const nombre = `${tipo}-${k}`;
+    await sharp(path.join(ROOT, file))
+      .extract({ left: t.x0, top: y0, width: w, height: y1 - y0 + 1 })
+      .png()
+      .toFile(path.join(salida, nombre + ".png"));
+    piezas[nombre] = { w, h: y1 - y0 + 1, sup };
+  }
+  return piezas;
+}
+
 async function main() {
   await fs.mkdir(OUT, { recursive: true });
   const manifest = { tramos: {}, ciudades: {} };
@@ -141,6 +187,8 @@ async function main() {
         cielo: colorCielo(fondoRaw),
       };
       if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas);
+      for (const [tipo, file] of Object.entries(t.sueltas ?? {}))
+        Object.assign((manifest.tramos[id].piezas ??= {}), await cortarSueltas(id, tipo, file));
       console.log(`✔ tramo ${id} (precortado${t.piezas ? " + piezas" : ""})`);
       continue;
     }

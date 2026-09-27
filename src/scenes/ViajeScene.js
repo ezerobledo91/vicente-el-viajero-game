@@ -39,7 +39,8 @@ const CHARLA_MS = 4200; // lo que dura el globo con el dato del animal
 const PLATAFORMA_VELOCIDAD = 70; // px/seg de las plataformas que se mueven
 // Cómo se dibujan las piezas ilustradas (proporciones pensadas para las láminas de Codex).
 const PIEZAS = {
-  escalaTierra: 0.3, // bloques de las plataformas fijas
+  escalaTierra: 0.3, // bloques de las plataformas fijas (lámina de terreno)
+  escalaPiedra: 0.52, // piedras sueltas (obstáculos)
   puntaMax: 95, // px máximos de cada punta con raíces
   pastoCentro: 0.16, // parte del bloque del centro que es pasto por encima de donde se pisa
   superficieTronco: 0.3, // parte del tronco por encima de donde se pisa
@@ -335,6 +336,25 @@ export class ViajeScene extends Phaser.Scene {
 
   // Roca o tronco real (si está la lámina de decoración): sólido, hay que saltarlo o subirse encima.
   ponerRoca(x) {
+    // Piedras propias del paisaje (piezas sueltas), si hay.
+    const piedras = this.sueltas("piedra");
+    if (piedras.length) {
+      const p = piedras[Math.floor(this.rnd() * piedras.length)];
+      const img = this.add
+        .image(x, GROUND_Y + 8, p.key)
+        .setOrigin(0.5, 1)
+        .setDepth(6);
+      img.setScale(PIEZAS.escalaPiedra).setFlipX(this.rnd() < 0.5);
+      // Cuerpo: un poco más angosto que el dibujo y con la parte de arriba un poco por debajo del pico.
+      const sc = PIEZAS.escalaPiedra,
+        w = img.displayWidth * 0.72,
+        arriba = GROUND_Y + 8 - img.displayHeight + p.sup * sc * 0.6,
+        h = GROUND_Y + 8 - arriba;
+      const cuerpo = this.add.zone(x, arriba + h / 2, w, h);
+      this.rocas.add(cuerpo);
+      cuerpo.body.updateFromGameObject();
+      return;
+    }
     const opciones = DECORACION.obstaculos.filter((id) => this.textures.exists(id));
     if (!opciones.length) {
       this.rocas
@@ -392,7 +412,40 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   // Bloque de tierra para plataformas fijas: punta del borde izq + centro repetido + punta del borde der.
+  // Piezas sueltas de un tipo ("piedra", "plataforma", "tronco"): [{ key, img, w, h, sup }].
+  sueltas(tipo) {
+    const info = this.cache.json.get(ASSETS.FONDOS_MANIFEST)?.tramos?.[this.tramo.paisaje]?.piezas ?? {};
+    return Object.entries(info)
+      .filter(([n]) => n.startsWith(tipo + "-"))
+      .map(([n, d]) => ({ ...d, key: ASSETS.PIEZA(this.tramo.paisaje, n) }))
+      .filter((p) => this.textures.exists(p.key));
+  }
+
+  // Textura de una pieza suelta escalada para que la parte que se pisa mida `w` (la pieza de largo
+  // más parecido a lo que se necesita, para no deformarla).
+  texturaSuelta(tipo, w, { escalaIdeal, margen }) {
+    const opciones = this.sueltas(tipo);
+    if (!opciones.length) return null;
+    const p = opciones.reduce((a, b) =>
+      Math.abs(b.w * escalaIdeal - w * margen) < Math.abs(a.w * escalaIdeal - w * margen) ? b : a
+    );
+    const sc = (w * margen) / p.w;
+    const ancho = Math.round(p.w * sc),
+      alto = Math.ceil(p.h * sc);
+    const key = `${p.key}-${w}`;
+    if (!this.textures.exists(key)) {
+      const tex = this.textures.createCanvas(key, ancho, alto);
+      const ctx = tex.getContext();
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(this.textures.get(p.key).getSourceImage(), 0, 0, ancho, alto);
+      tex.refresh();
+    }
+    return { key, sup: Math.round(p.sup * sc) };
+  }
+
   texturaTierra(w) {
+    const suelta = this.texturaSuelta("plataforma", w, { escalaIdeal: 0.45, margen: 1.12 });
+    if (suelta) return suelta;
     const izq = this.pieza("borde-izq"),
       centro = this.pieza("centro"),
       der = this.pieza("borde-der");
@@ -418,6 +471,8 @@ export class ViajeScene extends Phaser.Scene {
 
   // Tronco para las plataformas que se mueven (un poco más largo que la parte que se pisa).
   texturaTronco(w) {
+    const suelto = this.texturaSuelta("tronco", w, { escalaIdeal: 0.6, margen: 1.1 });
+    if (suelto) return suelto;
     const t = this.pieza("tronco");
     if (!t) return null;
     const key = `tronco-${this.tramo.paisaje}-${w}`;

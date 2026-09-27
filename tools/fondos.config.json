@@ -1,5 +1,5 @@
 {
-  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera). En las postales, 'pie' es la altura (y en pantalla) donde se paran los personajes y 'parada' la x donde se frena Vicente. Un tramo puede traer 'fondo' y 'suelo' ya cortados y repetibles (se copian tal cual) y 'piezas': lámina con fila 1 = borde izq, centro, borde der (tierra); fila 2 = 4 cuadros de agua, orilla izq, orilla der; fila 3 = tronco.",
+  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera). En las postales, 'pie' es la altura (y en pantalla) donde se paran los personajes y 'parada' la x donde se frena Vicente. Un tramo puede traer 'fondo' y 'suelo' ya cortados y repetibles (se copian tal cual) y 'piezas': lámina con fila 1 = borde izq, centro, borde der (tierra); fila 2 = 4 cuadros de agua, orilla izq, orilla der; fila 3 = tronco. 'sueltas': láminas de piezas sueltas (de izquierda a derecha) que se nombran <tipo>-0, <tipo>-1…: piedra (obstáculos), plataforma (fijas), tronco (móviles).",
   "output": "public/assets/fondos",
   "tramos": {
     "bosque-fueguino": {
@@ -7,7 +7,12 @@
       "suelo": "personajes/paises/argentina/tramos/bosque-fueguino/suelo.webp",
       "piezas": "personajes/paises/argentina/tramos/bosque-fueguino/piezas.png",
       "piso": 594,
-      "corte": 578
+      "corte": 578,
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/bosque-fueguino/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/bosque-fueguino/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/bosque-fueguino/troncos.png"
+      }
     },
     "estepa": {
       "src": "personajes/paises/argentina/tramos/estepa.png",
