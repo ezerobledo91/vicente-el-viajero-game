@@ -30,10 +30,20 @@
     "costa": {
       "fondo": "personajes/paises/argentina/tramos/costa/fondo.webp",
       "suelo": "personajes/paises/argentina/tramos/costa/suelo.png",
-      "sueloFilas": [320, 648],
+      "sueloFilas": [
+        320,
+        648
+      ],
       "piezas": "personajes/paises/argentina/tramos/costa/piezas.png",
       "piezasEnFila": true,
-      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "piezasNombres": [
+        "borde-izq",
+        "agua-0",
+        "agua-1",
+        "agua-2",
+        "agua-3",
+        "borde-der"
+      ],
       "sueltas": {
         "piedra": "personajes/paises/argentina/tramos/costa/piedras.png",
         "plataforma": "personajes/paises/argentina/tramos/costa/plataformas.png",
@@ -90,9 +100,8 @@
     },
     "buenosaires": {
       "tipo": "postal",
-      "src": "personajes/paises/argentina/ciudades/buenosaires-obelisco.png",
-      "foco": 1,
-      "pie": 692,
+      "src": "personajes/paises/argentina/ciudades/buenosaires-9dejulio.webp",
+      "pie": 600,
       "parada": 300
     },
     "rosario": {

@@ -423,8 +423,8 @@
       "tipo": "postal",
       "ancho": 1280,
       "alto": 720,
-      "cielo": "#43a6fc",
-      "pie": 692,
+      "cielo": "#35a5fd",
+      "pie": 600,
       "parada": 300
     },
     "rosario": {
