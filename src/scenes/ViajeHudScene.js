@@ -86,7 +86,14 @@ export class ViajeHudScene extends Phaser.Scene {
         0.5
       ).setStroke("#1b2a3a", 4);
 
+    // Objeto para tirar que tiene Vicente (al lado de los corazones; solo cuando encontró uno).
+    const obj = v.tramo?.objeto;
+    this.iconoObjeto =
+      obj && this.textures.exists(obj) ? this.add.image(34 + VIDAS.maximo * 38 + 16, 88, obj, 0) : null;
+    this.iconoObjeto?.setScale(34 / this.iconoObjeto.height).setVisible(false);
+
     // Controles táctiles (también funcionan con el mouse)
+    this.pads = {};
     this.pad("left", 90, GAME_HEIGHT - 80, "<");
     this.pad("right", 210, GAME_HEIGHT - 80, ">");
     this.pad("jump", GAME_WIDTH - 110, GAME_HEIGHT - 80, "SALTAR", 70);
@@ -98,6 +105,7 @@ export class ViajeHudScene extends Phaser.Scene {
 
   pad(control, x, y, label, radius = 52) {
     const c = this.add.container(x, y).setAlpha(PAD_ALPHA.reposo);
+    this.pads[control] = c;
     const g = this.add.graphics();
     g.fillStyle(0x000000, 0.4).fillCircle(0, 4, radius);
     g.fillStyle(0xffffff, 1).fillCircle(0, 0, radius);
@@ -128,6 +136,10 @@ export class ViajeHudScene extends Phaser.Scene {
       .fillRoundedRect(BAR.x, BAR.y - 6, Math.max(12, BAR.w * t), 12, 6);
     this.marker.x = BAR.x + BAR.w * t;
     this.contador.setText(String((v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0)));
+    // Tirar solo se puede con el objeto de la región encontrado.
+    const conObjeto = !!v.conObjeto;
+    this.pads.tirar?.setVisible(conObjeto);
+    this.iconoObjeto?.setVisible(conObjeto);
     const puntos = v.puntos ?? 0;
     if (puntos !== this.puntosMostrados) {
       this.puntosMostrados = puntos;

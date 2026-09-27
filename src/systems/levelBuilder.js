@@ -234,6 +234,21 @@ export function buildLevel(tramo, seed = 1) {
     items.push({ tipo: "animal", id: tramo.animales[i], x, rango: LEVEL.animalRango });
   }
 
+  // Objeto para tirar (el de la región): uno al principio y otro a mitad del tramo, a la altura de
+  // Vicente caminando. Si le pegan lo pierde, así que el segundo le da otra oportunidad.
+  if (tramo.objeto)
+    for (const f of [0.1, 0.5]) {
+      let x = desde + (hasta - desde) * f;
+      const libre = (x) =>
+        !items.some(
+          (it) =>
+            (it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + 120) ||
+            ((it.tipo === "roca" || it.tipo === "perro") && Math.abs(it.x - x) < 150)
+        );
+      for (let intento = 0; intento < 20 && !libre(x); intento++) x += 90;
+      items.push({ tipo: "objeto", x, y: 55 });
+    }
+
   items.push({ tipo: "cartel", x: largo - 260 });
   return { largo, items: items.sort((a, b) => a.x - b.x) };
 }

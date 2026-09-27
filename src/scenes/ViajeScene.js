@@ -14,7 +14,14 @@ import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
-import { actualizarViaje, animalesVistos, gameOver, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
+import {
+  actualizarViaje,
+  animalesVistos,
+  gameOver,
+  getProgresoViaje,
+  sumarColeccion,
+  sumarPajaros,
+} from "../systems/progress.js";
 import { PUNTOS, puntajeTotal, puntosColeccion, puntosDe } from "../systems/puntaje.js";
 import {
   animalTexture,
@@ -124,6 +131,7 @@ export class ViajeScene extends Phaser.Scene {
     this.rocas = this.physics.add.staticGroup(); // rocas y troncos: sólidos por todos lados
     this.moviles = []; // plataformas que se mueven
     this.figuritas = [];
+    this.objetos = []; // objetos para tirar que están en el camino
     this.corazones = [];
     this.perros = [];
     this.pajaros = [];
@@ -158,6 +166,11 @@ export class ViajeScene extends Phaser.Scene {
     this.puas = [];
     this.tiros = [];
     this.proximaAccion = 0;
+    // Tirar se activa al encontrar el objeto de la región (como la flor de fuego de Mario) y se pierde
+    // con un golpe o al caer en un pozo. La mochila está siempre.
+    this.conObjeto = false;
+    this.avisoSinObjeto = false;
+    this.derribados = 0; // pájaros volteados en este tramo (se suman al llegar)
     this.mochilaGolpe = null; // { desde, hasta } mientras la mochila puede pegar
     if (modoPrueba()) {
       this.input.keyboard.on(
@@ -237,6 +250,18 @@ export class ViajeScene extends Phaser.Scene {
         this.flotar(h, y);
         this.tweens.add({ targets: h, scale: 1.15, duration: 400, yoyo: true, repeat: -1 });
         this.corazones.push(h);
+        break;
+      }
+      case "objeto": {
+        const key = this.tramo.objeto;
+        if (!this.textures.exists(key)) break;
+        const brillo = this.add.circle(item.x, y, 30, 0xfff2a8, 0.35).setDepth(7);
+        const o = this.add.image(item.x, y, key, 0).setDepth(8);
+        o.setScale(46 / o.height);
+        this.tweens.add({ targets: brillo, scale: 1.3, alpha: 0.15, duration: 600, yoyo: true, repeat: -1 });
+        this.flotar(o, y);
+        o.brillo = brillo;
+        this.objetos.push(o);
         break;
       }
       case "roca":
@@ -755,6 +780,7 @@ export class ViajeScene extends Phaser.Scene {
     // Coleccionables y corazones
     for (const s of this.figuritas) if (s.active && toca(s, 1)) this.juntar(s);
     for (const h of this.corazones) if (h.active && toca(h, 0.9)) this.juntarVida(h);
+    for (const o of this.objetos) if (o.active && toca(o, 1)) this.agarrarObjeto(o);
 
     // Perros trampolín: si Vicente cae encima, rebota alto. De costado no pasa nada.
     for (const d of this.perros) if (toca(d, 0.8) && cayendoSobre(d, 30)) this.rebotarEnPerro(d);
@@ -960,6 +986,17 @@ export class ViajeScene extends Phaser.Scene {
     const accion = this.pedido;
     this.pedido = null;
     if (!accion || time < this.proximaAccion) return;
+    if (accion === "arrojar" && !this.conObjeto) {
+      if (!this.avisoSinObjeto)
+        this.cartelito(
+          this.player.x,
+          this.player.getTopCenter().y - 20,
+          "¡Primero encontrá algo para tirar!",
+          "#ffd27a"
+        );
+      this.avisoSinObjeto = true;
+      return;
+    }
     const cfg = ACCIONES[accion];
     if (!this.player.hacer(accion, time, cfg.dura)) return;
     this.proximaAccion = time + cfg.cada;
@@ -968,6 +1005,35 @@ export class ViajeScene extends Phaser.Scene {
       efecto("mochila");
       this.mochilaGolpe = { desde: time + cfg.desde, hasta: time + cfg.hasta };
     }
+  }
+
+  agarrarObjeto(o) {
+    o.brillo.destroy();
+    o.destroy();
+    efecto("especial");
+    this.chispas(o.x, o.y, 14, 0xfff2a8);
+    if (!this.conObjeto) this.cartelito(o.x, o.y - 40, "¡Ahora podés tirar! (X)", "#ffd27a");
+    this.conObjeto = true;
+  }
+
+  // Con un golpe se le cae el objeto: sale volando y hay que volver a encontrar otro.
+  soltarObjeto() {
+    if (!this.conObjeto) return;
+    this.conObjeto = false;
+    const p = this.player;
+    if (!this.textures.exists(this.tramo.objeto)) return;
+    const o = this.add.image(p.x, p.y - p.displayHeight * 0.6, this.tramo.objeto, 0).setDepth(10);
+    o.setScale(40 / o.height);
+    this.tweens.add({
+      targets: o,
+      x: o.x - p.dir * 90,
+      y: o.y - 60,
+      angle: -240 * p.dir,
+      alpha: 0,
+      duration: 700,
+      ease: "Quad.Out",
+      onComplete: () => o.destroy(),
+    });
   }
 
   // El objeto sale de la mano y vuela en curva hacia adelante.
@@ -1064,7 +1130,9 @@ export class ViajeScene extends Phaser.Scene {
   // Puntaje general que se muestra en la interfaz (lo guardado + lo de este tramo).
   get puntos() {
     const nuevos = [...this.vistos].filter((id) => !this.vistosAntes.has(id)).length;
-    return this.puntosAntes + puntosColeccion(this.coleccion) + nuevos * PUNTOS.animal;
+    return (
+      this.puntosAntes + puntosColeccion(this.coleccion) + nuevos * PUNTOS.animal + this.derribados * PUNTOS.pajaro
+    );
   }
 
   cartelito(x, y, texto, color = "#ffffff") {
@@ -1096,6 +1164,8 @@ export class ViajeScene extends Phaser.Scene {
     if (b.pisado) return;
     efecto("plop");
     b.pisado = true;
+    this.derribados++;
+    this.puntosFlotantes(b.x, b.y + 20, PUNTOS.pajaro);
     b.anims?.pause();
     b.setFlipY(true);
     this.cartelito(b.x, b.y - 30, texto);
@@ -1123,6 +1193,7 @@ export class ViajeScene extends Phaser.Scene {
 
   // Resta cuartos de corazón (con un corazoncito que sale volando). Sin corazones: Game Over.
   perderVida(cuartos, motivo) {
+    this.soltarObjeto();
     if (this.vidasInfinitas) return;
     this.vida = Math.max(0, this.vida - cuartos);
     const h = this.add
@@ -1185,6 +1256,7 @@ export class ViajeScene extends Phaser.Scene {
     for (const c of this.companeros) c.perform("festejo");
 
     sumarColeccion(this.coleccion);
+    sumarPajaros(this.derribados);
     actualizarViaje(this.paisId, (v) => ({
       ciudad: this.tramoIndex + 1,
       preguntasOk: false,

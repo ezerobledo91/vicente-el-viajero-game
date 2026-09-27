@@ -10,6 +10,7 @@ export const PUNTOS = {
   rara: 250,
   tesoro: 1000,
   animal: 200, // cada animal descubierto (una sola vez)
+  pajaro: 100, // cada pájaro o abeja volteado (pisándolo, con la mochila o tirándole algo)
   acierto: 50, // cada pregunta acertada (el mejor resultado de cada ciudad)
 };
 
@@ -24,7 +25,12 @@ export function puntajeTotal() {
   const aciertos = Object.values(perfil.preguntas ?? {})
     .flatMap((pais) => Object.values(pais))
     .reduce((s, c) => s + c.aciertos, 0);
-  return puntosColeccion(perfil.coleccion) + animalesVistos().length * PUNTOS.animal + aciertos * PUNTOS.acierto;
+  return (
+    puntosColeccion(perfil.coleccion) +
+    animalesVistos().length * PUNTOS.animal +
+    aciertos * PUNTOS.acierto +
+    (perfil.pajaros ?? 0) * PUNTOS.pajaro
+  );
 }
 
 // "001230": seis cifras, como en los juegos de antes.

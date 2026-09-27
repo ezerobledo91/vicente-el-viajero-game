@@ -75,6 +75,13 @@ export function sumarColeccion(cantidades) {
   return perfil;
 }
 
+// Pájaros y abejas volteados en todos los viajes (suman puntos).
+export function sumarPajaros(n) {
+  const perfil = getPerfil();
+  perfil.pajaros = (perfil.pajaros ?? 0) + n;
+  guardar();
+}
+
 // Animales vistos en todos los viajes (sin repetir).
 export function animalesVistos() {
   return [...new Set(Object.values(leer().viajes).flatMap((v) => v.animalesVistos ?? []))];
