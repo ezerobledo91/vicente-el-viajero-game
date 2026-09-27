@@ -6,12 +6,33 @@
 //     R: volverlo a su lugar.
 //   · Botones de arriba: fondo, suelo, agua de los pozos y orillas del paisaje.
 //   · Agregar (paleta), Cambiar (otro dibujo en su lugar), Texto (T) y Borrar (Supr).
+//   · Modo Recorrido (M): pozos, plataformas, piedras, estrellas, corazones, animales, perros, pájaros y
+//     objetos se ven con un marco: se arrastran, se ensanchan (+/-, pozos y plataformas), se ocultan
+//     o se agregan nuevos. El tramo se vuelve a armar con los cambios (así la física queda bien).
 import Phaser from "phaser";
 import { COLORS, FONT, GAME_WIDTH } from "../config/constants.js";
 import { Button } from "../ui/Button.js";
 import { getViaje } from "../data/viajes/index.js";
 import { getAjustes, guardarAjustes } from "./ajustes.js";
 import { PALETA, TABLAS } from "../data/decoracion.js";
+import { ANIMALES } from "../data/animales.js";
+import { TIPOS_RECORRIDO, idNuevo } from "./recorrido.js";
+
+// Modo del editor (queda al redibujar el tramo): "adornos" o "recorrido".
+let modo = "adornos";
+// Los que van siempre apoyados en el piso (solo se mueven para los costados).
+const EN_EL_PISO = ["pozo", "roca", "perro", "animal"];
+const ICONOS = {
+  figurita: "⭐",
+  vida: "❤️",
+  objeto: "🎯",
+  roca: "🪨",
+  plataforma: "🟫",
+  pozo: "🕳️",
+  perro: "🐶",
+  pajaro: "🐦",
+  animal: "🐾",
+};
 
 const VELOCIDAD = 900; // px/seg con las flechas
 const PASO = 4; // px por toque en los botones del paisaje
@@ -42,6 +63,8 @@ const limpiar = (obj) => {
 export class Editor {
   constructor(scene, groundY = 600) {
     this.s = scene;
+    this.groundY = groundY;
+    this.marcas = [];
     this.aj = getAjustes(scene);
     this.paisaje = scene.tramo.paisaje;
     this.sel = null;
@@ -63,10 +86,12 @@ export class Editor {
 
     this.panel(scene);
     this.adornos(scene);
+    if (modo === "recorrido") this.ponerMarcas(scene);
     this.teclas(scene);
     scene.events.once("shutdown", () => this.cerrar());
     // Al redibujar sigue elegido lo que estaba elegido (o lo recién agregado).
-    if (scene.editorSel) this.elegir(scene.editables.find((e) => e.editId === scene.editorSel) ?? null);
+    if (scene.editorSel)
+      this.elegir([...scene.editables, ...this.marcas].find((e) => e.editId === scene.editorSel) ?? null);
   }
 
   // ---------- Interfaz ----------
@@ -94,6 +119,13 @@ export class Editor {
     fijo(
       new Button(scene, 190, 58, "Tramo >", () => ir(1), { width: 118, height: 28, fontSize: 8, variant: "secondary" })
     );
+    fijo(
+      new Button(scene, 314, 58, modo === "adornos" ? "Modo: Adornos" : "Modo: Recorrido", () => this.cambiarModo(), {
+        width: 118,
+        height: 28,
+        fontSize: 7,
+      })
+    );
     const acciones = [
       ["Agregar", () => this.paleta("agregar")],
       ["Cambiar", () => this.paleta("cambiar")],
@@ -113,19 +145,21 @@ export class Editor {
       })
     );
     this.titulo = texto(
-      262,
+      386,
       50,
       `Tramo ${scene.tramoIndex}: ${scene.desde.nombre} > ${scene.hasta.nombre}`,
-      10,
+      8,
       "#ffb83d"
     );
-    this.valores = texto(262, 68, "", 7);
+    this.valores = texto(386, 68, "", 6);
     this.estado = texto(GAME_WIDTH - 250, 88, "", 8, "#8ff09a");
-    this.elegido = texto(16, 88, "", 8, "#ffffff");
+    this.elegido = texto(16, 88, "", 7, "#ffffff");
     this.ayuda = texto(
       16,
       106,
-      "Flechas/rueda: moverse · Arrastrar: mover · +/-: tamaño (todos de ese tipo) · T: texto · Supr: borrar/ocultar · R: a su lugar · Shift+flechas: 1 px",
+      modo === "adornos"
+        ? "Flechas/rueda: moverse · Arrastrar: mover · +/-: tamaño (todos de ese tipo) · T: texto · Supr: borrar/ocultar · R: a su lugar · M: modo"
+        : "Flechas/rueda: moverse · Arrastrar: mover · +/-: ancho (pozos y plataformas) · Supr: sacar/volver a poner · R: como estaba · M: modo",
       7,
       COLORS.muted
     );
@@ -144,7 +178,18 @@ export class Editor {
   mostrarElegido() {
     const o = this.sel;
     if (!o) {
-      this.elegido.setText("Tocá un adorno o cartel para elegirlo.");
+      this.elegido.setText(
+        modo === "adornos" ? "Tocá un adorno o cartel para elegirlo." : "Tocá un marco para elegirlo."
+      );
+      return;
+    }
+    if (o.esMarca) {
+      const it = o.item;
+      const alto = EN_EL_PISO.includes(it.tipo) ? "" : ` · altura ${Math.round(it.y ?? 0)}`;
+      const ancho = it.w ? ` · ancho ${Math.round(it.w)}` : "";
+      this.elegido.setText(
+        `${this.nombreDe(it)}${it.agregado ? " (agregado)" : ""} · x ${Math.round(it.x)}${alto}${ancho}${it.oculto ? " · SACADO" : ""}`
+      );
       return;
     }
     const a = this.aj.objetos[this.s.tramoIndex]?.[o.editId] ?? {};
@@ -156,13 +201,17 @@ export class Editor {
 
   // ---------- Adornos: elegir, arrastrar, agrandar, ocultar ----------
   adornos(scene) {
-    for (const img of scene.editables) {
-      img.setInteractive({ useHandCursor: true });
-      scene.input.setDraggable(img);
-    }
+    if (modo === "adornos")
+      for (const img of scene.editables) {
+        img.setInteractive({ useHandCursor: true });
+        scene.input.setDraggable(img);
+      }
     scene.input.on("dragstart", (_p, obj) => this.elegir(obj));
-    scene.input.on("drag", (_p, obj, x, y) => this.mover(obj, Math.round(x) - obj.x, Math.round(y) - obj.y));
-    scene.input.on("dragend", (_p, obj) => this.guardarObjeto(obj));
+    scene.input.on("drag", (_p, obj, x, y) => {
+      const fijoY = obj.esMarca && EN_EL_PISO.includes(obj.item.tipo);
+      this.mover(obj, Math.round(x) - obj.x, fijoY ? 0 : Math.round(y) - obj.y);
+    });
+    scene.input.on("dragend", (_p, obj) => (obj.esMarca ? this.guardarMarca(obj) : this.guardarObjeto(obj)));
     scene.input.on("pointerdown", (_p, objetos) => {
       if (!objetos.length) this.elegir(null);
     });
@@ -199,6 +248,7 @@ export class Editor {
   escalar(factor) {
     const o = this.sel;
     if (!o) return;
+    if (o.esMarca) return this.ensanchar(factor > 1 ? 20 : -20);
     const key = o.texture.key;
     const e = Math.round((this.aj.escalas[key] ?? 1) * factor * 1000) / 1000;
     this.aj.escalas[key] = e;
@@ -224,6 +274,12 @@ export class Editor {
   aSuLugar() {
     const o = this.sel;
     if (!o) return;
+    if (o.esMarca) {
+      if (o.item.agregado) return;
+      delete this.rec().cambios?.[o.editId];
+      this.ordenarRec();
+      return this.redibujar(o.editId);
+    }
     this.mover(o, o.baseX - o.x, o.baseY - o.y);
     delete this.aj.objetos[this.s.tramoIndex]?.[o.editId];
     o.setAlpha(1);
@@ -256,6 +312,7 @@ export class Editor {
   borrar() {
     const o = this.sel;
     if (!o) return;
+    if (o.esMarca) return this.sacarMarca(o);
     if (!o.agregado) return this.ocultar();
     const lista = this.agregados();
     const i = lista.findIndex((a) => `nuevo#${a.n}` === o.editId);
@@ -268,15 +325,19 @@ export class Editor {
 
   // Paleta con todos los adornos: para agregar uno nuevo (en el medio de la pantalla) o para poner
   // otro dibujo en lugar del elegido.
-  paleta(modo) {
-    if (modo === "cambiar" && !this.sel) return this.avisar("Primero elegí qué cambiar", "#ffd27a");
+  paleta(modoPaleta) {
+    if (modo === "recorrido")
+      return modoPaleta === "agregar"
+        ? this.paletaRecorrido()
+        : this.avisar("En el recorrido solo se agrega", "#ffd27a");
+    if (modoPaleta === "cambiar" && !this.sel) return this.avisar("Primero elegí qué cambiar", "#ffd27a");
     const botones = PALETA.map(
       (k) =>
         `<button data-k="${k}" style="${ESTILO_BOTON}width:112px;height:112px;margin:4px;vertical-align:top">` +
         `<img src="assets/decoracion/${k}.png" style="max-width:92px;max-height:76px;display:block;margin:0 auto 6px">` +
         `<span style="font-size:7px;color:#cfe3ef">${k}</span></button>`
     ).join("");
-    const titulo = modo === "agregar" ? "Agregar un adorno" : "Cambiar por…";
+    const titulo = modoPaleta === "agregar" ? "Agregar un adorno" : "Cambiar por…";
     this.abrir(
       `<div style="margin-bottom:10px;color:#ffb83d">${titulo}</div>${botones}` +
         `<div style="margin-top:10px"><button data-k="" style="${ESTILO_BOTON}padding:8px 14px">Cancelar</button></div>`,
@@ -285,7 +346,7 @@ export class Editor {
           b.addEventListener("click", () => {
             const k = b.dataset.k;
             if (!k) return this.cerrar();
-            if (modo === "agregar") this.agregar(k);
+            if (modoPaleta === "agregar") this.agregar(k);
             else this.cambiar(k);
           })
         )
@@ -316,7 +377,7 @@ export class Editor {
 
   editarTexto() {
     const o = this.sel;
-    if (!o) return this.avisar("Primero elegí un cartel", "#ffd27a");
+    if (!o || o.esMarca) return this.avisar("Primero elegí un cartel", "#ffd27a");
     if (!TABLAS[o.texture.key]) return this.avisar("Ese adorno no tiene dónde escribir", "#ffd27a");
     const escapar = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
     const boton = (a, texto) =>
@@ -372,6 +433,168 @@ export class Editor {
     this.s.input.keyboard.manager.enabled = true;
   }
 
+  // ---------- Recorrido: pozos, plataformas, premios, animales... ----------
+  cambiarModo() {
+    modo = modo === "adornos" ? "recorrido" : "adornos";
+    this.reiniciar(this.s.tramoIndex, this.s.cameras.main.scrollX);
+  }
+
+  nombreDe(it) {
+    if (it.tipo === "animal") return `Animal: ${ANIMALES[it.id]?.nombre ?? it.id}`;
+    if (it.tipo === "figurita" && it.especial)
+      return it.especial.startsWith("tesoro-") ? "Tesoro" : `Especial (${it.especial})`;
+    return TIPOS_RECORRIDO[it.tipo]?.nombre ?? it.tipo;
+  }
+
+  // Marco de cada cosa del recorrido, en el lugar del mundo donde está (coordenadas del tramo).
+  ponerMarcas(scene) {
+    const g = this.groundY;
+    for (const it of scene.level.items) {
+      const t = TIPOS_RECORRIDO[it.tipo];
+      if (!t) continue;
+      const y = g - (it.y ?? 0);
+      const [cy, w, h] = {
+        pozo: [g + 30, it.w, 60],
+        plataforma: [y + 12, it.w, 26],
+        roca: [g - 35, 80, 70],
+        perro: [g - 30, 70, 60],
+        animal: [g - 50, 90, 100],
+        pajaro: [y, 60, 40],
+      }[it.tipo] ?? [y, 40, 40];
+      const m = scene.add
+        .rectangle(Math.round(it.x), Math.round(cy), w, h, t.color, 0.18)
+        .setStrokeStyle(2, t.color, 1)
+        .setDepth(92)
+        .setAlpha(it.oculto ? 0.4 : 1);
+      const etiqueta = scene.add
+        .text(m.x, m.y - h / 2 - 8, this.nombreDe(it), {
+          fontFamily: FONT,
+          fontSize: "7px",
+          color: "#ffffff",
+          stroke: "#0b1a2a",
+          strokeThickness: 3,
+        })
+        .setOrigin(0.5, 1)
+        .setDepth(93)
+        .setAlpha(m.alpha);
+      Object.assign(m, { esMarca: true, item: it, editId: it.editId, adjuntos: [etiqueta], x0: m.x, y0: m.y });
+      m.setInteractive({ useHandCursor: true });
+      scene.input.setDraggable(m);
+      this.marcas.push(m);
+    }
+  }
+
+  rec() {
+    return ((this.aj.recorrido ??= {})[this.s.tramoIndex] ??= {});
+  }
+
+  cambioDe(it) {
+    const r = this.rec();
+    return ((r.cambios ??= {})[it.editId] ??= {});
+  }
+
+  nuevoDe(it) {
+    return (this.rec().nuevos ?? []).find((a) => idNuevo(a) === it.editId);
+  }
+
+  ordenarRec() {
+    const t = this.s.tramoIndex;
+    const r = this.aj.recorrido?.[t];
+    if (!r) return;
+    for (const [id, c] of Object.entries(r.cambios ?? {})) {
+      limpiar(c);
+      if (!Object.keys(c).length) delete r.cambios[id];
+    }
+    if (r.cambios && !Object.keys(r.cambios).length) delete r.cambios;
+    if (r.nuevos && !r.nuevos.length) delete r.nuevos;
+    if (!Object.keys(r).length) delete this.aj.recorrido[t];
+  }
+
+  guardarMarca(m) {
+    const it = m.item;
+    const dx = Math.round(m.x - m.x0),
+      sube = EN_EL_PISO.includes(it.tipo) ? 0 : Math.round(m.y0 - m.y);
+    if (!dx && !sube) return;
+    if (it.agregado) {
+      const a = this.nuevoDe(it);
+      a.x += dx;
+      if (sube) a.y = Math.round((it.y ?? 0) + sube);
+    } else {
+      const c = this.cambioDe(it);
+      c.dx = (c.dx ?? 0) + dx;
+      c.dy = (c.dy ?? 0) + sube;
+    }
+    this.ordenarRec();
+    this.redibujar(it.editId);
+  }
+
+  ensanchar(d) {
+    const it = this.sel.item;
+    if (!it.w) return this.avisar("Solo los pozos y las plataformas cambian de ancho", "#ffd27a");
+    if (it.agregado) {
+      const a = this.nuevoDe(it);
+      a.w = Math.max(40, Math.round(it.w + d));
+    } else {
+      const c = this.cambioDe(it);
+      c.dw = (c.dw ?? 0) + d;
+    }
+    this.ordenarRec();
+    this.redibujar(it.editId);
+  }
+
+  sacarMarca(m) {
+    const it = m.item;
+    if (it.agregado) {
+      const r = this.rec();
+      r.nuevos = (r.nuevos ?? []).filter((a) => idNuevo(a) !== it.editId);
+      this.ordenarRec();
+      return this.redibujar(null);
+    }
+    const c = this.cambioDe(it);
+    c.oculto = !c.oculto;
+    this.ordenarRec();
+    this.redibujar(it.editId);
+  }
+
+  paletaRecorrido() {
+    const opciones = [
+      ...Object.entries(TIPOS_RECORRIDO)
+        .filter(([tipo]) => tipo !== "animal")
+        .map(([tipo, t]) => ({ tipo, texto: t.nombre, icono: ICONOS[tipo] })),
+      ...[...new Set(this.s.tramo.animales)].map((especie) => ({
+        tipo: "animal",
+        especie,
+        texto: ANIMALES[especie]?.nombre ?? especie,
+        icono: ICONOS.animal,
+      })),
+    ];
+    const botones = opciones
+      .map(
+        (o, k) =>
+          `<button data-i="${k}" style="${ESTILO_BOTON}width:132px;height:92px;margin:4px;vertical-align:top">` +
+          `<div style="font-size:28px;margin-bottom:8px">${o.icono}</div><span style="font-size:8px">${o.texto}</span></button>`
+      )
+      .join("");
+    this.abrir(
+      `<div style="margin-bottom:10px;color:#ffb83d">Agregar al recorrido (aparece en el medio de la pantalla)</div>${botones}` +
+        `<div style="margin-top:10px"><button data-i="-1" style="${ESTILO_BOTON}padding:8px 14px">Cancelar</button></div>`,
+      (d) =>
+        d.querySelectorAll("button[data-i]").forEach((b) =>
+          b.addEventListener("click", () => {
+            const o = opciones[Number(b.dataset.i)];
+            if (!o) return this.cerrar();
+            const r = this.rec();
+            r.nuevos ??= [];
+            const n = r.nuevos.reduce((mx, a) => Math.max(mx, a.n), 0) + 1;
+            const nuevo = { n, tipo: o.tipo, x: Math.round(this.s.cameras.main.scrollX + GAME_WIDTH / 2) };
+            if (o.especie) nuevo.especie = o.especie;
+            r.nuevos.push(nuevo);
+            this.redibujar(idNuevo(nuevo));
+          })
+        )
+    );
+  }
+
   // ---------- Paisaje ----------
   cambiarPaisaje(campo, delta) {
     const p = (this.aj.paisajes[this.paisaje] ??= {});
@@ -422,6 +645,7 @@ export class Editor {
       else if (e.key === "-") this.escalar(1 / ZOOM_TAMANO);
       else if (e.key === "Delete" || e.key === "Backspace") this.borrar();
       else if (e.key === "t" || e.key === "T") this.editarTexto();
+      else if (e.key === "m" || e.key === "M") this.cambiarModo();
       else if (e.key === "r" || e.key === "R") this.aSuLugar();
       else if (e.shiftKey && this.sel && e.key.startsWith("Arrow")) {
         const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];

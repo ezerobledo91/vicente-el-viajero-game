@@ -16,6 +16,7 @@ import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
 import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe, getAjustes } from "../systems/ajustes.js";
 import { Editor } from "../systems/editor.js";
+import { aplicarRecorrido } from "../systems/recorrido.js";
 import {
   actualizarViaje,
   animalesVistos,
@@ -105,6 +106,11 @@ export class ViajeScene extends Phaser.Scene {
     this.desde = viaje.ciudades[this.tramoIndex];
     this.hasta = viaje.ciudades[this.tramoIndex + 1];
     this.level = buildLevel(this.tramo, this.tramoIndex + 1);
+    // Cambios del editor (cosas movidas, agregadas u ocultas). En el editor los ocultos quedan en la
+    // lista para poder volver a mostrarlos, pero no se ponen en el tramo.
+    this.level.items = aplicarRecorrido(this.level.items, getAjustes(this).recorrido?.[this.tramoIndex], {
+      conOcultos: editorActivo(),
+    });
     this.largo = this.level.largo;
     this.progreso = getProgresoViaje(this.paisId);
     this.vistos = new Set(this.progreso.animalesVistos);
@@ -130,7 +136,7 @@ export class ViajeScene extends Phaser.Scene {
     });
 
     // El piso es un conjunto de tramos sólidos, cortado donde hay pozos.
-    const pozos = this.level.items.filter((it) => it.tipo === "pozo").sort((a, b) => a.x - b.x);
+    const pozos = this.level.items.filter((it) => it.tipo === "pozo" && !it.oculto).sort((a, b) => a.x - b.x);
     const piso = this.physics.add.staticGroup();
     let desde = 0;
     for (const p of [...pozos, { x: this.largo + 1000, w: 0 }]) {
@@ -154,7 +160,7 @@ export class ViajeScene extends Phaser.Scene {
     this.animales = [];
     this.nFiguritas = 0;
     this.rnd = mulberry32(this.tramoIndex * 131 + 7);
-    for (const item of this.level.items) this.spawn(item);
+    for (const item of this.level.items) if (!item.oculto) this.spawn(item);
     this.ponerTransiciones();
     this.ponerAmbientacion();
     this.ponerAgregados();
@@ -448,7 +454,7 @@ export class ViajeScene extends Phaser.Scene {
     return (
       this.level.items.some(
         (it) =>
-          (it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + margen) ||
+          (!it.oculto && it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + margen) ||
           (["roca", "perro", "objeto", "cartel"].includes(it.tipo) && Math.abs(it.x - x) < margen + 60)
       ) || (this.mojones ?? []).some((m) => Math.abs(m.x - x) < margen + 40)
     );
