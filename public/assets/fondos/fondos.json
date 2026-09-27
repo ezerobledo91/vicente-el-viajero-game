@@ -4,6 +4,8 @@
       "piso": 594,
       "corte": 578,
       "alto": 724,
+      "altoFondo": 578,
+      "fondoDy": 0,
       "ancho": 4344,
       "cielo": "#3facfc",
       "piezas": {
@@ -128,6 +130,8 @@
       "piso": 618,
       "corte": 588,
       "alto": 724,
+      "altoFondo": 588,
+      "fondoDy": 0,
       "ancho": 4344,
       "cielo": "#33a1fd",
       "piezas": {
@@ -245,11 +249,114 @@
       }
     },
     "costa": {
-      "piso": 600,
-      "corte": 584,
-      "alto": 724,
+      "piso": 436,
+      "corte": 320,
+      "alto": 648,
+      "altoFondo": 724,
+      "fondoDy": -164,
       "ancho": 4344,
-      "cielo": "#47aafd"
+      "cielo": "#2fa7fe",
+      "piezas": {
+        "borde-izq": {
+          "w": 336,
+          "h": 288
+        },
+        "agua-0": {
+          "w": 308,
+          "h": 192
+        },
+        "agua-1": {
+          "w": 310,
+          "h": 192
+        },
+        "agua-2": {
+          "w": 311,
+          "h": 192
+        },
+        "agua-3": {
+          "w": 310,
+          "h": 192
+        },
+        "borde-der": {
+          "w": 334,
+          "h": 288
+        },
+        "piedra-0": {
+          "w": 392,
+          "h": 117,
+          "sup": 8
+        },
+        "piedra-1": {
+          "w": 289,
+          "h": 211,
+          "sup": 4
+        },
+        "piedra-2": {
+          "w": 336,
+          "h": 145,
+          "sup": 29
+        },
+        "piedra-3": {
+          "w": 278,
+          "h": 260,
+          "sup": 4
+        },
+        "piedra-4": {
+          "w": 350,
+          "h": 145,
+          "sup": 6
+        },
+        "piedra-5": {
+          "w": 317,
+          "h": 175,
+          "sup": 22
+        },
+        "plataforma-0": {
+          "w": 348,
+          "h": 241,
+          "sup": 51
+        },
+        "plataforma-1": {
+          "w": 650,
+          "h": 249,
+          "sup": 50
+        },
+        "plataforma-2": {
+          "w": 976,
+          "h": 249,
+          "sup": 53
+        },
+        "tronco-0": {
+          "w": 202,
+          "h": 144,
+          "sup": 9
+        },
+        "tronco-1": {
+          "w": 243,
+          "h": 149,
+          "sup": 20
+        },
+        "tronco-2": {
+          "w": 236,
+          "h": 138,
+          "sup": 4
+        },
+        "tronco-3": {
+          "w": 405,
+          "h": 193,
+          "sup": 41
+        },
+        "tronco-4": {
+          "w": 375,
+          "h": 149,
+          "sup": 4
+        },
+        "tronco-5": {
+          "w": 462,
+          "h": 219,
+          "sup": 62
+        }
+      }
     },
     "pampa": {
       "piso": 590,
@@ -305,11 +412,12 @@
       "parada": 300
     },
     "madryn": {
-      "tipo": "panorama",
-      "piso": 600,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#47aafd"
+      "alto": 720,
+      "cielo": "#38a7fc",
+      "pie": 700,
+      "parada": 300
     },
     "buenosaires": {
       "tipo": "postal",

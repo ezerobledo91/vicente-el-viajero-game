@@ -28,9 +28,20 @@
       "corte": 588
     },
     "costa": {
-      "src": "personajes/paises/argentina/tramos/costa.png",
-      "piso": 600,
-      "corte": 584
+      "fondo": "personajes/paises/argentina/tramos/costa/fondo.webp",
+      "suelo": "personajes/paises/argentina/tramos/costa/suelo.png",
+      "sueloFilas": [320, 648],
+      "piezas": "personajes/paises/argentina/tramos/costa/piezas.png",
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/costa/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/costa/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/costa/troncos.png"
+      },
+      "piso": 436,
+      "corte": 320,
+      "fondoDy": -164
     },
     "pampa": {
       "src": "personajes/paises/argentina/tramos/pampa.png",
@@ -72,10 +83,10 @@
       "parada": 300
     },
     "madryn": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/tramos/costa.png",
-      "piso": 600,
-      "x": 0
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/madryn-costanera.webp",
+      "pie": 700,
+      "parada": 300
     },
     "buenosaires": {
       "tipo": "postal",

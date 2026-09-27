@@ -51,7 +51,8 @@ const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/
 const BALLENA_FACTOR = 0.3;
 const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
 // Dónde está el mar en el fondo de la costa (columnas de la textura repetible y altura del agua).
-const MAR_COSTA = { periodo: 4344, centros: [600, 3750], superficie: 455 }; // la ballena nada "lejos": se mueve como una capa de fondo
+// Mar del fondo de la costa: centros = columnas con mar (null = hay mar en todo el ancho); superficie = y en pantalla.
+const MAR_COSTA = { periodo: 4344, centros: null, superficie: 470 }; // la ballena nada "lejos": se mueve como una capa de fondo
 
 // Un tramo del viaje entre dos ciudades: plataformas de costado con obstáculos y animales.
 export class ViajeScene extends Phaser.Scene {
@@ -555,7 +556,7 @@ export class ViajeScene extends Phaser.Scene {
     // columna del dibujo: se elige una que sea mar (franjas de MAR_COSTA), cerca de donde pasa Vicente.
     const ideal = f * (item.x - 360) + 700;
     let x = ideal;
-    if (this.parallax.imagen && this.tramo.paisaje === "costa") {
+    if (this.parallax.imagen && this.tramo.paisaje === "costa" && MAR_COSTA.centros) {
       const k = Math.floor(ideal / MAR_COSTA.periodo);
       const candidatos = [k - 1, k, k + 1].flatMap((n) => MAR_COSTA.centros.map((c) => n * MAR_COSTA.periodo + c));
       x = candidatos.reduce((a, b) => (Math.abs(b - ideal) < Math.abs(a - ideal) ? b : a));
@@ -565,6 +566,8 @@ export class ViajeScene extends Phaser.Scene {
       .setDepth(-14.5);
     b.setScale(b.scale * 1.3);
     b.loop("nadar");
+    // Que la ballena y la orca no salten al mismo tiempo.
+    const demora = 3200 + (item.x % 1300);
     const saltar = () => {
       if (!b.active) return;
       b.loop("saltar");
@@ -577,7 +580,7 @@ export class ViajeScene extends Phaser.Scene {
         onComplete: () => b.active && b.loop("nadar"),
       });
     };
-    this.time.addEvent({ delay: 3200, loop: true, callback: saltar });
+    this.time.addEvent({ delay: demora, loop: true, callback: saltar });
     Object.assign(b, { animalId: item.id, info: def, avisado: false, camina: false });
     this.animales.push(b);
     return true;

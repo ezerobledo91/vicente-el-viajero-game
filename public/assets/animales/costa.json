@@ -1,0 +1,273 @@
+{
+  "characters": [
+    {
+      "id": "ballena-franca",
+      "grupo": "animales",
+      "nombre": "Ballena franca",
+      "facing": "right",
+      "alturaCm": 70,
+      "alturaPx": 110,
+      "texture": "ballena-franca.png",
+      "frameWidth": 281,
+      "frameHeight": 158,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "nadar",
+          "label": "nadar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": [
+            2
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "soplar",
+          "label": "soplar",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "orca",
+      "grupo": "animales",
+      "nombre": "Orca",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 123,
+      "texture": "orca.png",
+      "frameWidth": 231,
+      "frameHeight": 151,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "nadar",
+          "label": "nadar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "elefante-marino",
+      "grupo": "animales",
+      "nombre": "Elefante marino",
+      "facing": "right",
+      "alturaCm": 70,
+      "alturaPx": 110,
+      "texture": "elefante-marino.png",
+      "frameWidth": 281,
+      "frameHeight": 145,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "alzado",
+          "label": "alzado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "gaviota-cocinera",
+      "grupo": "animales",
+      "nombre": "Gaviota cocinera",
+      "facing": "right",
+      "alturaCm": 50,
+      "alturaPx": 110,
+      "texture": "gaviota-cocinera.png",
+      "frameWidth": 256,
+      "frameHeight": 159,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lobo-marino",
+      "grupo": "animales",
+      "nombre": "Lobo marino",
+      "facing": "right",
+      "alturaCm": 80,
+      "alturaPx": 111,
+      "texture": "lobo-marino.png",
+      "frameWidth": 164,
+      "frameHeight": 123,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "echado",
+          "label": "echado",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mara",
+      "grupo": "animales",
+      "nombre": "Mara",
+      "facing": "right",
+      "alturaCm": 65,
+      "alturaPx": 111,
+      "texture": "mara.png",
+      "frameWidth": 159,
+      "frameHeight": 128,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pinguino-magallanes",
+      "grupo": "animales",
+      "nombre": "Pingüino de Magallanes",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "texture": "pinguino-magallanes.png",
+      "frameWidth": 151,
+      "frameHeight": 145,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

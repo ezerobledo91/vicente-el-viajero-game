@@ -695,7 +695,10 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "costa",
-      animales: ["ballena", "pinguino", "choique", "guanaco"],
+      animales: ["pinguino", "lobo-marino", "ballena", "elefante-marino", "mara", "orca"],
+      entreAnimales: 1800,
+      pozosMin: 3,
+      pozosGrandesMin: 1,
       pajaro: "gaviota",
       largo: 13500,
       dificultad: 2,

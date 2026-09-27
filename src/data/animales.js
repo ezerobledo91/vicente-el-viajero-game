@@ -3,6 +3,17 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  orca: {
+    sprite: "orca",
+    nombre: "Orca",
+    dato: "En Península Valdés las orcas salen del agua hasta la playa para cazar lobos marinos. ¡Es único en el mundo!",
+    forma: "ballena",
+  },
+  "elefante-marino": {
+    sprite: "elefante-marino",
+    nombre: "Elefante marino",
+    dato: "Los machos tienen una nariz grande como una trompa y pueden pesar tanto como un auto.",
+  },
   huemul: {
     sprite: "huemul",
     nombre: "Huemul",
@@ -80,7 +91,7 @@ export const ANIMALES = {
     dato: "Es rosado por lo que come y descansa parado en una sola pata.",
   },
   pinguino: {
-    sprite: "pinguino",
+    sprite: "pinguino-magallanes",
     nombre: "Pingüino de Magallanes",
     dato: "No puede volar, ¡pero nada rapidísimo!",
     forma: "erguido",
@@ -121,6 +132,7 @@ export const ANIMALES = {
     h: 120,
   },
   "lobo-marino": {
+    sprite: "lobo-marino",
     nombre: "Lobo marino",
     dato: "Duerme al sol en las playas y es un gran nadador.",
     forma: "tumbado",
@@ -130,7 +142,7 @@ export const ANIMALES = {
     h: 64,
   },
   ballena: {
-    sprite: "ballena",
+    sprite: "ballena-franca",
     nombre: "Ballena franca austral",
     dato: "Puede medir más de 15 metros: ¡más larga que un colectivo!",
     forma: "ballena",
@@ -140,6 +152,7 @@ export const ANIMALES = {
     h: 90,
   },
   mara: {
+    sprite: "mara",
     nombre: "Mara",
     dato: "También la llaman liebre patagónica, aunque es pariente del cuis.",
     forma: "cuadrupedo",
@@ -234,7 +247,7 @@ export const PAJAROS = {
   libelula: { nombre: "Libélula", sprite: "libelula", anim: "volar", velocidad: 140 },
   tucan: { nombre: "Tucán", sprite: "tucan", anim: "volar", velocidad: 120 },
   gaviota: {
-    sprite: "gaviota",
+    sprite: "gaviota-cocinera",
     anim: "volar",
     nombre: "Gaviota",
     color: "#f4f4f2",
@@ -335,7 +348,10 @@ export const CUARTOS = 4;
 // Animales que caminan de un lado a otro. `quieto`: pose cuando se frenan a charlar con Vicente
 // (si no tiene, se congela el cuadro actual).
 export const CAMINANTES = {
-  pinguino: {},
+  pinguino: { quieto: "idle" },
+  "lobo-marino": { quieto: "idle" },
+  "elefante-marino": { quieto: "alzado" },
+  mara: { quieto: "sentado" },
   guanaco: { quieto: "idle" },
   choique: { quieto: "idle" },
   zorro: { quieto: "sentado" },

@@ -68,7 +68,7 @@ const NOMBRES_PIEZAS = [
   ["tronco"],
 ];
 // enFila: todas las piezas en una sola fila (borde izq, centro, borde der, 4 aguas, orilla izq, orilla der).
-async function cortarPiezas(id, file, enFila = false) {
+async function cortarPiezas(id, file, enFila = false, nombres = null) {
   const { data, info } = await sharp(path.join(ROOT, file)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = info.width,
     H = info.height;
@@ -107,7 +107,7 @@ async function cortarPiezas(id, file, enFila = false) {
   for (const [k, fila] of filas.entries()) {
     fila.sort((a, b) => a.x0 - b.x0);
     for (const [j, c] of fila.entries()) {
-      const nombre = enFila ? NOMBRES_PIEZAS.flat()[j] : NOMBRES_PIEZAS[k]?.[j];
+      const nombre = nombres ? nombres[j] : enFila ? NOMBRES_PIEZAS.flat()[j] : NOMBRES_PIEZAS[k]?.[j];
       if (!nombre) continue;
       // A los cuadros de agua se les recorta el borde (suelen tener un marco claro que al repetirse arma una grilla).
       const m = nombre.startsWith("agua") ? RECORTE_AGUA : 0;
@@ -179,20 +179,38 @@ async function main() {
       await sharp(path.join(ROOT, t.fondo))
         .webp(WEBP)
         .toFile(path.join(OUT, `${id}-fondo.webp`));
-      await sharp(path.join(ROOT, t.suelo))
-        .webp(WEBP)
-        .toFile(path.join(OUT, `${id}-suelo.webp`));
+      // sueloFilas [desde, hasta]: el suelo viene como franja transparente dentro de un lienzo más alto
+      // (y a veces de la mitad de ancho): se recorta esa franja y se repite espejada para llegar al ancho.
+      let sueloImg = sharp(path.join(ROOT, t.suelo));
+      if (t.sueloFilas) {
+        const [y0, y1] = t.sueloFilas;
+        const meta = await sharp(path.join(ROOT, t.suelo)).metadata();
+        const franja = await sharp(path.join(ROOT, t.suelo))
+          .extract({ left: 0, top: y0, width: meta.width, height: y1 - y0 })
+          .png()
+          .toBuffer();
+        const espejo = await sharp(franja).flop().png().toBuffer();
+        sueloImg = sharp({
+          create: { width: meta.width * 2, height: y1 - y0, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+        }).composite([
+          { input: franja, left: 0, top: 0 },
+          { input: espejo, left: meta.width, top: 0 },
+        ]);
+      }
+      await sueloImg.webp(WEBP).toFile(path.join(OUT, `${id}-suelo.webp`));
       const mf = await sharp(path.join(ROOT, t.fondo)).metadata();
-      const ms = await sharp(path.join(ROOT, t.suelo)).metadata();
+      const ms = await sharp(path.join(OUT, `${id}-suelo.webp`)).metadata();
       const fondoRaw = await raw(t.fondo);
       manifest.tramos[id] = {
         piso: t.piso,
         corte: t.corte,
-        alto: mf.height + ms.height,
+        alto: t.corte + ms.height,
+        altoFondo: mf.height,
+        fondoDy: t.fondoDy ?? 0, // corrimiento vertical extra del fondo (para mostrar más mar/cielo) // el fondo puede seguir por detrás del suelo (suelos con partes transparentes)
         ancho: mf.width,
         cielo: colorCielo(fondoRaw),
       };
-      if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas, t.piezasEnFila);
+      if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas, t.piezasEnFila, t.piezasNombres);
       for (const [tipo, file] of Object.entries(t.sueltas ?? {}))
         Object.assign((manifest.tramos[id].piezas ??= {}), await cortarSueltas(id, tipo, file));
       console.log(`✔ tramo ${id} (precortado${t.piezas ? " + piezas" : ""})`);

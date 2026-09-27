@@ -326,7 +326,7 @@ function createImageParallax(scene, paisajeId, info, { width, groundY }) {
       .setScrollFactor(0)
       .setDepth(depth);
   const layers = [
-    { tile: capa("fondo", dy, info.corte, -15), factor: FACTOR_IMAGEN.fondo },
+    { tile: capa("fondo", dy + (info.fondoDy ?? 0), info.altoFondo ?? info.corte, -15), factor: FACTOR_IMAGEN.fondo },
     // El suelo llega siempre hasta abajo de la pantalla (algunos suelos son más bajos y quedaba una franja).
     {
       tile: capa("suelo", dy + info.corte, Math.max(info.alto - info.corte, 720 - dy - info.corte), -5),
