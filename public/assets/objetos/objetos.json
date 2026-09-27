@@ -1,0 +1,234 @@
+{
+  "characters": [
+    {
+      "id": "objeto-nieve",
+      "grupo": "objetos",
+      "nombre": "objeto 1",
+      "facing": "right",
+      "alturaCm": 14,
+      "alturaPx": 141,
+      "texture": "objeto-nieve.png",
+      "frameWidth": 153,
+      "frameHeight": 145,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-calafate",
+      "grupo": "objetos",
+      "nombre": "objeto 2",
+      "facing": "right",
+      "alturaCm": 17,
+      "alturaPx": 173,
+      "texture": "objeto-calafate.png",
+      "frameWidth": 161,
+      "frameHeight": 177,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-caracola",
+      "grupo": "objetos",
+      "nombre": "objeto 3",
+      "facing": "right",
+      "alturaCm": 15,
+      "alturaPx": 148,
+      "texture": "objeto-caracola.png",
+      "frameWidth": 161,
+      "frameHeight": 152,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-naranja",
+      "grupo": "objetos",
+      "nombre": "objeto 4",
+      "facing": "right",
+      "alturaCm": 19,
+      "alturaPx": 185,
+      "texture": "objeto-naranja.png",
+      "frameWidth": 182,
+      "frameHeight": 189,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-vaina",
+      "grupo": "objetos",
+      "nombre": "objeto 5",
+      "facing": "right",
+      "alturaCm": 21,
+      "alturaPx": 204,
+      "texture": "objeto-vaina.png",
+      "frameWidth": 149,
+      "frameHeight": 208,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-guayaba",
+      "grupo": "objetos",
+      "nombre": "objeto 6",
+      "facing": "right",
+      "alturaCm": 17,
+      "alturaPx": 173,
+      "texture": "objeto-guayaba.png",
+      "frameWidth": 169,
+      "frameHeight": 177,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-canto-rodado",
+      "grupo": "objetos",
+      "nombre": "objeto 7",
+      "facing": "right",
+      "alturaCm": 12,
+      "alturaPx": 117,
+      "texture": "objeto-canto-rodado.png",
+      "frameWidth": 184,
+      "frameHeight": 121,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-avion",
+      "grupo": "objetos",
+      "nombre": "objeto 8",
+      "facing": "right",
+      "alturaCm": 14,
+      "alturaPx": 137,
+      "texture": "objeto-avion.png",
+      "frameWidth": 225,
+      "frameHeight": 141,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-nuez",
+      "grupo": "objetos",
+      "nombre": "objeto 9",
+      "facing": "right",
+      "alturaCm": 14,
+      "alturaPx": 143,
+      "texture": "objeto-nuez.png",
+      "frameWidth": 147,
+      "frameHeight": 147,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "objeto-basalto",
+      "grupo": "objetos",
+      "nombre": "objeto 10",
+      "facing": "right",
+      "alturaCm": 13,
+      "alturaPx": 130,
+      "texture": "objeto-basalto.png",
+      "frameWidth": 182,
+      "frameHeight": 134,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

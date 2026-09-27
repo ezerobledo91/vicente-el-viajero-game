@@ -29,6 +29,8 @@ export class Player extends Character {
     this.saltando = false;
     this.golpeadoHasta = 0;
     this.invulnerableHasta = 0;
+    this.accion = null; // "arrojar" o "mochila" mientras dura (ver hacer())
+    this.accionHasta = 0;
     this.face("right");
   }
 
@@ -43,15 +45,29 @@ export class Player extends Character {
     return this.body.blocked.down || this.body.touching.down;
   }
 
+  get dir() {
+    return this.facing === "left" ? -1 : 1;
+  }
+
+  // Empieza una acción (tirar o revolear la mochila) que dura ms. En el piso se frena mientras tanto.
+  hacer(accion, time, ms) {
+    if (!this.has(accion) || time < this.golpeadoHasta || this.agachado) return false;
+    this.accion = accion;
+    this.accionHasta = time + ms;
+    this.estado = null; // que vuelva a arrancar la animación aunque repita la misma acción
+    return true;
+  }
+
   update(time, controls) {
     const aturdido = time < this.golpeadoHasta;
+    if (this.accion && time >= this.accionHasta) this.accion = null;
     // Agacharse: solo en el piso; mientras está agachado no camina.
     const agachar = !aturdido && controls.down && this.enElPiso && this.has("agachado");
     if (agachar !== !!this.agachado) {
       this.agachado = agachar;
       this.ajustarCuerpo(agachar ? PLAYER.agachado : 1);
     }
-    if (this.agachado) this.body.setVelocityX(0);
+    if (this.agachado || (this.accion && this.enElPiso)) this.body.setVelocityX(0);
     else if (!aturdido) {
       const dir = (controls.right ? 1 : 0) - (controls.left ? 1 : 0);
       this.body.setVelocityX(dir * PLAYER.velocidad);
@@ -74,7 +90,8 @@ export class Player extends Character {
   }
 
   estadoActual(aturdido) {
-    if (aturdido) return "golpe";
+    if (aturdido) return this.golpeAtras && this.has("golpe-atras") ? "golpe-atras" : "golpe";
+    if (this.accion) return this.accion;
     if (this.agachado) return "agachado";
     if (!this.enElPiso) return "aire";
     return Math.abs(this.body.velocity.x) > 10 ? "caminar" : "idle";
@@ -95,6 +112,9 @@ export class Player extends Character {
   golpear(time, desdeX) {
     if (time < this.invulnerableHasta) return false;
     const dir = this.x < desdeX ? -1 : 1;
+    // Si el golpe viene de atrás (le pegan en la mochila) tiene su propia animación.
+    this.golpeAtras = dir === this.dir;
+    this.accion = null;
     this.body.setVelocity(dir * PLAYER.empujon.x, -PLAYER.empujon.y);
     this.golpeadoHasta = time + PLAYER.aturdido;
     this.invulnerableHasta = time + PLAYER.invulnerable;

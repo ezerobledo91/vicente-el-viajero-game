@@ -69,7 +69,7 @@ export class ViajeHudScene extends Phaser.Scene {
     const ayuda = txt(
       GAME_WIDTH / 2,
       126,
-      "Flechas para caminar · Espacio para saltar · Abajo para agacharse",
+      "Flechas: caminar · Espacio: saltar · Abajo: agacharse · X: tirar · C: mochila",
       11,
       COLORS.inkDark,
       0.5
@@ -91,6 +91,9 @@ export class ViajeHudScene extends Phaser.Scene {
     this.pad("right", 210, GAME_HEIGHT - 80, ">");
     this.pad("jump", GAME_WIDTH - 110, GAME_HEIGHT - 80, "SALTAR", 70);
     this.pad("down", GAME_WIDTH - 250, GAME_HEIGHT - 60, "v", 44);
+    // Acciones: tirar el objeto del tramo y revolear la mochila (arriba de saltar y de agacharse).
+    this.pad("tirar", GAME_WIDTH - 110, GAME_HEIGHT - 205, "TIRAR", 44);
+    this.pad("mochila", GAME_WIDTH - 250, GAME_HEIGHT - 170, "MOCHILA", 44);
   }
 
   pad(control, x, y, label, radius = 52) {

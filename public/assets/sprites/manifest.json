@@ -9,9 +9,9 @@
       "alturaCm": 128,
       "alturaPx": 117,
       "texture": "vicente.png",
-      "frameWidth": 100,
-      "frameHeight": 124,
-      "frameCount": 40,
+      "frameWidth": 116,
+      "frameHeight": 123,
+      "frameCount": 62,
       "animations": [
         {
           "key": "caminar",
@@ -131,6 +131,52 @@
             39
           ],
           "fps": 8,
+          "repeat": 0
+        },
+        {
+          "key": "arrojar",
+          "label": "Arrojar",
+          "frames": [
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "fps": 18,
+          "repeat": 0
+        },
+        {
+          "key": "mochila",
+          "label": "Golpe con mochila",
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55
+          ],
+          "fps": 20,
+          "repeat": 0
+        },
+        {
+          "key": "golpe-atras",
+          "label": "Golpe de atrás",
+          "frames": [
+            56,
+            57,
+            58,
+            59,
+            60,
+            61
+          ],
+          "fps": 12,
           "repeat": 0
         },
         {

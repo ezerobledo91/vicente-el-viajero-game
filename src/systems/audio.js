@@ -118,6 +118,8 @@ const EFECTOS = {
     tono(d, t + 0.11, { f: 480, f2: 330, dur: 0.07, onda: "sawtooth", vol: 0.3 });
   },
   plop: (d, t) => tono(d, t, { f: 620, f2: 140, dur: 0.2, vol: 0.5 }),
+  tirar: (d, t) => tono(d, t, { f: 420, f2: 900, dur: 0.12, onda: "triangle", vol: 0.4 }),
+  mochila: (d, t) => tono(d, t, { f: 260, f2: 90, dur: 0.16, vol: 0.45 }),
   golpe: (d, t) => {
     tono(d, t, { f: 320, f2: 80, dur: 0.32, onda: "sawtooth", vol: 0.45 });
     ruido(d, t, 0.12, 0.35, 1500);

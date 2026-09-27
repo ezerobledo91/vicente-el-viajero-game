@@ -1,0 +1,30 @@
+{
+  "_comment": "Objetos que Vicente tira (uno por tramo, según la región). Dibujos sueltos; ids en el orden en que los lee el recortador (por la altura de arriba de cada dibujo, no de izquierda a derecha).",
+  "source": "personajes/objetos/arrojables.png",
+  "output": "public/assets/objetos",
+  "manifest": "objetos.json",
+  "grupo": "objetos",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 30,
+    "h": 30
+  },
+  "auto": {
+    "prefijo": "objeto",
+    "cmPorPx": 0.1,
+    "ids": [
+      "objeto-nieve",
+      "objeto-calafate",
+      "objeto-caracola",
+      "objeto-naranja",
+      "objeto-vaina",
+      "objeto-guayaba",
+      "objeto-canto-rodado",
+      "objeto-avion",
+      "objeto-nuez",
+      "objeto-basalto"
+    ]
+  },
+  "characters": []
+}

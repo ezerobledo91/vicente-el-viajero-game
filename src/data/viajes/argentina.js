@@ -6,8 +6,9 @@
 // `etiqueta` (opcional): dónde va el nombre en el mapa del viaje ("izq", "der", "arriba", "abajo").
 //
 // Tramos: `paisaje` (src/data/paisajes.js), `animales` nativos (src/data/animales.js),
-// `pajaro` que hay que esquivar (uno o una lista: se van alternando), `tesoro` (uno por tramo, bien
-// escondido), `especial` (otro coleccionable difícil de alcanzar), `largo` en píxeles y `dificultad` de 1 a 3.
+// `objeto` que tira Vicente (tecla X, uno por región), `pajaro` que hay que esquivar (uno o una lista:
+// se van alternando), `tesoro` (uno por tramo, bien escondido), `especial` (otro coleccionable difícil
+// de alcanzar), `largo` en píxeles y `dificultad` de 1 a 3.
 
 export const VIAJE_ARGENTINA = {
   pais: "ar",
@@ -671,6 +672,7 @@ export const VIAJE_ARGENTINA = {
   tramos: [
     {
       paisaje: "bosque-fueguino",
+      objeto: "objeto-nieve",
       pozosMin: 3,
       pozosGrandesMin: 1,
       animales: ["castor", "zorro", "cauquen", "guanaco", "buho", "liebre"],
@@ -683,6 +685,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "estepa",
+      objeto: "objeto-calafate",
       animales: ["choique", "zorro-gris", "flamenco", "huemul", "piche", "guanaco"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -695,6 +698,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "costa",
+      objeto: "objeto-caracola",
       animales: ["pinguino", "lobo-marino", "ballena", "elefante-marino", "mara", "orca"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -707,6 +711,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "pampa",
+      objeto: "objeto-avion",
       animales: ["hornero", "vaca", "vizcacha", "lechucita", "tatu", "cuis"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -719,6 +724,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "rio",
+      objeto: "objeto-canto-rodado",
       animales: ["carpincho", "garza", "coipo", "lobito-rio", "tortuga"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -731,6 +737,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "humedal",
+      objeto: "objeto-vaina",
       animales: ["carpincho", "garza", "ciervo-pantanos", "rana", "yacare"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -743,6 +750,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "humedal",
+      objeto: "objeto-naranja",
       animales: ["yacare", "aguara-guazu", "carpincho", "ciervo-pantanos"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -755,6 +763,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "selva",
+      objeto: "objeto-guayaba",
       animales: ["coati", "tucan", "mono", "mariposa"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -767,6 +776,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "cataratas",
+      objeto: "objeto-basalto",
       animales: ["coati", "jaguarete", "tucan"],
       pajaro: ["tucan", "abeja"],
       largo: 14000,

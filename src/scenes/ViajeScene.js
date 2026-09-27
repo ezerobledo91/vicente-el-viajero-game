@@ -49,6 +49,12 @@ const PIEZAS = {
   nivelAgua: -14, // px respecto del piso donde empieza el agua (más negativo = más alto; tapa el camino detrás)
 };
 const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/seg
+// Acciones de Vicente (ms): X tira el objeto del tramo, C revolea la mochila hacia adelante.
+const ACCIONES = {
+  arrojar: { dura: 420, cada: 600, suelta: 230 },
+  mochila: { dura: 400, cada: 550, desde: 140, hasta: 330, alcance: 120 },
+};
+const TIRO = { vx: 620, vy: -300, gravedad: 1100, alto: 34, vida: 1800 }; // objeto tirado (px, px/seg)
 const BALLENA_FACTOR = 0.3;
 const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
 // Dónde está el mar en el fondo de la costa (columnas de la textura repetible y altura del agua).
@@ -144,8 +150,15 @@ export class ViajeScene extends Phaser.Scene {
     this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FOLLOW_UPDATE, (cam) => this.parallax.update(cam.scrollX));
 
     this.keys = this.input.keyboard.addKeys("LEFT,RIGHT,UP,DOWN,SPACE,A,D,W,S");
-    this.touch = { left: false, right: false, jump: false, down: false };
+    this.pedido = null; // acción pedida con el teclado ("arrojar" o "mochila")
+    this.input.keyboard.on("keydown-X", () => (this.pedido = "arrojar"));
+    this.input.keyboard.on("keydown-C", () => (this.pedido = "mochila"));
+    this.touch = { left: false, right: false, jump: false, down: false, tirar: false, mochila: false };
+    this.touchAntes = {};
     this.puas = [];
+    this.tiros = [];
+    this.proximaAccion = 0;
+    this.mochilaGolpe = null; // { desde, hasta } mientras la mochila puede pegar
     if (modoPrueba()) {
       this.input.keyboard.on(
         "keydown-N",
@@ -698,6 +711,7 @@ export class ViajeScene extends Phaser.Scene {
       down: k.DOWN.isDown || k.S.isDown || this.touch.down,
     });
     for (const c of this.companeros) c.update();
+    this.acciones(time);
 
     const pb = this.player.body;
     const cuerpo = new Phaser.Geom.Rectangle(pb.x, pb.y, pb.width, pb.height);
@@ -735,6 +749,8 @@ export class ViajeScene extends Phaser.Scene {
       }
     }
     this.puas = this.puas.filter((p) => p.active);
+    this.moverTiros(time, dt, cam);
+    this.golpeMochila(time);
 
     // Coleccionables y corazones
     for (const s of this.figuritas) if (s.active && toca(s, 1)) this.juntar(s);
@@ -928,6 +944,101 @@ export class ViajeScene extends Phaser.Scene {
     this.tweens.add({ targets: h, y: h.y - 60, alpha: 0, scale: 1.8, duration: 350, onComplete: () => h.destroy() });
   }
 
+  // ---------- Acciones: tirar (X) y mochila (C) ----------
+  // Botón táctil recién apretado (no mantenido).
+  apreto(control) {
+    const nuevo = this.touch[control] && !this.touchAntes[control];
+    this.touchAntes[control] = this.touch[control];
+    return nuevo;
+  }
+
+  acciones(time) {
+    // Las teclas se anotan al apretarlas (keydown): un toque rápido se suelta en el mismo cuadro y
+    // con isDown/JustDown se perdería.
+    if (this.apreto("tirar")) this.pedido = "arrojar";
+    if (this.apreto("mochila")) this.pedido = "mochila";
+    const accion = this.pedido;
+    this.pedido = null;
+    if (!accion || time < this.proximaAccion) return;
+    const cfg = ACCIONES[accion];
+    if (!this.player.hacer(accion, time, cfg.dura)) return;
+    this.proximaAccion = time + cfg.cada;
+    if (accion === "arrojar") this.time.delayedCall(cfg.suelta, () => this.tirar());
+    else {
+      efecto("mochila");
+      this.mochilaGolpe = { desde: time + cfg.desde, hasta: time + cfg.hasta };
+    }
+  }
+
+  // El objeto sale de la mano y vuela en curva hacia adelante.
+  tirar() {
+    if (this.terminado) return;
+    efecto("tirar");
+    const p = this.player,
+      dir = p.dir;
+    const key = this.tramo.objeto;
+    const x = p.x + dir * 34,
+      y = p.y - p.displayHeight * 0.62;
+    const o = this.textures.exists(key)
+      ? this.add.image(x, y, key, 0)
+      : this.add.circle(x, y, 10, 0xf2f2f2).setStrokeStyle(2, 0x2a1d1a);
+    o.setScale(o.scale * (TIRO.alto / o.height)).setDepth(10);
+    Object.assign(o, { vx: dir * TIRO.vx + p.body.velocity.x * 0.3, vy: TIRO.vy, dir, nace: this.time.now });
+    this.tiros.push(o);
+  }
+
+  moverTiros(time, dt, cam) {
+    for (const o of this.tiros) {
+      o.vy += TIRO.gravedad * dt;
+      o.x += o.vx * dt;
+      o.y += o.vy * dt;
+      o.angle += 540 * dt * o.dir;
+      const r = o.getBounds();
+      const pajaro = this.pajaros.find(
+        (b) => b.active && !b.pisado && Phaser.Geom.Intersects.RectangleToRectangle(r, b.getBounds())
+      );
+      const pua = this.puas.find((q) => q.active && Phaser.Geom.Intersects.RectangleToRectangle(r, q.getBounds()));
+      if (pajaro) this.derribarPajaro(pajaro, "¡Le di!");
+      if (pua) pua.destroy();
+      const sobrePozo = this.level.items.some((it) => it.tipo === "pozo" && Math.abs(it.x - o.x) < it.w / 2);
+      const enElPiso = o.y > GROUND_Y - 6 && !sobrePozo;
+      if (pajaro || pua || enElPiso) this.chispas(o.x, o.y, 6, 0xfff2a8);
+      if (
+        pajaro ||
+        pua ||
+        enElPiso ||
+        o.y > GAME_HEIGHT + 40 ||
+        o.x > cam.scrollX + cam.width + 80 ||
+        o.x < cam.scrollX - 80 ||
+        time - o.nace > TIRO.vida
+      )
+        o.destroy();
+    }
+    this.tiros = this.tiros.filter((o) => o.active);
+  }
+
+  // Mientras la mochila está estirada, voltea lo que tenga adelante (pájaros y púas).
+  golpeMochila(time) {
+    const g = this.mochilaGolpe;
+    if (!g || time < g.desde) return;
+    if (time > g.hasta) {
+      this.mochilaGolpe = null;
+      return;
+    }
+    const p = this.player,
+      b = p.body,
+      alcance = ACCIONES.mochila.alcance;
+    const zona = new Phaser.Geom.Rectangle(p.dir > 0 ? p.x : p.x - alcance, b.y - 10, alcance, b.height + 10);
+    for (const pj of this.pajaros)
+      if (pj.active && !pj.pisado && Phaser.Geom.Intersects.RectangleToRectangle(zona, pj.getBounds()))
+        this.derribarPajaro(pj, "¡Paf!");
+    for (const q of this.puas)
+      if (q.active && Phaser.Geom.Intersects.RectangleToRectangle(zona, q.getBounds())) {
+        this.chispas(q.x, q.y, 6, 0xffffff);
+        q.destroy();
+      }
+  }
+
   // Puntaje de lo que se juntó: sube y se desvanece (como en Mario).
   puntosFlotantes(x, y, puntos) {
     const t = this.add
@@ -976,12 +1087,18 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   pisarPajaro(b) {
+    this.player.rebotar();
+    this.derribarPajaro(b);
+  }
+
+  // Pisado, alcanzado por un objeto o por la mochila: se da vuelta y cae.
+  derribarPajaro(b, texto = "¡Plop!") {
+    if (b.pisado) return;
     efecto("plop");
     b.pisado = true;
-    this.player.rebotar();
     b.anims?.pause();
     b.setFlipY(true);
-    this.cartelito(b.x, b.y - 30, "¡Plop!");
+    this.cartelito(b.x, b.y - 30, texto);
     // Cae dando vueltas y desaparece.
     this.tweens.add({
       targets: b,

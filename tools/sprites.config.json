@@ -99,6 +99,32 @@
           "repeat": 0,
           "archivo": "personajes/familia/vicente/agachar.png",
           "referencia": "max"
+        },
+        {
+          "key": "arrojar",
+          "label": "Arrojar",
+          "frames": 8,
+          "fps": 18,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/arrojar.png"
+        },
+        {
+          "key": "mochila",
+          "label": "Golpe con mochila",
+          "frames": 8,
+          "fps": 20,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/ataque-mochila.png",
+          "total": 8,
+          "desde": 0
+        },
+        {
+          "key": "golpe-atras",
+          "label": "Golpe de atrás",
+          "frames": 6,
+          "fps": 12,
+          "repeat": 0,
+          "archivo": "personajes/familia/vicente/golpe-mochila.png"
         }
       ],
       "alias": [

@@ -42,6 +42,7 @@ export const ASSETS = {
     "assets/stickers/stickers-hd.json",
     "assets/tesoros/tesoros.json",
     "assets/lugares/lugares.json",
+    "assets/objetos/objetos.json",
   ],
   HOJA: (ruta) => `hoja-${ruta}`,
   // Fondos ilustrados (npm run fondos).
