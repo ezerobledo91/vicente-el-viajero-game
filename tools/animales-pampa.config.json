@@ -1,0 +1,229 @@
+{
+  "_comment": "Kit de animales de la pampa (Codex): un PNG por animal con todas sus poses.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "pampa.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "carancho",
+      "nombre": "Carancho",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/pampa/carancho.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 5,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cuis",
+      "nombre": "Cuis",
+      "alturaCm": 40,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/pampa/cuis.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/pampa/cuis.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "hornero-pampa",
+      "nombre": "Hornero",
+      "alturaCm": 40,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/pampa/hornero.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/pampa/hornero.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/pampa/hornero.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lechucita",
+      "nombre": "Lechucita de las vizcacheras",
+      "alturaCm": 45,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/pampa/lechucita-vizcacheras.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "archivo": "personajes/animales/pampa/lechucita-vizcacheras.png",
+          "total": 5,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/pampa/lechucita-vizcacheras.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 2,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tatu-pampa",
+      "nombre": "Tatú",
+      "alturaCm": 45,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/pampa/tatu.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "archivo": "personajes/animales/pampa/tatu.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "vaca",
+      "nombre": "Vaca",
+      "alturaCm": 150,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/pampa/vaca-holando.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/pampa/vaca-holando.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "vizcacha",
+      "nombre": "Vizcacha",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/pampa/vizcacha.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/pampa/vizcacha.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

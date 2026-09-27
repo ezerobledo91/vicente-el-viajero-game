@@ -3,6 +3,26 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  cuis: {
+    sprite: "cuis",
+    nombre: "Cuis",
+    dato: "Es un roedor chiquito, pariente del cobayo. Vive en cuevas entre los pastos.",
+  },
+  vizcacha: {
+    sprite: "vizcacha",
+    nombre: "Vizcacha",
+    dato: "Vive en familia en cuevas llamadas vizcacheras, ¡y junta cosas brillantes en la entrada!",
+  },
+  lechucita: {
+    sprite: "lechucita",
+    nombre: "Lechucita de las vizcacheras",
+    dato: "Es una lechuza que vive en cuevas en el suelo y sale de día. Mueve la cabeza para arriba y abajo.",
+  },
+  vaca: {
+    sprite: "vaca",
+    nombre: "Vaca holando",
+    dato: "Es la vaca blanca y negra que da mucha leche. En la pampa hay millones de vacas.",
+  },
   orca: {
     sprite: "orca",
     nombre: "Orca",
@@ -81,7 +101,7 @@ export const ANIMALES = {
     dato: "Es un mono aullador: ¡su grito se escucha a kilómetros!",
   },
   tatu: {
-    sprite: "tatu",
+    sprite: "tatu-pampa",
     nombre: "Tatú",
     dato: "Tiene un caparazón duro, y algunos se hacen bolita para protegerse.",
   },
@@ -161,18 +181,8 @@ export const ANIMALES = {
     w: 70,
     h: 56,
   },
-  vaca: {
-    nombre: "Vaca",
-    dato: "En la llanura pampeana hay muchísimas vacas.",
-    forma: "cuadrupedo",
-    color: "#f4f1ea",
-    panza: "#2b2b2b",
-    manchas: "#2b2b2b",
-    w: 200,
-    h: 140,
-  },
   hornero: {
-    sprite: "hornero",
+    sprite: "hornero-pampa",
     nombre: "Hornero",
     dato: "Es el ave nacional: hace su nido de barro con forma de horno.",
     forma: "erguido",
@@ -240,6 +250,7 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  carancho: { nombre: "Carancho", sprite: "carancho", anim: "volar", velocidad: 110 },
   carpintero: { nombre: "Carpintero gigante", sprite: "carpintero", anim: "volar", velocidad: 100 },
   abeja: { nombre: "Abeja", sprite: "abeja", anim: "volar", velocidad: 110 },
   colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
@@ -352,6 +363,11 @@ export const CAMINANTES = {
   "lobo-marino": { quieto: "idle" },
   "elefante-marino": { quieto: "alzado" },
   mara: { quieto: "sentado" },
+  cuis: { quieto: "idle" },
+  vizcacha: { quieto: "sentado" },
+  vaca: { quieto: "idle" },
+  hornero: { quieto: "idle" },
+  tatu: { quieto: "bolita" },
   guanaco: { quieto: "idle" },
   choique: { quieto: "idle" },
   zorro: { quieto: "sentado" },
@@ -362,7 +378,6 @@ export const CAMINANTES = {
   cauquen: { quieto: "comer" },
   liebre: { quieto: "idle" },
   coati: { quieto: "parado" },
-  tatu: {},
   mono: {},
   jaguarete: {},
 };

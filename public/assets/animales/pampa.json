@@ -1,0 +1,257 @@
+{
+  "characters": [
+    {
+      "id": "carancho",
+      "grupo": "animales",
+      "nombre": "Carancho",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "texture": "carancho.png",
+      "frameWidth": 236,
+      "frameHeight": 154,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "cuis",
+      "grupo": "animales",
+      "nombre": "Cuis",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 111,
+      "texture": "cuis.png",
+      "frameWidth": 195,
+      "frameHeight": 146,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "hornero-pampa",
+      "grupo": "animales",
+      "nombre": "Hornero",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 111,
+      "texture": "hornero-pampa.png",
+      "frameWidth": 195,
+      "frameHeight": 158,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lechucita",
+      "grupo": "animales",
+      "nombre": "Lechucita de las vizcacheras",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 110,
+      "texture": "lechucita.png",
+      "frameWidth": 146,
+      "frameHeight": 131,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            2
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            3,
+            4
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tatu-pampa",
+      "grupo": "animales",
+      "nombre": "Tatú",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 109,
+      "texture": "tatu-pampa.png",
+      "frameWidth": 220,
+      "frameHeight": 115,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "vaca",
+      "grupo": "animales",
+      "nombre": "Vaca",
+      "facing": "right",
+      "alturaCm": 150,
+      "alturaPx": 110,
+      "texture": "vaca.png",
+      "frameWidth": 173,
+      "frameHeight": 115,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "vizcacha",
+      "grupo": "animales",
+      "nombre": "Vizcacha",
+      "facing": "right",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "texture": "vizcacha.png",
+      "frameWidth": 217,
+      "frameHeight": 127,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

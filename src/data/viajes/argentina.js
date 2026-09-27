@@ -707,8 +707,11 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "pampa",
-      animales: ["hornero", "tatu"],
-      pajaro: ["tero", "colibri", "abeja"],
+      animales: ["hornero", "vaca", "vizcacha", "lechucita", "tatu", "cuis"],
+      entreAnimales: 1800,
+      pozosMin: 3,
+      pozosGrandesMin: 1,
+      pajaro: ["tero", "carancho", "abeja"],
       largo: 13500,
       dificultad: 2,
       tesoro: "tesoro-obelisco",

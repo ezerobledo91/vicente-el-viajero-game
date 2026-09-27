@@ -175,10 +175,23 @@ async function main() {
 
   for (const [id, t] of Object.entries(config.tramos)) {
     if (t.fondo) {
-      // Ya vienen cortados y repetibles: se copian tal cual.
-      await sharp(path.join(ROOT, t.fondo))
-        .webp(WEBP)
-        .toFile(path.join(OUT, `${id}-fondo.webp`));
+      // Ya vienen cortados. Si sus bordes no coinciden (fondoEspejar), se continúa con su reflejo
+      // para que al repetirse no se vea el corte.
+      if (t.fondoEspejar) {
+        const fm = await sharp(path.join(ROOT, t.fondo)).metadata();
+        const orig = await sharp(path.join(ROOT, t.fondo)).png().toBuffer();
+        const espejo = await sharp(orig).flop().png().toBuffer();
+        await sharp({ create: { width: fm.width * 2, height: fm.height, channels: 3, background: "#000" } })
+          .composite([
+            { input: orig, left: 0, top: 0 },
+            { input: espejo, left: fm.width, top: 0 },
+          ])
+          .webp(WEBP)
+          .toFile(path.join(OUT, `${id}-fondo.webp`));
+      } else
+        await sharp(path.join(ROOT, t.fondo))
+          .webp(WEBP)
+          .toFile(path.join(OUT, `${id}-fondo.webp`));
       // sueloFilas [desde, hasta]: el suelo viene como franja transparente dentro de un lienzo más alto
       // (y a veces de la mitad de ancho): se recorta esa franja y se repite espejada para llegar al ancho.
       let sueloImg = sharp(path.join(ROOT, t.suelo));
@@ -198,7 +211,7 @@ async function main() {
         ]);
       }
       await sueloImg.webp(WEBP).toFile(path.join(OUT, `${id}-suelo.webp`));
-      const mf = await sharp(path.join(ROOT, t.fondo)).metadata();
+      const mf = await sharp(path.join(OUT, `${id}-fondo.webp`)).metadata();
       const ms = await sharp(path.join(OUT, `${id}-suelo.webp`)).metadata();
       const fondoRaw = await raw(t.fondo);
       manifest.tramos[id] = {

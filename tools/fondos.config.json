@@ -30,20 +30,10 @@
     "costa": {
       "fondo": "personajes/paises/argentina/tramos/costa/fondo.webp",
       "suelo": "personajes/paises/argentina/tramos/costa/suelo.png",
-      "sueloFilas": [
-        320,
-        648
-      ],
+      "sueloFilas": [320, 648],
       "piezas": "personajes/paises/argentina/tramos/costa/piezas.png",
       "piezasEnFila": true,
-      "piezasNombres": [
-        "borde-izq",
-        "agua-0",
-        "agua-1",
-        "agua-2",
-        "agua-3",
-        "borde-der"
-      ],
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
       "sueltas": {
         "piedra": "personajes/paises/argentina/tramos/costa/piedras.png",
         "plataforma": "personajes/paises/argentina/tramos/costa/plataformas.png",
@@ -51,12 +41,25 @@
       },
       "piso": 436,
       "corte": 320,
-      "fondoDy": -164
+      "fondoDy": -164,
+      "fondoEspejar": true
     },
     "pampa": {
-      "src": "personajes/paises/argentina/tramos/pampa.png",
-      "piso": 590,
-      "corte": 578
+      "fondo": "personajes/paises/argentina/tramos/pampa/fondo.webp",
+      "fondoDy": -170,
+      "suelo": "personajes/paises/argentina/tramos/pampa/suelo.png",
+      "sueloFilas": [338, 640],
+      "piezas": "personajes/paises/argentina/tramos/pampa/piezas.png",
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/pampa/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/pampa/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/pampa/troncos.png"
+      },
+      "piso": 440,
+      "corte": 338,
+      "fondoEspejar": true
     },
     "rio": {
       "src": "personajes/paises/argentina/tramos/rio.png",
