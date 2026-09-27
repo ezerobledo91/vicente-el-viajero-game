@@ -69,10 +69,10 @@ export const AMBIENTACION = {
 // cartel de bienvenida con guardarraíl, banco y (en las ciudades grandes) parada de colectivo.
 export const TRANSICIONES = {
   alturas: {
-    "tr-cartel-madera": 175,
+    "tr-cartel-madera": 250,
     "tr-cartel-ruta": 170,
     "tr-parada": 175,
-    "tr-arco": 230,
+    "tr-arco": 290,
     "tr-poste": 150,
     "tr-mojon": 60,
     "tr-guardarrail": 60,

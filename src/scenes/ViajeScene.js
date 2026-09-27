@@ -413,7 +413,7 @@ export class ViajeScene extends Phaser.Scene {
     const tipo = T.salida[this.tramo.paisaje] ?? "tr-cartel-ruta";
     const salida = this.adorno(tipo, 360, T.alturas[tipo]);
     if (salida && tipo === "tr-arco")
-      this.textoEnTabla(salida, [0.03, 0.2], [{ s: `Hacia ${this.hasta.nombre}`, size: 12 }], "#3a2212", "#f6e3c4");
+      this.textoEnTabla(salida, [0.03, 0.2], [{ s: `Hacia ${this.hasta.nombre}`, size: 13 }], "#ffffff", "#3a2212");
     else if (salida)
       this.textoEnTabla(
         salida,
@@ -439,7 +439,7 @@ export class ViajeScene extends Phaser.Scene {
     this.adorno("tr-guardarrail", fin - 640, T.alturas["tr-guardarrail"]);
     if (T.conParada.includes(this.hasta.id)) this.adorno("tr-parada", fin - 470, T.alturas["tr-parada"]);
     else this.adorno("tr-poste", fin - 470, T.alturas["tr-poste"]);
-    this.adorno("tr-banco", fin - 90, T.alturas["tr-banco"]);
+    this.adorno("tr-banco", fin - 820, T.alturas["tr-banco"]);
   }
 
   // Adornos de la región al costado del camino, repartidos y sin tapar nada del recorrido.
@@ -469,12 +469,12 @@ export class ViajeScene extends Phaser.Scene {
       img,
       [0.06, 0.44],
       [
-        { s: "Bienvenidos a", size: 9 },
-        { s: this.hasta.nombre, size: 16 },
-        { s: this.hasta.provincia ?? "", size: 8 },
+        { s: "Bienvenidos a", size: 10 },
+        { s: this.hasta.nombre, size: 17 },
+        { s: this.hasta.provincia ?? "", size: 9 },
       ],
-      "#3a2212",
-      "#f6e3c4"
+      "#ffffff",
+      "#3a2212"
     );
     this.cartel = img;
   }
