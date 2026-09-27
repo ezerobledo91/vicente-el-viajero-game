@@ -131,8 +131,9 @@ async function cortarPiezas(id, file, enFila = false, nombres = null) {
 async function aguaDeOrilla(file, izquierda) {
   const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const px = (x, y) => data.subarray((y * info.width + x) * 4, (y * info.width + x) * 4 + 4);
-  const azul = ([r, , b, a]) => a > 200 && b > 110 && b > r + 25;
-  const adentro = izquierda ? info.width - 3 : 2;
+  const azul = ([r, , b, a]) => a > 200 && b > 80 && b > r + 25;
+  // (unos px hacia adentro: a veces el borde de la pieza tiene una franjita de otro color)
+  const adentro = izquierda ? info.width - 8 : 7;
   let y = 0;
   while (y < info.height && px(adentro, y)[3] < 200) y++;
   if (y >= info.height - 10 || !azul(px(adentro, Math.min(info.height - 1, y + 8)))) return {};

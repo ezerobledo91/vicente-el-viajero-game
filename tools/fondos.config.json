@@ -12,7 +12,9 @@
         "piedra": "personajes/paises/argentina/tramos/bosque-fueguino/piedras.png",
         "plataforma": "personajes/paises/argentina/tramos/bosque-fueguino/plataformas.png",
         "tronco": "personajes/paises/argentina/tramos/bosque-fueguino/troncos.png"
-      }
+      },
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"]
     },
     "estepa": {
       "fondo": "personajes/paises/argentina/tramos/estepa/fondo.webp",
@@ -25,7 +27,8 @@
         "tronco": "personajes/paises/argentina/tramos/estepa/troncos.png"
       },
       "piso": 618,
-      "corte": 588
+      "corte": 588,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"]
     },
     "costa": {
       "fondo": "personajes/paises/argentina/tramos/costa/fondo.webp",
