@@ -14,7 +14,8 @@ import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
-import { actualizarViaje, gameOver, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
+import { actualizarViaje, animalesVistos, gameOver, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
+import { PUNTOS, puntajeTotal, puntosColeccion, puntosDe } from "../systems/puntaje.js";
 import {
   animalTexture,
   birdTexture,
@@ -85,6 +86,9 @@ export class ViajeScene extends Phaser.Scene {
     this.estrellasAntes = this.progreso.estrellas ?? 0;
     this.juntadas = 0; // total de este tramo (para la interfaz)
     this.coleccion = {}; // por tipo: { estrella: 12, mate: 1, ... }
+    // Puntaje general al empezar el tramo (lo de este tramo se suma recién al llegar; con Game Over se pierde).
+    this.puntosAntes = puntajeTotal();
+    this.vistosAntes = new Set(animalesVistos());
 
     this.physics.world.setBounds(0, 0, this.largo, GAME_HEIGHT);
     // Sin "piso" en el borde de abajo del mundo: si Vicente cae en un pozo, se cae de verdad.
@@ -779,7 +783,8 @@ export class ViajeScene extends Phaser.Scene {
     // (En modo prueba hablan siempre, para poder probar los tramos varias veces.)
     if (this.vistos.has(a.animalId) && !modoPrueba()) return;
     this.vistos.add(a.animalId);
-    this.cartelito(bubbleX, a.getBounds().top - 70, "¡Animal nuevo!", "#8ff09a");
+    const suma = this.vistosAntes.has(a.animalId) ? "" : ` +${PUNTOS.animal}`;
+    this.cartelito(bubbleX, a.getBounds().top - 70, `¡Animal nuevo!${suma}`, "#8ff09a");
     efecto("descubrir");
     const top = a.getBounds().top - 6;
     this.decir({ x: bubbleX, getTopCenter: () => ({ y: top }) }, `¡${a.info.nombre}!\n${a.info.dato}`, CHARLA_MS, 12);
@@ -802,6 +807,7 @@ export class ViajeScene extends Phaser.Scene {
     if (tesoro) this.festejarTesoro(s.tipo);
     else if (especial) this.cartelito(s.x, s.y - 30, `¡${COLECCIONABLES.info[s.tipo]?.nombre ?? s.tipo}!`, "#ffd23d");
     if (s.tipo === COLECCIONABLES.comun) this.contarEstrella();
+    this.puntosFlotantes(s.x, s.y + (especial ? 24 : 0), puntosDe(s.tipo));
     this.tweens.killTweensOf(s);
     this.tweens.add({
       targets: s,
@@ -899,6 +905,34 @@ export class ViajeScene extends Phaser.Scene {
     this.sumarVida(CUARTOS);
     this.cartelito(h.x, h.y - 30, "¡+1 corazón!", "#ff8a96");
     this.tweens.add({ targets: h, y: h.y - 60, alpha: 0, scale: 1.8, duration: 350, onComplete: () => h.destroy() });
+  }
+
+  // Puntaje de lo que se juntó: sube y se desvanece (como en Mario).
+  puntosFlotantes(x, y, puntos) {
+    const t = this.add
+      .text(x, y - 14, `+${puntos}`, {
+        fontFamily: FONT,
+        fontSize: "10px",
+        color: "#ffffff",
+        stroke: "#2a1d1a",
+        strokeThickness: 3,
+      })
+      .setOrigin(0.5)
+      .setDepth(20);
+    this.tweens.add({
+      targets: t,
+      y: y - 50,
+      alpha: 0,
+      duration: 700,
+      ease: "Quad.Out",
+      onComplete: () => t.destroy(),
+    });
+  }
+
+  // Puntaje general que se muestra en la interfaz (lo guardado + lo de este tramo).
+  get puntos() {
+    const nuevos = [...this.vistos].filter((id) => !this.vistosAntes.has(id)).length;
+    return this.puntosAntes + puntosColeccion(this.coleccion) + nuevos * PUNTOS.animal;
   }
 
   cartelito(x, y, texto, color = "#ffffff") {

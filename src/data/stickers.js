@@ -39,6 +39,9 @@ export const STICKERS = [
   { id: "bonus-sobre", nombre: "Sobre de figuritas", rareza: "bonus", gana: "estrellas", cantidad: 100 },
 ];
 
+// Todos estos son del álbum de Argentina (un país nuevo trae los suyos con su `pais`).
+for (const s of STICKERS) s.pais ??= "ar";
+
 // Stickers que se ganan en una ciudad según cuántas preguntas se acertaron.
 export function stickersDeCiudad(ciudadId, aciertos, total) {
   return STICKERS.filter(

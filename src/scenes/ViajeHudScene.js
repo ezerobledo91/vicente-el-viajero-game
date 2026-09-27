@@ -5,6 +5,7 @@ import { botonesSonido } from "../ui/SonidoBotones.js";
 import { heartTexture, starTexture } from "../systems/placeholders.js";
 import { COLECCIONABLES, CUARTOS, VIDAS } from "../data/animales.js";
 import { modoPrueba } from "../systems/dev.js";
+import { formatoPuntos } from "../systems/puntaje.js";
 
 const BAR = { x: 250, y: 30, w: 520 };
 const PAD_ALPHA = { reposo: 0.35, apretado: 0.7 };
@@ -52,6 +53,11 @@ export class ViajeHudScene extends Phaser.Scene {
     });
 
     botonesSonido(this, GAME_WIDTH - 290, 88, { ancho: 130 });
+
+    // Puntaje general, como en los juegos de Mario.
+    txt(GAME_WIDTH / 2, 76, "PUNTOS", 8, "#ffd27a", 0.5).setStroke("#1b2a3a", 4);
+    this.puntaje = txt(GAME_WIDTH / 2, 96, "000000", 16, "#ffffff", 0.5).setStroke("#1b2a3a", 5);
+    this.puntosMostrados = null;
 
     // Vidas (debajo de la barra superior)
     this.corazones = Array.from({ length: VIDAS.maximo }, (_, i) =>
@@ -119,6 +125,11 @@ export class ViajeHudScene extends Phaser.Scene {
       .fillRoundedRect(BAR.x, BAR.y - 6, Math.max(12, BAR.w * t), 12, 6);
     this.marker.x = BAR.x + BAR.w * t;
     this.contador.setText(String((v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0)));
+    const puntos = v.puntos ?? 0;
+    if (puntos !== this.puntosMostrados) {
+      this.puntosMostrados = puntos;
+      this.puntaje.setText(formatoPuntos(puntos));
+    }
     const estrellas = (v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0);
     this.proxVida.setText(
       `corazón en ${COLECCIONABLES.estrellasPorVida - (estrellas % COLECCIONABLES.estrellasPorVida)}`
