@@ -59,7 +59,8 @@
       },
       "piso": 440,
       "corte": 338,
-      "fondoEspejar": true
+      "fondoEspejar": true,
+      "aguaQuieta": true
     },
     "rio": {
       "src": "personajes/paises/argentina/tramos/rio.png",

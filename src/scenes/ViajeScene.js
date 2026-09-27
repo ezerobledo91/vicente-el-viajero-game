@@ -502,8 +502,22 @@ export class ViajeScene extends Phaser.Scene {
       .setOrigin(0)
       .setDepth(-4);
     t.setTileScale(PIEZAS.escalaAgua);
-    let k = 0;
-    this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
+    const info = this.cache.json.get(ASSETS.FONDOS_MANIFEST)?.tramos?.[this.tramo.paisaje];
+    if (info?.aguaQuieta) {
+      // Agua quieta: un solo cuadro y brillitos que se deslizan despacio sobre la superficie.
+      const brillo = this.add.graphics().setDepth(-3.9);
+      const dibujar = (dx) => {
+        brillo.clear().fillStyle(0xffffff, 0.35);
+        for (let x = x0 + (((dx % 60) + 60) % 60); x < x1 - 16; x += 60) brillo.fillRect(x, yAgua + 10, 16, 2);
+        for (let x = x0 + 30 - (((dx % 80) + 80) % 80); x < x1 - 12; x += 80)
+          if (x > x0) brillo.fillRect(x, yAgua + 26, 12, 2);
+      };
+      let dx = 0;
+      this.time.addEvent({ delay: 80, loop: true, callback: () => brillo.active && dibujar((dx += 1)) });
+    } else {
+      let k = 0;
+      this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
+    }
     // Espuma en la superficie y un corte de tierra en cada borde: se tiene que ver claramente
     // que el camino se termina ahí (sin piedras que parezcan escalones).
     const g = this.add.graphics().setDepth(-3.5);

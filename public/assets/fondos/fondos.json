@@ -6,6 +6,7 @@
       "alto": 724,
       "altoFondo": 578,
       "fondoDy": 0,
+      "aguaQuieta": false,
       "ancho": 4344,
       "cielo": "#3facfc",
       "piezas": {
@@ -132,6 +133,7 @@
       "alto": 724,
       "altoFondo": 588,
       "fondoDy": 0,
+      "aguaQuieta": false,
       "ancho": 4344,
       "cielo": "#33a1fd",
       "piezas": {
@@ -254,6 +256,7 @@
       "alto": 648,
       "altoFondo": 724,
       "fondoDy": -164,
+      "aguaQuieta": false,
       "ancho": 8688,
       "cielo": "#2fa7fe",
       "piezas": {
@@ -364,6 +367,7 @@
       "alto": 640,
       "altoFondo": 724,
       "fondoDy": -170,
+      "aguaQuieta": true,
       "ancho": 8688,
       "cielo": "#299afd",
       "piezas": {

@@ -219,7 +219,8 @@ async function main() {
         corte: t.corte,
         alto: t.corte + ms.height,
         altoFondo: mf.height,
-        fondoDy: t.fondoDy ?? 0, // corrimiento vertical extra del fondo (para mostrar más mar/cielo) // el fondo puede seguir por detrás del suelo (suelos con partes transparentes)
+        fondoDy: t.fondoDy ?? 0,
+        aguaQuieta: !!t.aguaQuieta, // el agua no alterna cuadros (tienen juncos en otro lugar y parece que saltan) // corrimiento vertical extra del fondo (para mostrar más mar/cielo) // el fondo puede seguir por detrás del suelo (suelos con partes transparentes)
         ancho: mf.width,
         cielo: colorCielo(fondoRaw),
       };
