@@ -40,3 +40,18 @@ y cambiá `source` en la config.
 - **Dibujos sueltos** (rocas, stickers): sobre fondo liso de un solo color, separados entre sí.
 - **Tramos**: panorama de 2172×724 (3:1), con el camino en la franja de abajo, a la misma altura en todo el ancho.
 - **Ciudades**: panorama 3:1 (calle a la altura del piso) o ilustración 4:3.
+
+## Mejoras por nivel (con Codex)
+
+Cada paisaje puede traer su fondo ya cortado y sus piezas. Poné los archivos en
+`personajes/paises/argentina/tramos/<paisaje>/` (o dejalos en `mejoras/fondos/<paisaje>/` y Claude los mueve):
+
+- `fondo.webp` — 4344×578, ya repetible (se mueve lento)
+- `suelo.webp` — 4344×146, el camino (se mueve con Vicente)
+- `piezas.png` — fondo transparente, en este orden:
+  - fila 1: borde izquierdo · centro · borde derecho (bloque de tierra: plataformas y barrancas de los pozos)
+  - fila 2: 4 cuadros de agua (animación) · orilla izquierda · orilla derecha (el pozo del paisaje)
+  - fila 3: tronco (plataformas que se mueven)
+
+y en `tools/fondos.config.json`: `"<paisaje>": { "fondo": ..., "suelo": ..., "piezas": ..., "piso": 594, "corte": 578 }`.
+Después: `npm run fondos`. Paisajes: bosque-fueguino (listo), estepa, costa, pampa, rio, humedal, selva, cataratas.

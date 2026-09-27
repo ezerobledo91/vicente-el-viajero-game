@@ -671,6 +671,8 @@ export const VIAJE_ARGENTINA = {
   tramos: [
     {
       paisaje: "bosque-fueguino",
+      pozosMin: 3,
+      pozosGrandesMin: 1,
       animales: ["pinguino", "zorro", "buho"],
       pajaro: "gaviota",
       largo: 12200,

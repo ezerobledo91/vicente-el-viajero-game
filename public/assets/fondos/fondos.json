@@ -1,11 +1,53 @@
 {
   "tramos": {
     "bosque-fueguino": {
-      "piso": 600,
+      "piso": 594,
       "corte": 578,
       "alto": 724,
       "ancho": 4344,
-      "cielo": "#4eaef4"
+      "cielo": "#3facfc",
+      "piezas": {
+        "borde-izq": {
+          "w": 351,
+          "h": 242
+        },
+        "centro": {
+          "w": 947,
+          "h": 158
+        },
+        "borde-der": {
+          "w": 352,
+          "h": 242
+        },
+        "agua-0": {
+          "w": 274,
+          "h": 104
+        },
+        "agua-1": {
+          "w": 273,
+          "h": 105
+        },
+        "agua-2": {
+          "w": 273,
+          "h": 106
+        },
+        "agua-3": {
+          "w": 274,
+          "h": 105
+        },
+        "orilla-izq": {
+          "w": 233,
+          "h": 138
+        },
+        "orilla-der": {
+          "w": 216,
+          "h": 145
+        },
+        "tronco": {
+          "w": 1341,
+          "h": 154
+        }
+      }
     },
     "estepa": {
       "piso": 598,

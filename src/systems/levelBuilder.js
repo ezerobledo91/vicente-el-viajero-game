@@ -180,6 +180,9 @@ export function buildLevel(tramo, seed = 1) {
     [["pajaroBajo", "pajaroAlto", "bandada"], () => (rnd() < 0.6 ? "pajaroBajo" : "pajaroAlto")],
     [["trampolin"], () => "trampolin", Math.max(2, Math.round(largo / 3000))],
     [["plataforma", "escalera", "plataformaMovil", "trampolin"], () => (rnd() < 0.5 ? "plataforma" : "escalera")],
+    // Mínimos de pozos por tramo (opcional en los datos: pozosMin, pozosGrandesMin).
+    [["pozoMovil"], () => "pozoMovil", tramo.pozosGrandesMin ?? 0],
+    [["pozo", "pozoMovil"], () => "pozo", tramo.pozosMin ?? 0],
   ]) {
     const libres = () => bloques.filter((b) => ["figuritas", "descanso", "roca", "pozo"].includes(b.patron));
     while (bloques.filter((b) => grupo.includes(b.patron)).length < cuantos && libres().length) {

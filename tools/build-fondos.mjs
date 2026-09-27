@@ -60,11 +60,90 @@ function colorCielo(img) {
   return hex(r / n, g / n, b / n);
 }
 
+// Lámina de piezas con fondo transparente: se detectan los dibujos por filas y se nombran.
+const NOMBRES_PIEZAS = [
+  ["borde-izq", "centro", "borde-der"],
+  ["agua-0", "agua-1", "agua-2", "agua-3", "orilla-izq", "orilla-der"],
+  ["tronco"],
+];
+async function cortarPiezas(id, file) {
+  const { data, info } = await sharp(path.join(ROOT, file)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const W = info.width,
+    H = info.height;
+  const seen = new Uint8Array(W * H),
+    cajas = [];
+  for (let s0 = 0; s0 < W * H; s0++) {
+    if (seen[s0] || data[s0 * 4 + 3] <= 40) continue;
+    let x0 = W,
+      y0 = H,
+      x1 = -1,
+      y1 = -1,
+      n = 0;
+    const pila = [s0];
+    seen[s0] = 1;
+    while (pila.length) {
+      const q = pila.pop(),
+        x = q % W,
+        y = (q / W) | 0;
+      n++;
+      ((x0 = Math.min(x0, x)), (x1 = Math.max(x1, x)), (y0 = Math.min(y0, y)), (y1 = Math.max(y1, y)));
+      for (const r of [x > 0 ? q - 1 : -1, x < W - 1 ? q + 1 : -1, y > 0 ? q - W : -1, y < H - 1 ? q + W : -1])
+        if (r >= 0 && !seen[r] && data[r * 4 + 3] > 40) ((seen[r] = 1), pila.push(r));
+    }
+    if (n > 2000) cajas.push({ x0, y0, x1, y1 });
+  }
+  const filas = [];
+  for (const c of cajas.sort((a, b) => a.y0 - b.y0)) {
+    const fila = filas.find((f) => Math.abs(f[0].y0 - c.y0) < 60);
+    fila ? fila.push(c) : filas.push([c]);
+  }
+  const salida = path.join(OUT, "piezas", id);
+  await fs.mkdir(salida, { recursive: true });
+  const piezas = {};
+  for (const [k, fila] of filas.entries()) {
+    fila.sort((a, b) => a.x0 - b.x0);
+    for (const [j, c] of fila.entries()) {
+      const nombre = NOMBRES_PIEZAS[k]?.[j];
+      if (!nombre) continue;
+      const w = c.x1 - c.x0 + 1,
+        h = c.y1 - c.y0 + 1;
+      await sharp(path.join(ROOT, file))
+        .extract({ left: c.x0, top: c.y0, width: w, height: h })
+        .png()
+        .toFile(path.join(salida, nombre + ".png"));
+      piezas[nombre] = { w, h };
+    }
+  }
+  return piezas;
+}
+
 async function main() {
   await fs.mkdir(OUT, { recursive: true });
   const manifest = { tramos: {}, ciudades: {} };
 
   for (const [id, t] of Object.entries(config.tramos)) {
+    if (t.fondo) {
+      // Ya vienen cortados y repetibles: se copian tal cual.
+      await sharp(path.join(ROOT, t.fondo))
+        .webp(WEBP)
+        .toFile(path.join(OUT, `${id}-fondo.webp`));
+      await sharp(path.join(ROOT, t.suelo))
+        .webp(WEBP)
+        .toFile(path.join(OUT, `${id}-suelo.webp`));
+      const mf = await sharp(path.join(ROOT, t.fondo)).metadata();
+      const ms = await sharp(path.join(ROOT, t.suelo)).metadata();
+      const fondoRaw = await raw(t.fondo);
+      manifest.tramos[id] = {
+        piso: t.piso,
+        corte: t.corte,
+        alto: mf.height + ms.height,
+        ancho: mf.width,
+        cielo: colorCielo(fondoRaw),
+      };
+      if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas);
+      console.log(`✔ tramo ${id} (precortado${t.piezas ? " + piezas" : ""})`);
+      continue;
+    }
     const img = await raw(t.src);
     await (await franjaRepetible(img, 0, t.corte)).webp(WEBP).toFile(path.join(OUT, `${id}-fondo.webp`));
     await (await franjaRepetible(img, t.corte, img.h)).webp(WEBP).toFile(path.join(OUT, `${id}-suelo.webp`));

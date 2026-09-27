@@ -1,10 +1,12 @@
 {
-  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera). En las postales, 'pie' es la altura (y en pantalla) donde se paran los personajes y 'parada' la x donde se frena Vicente.",
+  "_comment": "Fondos del viaje. Tramos: panoramas que se cortan en fondo (arriba, se mueve lento) y suelo (el camino, se mueve con Vicente). piso = y de la imagen donde pisan los personajes; corte = y donde empieza la franja del suelo. Ciudades: panorama (se toma una ventana de 1280 px desde x) o postal (ilustración 4:3 que se muestra entera). En las postales, 'pie' es la altura (y en pantalla) donde se paran los personajes y 'parada' la x donde se frena Vicente. Un tramo puede traer 'fondo' y 'suelo' ya cortados y repetibles (se copian tal cual) y 'piezas': lámina con fila 1 = borde izq, centro, borde der (tierra); fila 2 = 4 cuadros de agua, orilla izq, orilla der; fila 3 = tronco.",
   "output": "public/assets/fondos",
   "tramos": {
     "bosque-fueguino": {
-      "src": "personajes/paises/argentina/tramos/bosque-fueguino.png",
-      "piso": 600,
+      "fondo": "personajes/paises/argentina/tramos/bosque-fueguino/fondo.webp",
+      "suelo": "personajes/paises/argentina/tramos/bosque-fueguino/suelo.webp",
+      "piezas": "personajes/paises/argentina/tramos/bosque-fueguino/piezas.png",
+      "piso": 594,
       "corte": 578
     },
     "estepa": {
@@ -46,7 +48,7 @@
   "ciudades": {
     "ushuaia": {
       "tipo": "panorama",
-      "src": "personajes/paises/argentina/tramos/bosque-fueguino.png",
+      "src": "personajes/paises/argentina/tramos/bosque-fueguino/panorama-original.png",
       "piso": 600,
       "x": 820
     },

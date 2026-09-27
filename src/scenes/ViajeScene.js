@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { MUSICA_TRAMO, efecto, musica } from "../systems/audio.js";
-import { FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
+import { ASSETS, FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Player } from "../entities/Player.js";
 import { Companion } from "../entities/Companion.js";
 import { Character } from "../entities/Character.js";
@@ -37,6 +37,17 @@ const ANIMAL_DISTANCIA = 170; // px: distancia para que el animal se frene a cha
 const ANIMAL_VELOCIDAD = [35, 60]; // px/seg (mínimo, máximo) de los animales que caminan
 const CHARLA_MS = 4200; // lo que dura el globo con el dato del animal
 const PLATAFORMA_VELOCIDAD = 70; // px/seg de las plataformas que se mueven
+// Cómo se dibujan las piezas ilustradas (proporciones pensadas para las láminas de Codex).
+const PIEZAS = {
+  escalaTierra: 0.3, // bloques de las plataformas fijas
+  puntaMax: 95, // px máximos de cada punta con raíces
+  pastoCentro: 0.16, // parte del bloque del centro que es pasto por encima de donde se pisa
+  superficieTronco: 0.3, // parte del tronco por encima de donde se pisa
+  escalaAgua: 0.5,
+  nivelAgua: -14, // px respecto del piso donde empieza el agua (negativo = un poco más arriba, tapa el camino)
+  escalaOrilla: 0.42,
+  escalaBarranca: 0.45,
+};
 const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/seg
 const BALLENA_FACTOR = 0.3;
 const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
@@ -212,19 +223,34 @@ export class ViajeScene extends Phaser.Scene {
         this.ponerRoca(item.x);
         break;
       case "plataforma": {
-        const key = platformTexture(this, item.w);
-        if (!item.mueve && !item.mueveY) {
-          this.solidos.create(item.x, y, key).setOrigin(0.5, 0).setDepth(6).refreshBody();
+        const movil = !!(item.mueve || item.mueveY);
+        // Con piezas del paisaje: bloque de tierra (fijas) o tronco (las que se mueven). `sup` = px desde
+        // arriba de la textura hasta donde se pisa (el pasto y las ramitas sobresalen un poco).
+        const ilustrada = movil ? this.texturaTronco(item.w) : this.texturaTierra(item.w);
+        const key = ilustrada?.key ?? platformTexture(this, item.w);
+        const sup = ilustrada?.sup ?? 0;
+        if (!movil) {
+          const pl = this.solidos
+            .create(item.x, y - sup, key)
+            .setOrigin(0.5, 0)
+            .setDepth(6)
+            .refreshBody();
+          if (ilustrada) pl.body.setSize(item.w, 18, false).setOffset((pl.width - item.w) / 2, sup);
           break;
         }
-        const p = this.physics.add.image(item.x, y, key).setOrigin(0.5, 0).setDepth(6).setImmovable(true);
+        const p = this.physics.add
+          .image(item.x, y - sup, key)
+          .setOrigin(0.5, 0)
+          .setDepth(6)
+          .setImmovable(true);
+        if (ilustrada) p.body.setSize(item.w, 18).setOffset((p.width - item.w) / 2, sup);
         p.body.setAllowGravity(false);
         if (item.mueve) {
           p.body.setVelocityX(PLATAFORMA_VELOCIDAD);
           Object.assign(p, { minX: item.x - item.mueve / 2, maxX: item.x + item.mueve / 2 });
         } else {
           p.body.setVelocityY(-PLATAFORMA_VELOCIDAD * 0.8);
-          Object.assign(p, { minY: y - item.mueveY, maxY: y });
+          Object.assign(p, { minY: y - sup - item.mueveY, maxY: y - sup });
         }
         this.moviles.push(p);
         break;
@@ -361,7 +387,84 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   // Pozo: hueco oscuro en el camino, con bordes de tierra y pasto que cuelga.
+  // ---------- Piezas ilustradas del paisaje (tools/fondos.config.json → piezas) ----------
+  pieza(nombre) {
+    const key = ASSETS.PIEZA(this.tramo.paisaje, nombre);
+    return this.textures.exists(key) ? this.textures.get(key).getSourceImage() : null;
+  }
+
+  // Bloque de tierra para plataformas fijas: punta del borde izq + centro repetido + punta del borde der.
+  texturaTierra(w) {
+    const izq = this.pieza("borde-izq"),
+      centro = this.pieza("centro"),
+      der = this.pieza("borde-der");
+    if (!izq || !centro || !der) return null;
+    const key = `tierra-${this.tramo.paisaje}-${w}`;
+    const sc = PIEZAS.escalaTierra;
+    const alto = Math.ceil(izq.height * sc),
+      subeBorde = (izq.height - centro.height) * sc;
+    if (!this.textures.exists(key)) {
+      const tex = this.textures.createCanvas(key, w, alto);
+      const ctx = tex.getContext();
+      ctx.imageSmoothingEnabled = false;
+      const cap = Math.min(PIEZAS.puntaMax, Math.floor(w * 0.3));
+      const cw = centro.width * sc;
+      for (let x = cap - 4; x < w - cap + 4; x += cw - 2)
+        ctx.drawImage(centro, 0, 0, centro.width, centro.height, x, subeBorde, cw, centro.height * sc);
+      ctx.drawImage(izq, 0, 0, cap / sc, izq.height, 0, 0, cap, alto);
+      ctx.drawImage(der, der.width - cap / sc, 0, cap / sc, der.height, w - cap, 0, cap, alto);
+      tex.refresh();
+    }
+    return { key, sup: Math.round(subeBorde + centro.height * sc * PIEZAS.pastoCentro) };
+  }
+
+  // Tronco para las plataformas que se mueven (un poco más largo que la parte que se pisa).
+  texturaTronco(w) {
+    const t = this.pieza("tronco");
+    if (!t) return null;
+    const key = `tronco-${this.tramo.paisaje}-${w}`;
+    const ancho = Math.round(w * 1.2),
+      sc = ancho / t.width,
+      alto = Math.ceil(t.height * sc);
+    if (!this.textures.exists(key)) {
+      const tex = this.textures.createCanvas(key, ancho, alto);
+      const ctx = tex.getContext();
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(t, 0, 0, ancho, alto);
+      tex.refresh();
+    }
+    return { key, sup: Math.round(alto * PIEZAS.superficieTronco) };
+  }
+
+  // Pozo con agua animada, orillas de piedra y barrancas de tierra con raíces.
+  dibujarPozoIlustrado(p) {
+    const agua = [0, 1, 2, 3].map((k) => ASSETS.PIEZA(this.tramo.paisaje, `agua-${k}`));
+    if (!this.textures.exists(agua[0])) return false;
+    const x0 = p.x - p.w / 2,
+      x1 = p.x + p.w / 2;
+    const yAgua = GROUND_Y + PIEZAS.nivelAgua;
+    const t = this.add
+      .tileSprite(x0, yAgua, p.w, GAME_HEIGHT - yAgua, agua[0])
+      .setOrigin(0)
+      .setDepth(-4);
+    t.setTileScale(PIEZAS.escalaAgua);
+    let k = 0;
+    this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
+    const poner = (nombre, x, origenX, y, sc, flip = false) => {
+      const key = ASSETS.PIEZA(this.tramo.paisaje, nombre);
+      if (this.textures.exists(key))
+        this.add.image(x, y, key).setOrigin(origenX, 0).setScale(sc).setFlipX(flip).setDepth(-3.5);
+    };
+    // Orillas de piedra sobre el agua y barrancas: el borde der de un bloque va al final del camino.
+    poner("orilla-izq", x0 - 10, 0, yAgua - 22, PIEZAS.escalaOrilla);
+    poner("orilla-der", x1 + 10, 1, yAgua - 22, PIEZAS.escalaOrilla);
+    poner("borde-der", x0 + 6, 1, GROUND_Y - 16, PIEZAS.escalaBarranca);
+    poner("borde-izq", x1 - 6, 0, GROUND_Y - 16, PIEZAS.escalaBarranca);
+    return true;
+  }
+
   dibujarPozo(p) {
+    if (this.dibujarPozoIlustrado(p)) return;
     const x0 = p.x - p.w / 2,
       y0 = GROUND_Y - 12;
     const g = this.add.graphics().setDepth(-4);

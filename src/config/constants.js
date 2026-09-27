@@ -42,6 +42,7 @@ export const ASSETS = {
   FONDOS_MANIFEST: "fondos-manifest",
   FONDO: (paisaje, capa) => `fondo-${paisaje}-${capa}`,
   FONDO_CIUDAD: (id) => `fondo-ciudad-${id}`,
+  PIEZA: (paisaje, nombre) => `pieza-${paisaje}-${nombre}`,
 };
 
 export const FONT_NAME = "Press Start 2P";

@@ -42,9 +42,13 @@ export class PreloadScene extends Phaser.Scene {
 
     // Fondos ilustrados de tramos y ciudades
     const fondos = this.cache.json.get(ASSETS.FONDOS_MANIFEST) ?? { tramos: {}, ciudades: {} };
-    for (const id of Object.keys(fondos.tramos))
+    for (const [id, t] of Object.entries(fondos.tramos)) {
       for (const capa of ["fondo", "suelo"])
         this.load.image(ASSETS.FONDO(id, capa), `${ASSETS.FONDOS_PATH}${id}-${capa}.webp`);
+      // Piezas del paisaje (tierra de plataformas, agua de los pozos, tronco).
+      for (const nombre of Object.keys(t.piezas ?? {}))
+        this.load.image(ASSETS.PIEZA(id, nombre), `${ASSETS.FONDOS_PATH}piezas/${id}/${nombre}.png`);
+    }
     for (const id of Object.keys(fondos.ciudades))
       this.load.image(ASSETS.FONDO_CIUDAD(id), `${ASSETS.FONDOS_PATH}ciudad-${id}.webp`);
 
