@@ -1,0 +1,239 @@
+{
+  "_comment": "Kit de animales del río Paraná (Codex): un PNG por animal con todas sus poses.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "rio.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "bigua",
+      "nombre": "Biguá",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/rio/bigua.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/rio/bigua.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "carpincho-rio",
+      "nombre": "Carpincho",
+      "alturaCm": 70,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/rio/carpincho.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/rio/carpincho.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coipo",
+      "nombre": "Coipo",
+      "alturaCm": 50,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/rio/coipo.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/rio/coipo.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "garza-blanca",
+      "nombre": "Garza blanca",
+      "alturaCm": 100,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/rio/garza-blanca.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 2,
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/rio/garza-blanca.png",
+          "total": 5,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "archivo": "personajes/animales/rio/garza-blanca.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/rio/garza-blanca.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lobito-rio",
+      "nombre": "Lobito de río",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/rio/lobito-rio.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/rio/lobito-rio.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tero-rio",
+      "nombre": "Tero",
+      "alturaCm": 45,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "correr",
+          "label": "correr",
+          "archivo": "personajes/animales/rio/tero.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 3,
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/rio/tero.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 2,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tortuga-laguna",
+      "nombre": "Tortuga de laguna",
+      "alturaCm": 35,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/rio/tortuga-laguna.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "escondida",
+          "label": "escondida",
+          "archivo": "personajes/animales/rio/tortuga-laguna.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

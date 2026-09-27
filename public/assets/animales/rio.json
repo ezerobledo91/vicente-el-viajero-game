@@ -1,0 +1,265 @@
+{
+  "characters": [
+    {
+      "id": "bigua",
+      "grupo": "animales",
+      "nombre": "Biguá",
+      "facing": "right",
+      "alturaCm": 55,
+      "alturaPx": 108,
+      "texture": "bigua.png",
+      "frameWidth": 148,
+      "frameHeight": 121,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "carpincho-rio",
+      "grupo": "animales",
+      "nombre": "Carpincho",
+      "facing": "right",
+      "alturaCm": 70,
+      "alturaPx": 110,
+      "texture": "carpincho-rio.png",
+      "frameWidth": 167,
+      "frameHeight": 114,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "coipo",
+      "grupo": "animales",
+      "nombre": "Coipo",
+      "facing": "right",
+      "alturaCm": 50,
+      "alturaPx": 110,
+      "texture": "coipo.png",
+      "frameWidth": 228,
+      "frameHeight": 129,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "garza-blanca",
+      "grupo": "animales",
+      "nombre": "Garza blanca",
+      "facing": "right",
+      "alturaCm": 100,
+      "alturaPx": 110,
+      "texture": "garza-blanca.png",
+      "frameWidth": 127,
+      "frameHeight": 155,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 3,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            2
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "lobito-rio",
+      "grupo": "animales",
+      "nombre": "Lobito de río",
+      "facing": "right",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "texture": "lobito-rio.png",
+      "frameWidth": 255,
+      "frameHeight": 146,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tero-rio",
+      "grupo": "animales",
+      "nombre": "Tero",
+      "facing": "right",
+      "alturaCm": 45,
+      "alturaPx": 111,
+      "texture": "tero-rio.png",
+      "frameWidth": 164,
+      "frameHeight": 172,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "correr",
+          "label": "correr",
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 8,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            3,
+            4
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tortuga-laguna",
+      "grupo": "animales",
+      "nombre": "Tortuga de laguna",
+      "facing": "right",
+      "alturaCm": 35,
+      "alturaPx": 109,
+      "texture": "tortuga-laguna.png",
+      "frameWidth": 242,
+      "frameHeight": 115,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "escondida",
+          "label": "escondida",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

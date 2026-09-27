@@ -6,7 +6,6 @@
       "alto": 724,
       "altoFondo": 578,
       "fondoDy": 0,
-      "aguaQuieta": false,
       "ancho": 4344,
       "cielo": "#3facfc",
       "piezas": {
@@ -133,7 +132,6 @@
       "alto": 724,
       "altoFondo": 588,
       "fondoDy": 0,
-      "aguaQuieta": false,
       "ancho": 4344,
       "cielo": "#33a1fd",
       "piezas": {
@@ -256,7 +254,6 @@
       "alto": 648,
       "altoFondo": 724,
       "fondoDy": -164,
-      "aguaQuieta": false,
       "ancho": 8688,
       "cielo": "#2fa7fe",
       "piezas": {
@@ -367,33 +364,32 @@
       "alto": 640,
       "altoFondo": 724,
       "fondoDy": -170,
-      "aguaQuieta": true,
       "ancho": 8688,
       "cielo": "#299afd",
       "piezas": {
         "borde-izq": {
-          "w": 359,
-          "h": 328
+          "w": 352,
+          "h": 333
         },
         "agua-0": {
-          "w": 346,
-          "h": 235
+          "w": 337,
+          "h": 185
         },
         "agua-1": {
-          "w": 340,
-          "h": 219
+          "w": 336,
+          "h": 185
         },
         "agua-2": {
-          "w": 341,
-          "h": 222
+          "w": 336,
+          "h": 185
         },
         "agua-3": {
-          "w": 344,
-          "h": 243
+          "w": 337,
+          "h": 185
         },
         "borde-der": {
-          "w": 359,
-          "h": 326
+          "w": 358,
+          "h": 334
         },
         "piedra-0": {
           "w": 268,
@@ -478,11 +474,119 @@
       }
     },
     "rio": {
-      "piso": 603,
-      "corte": 592,
-      "alto": 724,
-      "ancho": 4344,
-      "cielo": "#6bb7fd"
+      "piso": 440,
+      "corte": 306,
+      "alto": 660,
+      "altoFondo": 724,
+      "fondoDy": -200,
+      "ancho": 8688,
+      "cielo": "#3fa9fe",
+      "piezas": {
+        "borde-izq": {
+          "w": 339,
+          "h": 398
+        },
+        "agua-0": {
+          "w": 322,
+          "h": 263
+        },
+        "agua-1": {
+          "w": 325,
+          "h": 263
+        },
+        "agua-2": {
+          "w": 324,
+          "h": 263
+        },
+        "agua-3": {
+          "w": 323,
+          "h": 263
+        },
+        "borde-der": {
+          "w": 339,
+          "h": 397
+        },
+        "piedra-0": {
+          "w": 265,
+          "h": 141,
+          "sup": 37
+        },
+        "piedra-1": {
+          "w": 225,
+          "h": 250,
+          "sup": 66
+        },
+        "piedra-2": {
+          "w": 426,
+          "h": 162,
+          "sup": 26
+        },
+        "piedra-3": {
+          "w": 177,
+          "h": 189,
+          "sup": 37
+        },
+        "piedra-4": {
+          "w": 146,
+          "h": 161,
+          "sup": 31
+        },
+        "piedra-5": {
+          "w": 280,
+          "h": 190,
+          "sup": 31
+        },
+        "piedra-6": {
+          "w": 346,
+          "h": 195,
+          "sup": 49
+        },
+        "plataforma-0": {
+          "w": 390,
+          "h": 257,
+          "sup": 42
+        },
+        "plataforma-1": {
+          "w": 673,
+          "h": 259,
+          "sup": 40
+        },
+        "plataforma-2": {
+          "w": 964,
+          "h": 264,
+          "sup": 45
+        },
+        "tronco-0": {
+          "w": 233,
+          "h": 163,
+          "sup": 47
+        },
+        "tronco-1": {
+          "w": 239,
+          "h": 179,
+          "sup": 62
+        },
+        "tronco-2": {
+          "w": 230,
+          "h": 166,
+          "sup": 50
+        },
+        "tronco-3": {
+          "w": 406,
+          "h": 179,
+          "sup": 60
+        },
+        "tronco-4": {
+          "w": 394,
+          "h": 173,
+          "sup": 57
+        },
+        "tronco-5": {
+          "w": 372,
+          "h": 179,
+          "sup": 59
+        }
+      }
     },
     "humedal": {
       "piso": 612,
@@ -540,11 +644,12 @@
       "parada": 300
     },
     "rosario": {
-      "tipo": "panorama",
-      "piso": 596,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#32a0fd"
+      "alto": 720,
+      "cielo": "#35a7fd",
+      "pie": 690,
+      "parada": 300
     },
     "santafe": {
       "tipo": "panorama",

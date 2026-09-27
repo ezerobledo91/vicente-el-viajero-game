@@ -719,8 +719,11 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "rio",
-      animales: ["carpincho", "garza", "tortuga"],
-      pajaro: ["tero", "gaviota"],
+      animales: ["carpincho", "garza", "coipo", "lobito-rio", "tortuga"],
+      entreAnimales: 1800,
+      pozosMin: 3,
+      pozosGrandesMin: 1,
+      pajaro: ["tero", "bigua"],
       largo: 12200,
       dificultad: 2,
       tesoro: "tesoro-monumento",

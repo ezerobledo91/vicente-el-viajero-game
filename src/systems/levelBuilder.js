@@ -184,7 +184,9 @@ export function buildLevel(tramo, seed = 1) {
     [["pozoMovil"], () => "pozoMovil", tramo.pozosGrandesMin ?? 0],
     [["pozo", "pozoMovil"], () => "pozo", tramo.pozosMin ?? 0],
   ]) {
-    const libres = () => bloques.filter((b) => ["figuritas", "descanso", "roca", "pozo"].includes(b.patron));
+    // (Sin tocar los que ya son del grupo: si solo quedaran esos, el bucle no terminaría nunca.)
+    const libres = () =>
+      bloques.filter((b) => ["figuritas", "descanso", "roca", "pozo"].includes(b.patron) && !grupo.includes(b.patron));
     while (bloques.filter((b) => grupo.includes(b.patron)).length < cuantos && libres().length) {
       const l = libres();
       l[Math.floor(rnd() * l.length)].patron = reemplazo();

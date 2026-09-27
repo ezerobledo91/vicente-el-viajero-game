@@ -59,13 +59,24 @@
       },
       "piso": 440,
       "corte": 338,
-      "fondoEspejar": true,
-      "aguaQuieta": true
+      "fondoEspejar": true
     },
     "rio": {
-      "src": "personajes/paises/argentina/tramos/rio.png",
-      "piso": 603,
-      "corte": 592
+      "fondo": "personajes/paises/argentina/tramos/rio/fondo.webp",
+      "fondoDy": -200,
+      "fondoEspejar": true,
+      "suelo": "personajes/paises/argentina/tramos/rio/suelo.png",
+      "sueloFilas": [306, 660],
+      "piezas": "personajes/paises/argentina/tramos/rio/piezas.png",
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/rio/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/rio/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/rio/troncos.png"
+      },
+      "piso": 440,
+      "corte": 306
     },
     "humedal": {
       "src": "personajes/paises/argentina/tramos/humedal.png",
@@ -109,10 +120,10 @@
       "parada": 300
     },
     "rosario": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/ciudades/rosario-centro.png",
-      "piso": 596,
-      "x": 450
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/rosario-monumento.webp",
+      "pie": 690,
+      "parada": 300
     },
     "santafe": {
       "tipo": "panorama",

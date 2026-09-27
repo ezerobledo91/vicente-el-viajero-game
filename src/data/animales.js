@@ -3,6 +3,16 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  coipo: {
+    sprite: "coipo",
+    nombre: "Coipo",
+    dato: "Parece un castor pero es un roedor de los ríos: tiene los dientes naranjas y nada muy bien.",
+  },
+  "lobito-rio": {
+    sprite: "lobito-rio",
+    nombre: "Lobito de río",
+    dato: "Es una nutria que vive en el Paraná. Come peces y cangrejos, ¡y juega en el agua!",
+  },
   cuis: {
     sprite: "cuis",
     nombre: "Cuis",
@@ -81,7 +91,7 @@ export const ANIMALES = {
     dato: "Empieza su vida como renacuajo nadando en el agua, ¡y después le salen patas!",
   },
   tortuga: {
-    sprite: "tortuga",
+    sprite: "tortuga-laguna",
     nombre: "Tortuga de agua",
     dato: "Cuando tiene miedo, esconde la cabeza y las patas adentro del caparazón.",
   },
@@ -193,7 +203,7 @@ export const ANIMALES = {
     h: 44,
   },
   carpincho: {
-    sprite: "carpincho",
+    sprite: "carpincho-rio",
     nombre: "Carpincho",
     dato: "Es el roedor más grande del mundo y le encanta el agua.",
     forma: "cuadrupedo",
@@ -203,7 +213,7 @@ export const ANIMALES = {
     h: 72,
   },
   garza: {
-    sprite: "garza",
+    sprite: "garza-blanca",
     nombre: "Garza blanca",
     dato: "Se para en una sola pata en las lagunas para pescar.",
     forma: "ave-corredora",
@@ -250,6 +260,7 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  bigua: { nombre: "Biguá", sprite: "bigua", anim: "volar", velocidad: 115 },
   carancho: { nombre: "Carancho", sprite: "carancho", anim: "volar", velocidad: 110 },
   carpintero: { nombre: "Carpintero gigante", sprite: "carpintero", anim: "volar", velocidad: 100 },
   abeja: { nombre: "Abeja", sprite: "abeja", anim: "volar", velocidad: 110 },
@@ -280,7 +291,7 @@ export const PAJAROS = {
     velocidad: 80,
   },
   tero: {
-    sprite: "tero",
+    sprite: "tero-rio",
     anim: "correr",
     suelo: true,
     nombre: "Tero",
@@ -363,6 +374,10 @@ export const CAMINANTES = {
   "lobo-marino": { quieto: "idle" },
   "elefante-marino": { quieto: "alzado" },
   mara: { quieto: "sentado" },
+  coipo: { quieto: "sentado" },
+  "lobito-rio": { quieto: "sentado" },
+  carpincho: { quieto: "sentado" },
+  tortuga: { quieto: "escondida" },
   cuis: { quieto: "idle" },
   vizcacha: { quieto: "sentado" },
   vaca: { quieto: "idle" },

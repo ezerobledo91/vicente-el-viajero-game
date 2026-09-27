@@ -28,7 +28,8 @@ const PREGUNTAS_POR_CIUDAD = 5;
 const QUIZ_POS = { x: 900, y: 360 };
 // Monumentos que aparecen en la llegada a ciertas ciudades (sprites de la lámina de animales/objetos).
 // Lugares importantes (personajes/premios/…lugares importantes…png, npm run lugares) parados en la vereda.
-const MONUMENTOS = { rosario: { id: "monumento-bandera", x: 470, alturaPx: 330 } };
+// (Rosario ya trae el Monumento a la Bandera en su portada.)
+const MONUMENTOS = {};
 const HOGAR = {
   casaX: 700,
   familia: [
