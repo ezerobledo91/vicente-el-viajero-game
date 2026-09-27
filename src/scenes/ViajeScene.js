@@ -24,6 +24,7 @@ import {
   rockTexture,
   signTexture,
   sparkTexture,
+  puaTexture,
   CARTEL,
   starTexture,
 } from "../systems/placeholders.js";
@@ -36,7 +37,11 @@ const ANIMAL_DISTANCIA = 170; // px: distancia para que el animal se frene a cha
 const ANIMAL_VELOCIDAD = [35, 60]; // px/seg (mínimo, máximo) de los animales que caminan
 const CHARLA_MS = 4200; // lo que dura el globo con el dato del animal
 const PLATAFORMA_VELOCIDAD = 70; // px/seg de las plataformas que se mueven
-const BALLENA_FACTOR = 0.3; // la ballena nada "lejos": se mueve como una capa de fondo
+const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/seg
+const BALLENA_FACTOR = 0.3;
+const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
+// Dónde está el mar en el fondo de la costa (columnas de la textura repetible y altura del agua).
+const MAR_COSTA = { periodo: 4344, centros: [600, 3750], superficie: 455 }; // la ballena nada "lejos": se mueve como una capa de fondo
 
 // Un tramo del viaje entre dos ciudades: plataformas de costado con obstáculos y animales.
 export class ViajeScene extends Phaser.Scene {
@@ -71,6 +76,8 @@ export class ViajeScene extends Phaser.Scene {
     this.coleccion = {}; // por tipo: { estrella: 12, mate: 1, ... }
 
     this.physics.world.setBounds(0, 0, this.largo, GAME_HEIGHT);
+    // Sin "piso" en el borde de abajo del mundo: si Vicente cae en un pozo, se cae de verdad.
+    this.physics.world.setBoundsCollision(true, true, true, false);
     this.cameras.main.setBounds(0, 0, this.largo, GAME_HEIGHT);
     this.parallax = createParallax(this, this.tramo.paisaje, PAISAJES[this.tramo.paisaje], {
       width: GAME_WIDTH,
@@ -78,8 +85,20 @@ export class ViajeScene extends Phaser.Scene {
       groundY: GROUND_Y,
     });
 
-    const piso = this.add.zone(this.largo / 2, GROUND_Y + 60, this.largo, 120);
-    this.physics.add.existing(piso, true);
+    // El piso es un conjunto de tramos sólidos, cortado donde hay pozos.
+    const pozos = this.level.items.filter((it) => it.tipo === "pozo").sort((a, b) => a.x - b.x);
+    const piso = this.physics.add.staticGroup();
+    let desde = 0;
+    for (const p of [...pozos, { x: this.largo + 1000, w: 0 }]) {
+      const hasta = Math.min(this.largo, p.x - p.w / 2);
+      if (hasta > desde) {
+        const z = this.add.zone((desde + hasta) / 2, GROUND_Y + 60, hasta - desde, 120);
+        piso.add(z);
+        z.body.updateFromGameObject();
+      }
+      desde = p.x + p.w / 2;
+    }
+    for (const p of pozos) this.dibujarPozo(p);
     this.solidos = this.physics.add.staticGroup(); // plataformas fijas (se atraviesan desde abajo)
     this.rocas = this.physics.add.staticGroup(); // rocas y troncos: sólidos por todos lados
     this.moviles = []; // plataformas que se mueven
@@ -108,11 +127,20 @@ export class ViajeScene extends Phaser.Scene {
 
     this.keys = this.input.keyboard.addKeys("LEFT,RIGHT,UP,DOWN,SPACE,A,D,W,S");
     this.touch = { left: false, right: false, jump: false, down: false };
+    this.puas = [];
     if (modoPrueba()) {
       this.input.keyboard.on(
         "keydown-N",
         () => !this.terminado && this.player.body.reset(this.cartel.x - 20, GROUND_Y - 2)
       );
+      // E: +10 estrellas (para probar la vida extra cada 100).
+      this.input.keyboard.on("keydown-E", () => {
+        for (let k = 0; k < 10; k++) {
+          this.juntadas++;
+          this.coleccion[COLECCIONABLES.comun] = (this.coleccion[COLECCIONABLES.comun] ?? 0) + 1;
+          this.contarEstrella();
+        }
+      });
       this.input.keyboard.on("keydown-V", () => {
         this.vidasInfinitas = !this.vidasInfinitas;
         this.cartelito(
@@ -185,14 +213,19 @@ export class ViajeScene extends Phaser.Scene {
         break;
       case "plataforma": {
         const key = platformTexture(this, item.w);
-        if (!item.mueve) {
+        if (!item.mueve && !item.mueveY) {
           this.solidos.create(item.x, y, key).setOrigin(0.5, 0).setDepth(6).refreshBody();
           break;
         }
         const p = this.physics.add.image(item.x, y, key).setOrigin(0.5, 0).setDepth(6).setImmovable(true);
         p.body.setAllowGravity(false);
-        p.body.setVelocityX(PLATAFORMA_VELOCIDAD);
-        Object.assign(p, { minX: item.x - item.mueve / 2, maxX: item.x + item.mueve / 2 });
+        if (item.mueve) {
+          p.body.setVelocityX(PLATAFORMA_VELOCIDAD);
+          Object.assign(p, { minX: item.x - item.mueve / 2, maxX: item.x + item.mueve / 2 });
+        } else {
+          p.body.setVelocityY(-PLATAFORMA_VELOCIDAD * 0.8);
+          Object.assign(p, { minY: y - item.mueveY, maxY: y });
+        }
         this.moviles.push(p);
         break;
       }
@@ -225,7 +258,14 @@ export class ViajeScene extends Phaser.Scene {
           this.crearAnimacion(key, 8);
           b = this.add.sprite(item.x, by, key).setDepth(9).play(`${key}-anim`);
         }
-        Object.assign(b, { baseY: by, velocidad: def.velocidad, activo: false, fase: item.x % 7, suelo: !!def.suelo });
+        Object.assign(b, {
+          pid,
+          baseY: by,
+          velocidad: def.velocidad,
+          activo: false,
+          fase: item.x % 7,
+          suelo: !!def.suelo,
+        });
         this.pajaros.push(b);
         break;
       }
@@ -320,11 +360,72 @@ export class ViajeScene extends Phaser.Scene {
       g.lineBetween(x + dx, y, x + dx + 3, y - alto);
   }
 
+  // Pozo: hueco oscuro en el camino, con bordes de tierra y pasto que cuelga.
+  dibujarPozo(p) {
+    const x0 = p.x - p.w / 2,
+      y0 = GROUND_Y - 12;
+    const g = this.add.graphics().setDepth(-4);
+    g.fillStyle(0x1a120c, 1).fillRect(x0, y0, p.w, GAME_HEIGHT - y0);
+    g.fillStyle(0x0d0906, 1).fillRect(x0 + 10, y0 + 40, p.w - 20, GAME_HEIGHT - y0);
+    g.fillStyle(0x5a3a22, 1).fillRect(x0 - 4, y0, 10, GAME_HEIGHT - y0);
+    g.fillRect(x0 + p.w - 6, y0, 10, GAME_HEIGHT - y0);
+    g.fillStyle(0x4f8a38, 1);
+    for (const bx of [x0, x0 + p.w - 8])
+      for (let k = 0; k < 4; k++) g.fillRect(bx + k * 2, y0 + 10 + ((k * 7) % 12), 3, 10 + k * 4);
+  }
+
+  tirarPua(b) {
+    const dx = this.player.x - b.x,
+      dy = this.player.y - 60 - b.y;
+    const d = Math.hypot(dx, dy) || 1;
+    const p = this.add.image(b.x - 10, b.y + 6, puaTexture(this)).setDepth(9);
+    p.setRotation(Math.atan2(dy, dx));
+    Object.assign(p, { vx: (dx / d) * PUA.velocidad, vy: (dy / d) * PUA.velocidad });
+    this.puas.push(p);
+    efecto("plop");
+  }
+
+  // Ballena en el mar del fondo: se mueve como el paisaje (parallax) y cada tanto salta.
+  // Se ubica para que aparezca en pantalla cuando Vicente pasa por item.x.
+  ponerBallena(item, def) {
+    if (!hasCharacter(this, def.sprite)) return false;
+    const f = this.parallax.imagen ? FONDO_FACTOR : BALLENA_FACTOR;
+    // Con la ballena moviéndose igual que el fondo, su x en el mundo corresponde siempre a la misma
+    // columna del dibujo: se elige una que sea mar (franjas de MAR_COSTA), cerca de donde pasa Vicente.
+    const ideal = f * (item.x - 360) + 700;
+    let x = ideal;
+    if (this.parallax.imagen && this.tramo.paisaje === "costa") {
+      const k = Math.floor(ideal / MAR_COSTA.periodo);
+      const candidatos = [k - 1, k, k + 1].flatMap((n) => MAR_COSTA.centros.map((c) => n * MAR_COSTA.periodo + c));
+      x = candidatos.reduce((a, b) => (Math.abs(b - ideal) < Math.abs(a - ideal) ? b : a));
+    }
+    const b = new Character(this, x, MAR_COSTA.superficie, def.sprite, { pxPerCm: PX_PER_CM.viaje })
+      .setScrollFactor(f, 1)
+      .setDepth(-14.5);
+    b.setScale(b.scale * 1.3);
+    b.loop("nadar");
+    const saltar = () => {
+      if (!b.active) return;
+      b.loop("saltar");
+      this.tweens.add({
+        targets: b,
+        y: MAR_COSTA.superficie - 40,
+        duration: 650,
+        yoyo: true,
+        ease: "Sine.Out",
+        onComplete: () => b.active && b.loop("nadar"),
+      });
+    };
+    this.time.addEvent({ delay: 3200, loop: true, callback: saltar });
+    Object.assign(b, { animalId: item.id, info: def, avisado: false, camina: false });
+    this.animales.push(b);
+    return true;
+  }
+
   spawnAnimal(item) {
     const def = ANIMALES[item.id];
     const ballena = def.forma === "ballena";
-    // Con fondo ilustrado de la costa, la ballena ya está pintada en el mar.
-    if (ballena && this.parallax.imagen) return;
+    if (ballena && this.ponerBallena(item, def)) return;
 
     const enAgua = EN_EL_AGUA.includes(item.id);
     if (enAgua) this.ponerCharco(item.x);
@@ -417,9 +518,32 @@ export class ViajeScene extends Phaser.Scene {
 
     // Plataformas móviles: van y vienen.
     for (const p of this.moviles) {
-      if (p.x < p.minX) p.body.setVelocityX(PLATAFORMA_VELOCIDAD);
-      else if (p.x > p.maxX) p.body.setVelocityX(-PLATAFORMA_VELOCIDAD);
+      if (p.minX != null) {
+        if (p.x < p.minX) p.body.setVelocityX(PLATAFORMA_VELOCIDAD);
+        else if (p.x > p.maxX) p.body.setVelocityX(-PLATAFORMA_VELOCIDAD);
+      } else if (p.y < p.minY) p.body.setVelocityY(PLATAFORMA_VELOCIDAD * 0.8);
+      else if (p.y > p.maxY) p.body.setVelocityY(-PLATAFORMA_VELOCIDAD * 0.8);
     }
+
+    // Caerse en un pozo: se pierden todas las vidas.
+    if (this.player.y > GAME_HEIGHT + 80) {
+      this.vidas = 0;
+      this.sinVidas("¡Te caíste en un pozo!");
+      return;
+    }
+
+    // Púas de las abejas
+    for (const p of this.puas) {
+      if (!p.active) continue;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      if (p.x < cam.scrollX - 100 || p.x > cam.scrollX + cam.width + 100 || p.y > GAME_HEIGHT) p.destroy();
+      else if (toca(p, 1)) {
+        p.destroy();
+        this.golpear(p.x);
+      }
+    }
+    this.puas = this.puas.filter((p) => p.active);
 
     // Coleccionables y corazones
     for (const s of this.figuritas) if (s.active && toca(s, 1)) this.juntar(s);
@@ -435,6 +559,16 @@ export class ViajeScene extends Phaser.Scene {
       if (!b.activo) continue;
       b.x -= b.velocidad * dt;
       if (!b.suelo) b.y = b.baseY + Math.sin(time * 0.004 + b.fase) * 14;
+      // Las abejas tiran una púa hacia Vicente cada tanto, si están en pantalla y más adelante que él.
+      if (
+        b.pid === "abeja" &&
+        b.x > this.player.x + 60 &&
+        b.x < cam.scrollX + cam.width &&
+        time > (b.proximaPua ?? 0)
+      ) {
+        b.proximaPua = time + PUA.cada;
+        this.tirarPua(b);
+      }
       if (b.x < cam.scrollX - 200) b.setActive(false).setVisible(false);
       else if (toca(b, 0.75)) {
         if (cayendoSobre(b, PISAR_MARGEN)) this.pisarPajaro(b);
@@ -648,13 +782,15 @@ export class ViajeScene extends Phaser.Scene {
     if (this.vidas <= 0) this.sinVidas();
   }
 
-  sinVidas() {
+  sinVidas(motivo = "¡Uy! Se acabaron las vidas.") {
+    if (this.terminado) return;
     efecto("perder");
     this.terminado = true;
     this.player.frenar();
     this.player.setAlpha(1);
     this.player.perform("enojado");
-    this.decir(this.player, "¡Uy! Se acabaron las vidas.\n¡Probemos otra vez!", 2400);
+    const top = Math.min(this.player.getTopCenter().y, GROUND_Y - 150);
+    this.decir({ x: this.player.x, getTopCenter: () => ({ y: top }) }, `${motivo}\n¡Probemos otra vez!`, 2400);
     this.time.delayedCall(2600, () => {
       this.cameras.main.fadeOut(400);
       this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () =>

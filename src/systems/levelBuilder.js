@@ -4,7 +4,8 @@
 //
 // Alturas: `y` es la distancia en px hacia arriba desde el piso (0 = apoyado en el piso).
 // Referencias: un salto normal llega a ~150 px; rebotando en un perro, a ~250 px. Los pájaros bajos
-// (y 105) se esquivan saltando por encima o agachándose.
+// (y 105) se esquivan saltando por encima o agachándose. Un salto con carrera cruza ~210 px de largo:
+// los pozos chicos miden menos que eso; los grandes se cruzan con plataformas que se mueven.
 
 export const LEVEL = {
   inicioLibre: 700, // zona sin obstáculos al arrancar
@@ -30,6 +31,9 @@ const DIFICULTAD = {
       plataformaMovil: 1,
       trampolin: 1,
       bandada: 0,
+      pozo: 1,
+      pozoMovil: 0,
+      escaleraAlta: 1,
       descanso: 1,
     },
   },
@@ -45,6 +49,9 @@ const DIFICULTAD = {
       plataformaMovil: 2,
       trampolin: 1,
       bandada: 1,
+      pozo: 2,
+      pozoMovil: 1,
+      escaleraAlta: 1,
       descanso: 1,
     },
   },
@@ -60,6 +67,9 @@ const DIFICULTAD = {
       plataformaMovil: 2,
       trampolin: 2,
       bandada: 2,
+      pozo: 3,
+      pozoMovil: 2,
+      escaleraAlta: 2,
       descanso: 0,
     },
   },
@@ -114,8 +124,28 @@ const PATRONES = {
     { tipo: "pajaro", x: x + 820, y: 105 },
     ...arco(x + 360, 3, 120, 170),
   ],
+  // Pozo chico: se salta con carrera. Las estrellas marcan el salto.
+  pozo: (x, { dificultad = 1 } = {}) => [{ tipo: "pozo", x, w: 130 + dificultad * 20 }, ...arco(x, 3, 110, 180)],
+  // Pozo grande: hay que ir saltando de una plataforma que se mueve a otra.
+  pozoMovil: (x) => [
+    { tipo: "pozo", x, w: 600 },
+    { tipo: "plataforma", x: x - 150, y: 95, w: 140, mueve: 110 },
+    { tipo: "plataforma", x: x + 150, y: 150, w: 140, mueveY: 90 },
+    ...fila(x - 150, 2, 95 + 60),
+    ...fila(x + 150, 2, 150 + 150),
+  ],
+  // Escalera de tres plataformas, cada una más alta, con premio arriba de todo.
+  escaleraAlta: (x) => [
+    { tipo: "plataforma", x: x - 230, y: 120, w: 170 },
+    { tipo: "plataforma", x, y: 225, w: 150 },
+    { tipo: "plataforma", x: x + 230, y: 330, w: 150 },
+    ...fila(x + 230, 3, 330 + 60),
+  ],
   descanso: () => [],
 };
+
+// Patrones que ocupan más lugar (el bloque siguiente se corre para no caer adentro del pozo).
+const ANCHO_EXTRA = { pozoMovil: 380 };
 
 function fila(x, n, y) {
   return Array.from({ length: n }, (_, i) => ({ tipo: "figurita", x: x + (i - (n - 1) / 2) * 55, y }));
@@ -137,8 +167,12 @@ export function buildLevel(tramo, seed = 1) {
   const desde = LEVEL.inicioLibre,
     hasta = largo - LEVEL.finLibre;
   const bloques = [];
-  for (let x = desde; x < hasta; x += cfg.paso * (0.85 + rnd() * 0.3))
-    bloques.push({ x, patron: pick(rnd, cfg.pesos) });
+  for (let x = desde; x < hasta - 400;) {
+    const patron = pick(rnd, cfg.pesos);
+    const extra = ANCHO_EXTRA[patron] ?? 0;
+    bloques.push({ x: x + extra / 2, patron });
+    x += cfg.paso * (0.85 + rnd() * 0.3) + extra;
+  }
 
   // Garantizar un mínimo de cada cosa (el azar solo podría dejar uno o ninguno).
   const minimo = Math.max(2, Math.round(largo / 1800));
@@ -147,7 +181,7 @@ export function buildLevel(tramo, seed = 1) {
     [["trampolin"], () => "trampolin", Math.max(2, Math.round(largo / 3000))],
     [["plataforma", "escalera", "plataformaMovil", "trampolin"], () => (rnd() < 0.5 ? "plataforma" : "escalera")],
   ]) {
-    const libres = () => bloques.filter((b) => ["figuritas", "descanso", "roca"].includes(b.patron));
+    const libres = () => bloques.filter((b) => ["figuritas", "descanso", "roca", "pozo"].includes(b.patron));
     while (bloques.filter((b) => grupo.includes(b.patron)).length < cuantos && libres().length) {
       const l = libres();
       l[Math.floor(rnd() * l.length)].patron = reemplazo();
@@ -160,7 +194,7 @@ export function buildLevel(tramo, seed = 1) {
   for (const b of bloques) {
     const vida = b.patron === "trampolin" && b.x - ultimaVida >= LEVEL.vidaCada;
     if (vida) ultimaVida = b.x;
-    items.push(...PATRONES[b.patron](b.x, { vida }));
+    items.push(...PATRONES[b.patron](b.x, { vida, dificultad: tramo.dificultad }));
   }
 
   // Tesoro y especial del tramo: reemplazan una estrella de las más altas (arriba de un trampolín o
@@ -180,10 +214,15 @@ export function buildLevel(tramo, seed = 1) {
   const tramoUtil = hasta - LEVEL.primerAnimal;
   const n = Math.max(1, Math.min(tramo.animales.length, 1 + Math.floor(tramoUtil / LEVEL.entreAnimales)));
   const paso = n > 1 ? tramoUtil / (n - 1) : 0;
-  const ocupado = (x) => items.some((it) => (it.tipo === "roca" || it.tipo === "perro") && Math.abs(it.x - x) < 170);
+  const ocupado = (x) =>
+    items.some(
+      (it) =>
+        ((it.tipo === "roca" || it.tipo === "perro") && Math.abs(it.x - x) < 170) ||
+        (it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + 140)
+    );
   for (let i = 0; i < n; i++) {
     let x = LEVEL.primerAnimal + i * paso - (i === n - 1 && n > 1 ? 200 : 0);
-    for (let intento = 0; intento < 4 && ocupado(x); intento++) x += 120;
+    for (let intento = 0; intento < 8 && ocupado(x); intento++) x += 120;
     items.push({ tipo: "animal", id: tramo.animales[i], x, rango: LEVEL.animalRango });
   }
 

@@ -414,7 +414,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "costa",
-      animales: ["pinguino", "choique", "guanaco"],
+      animales: ["ballena", "pinguino", "choique", "guanaco"],
       pajaro: "gaviota",
       largo: 13500,
       dificultad: 2,
@@ -433,7 +433,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "rio",
       animales: ["carpincho", "garza", "tortuga"],
-      pajaro: ["tero", "loro"],
+      pajaro: ["tero", "gaviota"],
       largo: 12200,
       dificultad: 2,
       tesoro: "tesoro-monumento",
@@ -450,8 +450,8 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "humedal",
-      animales: ["yacare", "carpincho", "mono", "guara"],
-      pajaro: "mosquito",
+      animales: ["yacare", "carpincho", "mono"],
+      pajaro: ["mosquito", "abeja"],
       largo: 13100,
       dificultad: 3,
       tesoro: "tesoro-hornero",
@@ -460,7 +460,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "selva",
       animales: ["tucan", "coati", "mono", "mariposa"],
-      pajaro: "tucan",
+      pajaro: ["tucan", "abeja"],
       largo: 13500,
       dificultad: 3,
       tesoro: "tesoro-tucan",
@@ -469,7 +469,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "cataratas",
       animales: ["coati", "jaguarete", "tucan"],
-      pajaro: "tucan",
+      pajaro: ["tucan", "abeja"],
       largo: 14000,
       dificultad: 3,
       tesoro: "tesoro-cataratas",

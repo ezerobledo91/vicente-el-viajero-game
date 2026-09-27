@@ -3,7 +3,7 @@ import { COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constan
 import { Button } from "../ui/Button.js";
 import { botonesSonido } from "../ui/SonidoBotones.js";
 import { heartTexture, starTexture } from "../systems/placeholders.js";
-import { VIDAS } from "../data/animales.js";
+import { COLECCIONABLES, VIDAS } from "../data/animales.js";
 import { modoPrueba } from "../systems/dev.js";
 
 const BAR = { x: 250, y: 30, w: 520 };
@@ -42,7 +42,9 @@ export class ViajeHudScene extends Phaser.Scene {
       ? this.add.image(GAME_WIDTH - 250, BAR.y, "estrella", 0)
       : this.add.image(GAME_WIDTH - 250, BAR.y, starTexture(this));
     icono.setScale(34 / icono.height);
-    this.contador = txt(GAME_WIDTH - 228, BAR.y, "0", 14, COLORS.ink);
+    this.contador = txt(GAME_WIDTH - 228, BAR.y - 6, "0", 14, COLORS.ink);
+    // Cuántas estrellas faltan para la próxima vida (cada 100, sumando todos los viajes).
+    this.proxVida = txt(GAME_WIDTH - 268, BAR.y + 16, "", 7, "#ff8a96");
     new Button(this, GAME_WIDTH - 80, BAR.y, "Salir", () => this.salir(), {
       width: 120,
       height: 32,
@@ -69,10 +71,14 @@ export class ViajeHudScene extends Phaser.Scene {
     this.tweens.add({ targets: ayuda, alpha: 0, delay: 5000, duration: 600 });
 
     if (modoPrueba())
-      txt(GAME_WIDTH / 2, 150, "PRUEBA · N: ir al final · V: vidas infinitas", 10, "#ff6b8a", 0.5).setStroke(
-        "#1b2a3a",
-        4
-      );
+      txt(
+        GAME_WIDTH / 2,
+        150,
+        "PRUEBA · N: ir al final · V: vidas infinitas · E: +10 estrellas",
+        10,
+        "#ff6b8a",
+        0.5
+      ).setStroke("#1b2a3a", 4);
 
     // Controles táctiles (también funcionan con el mouse)
     this.pad("left", 90, GAME_HEIGHT - 80, "<");
@@ -113,6 +119,8 @@ export class ViajeHudScene extends Phaser.Scene {
       .fillRoundedRect(BAR.x, BAR.y - 6, Math.max(12, BAR.w * t), 12, 6);
     this.marker.x = BAR.x + BAR.w * t;
     this.contador.setText(String(v.juntadas));
+    const estrellas = (v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0);
+    this.proxVida.setText(`vida en ${COLECCIONABLES.estrellasPorVida - (estrellas % COLECCIONABLES.estrellasPorVida)}`);
     if (v.vidas !== this.vidasMostradas) {
       // Latido en el corazón que cambió.
       const cambio = this.vidasMostradas == null ? null : this.corazones[Math.min(v.vidas, this.vidasMostradas)];

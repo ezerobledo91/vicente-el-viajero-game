@@ -434,3 +434,18 @@ export function sparkTexture(scene) {
     ctx.fill();
   });
 }
+
+// Púa que tiran las abejas (apunta a la derecha; se rota hacia donde vuela).
+export function puaTexture(scene) {
+  return canvasTexture(scene, "ph-pua", 22, 8, (ctx) => {
+    ctx.beginPath();
+    ctx.moveTo(0, 1);
+    ctx.lineTo(22, 4);
+    ctx.lineTo(0, 7);
+    ctx.closePath();
+    ctx.fillStyle = "#3a2a1a";
+    ctx.fill();
+    ctx.fillStyle = "#f2c23a";
+    ctx.fillRect(0, 2, 5, 4);
+  });
+}
