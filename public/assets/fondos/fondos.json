@@ -119,13 +119,13 @@
       }
     },
     "estepa": {
-      "piso": 618,
-      "corte": 588,
-      "alto": 724,
+      "piso": 606,
+      "corte": 578,
+      "alto": 1314,
       "altoFondo": 588,
       "fondoDy": 0,
-      "ancho": 4344,
-      "cielo": "#33a1fd",
+      "ancho": 8688,
+      "cielo": "#35a9fd",
       "piezas": {
         "borde-izq": {
           "w": 324,
