@@ -15,8 +15,16 @@
       }
     },
     "estepa": {
-      "src": "personajes/paises/argentina/tramos/estepa.png",
-      "piso": 598,
+      "fondo": "personajes/paises/argentina/tramos/estepa/fondo.webp",
+      "suelo": "personajes/paises/argentina/tramos/estepa/suelo.webp",
+      "piezas": "personajes/paises/argentina/tramos/estepa/piezas.png",
+      "piezasEnFila": true,
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/estepa/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/estepa/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/estepa/troncos.png"
+      },
+      "piso": 618,
       "corte": 588
     },
     "costa": {
@@ -59,10 +67,9 @@
     },
     "calafate": {
       "tipo": "postal",
-      "src": "personajes/paises/argentina/ciudades/calafate-glaciar.png",
-      "foco": 0.55,
-      "pie": 712,
-      "parada": 190
+      "src": "personajes/paises/argentina/ciudades/calafate-costanera.webp",
+      "pie": 700,
+      "parada": 300
     },
     "madryn": {
       "tipo": "panorama",

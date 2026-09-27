@@ -9,8 +9,8 @@
       "alturaCm": 128,
       "alturaPx": 117,
       "texture": "vicente.png",
-      "frameWidth": 95,
-      "frameHeight": 123,
+      "frameWidth": 100,
+      "frameHeight": 124,
       "frameCount": 40,
       "animations": [
         {

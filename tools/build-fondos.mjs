@@ -23,6 +23,7 @@ const config = JSON.parse(await fs.readFile(path.join(ROOT, "tools/fondos.config
 const OUT = path.join(ROOT, config.output);
 
 const CIUDAD = { w: 1280, h: 720 };
+const RECORTE_AGUA = 6; // px que se sacan de cada borde de los cuadros de agua
 const WEBP = { quality: 88, effort: 5 };
 
 const hex = (r, g, b) => "#" + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
@@ -66,7 +67,8 @@ const NOMBRES_PIEZAS = [
   ["agua-0", "agua-1", "agua-2", "agua-3", "orilla-izq", "orilla-der"],
   ["tronco"],
 ];
-async function cortarPiezas(id, file) {
+// enFila: todas las piezas en una sola fila (borde izq, centro, borde der, 4 aguas, orilla izq, orilla der).
+async function cortarPiezas(id, file, enFila = false) {
   const { data, info } = await sharp(path.join(ROOT, file)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const W = info.width,
     H = info.height;
@@ -93,22 +95,26 @@ async function cortarPiezas(id, file) {
     if (n > 2000) cajas.push({ x0, y0, x1, y1 });
   }
   const filas = [];
-  for (const c of cajas.sort((a, b) => a.y0 - b.y0)) {
-    const fila = filas.find((f) => Math.abs(f[0].y0 - c.y0) < 60);
-    fila ? fila.push(c) : filas.push([c]);
-  }
+  if (enFila) filas.push(cajas.sort((a, b) => a.x0 - b.x0));
+  else
+    for (const c of cajas.sort((a, b) => a.y0 - b.y0)) {
+      const fila = filas.find((f) => Math.abs(f[0].y0 - c.y0) < 60);
+      fila ? fila.push(c) : filas.push([c]);
+    }
   const salida = path.join(OUT, "piezas", id);
   await fs.mkdir(salida, { recursive: true });
   const piezas = {};
   for (const [k, fila] of filas.entries()) {
     fila.sort((a, b) => a.x0 - b.x0);
     for (const [j, c] of fila.entries()) {
-      const nombre = NOMBRES_PIEZAS[k]?.[j];
+      const nombre = enFila ? NOMBRES_PIEZAS.flat()[j] : NOMBRES_PIEZAS[k]?.[j];
       if (!nombre) continue;
-      const w = c.x1 - c.x0 + 1,
-        h = c.y1 - c.y0 + 1;
+      // A los cuadros de agua se les recorta el borde (suelen tener un marco claro que al repetirse arma una grilla).
+      const m = nombre.startsWith("agua") ? RECORTE_AGUA : 0;
+      const w = c.x1 - c.x0 + 1 - 2 * m,
+        h = c.y1 - c.y0 + 1 - 2 * m;
       await sharp(path.join(ROOT, file))
-        .extract({ left: c.x0, top: c.y0, width: w, height: h })
+        .extract({ left: c.x0 + m, top: c.y0 + m, width: w, height: h })
         .png()
         .toFile(path.join(salida, nombre + ".png"));
       piezas[nombre] = { w, h };
@@ -186,7 +192,7 @@ async function main() {
         ancho: mf.width,
         cielo: colorCielo(fondoRaw),
       };
-      if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas);
+      if (t.piezas) manifest.tramos[id].piezas = await cortarPiezas(id, t.piezas, t.piezasEnFila);
       for (const [tipo, file] of Object.entries(t.sueltas ?? {}))
         Object.assign((manifest.tramos[id].piezas ??= {}), await cortarSueltas(id, tipo, file));
       console.log(`✔ tramo ${id} (precortado${t.piezas ? " + piezas" : ""})`);
