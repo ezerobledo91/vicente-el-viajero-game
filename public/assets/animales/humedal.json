@@ -107,7 +107,7 @@
       "grupo": "animales",
       "nombre": "Mosquito",
       "facing": "right",
-      "alturaCm": 12,
+      "alturaCm": 38,
       "alturaPx": 111,
       "texture": "mosquito-humedal.png",
       "frameWidth": 111,

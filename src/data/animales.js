@@ -111,7 +111,7 @@ export const ANIMALES = {
     dato: "Usa su pico largo y curvo para buscar bichitos en el barro de las lagunas.",
   },
   jaguarete: {
-    sprite: "jaguarete",
+    sprite: "yaguarete-selva",
     nombre: "Yaguareté",
     dato: "Es el felino más grande de América y vive en la selva de Misiones.",
   },
@@ -276,7 +276,7 @@ export const PAJAROS = {
   bigua: { nombre: "Biguá", sprite: "bigua", anim: "volar", velocidad: 115 },
   carancho: { nombre: "Carancho", sprite: "carancho", anim: "volar", velocidad: 110 },
   carpintero: { nombre: "Carpintero gigante", sprite: "carpintero", anim: "volar", velocidad: 100 },
-  abeja: { nombre: "Abeja", sprite: "abeja", anim: "volar", velocidad: 110 },
+  abeja: { nombre: "Abeja", sprite: "abeja-selva", anim: "volar", velocidad: 110 },
   colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
   loro: { nombre: "Loro", sprite: "loro", anim: "volar", velocidad: 125 },
   libelula: { nombre: "Libélula", sprite: "libelula", anim: "volar", velocidad: 140 },
@@ -410,7 +410,7 @@ export const CAMINANTES = {
   liebre: { quieto: "idle" },
   coati: { quieto: "parado" },
   mono: { quieto: "parado" },
-  jaguarete: {},
+  jaguarete: { quieto: "parado" },
 };
 
 // Animales que viven en el agua: se dibujan parados en un charco o laguito.

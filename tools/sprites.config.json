@@ -22,7 +22,7 @@
           "frames": 8,
           "fps": 18,
           "repeat": -1,
-          "archivo": "personajes/familia/vicente/caminarv5.png",
+          "archivo": "personajes/familia/vicente/caminarv6.png",
           "_nota": "fps sincronizado con la velocidad (240 px/s): paso de ~53 px en pantalla -> 18 fps para que el pie no patine"
         },
         {

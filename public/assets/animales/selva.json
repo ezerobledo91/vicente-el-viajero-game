@@ -136,6 +136,71 @@
           "repeat": -1
         }
       ]
+    },
+    {
+      "id": "yaguarete-selva",
+      "grupo": "animales",
+      "nombre": "Yaguareté",
+      "facing": "right",
+      "alturaCm": 80,
+      "alturaPx": 110,
+      "texture": "yaguarete-selva.png",
+      "frameWidth": 139,
+      "frameHeight": 115,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "abeja-selva",
+      "grupo": "animales",
+      "nombre": "Abeja",
+      "facing": "right",
+      "alturaCm": 42,
+      "alturaPx": 111,
+      "texture": "abeja-selva.png",
+      "frameWidth": 107,
+      "frameHeight": 115,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 14,
+          "repeat": -1
+        }
+      ]
     }
   ]
 }

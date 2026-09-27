@@ -88,7 +88,7 @@
     {
       "id": "mosquito-humedal",
       "nombre": "Mosquito",
-      "alturaCm": 12,
+      "alturaCm": 38,
       "alturaPx": 110,
       "facing": "right",
       "archivos": true,
