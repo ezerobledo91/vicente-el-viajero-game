@@ -5,10 +5,11 @@ import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
 import { ANIMALES, COLECCIONABLES } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
-import { animalesVistos, getPerfil, hitoPreguntas } from "../systems/progress.js";
-import { formatoPuntos, puntajeTotal, puntosDe } from "../systems/puntaje.js";
-import { VIAJES, getViaje } from "../data/viajes/index.js";
-import { RAREZAS, STICKERS } from "../data/stickers.js";
+import { animalesVistos, getPerfil } from "../systems/progress.js";
+import { puntosDe } from "../systems/puntaje.js";
+import { animalesDe, coleccionablesDe, stickersDe, textoResumen } from "../systems/resumen.js";
+import { VIAJES } from "../data/viajes/index.js";
+import { RAREZAS } from "../data/stickers.js";
 
 const RAREZA = {
   común: { color: 0x9fb3c8, texto: "#9fb3c8" },
@@ -26,19 +27,6 @@ const PESTANAS = [
   { id: "coleccion", label: "Coleccionables" },
   { id: "animales", label: "Animales" },
 ];
-
-// Lo de cada país: stickers de su álbum, coleccionables de sus tramos y animales de sus tramos.
-const stickersDe = (paisId) => STICKERS.filter((s) => s.pais === paisId);
-const coleccionablesDe = (viaje) => {
-  const tramos = viaje.tramos.flatMap((t) => [t.especial, t.tesoro]).filter(Boolean);
-  const unicos = [...new Set(tramos)];
-  return [
-    COLECCIONABLES.comun,
-    ...unicos.filter((t) => !t.startsWith("tesoro-")),
-    ...unicos.filter((t) => t.startsWith("tesoro-")),
-  ];
-};
-const animalesDe = (viaje) => [...new Set(viaje.tramos.flatMap((t) => t.animales))];
 
 // Perfil de Vicente: álbum de stickers, coleccionables juntados y animales vistos (en pestañas y por país).
 export class PerfilScene extends Phaser.Scene {
@@ -60,29 +48,10 @@ export class PerfilScene extends Phaser.Scene {
     this.add
       .text(24, 26, "Perfil de Vicente", { fontFamily: FONT, fontSize: "20px", color: "#ffb83d" })
       .setOrigin(0, 0.5);
-    const stickers = Object.keys(perfil.stickers ?? {}).length;
-    // Hito de preguntas del país (por ahora Argentina): mejor resultado de cada ciudad.
-    const hito = hitoPreguntas("ar");
-    const hitoTotal = (getViaje("ar")?.ciudades.length ?? 0) * 5;
+    // El mismo resumen que en el mapa del viaje (por ahora un solo país: Argentina).
     this.add
-      .text(
-        24,
-        56,
-        `Stickers: ${stickers}/${STICKERS.length} · Animales: ${vistos.size} · Preguntas: ${hito.aciertos}/${hitoTotal}`,
-        { fontFamily: FONT, fontSize: "10px", color: COLORS.ink }
-      )
+      .text(24, 56, textoResumen("ar"), { fontFamily: FONT, fontSize: "9px", color: COLORS.ink })
       .setOrigin(0, 0.5);
-    // Puntaje general (como en Mario).
-    this.add
-      .text(GAME_WIDTH - 360, 24, "PUNTOS", { fontFamily: FONT, fontSize: "9px", color: "#ffd27a" })
-      .setOrigin(0.5);
-    this.add
-      .text(GAME_WIDTH - 360, 48, formatoPuntos(puntajeTotal()), {
-        fontFamily: FONT,
-        fontSize: "18px",
-        color: "#ffffff",
-      })
-      .setOrigin(0.5);
     new Button(this, GAME_WIDTH - 110, 38, "< Volver", () => this.scene.start(this.volver.scene, this.volver.data), {
       width: 180,
       variant: "secondary",

@@ -5,8 +5,9 @@ import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
 import { getViaje } from "../data/viajes/index.js";
 import { getPais } from "../data/paises.js";
-import { actualizarViaje, getProgresoViaje, hitoPreguntas, reiniciarViaje } from "../systems/progress.js";
+import { actualizarViaje, getProgresoViaje, reiniciarViaje } from "../systems/progress.js";
 import { modoPrueba } from "../systems/dev.js";
+import { textoResumen } from "../systems/resumen.js";
 
 const REGION = "sudamerica";
 const PAIS_EN_PANTALLA = { x: 380, y: 400, alto: 600 }; // dónde y de qué alto se ve el país
@@ -153,16 +154,11 @@ export class ViajeMapaScene extends Phaser.Scene {
     );
     add(
       this.add
-        .text(
-          24,
-          56,
-          `Figuritas: ${this.progreso.figuritas} · Animales: ${this.progreso.animalesVistos.length} · Preguntas: ${hitoPreguntas(this.paisId).aciertos} de ${this.viaje.ciudades.length * 5}`,
-          {
-            fontFamily: FONT,
-            fontSize: "10px",
-            color: COLORS.ink,
-          }
-        )
+        .text(24, 56, textoResumen(this.paisId), {
+          fontFamily: FONT,
+          fontSize: "9px",
+          color: COLORS.ink,
+        })
         .setOrigin(0, 0.5)
     );
     add(
