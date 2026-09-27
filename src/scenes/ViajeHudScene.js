@@ -3,7 +3,7 @@ import { COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constan
 import { Button } from "../ui/Button.js";
 import { botonesSonido } from "../ui/SonidoBotones.js";
 import { heartTexture, starTexture } from "../systems/placeholders.js";
-import { COLECCIONABLES, VIDAS } from "../data/animales.js";
+import { COLECCIONABLES, CUARTOS, VIDAS } from "../data/animales.js";
 import { modoPrueba } from "../systems/dev.js";
 
 const BAR = { x: 250, y: 30, w: 520 };
@@ -118,18 +118,27 @@ export class ViajeHudScene extends Phaser.Scene {
       .fillStyle(COLORS.accent, 1)
       .fillRoundedRect(BAR.x, BAR.y - 6, Math.max(12, BAR.w * t), 12, 6);
     this.marker.x = BAR.x + BAR.w * t;
-    this.contador.setText(String(v.juntadas));
+    this.contador.setText(String((v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0)));
     const estrellas = (v.estrellasAntes ?? 0) + (v.coleccion?.[COLECCIONABLES.comun] ?? 0);
-    this.proxVida.setText(`vida en ${COLECCIONABLES.estrellasPorVida - (estrellas % COLECCIONABLES.estrellasPorVida)}`);
-    if (v.vidas !== this.vidasMostradas) {
-      // Latido en el corazón que cambió.
-      const cambio = this.vidasMostradas == null ? null : this.corazones[Math.min(v.vidas, this.vidasMostradas)];
-      this.vidasMostradas = v.vidas;
+    this.proxVida.setText(
+      `corazón en ${COLECCIONABLES.estrellasPorVida - (estrellas % COLECCIONABLES.estrellasPorVida)}`
+    );
+    if (v.vida !== this.vidasMostradas) {
+      // Latido en el corazón que cambió. Cada corazón muestra de 0 a 4 cuartos.
+      const antes = this.vidasMostradas;
+      this.vidasMostradas = v.vida;
+      const llenos = Math.ceil(v.vida / CUARTOS);
       this.corazones.forEach((h, i) => {
-        h.setTexture(heartTexture(this, i < v.vidas));
-        h.setVisible(i < Math.max(v.vidas, VIDAS.inicio));
+        h.setTexture(heartTexture(this, Math.max(0, Math.min(CUARTOS, v.vida - i * CUARTOS))));
+        h.setVisible(i < Math.max(llenos, VIDAS.inicio));
       });
-      if (cambio) this.tweens.add({ targets: cambio, scale: 1.2, duration: 120, yoyo: true });
+      if (antes != null) {
+        const cambio =
+          this.corazones[
+            Math.min(VIDAS.maximo - 1, Math.floor((Math.min(antes, v.vida) - 1) / CUARTOS + (v.vida > antes ? 1 : 0)))
+          ];
+        if (cambio) this.tweens.add({ targets: cambio, scale: 1.2, duration: 120, yoyo: true });
+      }
     }
   }
 

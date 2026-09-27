@@ -1,7 +1,7 @@
 // Viaje por Argentina: de Ushuaia al norte hasta la Triple Frontera.
 //
-// ciudades[i] → tramos[i] → ciudades[i + 1]. En cada ciudad hay 5 preguntas de 4 opciones: siempre
-// se sigue, pero si se erran todas se pierde una vida en el tramo siguiente.
+// ciudades[i] → tramos[i] → ciudades[i + 1]. En cada ciudad se eligen 5 preguntas al azar (de 10) de 4 opciones: siempre
+// se sigue, pero si se erran todas se pierde un corazón.
 // `correcta` es el índice de la opción correcta (las opciones se mezclan al mostrarlas).
 // `etiqueta` (opcional): dónde va el nombre en el mapa del viaje ("izq", "der", "arriba", "abajo").
 //
@@ -51,6 +51,31 @@ export const VIAJE_ARGENTINA = {
           opciones: ["Tren del Fin del Mundo", "Tren a las Nubes", "La Trochita", "Tren Patagónico"],
           correcta: 0,
         },
+        {
+          p: "¿En qué isla grande está Ushuaia?",
+          opciones: ["Isla Grande de Tierra del Fuego", "Isla de los Estados", "Isla Martín García", "Isla de Pascua"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué océano está al sur de Tierra del Fuego?",
+          opciones: ["Océano Antártico", "Océano Índico", "Océano Ártico", "Mar Caribe"],
+          correcta: 0,
+        },
+        {
+          p: "¿Cómo se llama el faro famoso del Canal de Beagle?",
+          opciones: ["Faro Les Éclaireurs", "Faro de Punta Mogotes", "Faro Querandí", "Faro de Alejandría"],
+          correcta: 0,
+        },
+        {
+          p: "En Ushuaia, en invierno los días son...",
+          opciones: ["Muy cortos, oscurece temprano", "Muy largos", "Siempre de 12 horas", "Sin noche"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué deporte se puede hacer en el Cerro Castor de Ushuaia?",
+          opciones: ["Esquí", "Surf", "Buceo en arrecifes", "Remo en el desierto"],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -96,6 +121,36 @@ export const VIAJE_ARGENTINA = {
           ],
           correcta: 0,
         },
+        {
+          p: "¿En qué parque nacional está el Glaciar Perito Moreno?",
+          opciones: ["Los Glaciares", "Nahuel Huapi", "Iguazú", "Lanín"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué pasa cuando un pedazo del glaciar se cae al lago?",
+          opciones: [
+            "Se llama desprendimiento y hace mucho ruido",
+            "Se derrite al instante",
+            "Sale volando",
+            "Se vuelve piedra",
+          ],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué montaña famosa para escaladores está cerca de El Calafate?",
+          opciones: ["El Fitz Roy", "El Aconcagua", "El Everest", "El Cerro de los Siete Colores"],
+          correcta: 0,
+        },
+        {
+          p: "¿De qué color se ve el hielo del glaciar en algunas partes?",
+          opciones: ["Azul", "Rojo", "Verde flúor", "Negro"],
+          correcta: 0,
+        },
+        {
+          p: "En la estepa patagónica, cerca de El Calafate, sopla mucho...",
+          opciones: ["El viento", "El calor tropical", "La lluvia de la selva", "El monzón"],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -129,6 +184,36 @@ export const VIAJE_ARGENTINA = {
         {
           p: "En 1865 llegaron en barco los primeros inmigrantes a esta zona. ¿De dónde venían?",
           opciones: ["De Gales", "De Italia", "De Japón", "De Brasil"],
+          correcta: 0,
+        },
+        {
+          p: "¿En qué época del año se ven las ballenas en Puerto Madryn?",
+          opciones: ["De junio a diciembre", "Solo en enero", "Nunca", "Solo en Navidad"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué animal gigante y ruidoso duerme en las playas de Península Valdés?",
+          opciones: ["El elefante marino", "El hipopótamo", "El rinoceronte", "El oso polar"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué animal se acerca a la orilla para cazar lobos marinos en Península Valdés?",
+          opciones: ["La orca", "El tiburón blanco", "El delfín rosado", "El pulpo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué ciudad de Chubut está cerca de Puerto Madryn y tiene casas de té galesas?",
+          opciones: ["Gaiman", "Mendoza", "Tandil", "Salta"],
+          correcta: 0,
+        },
+        {
+          p: "Las ballenas respiran...",
+          opciones: [
+            "Aire, por un agujero arriba de la cabeza",
+            "Agua, por las branquias",
+            "No respiran",
+            "Por la cola",
+          ],
           correcta: 0,
         },
       ],
@@ -171,6 +256,31 @@ export const VIAJE_ARGENTINA = {
           ],
           correcta: 0,
         },
+        {
+          p: "¿Cómo se le dice a la gente que nace en la Ciudad de Buenos Aires?",
+          opciones: ["Porteños", "Bonaerenses", "Rosarinos", "Cordobeses"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué barrio de Buenos Aires tiene casitas de colores y el Caminito?",
+          opciones: ["La Boca", "Palermo", "Belgrano", "Recoleta"],
+          correcta: 0,
+        },
+        {
+          p: "¿Cuál es la avenida muy ancha donde está el Obelisco?",
+          opciones: ["Avenida 9 de Julio", "Avenida Corrientes", "Avenida Rivadavia", "Avenida de Mayo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Cómo se llama el tren subterráneo de Buenos Aires?",
+          opciones: ["Subte", "Metro Bus", "Trolebús", "Tranvía de la Costa"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué se festeja el 9 de julio?",
+          opciones: ["El Día de la Independencia", "El Día de la Bandera", "La Revolución de Mayo", "Navidad"],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -204,6 +314,31 @@ export const VIAJE_ARGENTINA = {
         {
           p: "¿En qué provincia está Rosario?",
           opciones: ["Santa Fe", "Buenos Aires", "Córdoba", "Entre Ríos"],
+          correcta: 0,
+        },
+        {
+          p: "¿En qué año se izó por primera vez la bandera argentina?",
+          opciones: ["1812", "1810", "1816", "1910"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué famoso futbolista nació en Rosario?",
+          opciones: ["Lionel Messi", "Diego Maradona", "Pelé", "Cristiano Ronaldo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué puente une Rosario con Victoria, en Entre Ríos?",
+          opciones: ["Puente Rosario-Victoria", "Puente Colgante", "Puente de la Mujer", "Puente General Belgrano"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué colores tiene la bandera que creó Belgrano?",
+          opciones: ["Celeste y blanco", "Rojo y azul", "Verde y blanco", "Amarillo y negro"],
+          correcta: 0,
+        },
+        {
+          p: "La bandera argentina tiene en el medio un...",
+          opciones: ["Sol", "Escudo con un león", "Árbol", "Estrella roja"],
           correcta: 0,
         },
       ],
@@ -246,6 +381,36 @@ export const VIAJE_ARGENTINA = {
           ],
           correcta: 0,
         },
+        {
+          p: "¿Qué se firmó en Santa Fe en 1853?",
+          opciones: [
+            "La Constitución Nacional",
+            "La Declaración de la Independencia",
+            "El Himno Nacional",
+            "La paz con Brasil",
+          ],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué pájaro de pico largo y patas finas vive en las lagunas de Santa Fe?",
+          opciones: ["La garza", "El pingüino", "El cóndor", "El tucán"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué túnel pasa por debajo del río Paraná entre Santa Fe y Paraná?",
+          opciones: ["Túnel Subfluvial", "Túnel de la Mancha", "Túnel del Cristo Redentor", "Túnel de Buenos Aires"],
+          correcta: 0,
+        },
+        {
+          p: "Los carpinchos comen principalmente...",
+          opciones: ["Pasto y plantas acuáticas", "Carne", "Peces", "Insectos"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué forma tiene la provincia de Santa Fe en el mapa?",
+          opciones: ["Larga, de norte a sur", "Redonda", "Cuadrada", "Con forma de bota"],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -280,6 +445,31 @@ export const VIAJE_ARGENTINA = {
         {
           p: "¿Quién vive en Reconquista?",
           opciones: ["¡La familia de Vicente!", "El presidente", "Un pingüino", "Nadie"],
+          correcta: 0,
+        },
+        {
+          p: "Reconquista está en el departamento...",
+          opciones: ["General Obligado", "Rosario", "La Capital", "San Justo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué animal de río, con bigotes y sin escamas, se pesca en el Paraná?",
+          opciones: ["El surubí", "El salmón", "El atún", "El pez espada"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué ciudad está pegada a Reconquista, casi como una sola?",
+          opciones: ["Avellaneda", "Rosario", "Córdoba", "Mendoza"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué se cultiva mucho cerca de Reconquista?",
+          opciones: ["Algodón y girasol", "Uvas para vino", "Manzanas", "Café"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué aves blancas se ven mucho en los bañados de Reconquista?",
+          opciones: ["Garzas", "Pingüinos", "Cóndores", "Flamencos"],
           correcta: 0,
         },
       ],
@@ -318,6 +508,31 @@ export const VIAJE_ARGENTINA = {
           opciones: ["Puente General Belgrano", "Puente Colgante", "Puente Zárate-Brazo Largo", "Puente de la Mujer"],
           correcta: 0,
         },
+        {
+          p: "¿Cómo se llama la fiesta de carnaval famosa de Corrientes?",
+          opciones: ["Carnaval de Corrientes", "Carnaval de Río", "Fiesta de la Vendimia", "Oktoberfest"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué idioma de pueblos originarios también se habla en Corrientes?",
+          opciones: ["Guaraní", "Quechua", "Mapuche", "Inglés"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué río separa Corrientes de Brasil y Uruguay?",
+          opciones: ["El río Uruguay", "El río Paraná", "El río Negro", "El río Colorado"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué animal enorme, parecido a un ciervo, vive en los Esteros del Iberá?",
+          opciones: ["El ciervo de los pantanos", "El alce", "El reno", "La jirafa"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué instrumento se toca mucho en el chamamé?",
+          opciones: ["El acordeón", "La gaita", "El violín eléctrico", "La batería electrónica"],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -354,6 +569,36 @@ export const VIAJE_ARGENTINA = {
           opciones: ["Paraguay", "Brasil", "Uruguay", "Bolivia"],
           correcta: 0,
         },
+        {
+          p: "¿Qué puente une Posadas con Encarnación, en Paraguay?",
+          opciones: ["Puente San Roque González", "Puente Colgante", "Puente de la Mujer", "Puente Rosario-Victoria"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué río pasa por Posadas?",
+          opciones: ["El Paraná", "El Uruguay", "El Iguazú", "El Salado"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué bebida se hace con la yerba mate y se toma fría?",
+          opciones: ["El tereré", "El café", "El té helado", "La limonada"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué grandes saltos de agua tiene Misiones además de las Cataratas?",
+          opciones: ["Los Saltos del Moconá", "El Salto Ángel", "El Niágara", "El Salto Grande del Nilo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Cómo son los árboles de la selva misionera?",
+          opciones: [
+            "Altísimos y con muchas plantas encima",
+            "Bajitos y sin hojas",
+            "Todos cactus",
+            "Todos pinos con nieve",
+          ],
+          correcta: 0,
+        },
       ],
     },
     {
@@ -388,6 +633,36 @@ export const VIAJE_ARGENTINA = {
         {
           p: "¿Qué felino grande y con manchas vive en la selva misionera?",
           opciones: ["El yaguareté", "El puma", "El león", "El tigre"],
+          correcta: 0,
+        },
+        {
+          p: "¿Cuántos saltos de agua tienen las Cataratas del Iguazú, aproximadamente?",
+          opciones: ["Más de 250", "Tres", "Diez", "Uno solo"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué significa “Iguazú” en guaraní?",
+          opciones: ["Agua grande", "Montaña alta", "Bosque oscuro", "Pájaro azul"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué dos países comparten las Cataratas del Iguazú?",
+          opciones: ["Argentina y Brasil", "Argentina y Chile", "Brasil y Uruguay", "Paraguay y Bolivia"],
+          correcta: 0,
+        },
+        {
+          p: "¿Qué ave con pico enorme y colorido vive en la selva de Iguazú?",
+          opciones: ["El tucán", "El pingüino", "El flamenco", "El cóndor"],
+          correcta: 0,
+        },
+        {
+          p: "Las Cataratas del Iguazú fueron elegidas como una de las...",
+          opciones: [
+            "Siete maravillas naturales del mundo",
+            "Montañas más altas",
+            "Playas más grandes",
+            "Ciudades más frías",
+          ],
           correcta: 0,
         },
       ],

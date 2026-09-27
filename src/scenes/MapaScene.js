@@ -18,6 +18,10 @@ export class MapaScene extends Phaser.Scene {
     super(SCENES.MAPA);
   }
 
+  init(data) {
+    this.vieneDeGameOver = !!data?.gameOver;
+  }
+
   create() {
     musica("tema");
     this.mapImage = this.add.image(0, 0, ASSETS.MAP_IMAGE).setOrigin(0);
@@ -47,6 +51,13 @@ export class MapaScene extends Phaser.Scene {
     this.scene.launch(SCENES.MAPA_HUD, { mapa: this });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scene.stop(SCENES.MAPA_HUD));
     this.showWorld(false);
+    if (this.vieneDeGameOver)
+      this.time.delayedCall(700, () =>
+        this.events.emit(
+          "toast",
+          "¡Game Over! Se borraron las estrellas. Volvé a Argentina y respondé las preguntas para seguir."
+        )
+      );
   }
 
   // ---------- Construcción ----------

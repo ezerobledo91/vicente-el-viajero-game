@@ -13,6 +13,7 @@ import {
   ganarSticker,
   getPerfil,
   getProgresoViaje,
+  guardarUltimasPreguntas,
   hitoPreguntas,
   registrarPreguntas,
 } from "../systems/progress.js";
@@ -220,7 +221,17 @@ export class CiudadScene extends Phaser.Scene {
     }).setDepth(20);
     this.vicente.perform("pensar");
 
-    const elegidas = Phaser.Utils.Array.Shuffle([...this.ciudad.preguntas]).slice(0, PREGUNTAS_POR_CIUDAD);
+    // 5 al azar, priorizando las que no salieron la vez anterior en esta ciudad.
+    const perfil = getPerfil();
+    perfil.ultimasPreguntas ??= {};
+    const vistas = new Set(perfil.ultimasPreguntas[this.ciudad.id] ?? []);
+    const nuevas = Phaser.Utils.Array.Shuffle(this.ciudad.preguntas.filter((q) => !vistas.has(q.p)));
+    const repetidas = Phaser.Utils.Array.Shuffle(this.ciudad.preguntas.filter((q) => vistas.has(q.p)));
+    const elegidas = [...nuevas, ...repetidas].slice(0, PREGUNTAS_POR_CIUDAD);
+    guardarUltimasPreguntas(
+      this.ciudad.id,
+      elegidas.map((q) => q.p)
+    );
     const aciertos = await this.quiz.jugar(elegidas);
 
     const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
@@ -229,7 +240,8 @@ export class CiudadScene extends Phaser.Scene {
       ciudad: this.ciudadIndex,
       preguntasOk: true,
       terminado: v.terminado || ultima,
-      penalidad: aciertos === 0 ? (v.penalidad ?? 0) + 1 : (v.penalidad ?? 0),
+      // Errar todas saca un corazón entero (pero nunca deja en cero: el Game Over es solo en los tramos).
+      vida: aciertos === 0 ? Math.max(1, (v.vida ?? 12) - 4) : (v.vida ?? 12),
     }));
     this.quiz.setVisible(false);
     await this.entregarStickers(aciertos, elegidas.length);
@@ -342,7 +354,7 @@ export class CiudadScene extends Phaser.Scene {
       aciertos != null
         ? `Acertaste ${aciertos} de ${PREGUNTAS_POR_CIUDAD}.`
         : "Ya respondiste las preguntas de esta ciudad.";
-    if (aciertos === 0) mensaje += "\nPerdés una vida en el próximo tramo.";
+    if (aciertos === 0) mensaje += "\nPerdiste un corazón.";
     mensaje += `\nEn ${this.viaje.nombre}: ${hito.aciertos} de ${total} preguntas.`;
 
     if (this.ciudad.evento === "triple-frontera" || ultima) {

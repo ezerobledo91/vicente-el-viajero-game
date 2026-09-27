@@ -295,8 +295,11 @@ export const COLECCIONABLES = {
   },
 };
 
-// Vidas en cada tramo. Si se acaban, el tramo vuelve a empezar (lo ya guardado del viaje no se pierde).
-export const VIDAS = { inicio: 3, maximo: 5 };
+// Corazones de la partida (se arrastran de tramo en tramo). Se cuentan en cuartos:
+// un golpe saca 1/4, caer en un pozo saca un corazón entero. Sin corazones: Game Over
+// (se borran las estrellas de la partida y se vuelve al planisferio a repetir las preguntas).
+export const VIDAS = { inicio: 3, maximo: 5, golpe: 1, pozo: 4 };
+export const CUARTOS = 4;
 
 // Animales que caminan de un lado a otro. `quieto`: pose cuando se frenan a charlar con Vicente
 // (si no tiene, se congela el cuadro actual).

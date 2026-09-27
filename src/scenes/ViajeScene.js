@@ -7,14 +7,14 @@ import { Character } from "../entities/Character.js";
 import { SpeechBubble } from "../ui/SpeechBubble.js";
 import { getViaje } from "../data/viajes/index.js";
 import { PAISAJES } from "../data/paisajes.js";
-import { ANIMALES, CAMINANTES, COLECCIONABLES, EN_EL_AGUA, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
+import { ANIMALES, CAMINANTES, COLECCIONABLES, CUARTOS, EN_EL_AGUA, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
 import { DECORACION } from "../data/decoracion.js";
 import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
-import { actualizarViaje, getPerfil, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
+import { actualizarViaje, gameOver, getProgresoViaje, sumarColeccion } from "../systems/progress.js";
 import {
   animalTexture,
   birdTexture,
@@ -69,9 +69,9 @@ export class ViajeScene extends Phaser.Scene {
     this.vistos = new Set(this.progreso.animalesVistos);
     this.terminado = false;
     // Si en la ciudad anterior erró todas las preguntas, arranca con una vida menos.
-    this.vidas = Math.max(1, VIDAS.inicio - (this.progreso.penalidad ?? 0));
-    if (this.progreso.penalidad) actualizarViaje(this.paisId, { penalidad: 0 });
-    this.estrellasAntes = getPerfil().coleccion?.estrella ?? 0; // para la vida extra cada 100 estrellas
+    // Corazones (en cuartos) y estrellas vienen de la partida.
+    this.vida = this.progreso.vida ?? VIDAS.inicio * CUARTOS;
+    this.estrellasAntes = this.progreso.estrellas ?? 0;
     this.juntadas = 0; // total de este tramo (para la interfaz)
     this.coleccion = {}; // por tipo: { estrella: 12, mate: 1, ... }
 
@@ -525,10 +525,9 @@ export class ViajeScene extends Phaser.Scene {
       else if (p.y > p.maxY) p.body.setVelocityY(-PLATAFORMA_VELOCIDAD * 0.8);
     }
 
-    // Caerse en un pozo: se pierden todas las vidas.
+    // Caerse en un pozo: se pierde un corazón entero y se vuelve antes del pozo.
     if (this.player.y > GAME_HEIGHT + 80) {
-      this.vidas = 0;
-      this.sinVidas("¡Te caíste en un pozo!");
+      this.caerEnPozo();
       return;
     }
 
@@ -681,11 +680,11 @@ export class ViajeScene extends Phaser.Scene {
     });
   }
 
-  // Cada `estrellasPorVida` estrellas (contando las de todos los viajes), una vida extra.
+  // Cada `estrellasPorVida` estrellas de la partida, un corazón.
   contarEstrella() {
     const total = this.estrellasAntes + (this.coleccion[COLECCIONABLES.comun] ?? 0);
     if (total % COLECCIONABLES.estrellasPorVida !== 0) return;
-    if (this.vidas < VIDAS.maximo) this.vidas++;
+    this.sumarVida(CUARTOS);
     efecto("vida");
     this.cartelito(this.player.x, this.player.getTopCenter().y - 30, `¡${total} estrellas! +1 vida`, "#ff8a96");
     this.chispas(this.player.x, this.player.y - 60, 18, 0xff8a96);
@@ -730,8 +729,8 @@ export class ViajeScene extends Phaser.Scene {
     efecto("vida");
     h.setActive(false);
     this.tweens.killTweensOf(h);
-    if (this.vidas < VIDAS.maximo) this.vidas++;
-    this.cartelito(h.x, h.y - 30, "¡+1 vida!", "#ff8a96");
+    this.sumarVida(CUARTOS);
+    this.cartelito(h.x, h.y - 30, "¡+1 corazón!", "#ff8a96");
     this.tweens.add({ targets: h, y: h.y - 60, alpha: 0, scale: 1.8, duration: 350, onComplete: () => h.destroy() });
   }
 
@@ -775,14 +774,44 @@ export class ViajeScene extends Phaser.Scene {
 
   golpear(desdeX) {
     if (!this.player.golpear(this.time.now, desdeX)) return;
-    if (!this.vidasInfinitas) this.vidas--;
-    const h = this.add.image(this.player.x, this.player.getTopCenter().y, heartTexture(this)).setDepth(20);
-    this.tweens.add({ targets: h, y: h.y - 70, alpha: 0, scale: 1.6, duration: 700, onComplete: () => h.destroy() });
+    this.perderVida(VIDAS.golpe);
     efecto("golpe");
-    if (this.vidas <= 0) this.sinVidas();
   }
 
-  sinVidas(motivo = "¡Uy! Se acabaron las vidas.") {
+  sumarVida(cuartos) {
+    this.vida = Math.min(VIDAS.maximo * CUARTOS, this.vida + cuartos);
+  }
+
+  // Resta cuartos de corazón (con un corazoncito que sale volando). Sin corazones: Game Over.
+  perderVida(cuartos, motivo) {
+    if (this.vidasInfinitas) return;
+    this.vida = Math.max(0, this.vida - cuartos);
+    const h = this.add
+      .image(this.player.x, this.player.getTopCenter().y, heartTexture(this, Math.min(cuartos, CUARTOS)))
+      .setDepth(20);
+    this.tweens.add({ targets: h, y: h.y - 70, alpha: 0, scale: 1.6, duration: 700, onComplete: () => h.destroy() });
+    if (this.vida <= 0) this.sinVidas(motivo);
+  }
+
+  caerEnPozo() {
+    const pozo = this.level.items.find((it) => it.tipo === "pozo" && Math.abs(it.x - this.player.x) < it.w / 2 + 60);
+    efecto("golpe");
+    this.perderVida(VIDAS.pozo, "¡Te caíste en un pozo!");
+    if (this.terminado) {
+      this.player.body.reset(this.player.x, GAME_HEIGHT + 40);
+      this.player.body.setAllowGravity(false);
+      return;
+    }
+    // Vuelve al borde de antes del pozo, parpadeando un rato.
+    const x = pozo ? pozo.x - pozo.w / 2 - 70 : this.player.x - 300;
+    this.player.body.reset(x, GROUND_Y - 4);
+    this.player.invulnerableHasta = this.time.now + 1600;
+    this.cartelito(x, GROUND_Y - 170, "¡Cuidado con el pozo!", "#ff8a96");
+  }
+
+  // Game Over: se borran las estrellas de la partida y se vuelve al planisferio; hay que repetir las
+  // preguntas de la ciudad de donde salió este tramo.
+  sinVidas(motivo = "¡Uy! Se acabaron los corazones.") {
     if (this.terminado) return;
     efecto("perder");
     this.terminado = true;
@@ -790,12 +819,13 @@ export class ViajeScene extends Phaser.Scene {
     this.player.setAlpha(1);
     this.player.perform("enojado");
     const top = Math.min(this.player.getTopCenter().y, GROUND_Y - 150);
-    this.decir({ x: this.player.x, getTopCenter: () => ({ y: top }) }, `${motivo}\n¡Probemos otra vez!`, 2400);
+    this.decir({ x: this.player.x, getTopCenter: () => ({ y: top }) }, `${motivo}\n¡Game Over!`, 2400);
     this.time.delayedCall(2600, () => {
       this.cameras.main.fadeOut(400);
-      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () =>
-        this.scene.restart({ paisId: this.paisId, tramo: this.tramoIndex })
-      );
+      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+        gameOver(this.paisId, this.tramoIndex);
+        this.scene.start(SCENES.MAPA, { gameOver: true });
+      });
     });
   }
 
@@ -820,6 +850,8 @@ export class ViajeScene extends Phaser.Scene {
       ciudad: this.tramoIndex + 1,
       preguntasOk: false,
       figuritas: v.figuritas + this.juntadas,
+      vida: this.vida,
+      estrellas: this.estrellasAntes + (this.coleccion[COLECCIONABLES.comun] ?? 0),
       animalesVistos: [...this.vistos],
     }));
 

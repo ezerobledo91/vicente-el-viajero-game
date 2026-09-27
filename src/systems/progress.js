@@ -10,7 +10,8 @@ const nuevoViaje = () => ({
   figuritas: 0,
   companeros: [], // por ejemplo ["anita"] después de Reconquista
   animalesVistos: [],
-  penalidad: 0, // vidas de menos en el próximo tramo (por errar todas las preguntas de una ciudad)
+  vida: 12, // corazones de la partida, en cuartos (12 = 3 corazones)
+  estrellas: 0, // estrellas juntadas en la partida (cada 100, un corazón; se borran con Game Over)
 });
 
 let memoria = null;
@@ -110,4 +111,18 @@ export function hitoPreguntas(paisId) {
     respondidas: r.reduce((s, c) => s + c.total, 0),
     ciudades: r.length,
   };
+}
+
+// Game Over: se reinician corazones y estrellas de la partida y hay que repetir las preguntas de la
+// ciudad donde estaba (el avance del viaje, stickers y tesoros no se pierden).
+export function gameOver(paisId, ciudad) {
+  return actualizarViaje(paisId, { vida: 12, estrellas: 0, ciudad, preguntasOk: false });
+}
+
+// Preguntas que salieron la última vez en cada ciudad (para no repetirlas enseguida).
+export function guardarUltimasPreguntas(ciudadId, textos) {
+  const perfil = getPerfil();
+  perfil.ultimasPreguntas ??= {};
+  perfil.ultimasPreguntas[ciudadId] = textos;
+  guardar();
 }

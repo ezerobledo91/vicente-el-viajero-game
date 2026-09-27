@@ -387,9 +387,11 @@ export function houseTexture(scene) {
   });
 }
 
-export function heartTexture(scene, lleno = true) {
+// `cuartos`: 0 (vacío) a 4 (lleno); true/false = lleno/vacío.
+export function heartTexture(scene, cuartos = 4) {
+  const q = cuartos === true ? 4 : cuartos === false ? 0 : cuartos;
   const s = 40;
-  return canvasTexture(scene, lleno ? "ph-corazon" : "ph-corazon-vacio", s, s, (ctx) => {
+  return canvasTexture(scene, `ph-corazon-${q}`, s, s, (ctx) => {
     const path = () => {
       ctx.moveTo(s / 2, s * 0.88);
       ctx.bezierCurveTo(s * 0.05, s * 0.55, s * 0.02, s * 0.12, s * 0.3, s * 0.12);
@@ -398,8 +400,22 @@ export function heartTexture(scene, lleno = true) {
       ctx.bezierCurveTo(s * 0.98, s * 0.12, s * 0.95, s * 0.55, s / 2, s * 0.88);
       ctx.closePath();
     };
-    shape(ctx, lleno ? "#e8374a" : "#4a5563", path);
-    if (lleno) shape(ctx, "#ff8a96", ellipse(ctx, s * 0.32, s * 0.3, s * 0.07, s * 0.05), false);
+    shape(ctx, "#4a5563", path);
+    if (q > 0) {
+      // Se llena de izquierda a derecha según los cuartos.
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, (s * q) / 4, s);
+      ctx.clip();
+      shape(ctx, "#e8374a", path);
+      shape(ctx, "#ff8a96", ellipse(ctx, s * 0.32, s * 0.3, s * 0.07, s * 0.05), false);
+      ctx.restore();
+      ctx.beginPath();
+      path();
+      ctx.strokeStyle = "#2a1d1a";
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
   });
 }
 
