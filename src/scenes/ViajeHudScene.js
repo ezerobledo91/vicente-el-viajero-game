@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { Button } from "../ui/Button.js";
+import { botonesSonido } from "../ui/SonidoBotones.js";
 import { heartTexture, starTexture } from "../systems/placeholders.js";
 import { VIDAS } from "../data/animales.js";
 import { modoPrueba } from "../systems/dev.js";
@@ -48,6 +49,8 @@ export class ViajeHudScene extends Phaser.Scene {
       variant: "secondary",
     });
 
+    botonesSonido(this, GAME_WIDTH - 290, 88, { ancho: 130 });
+
     // Vidas (debajo de la barra superior)
     this.corazones = Array.from({ length: VIDAS.maximo }, (_, i) =>
       this.add.image(34 + i * 38, 88, heartTexture(this)).setScale(0.8)
@@ -57,7 +60,7 @@ export class ViajeHudScene extends Phaser.Scene {
     // Ayuda inicial
     const ayuda = txt(
       GAME_WIDTH / 2,
-      92,
+      126,
       "Flechas para caminar · Espacio para saltar · Abajo para agacharse",
       11,
       COLORS.inkDark,
@@ -66,7 +69,7 @@ export class ViajeHudScene extends Phaser.Scene {
     this.tweens.add({ targets: ayuda, alpha: 0, delay: 5000, duration: 600 });
 
     if (modoPrueba())
-      txt(GAME_WIDTH / 2, 118, "PRUEBA · N: ir al final · V: vidas infinitas", 10, "#ff6b8a", 0.5).setStroke(
+      txt(GAME_WIDTH / 2, 150, "PRUEBA · N: ir al final · V: vidas infinitas", 10, "#ff6b8a", 0.5).setStroke(
         "#1b2a3a",
         4
       );

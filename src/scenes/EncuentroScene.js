@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { musica } from "../systems/audio.js";
 import { PX_PER_CM, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
@@ -20,6 +21,7 @@ export class EncuentroScene extends Phaser.Scene {
   }
 
   create() {
+    musica("tema");
     this.drawBackground();
 
     this.family = ENCUENTRO.familia.map((f) => {

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { musica } from "../systems/audio.js";
 import { ASSETS, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
@@ -25,6 +26,7 @@ export class ViajeMapaScene extends Phaser.Scene {
   }
 
   create() {
+    musica("tema");
     this.viaje = getViaje(this.paisId);
     this.progreso = getProgresoViaje(this.paisId);
     const data = this.cache.json.get(ASSETS.MAP_REGION(REGION));

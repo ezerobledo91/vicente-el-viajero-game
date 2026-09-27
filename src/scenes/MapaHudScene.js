@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import { ASSETS, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { Button } from "../ui/Button.js";
+import { botonesSonido } from "../ui/SonidoBotones.js";
 import { DEFINICIONES } from "../data/paises.js";
 import { getViaje } from "../data/viajes/index.js";
 import { viajeEmpezado } from "../systems/progress.js";
@@ -74,6 +75,8 @@ export class MapaHudScene extends Phaser.Scene {
       },
       { width: 160, height: 26, fontSize: 9, variant: "secondary" }
     );
+
+    botonesSonido(this, 262, GAME_HEIGHT - 22);
 
     this.tooltip = this.buildTooltip();
     this.panel = this.buildPanel();

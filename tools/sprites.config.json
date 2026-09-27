@@ -6,7 +6,32 @@
     "w": 40,
     "h": 70
   },
-  "rows": [11, 8, 11, 11, 7, 7, 7, [2, 1, 1, 1, 1, 2, 2], [1, 2, 1, 4, 2, 1]],
+  "rows": [
+    11,
+    8,
+    11,
+    11,
+    7,
+    7,
+    7,
+    [
+      2,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      2,
+      1,
+      4,
+      2,
+      1
+    ]
+  ],
   "extras": [],
   "characters": [
     {
@@ -22,7 +47,7 @@
           "frames": 8,
           "fps": 10,
           "repeat": -1,
-          "archivo": "personajes/familia/vicente/caminar.png"
+          "archivo": "personajes/familia/vicente/caminarv2.png"
         },
         {
           "key": "pensar",
@@ -105,7 +130,9 @@
           "key": "idle",
           "label": "Quieto",
           "from": "descanso",
-          "frames": [0],
+          "frames": [
+            0
+          ],
           "fps": 1,
           "repeat": -1
         },
@@ -113,7 +140,9 @@
           "key": "saludar-der",
           "label": "Saludar derecha",
           "from": "interactuar",
-          "frames": [0],
+          "frames": [
+            0
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -122,7 +151,9 @@
           "key": "saludar-izq",
           "label": "Saludar izquierda",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -131,7 +162,9 @@
           "key": "aire",
           "label": "En el aire",
           "from": "salto",
-          "frames": [3],
+          "frames": [
+            3
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -140,7 +173,10 @@
           "key": "golpe",
           "label": "Golpe",
           "from": "enojado",
-          "frames": [1, 2],
+          "frames": [
+            1,
+            2
+          ],
           "fps": 6,
           "repeat": -1,
           "hidden": true
@@ -149,7 +185,9 @@
           "key": "agachado",
           "label": "Agachado",
           "from": "agachar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -188,7 +226,9 @@
           "key": "idle",
           "label": "Quieta",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1
         },
@@ -196,7 +236,9 @@
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [0],
+          "frames": [
+            0
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -235,7 +277,9 @@
           "key": "idle",
           "label": "Quieto",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1
         },
@@ -243,7 +287,9 @@
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [0],
+          "frames": [
+            0
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -349,7 +395,9 @@
           "key": "idle",
           "label": "Quieta",
           "from": "descanso",
-          "frames": [0],
+          "frames": [
+            0
+          ],
           "fps": 1,
           "repeat": -1
         },
@@ -357,7 +405,9 @@
           "key": "aire",
           "label": "En el aire",
           "from": "salto",
-          "frames": [3],
+          "frames": [
+            3
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -366,7 +416,9 @@
           "key": "agachado",
           "label": "Agachada",
           "from": "agachar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -375,7 +427,9 @@
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [
+            1
+          ],
           "fps": 1,
           "repeat": -1,
           "hidden": true

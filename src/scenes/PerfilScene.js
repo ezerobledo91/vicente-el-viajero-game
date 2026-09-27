@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { musica } from "../systems/audio.js";
 import { COLORS, FONT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
@@ -35,6 +36,7 @@ export class PerfilScene extends Phaser.Scene {
   }
 
   create() {
+    musica("tema");
     const perfil = getPerfil();
     const vistos = new Set(animalesVistos());
 

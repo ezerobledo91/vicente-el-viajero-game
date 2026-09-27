@@ -1,3 +1,4 @@
+import { efecto } from "../systems/audio.js";
 import { Character } from "./Character.js";
 
 export const PLAYER = {
@@ -58,6 +59,7 @@ export class Player extends Character {
 
       if (controls.jump && this.enElPiso && !this.saltando) {
         this.body.setVelocityY(-PLAYER.salto);
+        efecto("salto");
         this.saltando = true;
       }
       if (!controls.jump) {

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { musica } from "../systems/audio.js";
 import { ASSETS, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { getPais } from "../data/paises.js";
@@ -18,6 +19,7 @@ export class MapaScene extends Phaser.Scene {
   }
 
   create() {
+    musica("tema");
     this.mapImage = this.add.image(0, 0, ASSETS.MAP_IMAGE).setOrigin(0);
     this.mapW = this.mapImage.width;
     this.mapH = this.mapImage.height;

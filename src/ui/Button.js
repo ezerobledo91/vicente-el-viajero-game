@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { efecto } from "../systems/audio.js";
 import { COLORS, FONT } from "../config/constants.js";
 
 // Botón pixel simple: rectángulo redondeado + texto, con estados hover / presionado / seleccionado.
@@ -23,6 +24,7 @@ export class Button extends Phaser.GameObjects.Container {
     this.on("pointerout", () => ((this.hovered = false), this.redraw()));
     // Se dispara al apoyar el dedo: en tablets los toques rápidos a veces no llegan al "pointerup".
     this.on("pointerdown", () => {
+      efecto("click");
       scene.tweens.add({ targets: this, scale: 0.94, duration: 60, yoyo: true });
       onClick?.(this);
     });

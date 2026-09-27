@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { MUSICA_TRAMO, efecto, musica } from "../systems/audio.js";
 import { FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Player } from "../entities/Player.js";
 import { Companion } from "../entities/Companion.js";
@@ -54,6 +55,7 @@ export class ViajeScene extends Phaser.Scene {
   create() {
     const viaje = getViaje(this.paisId);
     this.tramo = viaje.tramos[this.tramoIndex];
+    musica(MUSICA_TRAMO[this.tramo.paisaje] ?? "tema");
     this.desde = viaje.ciudades[this.tramoIndex];
     this.hasta = viaje.ciudades[this.tramoIndex + 1];
     this.level = buildLevel(this.tramo, this.tramoIndex + 1);
@@ -478,6 +480,7 @@ export class ViajeScene extends Phaser.Scene {
     if (this.vistos.has(a.animalId) && !modoPrueba()) return;
     this.vistos.add(a.animalId);
     this.cartelito(bubbleX, a.getBounds().top - 70, "¡Animal nuevo!", "#8ff09a");
+    efecto("descubrir");
     const top = a.getBounds().top - 6;
     this.decir({ x: bubbleX, getTopCenter: () => ({ y: top }) }, `¡${a.info.nombre}!\n${a.info.dato}`, CHARLA_MS, 12);
   }
@@ -493,6 +496,7 @@ export class ViajeScene extends Phaser.Scene {
     this.juntadas++;
     this.coleccion[s.tipo] = (this.coleccion[s.tipo] ?? 0) + 1;
     const tesoro = s.tipo.startsWith("tesoro-");
+    efecto(tesoro ? "tesoro" : s.tipo !== COLECCIONABLES.comun ? "especial" : "estrella");
     const especial = s.tipo !== COLECCIONABLES.comun;
     this.chispas(s.x, s.y, tesoro ? 26 : especial ? 16 : 7, tesoro ? 0xffd23d : especial ? 0x9fe7ff : 0xfff2a8);
     if (tesoro) this.festejarTesoro(s.tipo);
@@ -548,6 +552,7 @@ export class ViajeScene extends Phaser.Scene {
     const total = this.estrellasAntes + (this.coleccion[COLECCIONABLES.comun] ?? 0);
     if (total % COLECCIONABLES.estrellasPorVida !== 0) return;
     if (this.vidas < VIDAS.maximo) this.vidas++;
+    efecto("vida");
     this.cartelito(this.player.x, this.player.getTopCenter().y - 30, `¡${total} estrellas! +1 vida`, "#ff8a96");
     this.chispas(this.player.x, this.player.y - 60, 18, 0xff8a96);
   }
@@ -588,6 +593,7 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   juntarVida(h) {
+    efecto("vida");
     h.setActive(false);
     this.tweens.killTweensOf(h);
     if (this.vidas < VIDAS.maximo) this.vidas++;
@@ -604,6 +610,7 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   rebotarEnPerro(d) {
+    efecto("rebote");
     this.player.rebotar();
     if (d.has?.(PERRO.rebote)) {
       d.loop(PERRO.rebote);
@@ -614,6 +621,7 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   pisarPajaro(b) {
+    efecto("plop");
     b.pisado = true;
     this.player.rebotar();
     b.anims?.pause();
@@ -636,10 +644,12 @@ export class ViajeScene extends Phaser.Scene {
     if (!this.vidasInfinitas) this.vidas--;
     const h = this.add.image(this.player.x, this.player.getTopCenter().y, heartTexture(this)).setDepth(20);
     this.tweens.add({ targets: h, y: h.y - 70, alpha: 0, scale: 1.6, duration: 700, onComplete: () => h.destroy() });
+    efecto("golpe");
     if (this.vidas <= 0) this.sinVidas();
   }
 
   sinVidas() {
+    efecto("perder");
     this.terminado = true;
     this.player.frenar();
     this.player.setAlpha(1);
@@ -662,6 +672,7 @@ export class ViajeScene extends Phaser.Scene {
   }
 
   llegar() {
+    efecto("llegada");
     this.terminado = true;
     this.player.frenar();
     this.player.setAlpha(1);

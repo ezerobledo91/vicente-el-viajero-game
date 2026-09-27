@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { musica } from "../systems/audio.js";
 import { PX_PER_CM, COLORS, FONT, GAME_WIDTH, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
@@ -14,6 +15,7 @@ export class GalleryScene extends Phaser.Scene {
   }
 
   create() {
+    musica("tema");
     this.add
       .text(GAME_WIDTH / 2, 26, "EXPLORADOR DEL MUNDO", { fontFamily: FONT, fontSize: "22px", color: "#ffb83d" })
       .setOrigin(0.5);

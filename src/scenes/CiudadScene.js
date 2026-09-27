@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { MUSICA_CIUDAD, efecto, musica } from "../systems/audio.js";
 import { ASSETS, COLORS, FONT, GAME_HEIGHT, GAME_WIDTH, PX_PER_CM, SCENES } from "../config/constants.js";
 import { Character } from "../entities/Character.js";
 import { Button } from "../ui/Button.js";
@@ -54,6 +55,7 @@ export class CiudadScene extends Phaser.Scene {
   create() {
     this.viaje = getViaje(this.paisId);
     this.ciudad = this.viaje.ciudades[this.ciudadIndex];
+    musica(MUSICA_CIUDAD[this.ciudad.id] ?? "tema");
     this.progreso = getProgresoViaje(this.paisId);
     this.pisoY = GROUND_Y;
     this.paradaX = 290;
@@ -183,6 +185,7 @@ export class CiudadScene extends Phaser.Scene {
     actualizarViaje(this.paisId, (v) => ({ companeros: [...new Set([...v.companeros, "anita"])] }));
     anita.perform("festejo");
     this.banner("¡Anita se suma al viaje!");
+    efecto("descubrir");
     await this.wait(1600);
     await anita.walkTo(this.vicente.x - 80, 200);
     anita.face("right");
@@ -207,9 +210,13 @@ export class CiudadScene extends Phaser.Scene {
 
   // ---------- Preguntas ----------
   async preguntas() {
+    musica("pensar");
     this.quiz?.destroy();
     this.quiz = new QuizPanel(this, QUIZ_POS.x, QUIZ_POS.y, {
-      onRespuesta: (ok) => this.vicente.perform(ok ? "festejo" : "aburrido"),
+      onRespuesta: (ok) => {
+        efecto(ok ? "correcto" : "error");
+        this.vicente.perform(ok ? "festejo" : "aburrido");
+      },
     }).setDepth(20);
     this.vicente.perform("pensar");
 
@@ -264,6 +271,7 @@ export class CiudadScene extends Phaser.Scene {
 
   // Sticker que aparece girando en el centro, con su rareza. Se cierra tocando o solo a los 3 s.
   mostrarSticker(st) {
+    efecto("sticker");
     const r = RAREZAS[st.rareza];
     return new Promise((resolve) => {
       const velo = this.add
@@ -323,6 +331,7 @@ export class CiudadScene extends Phaser.Scene {
   }
 
   alTerminarPreguntas(aciertos) {
+    musica(MUSICA_CIUDAD[this.ciudad.id] ?? "tema");
     this.quiz ??= new QuizPanel(this, QUIZ_POS.x, QUIZ_POS.y).setDepth(20);
     const ultima = this.ciudadIndex === this.viaje.ciudades.length - 1;
     const titulos = ["¡Uy! Ninguna esta vez", "¡Bien!", "¡Bien!", "¡Muy bien!", "¡Muy bien!", "¡Perfecto!"];
