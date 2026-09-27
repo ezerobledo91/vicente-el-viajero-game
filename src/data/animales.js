@@ -3,6 +3,21 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  huemul: {
+    sprite: "huemul",
+    nombre: "Huemul",
+    dato: "Es un ciervo de la cordillera y está en el escudo de Chile. Quedan muy pocos: hay que cuidarlos.",
+  },
+  piche: {
+    sprite: "piche",
+    nombre: "Piche patagónico",
+    dato: "Es un armadillo chiquito: cuando se asusta se esconde en su caparazón como una bolita.",
+  },
+  "zorro-gris": {
+    sprite: "zorro-gris",
+    nombre: "Zorro gris",
+    dato: "Es más chico que el zorro colorado y le gusta andar por la estepa buscando ratones.",
+  },
   castor: {
     sprite: "castor",
     nombre: "Castor",
@@ -60,7 +75,7 @@ export const ANIMALES = {
     dato: "Tiene un caparazón duro, y algunos se hacen bolita para protegerse.",
   },
   flamenco: {
-    sprite: "flamenco",
+    sprite: "flamenco-austral",
     nombre: "Flamenco austral",
     dato: "Es rosado por lo que come y descansa parado en una sola pata.",
   },
@@ -96,7 +111,7 @@ export const ANIMALES = {
     h: 150,
   },
   choique: {
-    sprite: "choique",
+    sprite: "choique-estepa",
     nombre: "Choique",
     dato: "Es un ñandú: no vuela, pero corre muy rápido con sus patas largas.",
     forma: "ave-corredora",
@@ -230,7 +245,7 @@ export const PAJAROS = {
     velocidad: 110,
   },
   condor: {
-    sprite: "condor",
+    sprite: "condor-andino",
     anim: "volar",
     nombre: "Cóndor",
     color: "#1f1f24",
@@ -322,8 +337,11 @@ export const CUARTOS = 4;
 export const CAMINANTES = {
   pinguino: {},
   guanaco: { quieto: "idle" },
-  choique: {},
+  choique: { quieto: "idle" },
   zorro: { quieto: "sentado" },
+  "zorro-gris": { quieto: "sentado" },
+  huemul: { quieto: "idle" },
+  piche: { quieto: "bolita" },
   castor: { quieto: "comer" },
   cauquen: { quieto: "comer" },
   liebre: { quieto: "idle" },

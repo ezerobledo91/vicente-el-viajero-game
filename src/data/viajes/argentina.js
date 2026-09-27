@@ -683,7 +683,10 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "estepa",
-      animales: ["guanaco", "choique", "flamenco", "tatu"],
+      animales: ["choique", "zorro-gris", "flamenco", "huemul", "piche", "guanaco"],
+      entreAnimales: 1800,
+      pozosMin: 3,
+      pozosGrandesMin: 1,
       pajaro: "condor",
       largo: 13100,
       dificultad: 1,

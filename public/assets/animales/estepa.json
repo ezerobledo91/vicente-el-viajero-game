@@ -1,0 +1,230 @@
+{
+  "characters": [
+    {
+      "id": "choique-estepa",
+      "grupo": "animales",
+      "nombre": "Choique",
+      "facing": "right",
+      "alturaCm": 120,
+      "alturaPx": 111,
+      "texture": "choique-estepa.png",
+      "frameWidth": 103,
+      "frameHeight": 127,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "condor-andino",
+      "grupo": "animales",
+      "nombre": "Cóndor andino",
+      "facing": "right",
+      "alturaCm": 80,
+      "alturaPx": 105,
+      "texture": "condor-andino.png",
+      "frameWidth": 177,
+      "frameHeight": 134,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "flamenco-austral",
+      "grupo": "animales",
+      "nombre": "Flamenco austral",
+      "facing": "right",
+      "alturaCm": 110,
+      "alturaPx": 111,
+      "texture": "flamenco-austral.png",
+      "frameWidth": 143,
+      "frameHeight": 122,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "frames": [
+            2
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            3
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "huemul",
+      "grupo": "animales",
+      "nombre": "Huemul",
+      "facing": "right",
+      "alturaCm": 110,
+      "alturaPx": 110,
+      "texture": "huemul.png",
+      "frameWidth": 115,
+      "frameHeight": 122,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "piche",
+      "grupo": "animales",
+      "nombre": "Piche",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 111,
+      "texture": "piche.png",
+      "frameWidth": 216,
+      "frameHeight": 115,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-gris",
+      "grupo": "animales",
+      "nombre": "Zorro gris",
+      "facing": "right",
+      "alturaCm": 65,
+      "alturaPx": 111,
+      "texture": "zorro-gris.png",
+      "frameWidth": 177,
+      "frameHeight": 132,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

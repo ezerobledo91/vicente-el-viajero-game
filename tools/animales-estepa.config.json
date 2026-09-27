@@ -1,0 +1,209 @@
+{
+  "_comment": "Kit de animales de la estepa (Codex): un PNG por animal con todas sus poses (ver animales-fueguino.config.json).",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "estepa.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "choique-estepa",
+      "nombre": "Choique",
+      "alturaCm": 120,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/estepa/choique.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/estepa/choique.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "condor-andino",
+      "nombre": "Cóndor andino",
+      "alturaCm": 80,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/estepa/condor-andino.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/estepa/condor-andino.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "flamenco-austral",
+      "nombre": "Flamenco austral",
+      "alturaCm": 110,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/estepa/flamenco-austral.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 2,
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "comer",
+          "label": "comer",
+          "archivo": "personajes/animales/estepa/flamenco-austral.png",
+          "total": 5,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/estepa/flamenco-austral.png",
+          "total": 5,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/estepa/flamenco-austral.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "huemul",
+      "nombre": "Huemul",
+      "alturaCm": 110,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/estepa/huemul.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 5,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/estepa/huemul.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "piche",
+      "nombre": "Piche",
+      "alturaCm": 40,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/estepa/piche-patagonico.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "bolita",
+          "label": "bolita",
+          "archivo": "personajes/animales/estepa/piche-patagonico.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "zorro-gris",
+      "nombre": "Zorro gris",
+      "alturaCm": 65,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/estepa/zorro-gris.png",
+          "total": 5,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "sentado",
+          "label": "sentado",
+          "archivo": "personajes/animales/estepa/zorro-gris.png",
+          "total": 5,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}
