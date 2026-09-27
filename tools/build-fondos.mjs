@@ -25,6 +25,7 @@ const OUT = path.join(ROOT, config.output);
 const CIUDAD = { w: 1280, h: 720 };
 const RECORTE_AGUA = 6; // px que se sacan de cada borde de los cuadros de agua
 const WEBP = { quality: 88, effort: 5 };
+const BAJO_PISO = 180; // px mínimos de suelo debajo del piso (en el juego el piso está a 120 px del borde de abajo)
 
 const hex = (r, g, b) => "#" + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, "0")).join("");
 
@@ -198,13 +199,38 @@ async function main() {
       if (t.sueloFilas) {
         const [y0, y1] = t.sueloFilas;
         const meta = await sharp(path.join(ROOT, t.suelo)).metadata();
-        const franja = await sharp(path.join(ROOT, t.suelo))
+        let franja = await sharp(path.join(ROOT, t.suelo))
           .extract({ left: 0, top: y0, width: meta.width, height: y1 - y0 })
           .png()
           .toBuffer();
+        // Si la franja no llega hasta abajo de la pantalla, se alarga con tierra de su parte honda
+        // (espejada una vez sí y una no, sin cortes); si no, el suelo se repetía y asomaba el pasto de arriba.
+        let alto = y1 - y0;
+        const minimo = t.piso + BAJO_PISO - y0;
+        if (alto < minimo) {
+          const desde = Math.round(alto * 0.62),
+            tira = Math.round(alto * 0.26);
+          // (un poco más oscura: se lee como tierra más profunda y no se nota que se repite)
+          const tierra = await sharp(franja)
+            .extract({ left: 0, top: desde, width: meta.width, height: tira })
+            .modulate({ brightness: 0.72 })
+            .png()
+            .toBuffer();
+          const tierraEspejo = await sharp(tierra).flip().png().toBuffer();
+          const capas = [];
+          for (let y = desde, k = 0; y < minimo; y += tira, k++)
+            capas.push({ input: k % 2 ? tierraEspejo : tierra, left: 0, top: y });
+          franja = await sharp({
+            create: { width: meta.width, height: minimo, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+          })
+            .composite([...capas, { input: franja, left: 0, top: 0 }])
+            .png()
+            .toBuffer();
+          alto = minimo;
+        }
         const espejo = await sharp(franja).flop().png().toBuffer();
         sueloImg = sharp({
-          create: { width: meta.width * 2, height: y1 - y0, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+          create: { width: meta.width * 2, height: alto, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
         }).composite([
           { input: franja, left: 0, top: 0 },
           { input: espejo, left: meta.width, top: 0 },
