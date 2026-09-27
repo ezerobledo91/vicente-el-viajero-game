@@ -336,7 +336,8 @@ function createImageParallax(scene, paisajeId, info, { width, groundY }) {
   return {
     imagen: true,
     update(scrollX) {
-      for (const l of layers) l.tile.tilePositionX = scrollX * l.factor;
+      // En píxeles enteros, igual que la cámara (si no, el camino tiembla contra lo que está en el mundo).
+      for (const l of layers) l.tile.tilePositionX = Math.round(scrollX * l.factor);
     },
   };
 }

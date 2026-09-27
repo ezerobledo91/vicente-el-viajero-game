@@ -119,9 +119,28 @@ async function cortarPiezas(id, file, enFila = false, nombres = null) {
         .png()
         .toFile(path.join(salida, nombre + ".png"));
       piezas[nombre] = { w, h };
+      if (nombre === "borde-izq" || nombre === "borde-der")
+        Object.assign(piezas[nombre], await aguaDeOrilla(path.join(salida, nombre + ".png"), nombre === "borde-izq"));
     }
   }
   return piezas;
+}
+
+// Si un borde es una orilla con agua (del lado de adentro del pozo), devuelve { agua: { y, x } }:
+// y = fila donde empieza el agua, x = columna donde termina la tierra (en píxeles de la pieza).
+async function aguaDeOrilla(file, izquierda) {
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const px = (x, y) => data.subarray((y * info.width + x) * 4, (y * info.width + x) * 4 + 4);
+  const azul = ([r, , b, a]) => a > 200 && b > 110 && b > r + 25;
+  const adentro = izquierda ? info.width - 3 : 2;
+  let y = 0;
+  while (y < info.height && px(adentro, y)[3] < 200) y++;
+  if (y >= info.height - 10 || !azul(px(adentro, Math.min(info.height - 1, y + 8)))) return {};
+  // La tierra termina donde, yendo desde adentro hacia afuera, deja de haber agua.
+  const fila = Math.round(y + (info.height - y) * 0.3);
+  let x = adentro;
+  while (x > 0 && x < info.width - 1 && azul(px(x, fila))) x += izquierda ? -1 : 1;
+  return { agua: { y, x } };
 }
 
 // Lámina de piezas sueltas en una fila (piedras, plataformas, troncos): cada dibujo es <tipo>-N,

@@ -139,6 +139,9 @@ export class ViajeScene extends Phaser.Scene {
     );
 
     this.cameras.main.startFollow(this.player, true, 0.12, 0.12).setFollowOffset(-220, 0);
+    // El paisaje se acomoda recién cuando la cámara terminó de moverse en este cuadro: si se hace antes
+    // (en update) queda un cuadro atrasado y el camino "baila" respecto del agua de los pozos.
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.FOLLOW_UPDATE, (cam) => this.parallax.update(cam.scrollX));
 
     this.keys = this.input.keyboard.addKeys("LEFT,RIGHT,UP,DOWN,SPACE,A,D,W,S");
     this.touch = { left: false, right: false, jump: false, down: false };
@@ -494,38 +497,57 @@ export class ViajeScene extends Phaser.Scene {
     return { key, sup: Math.round(alto * PIEZAS.superficieTronco) };
   }
 
-  // Pozo con agua animada, orillas de piedra y barrancas de tierra con raíces.
+  // Pozo con agua animada. Si el paisaje trae orillas ilustradas (borde con agua del lado de adentro),
+  // se ponen en cada borde; si no, solo el agua con una línea de espuma y la sombra de la barranca.
   dibujarPozoIlustrado(p) {
     const agua = [0, 1, 2, 3].map((k) => ASSETS.PIEZA(this.tramo.paisaje, `agua-${k}`));
     if (!this.textures.exists(agua[0])) return false;
-    const x0 = p.x - p.w / 2,
-      x1 = p.x + p.w / 2;
+    // En píxeles enteros (igual que la cámara), para que no tiemble al caminar.
+    const x0 = Math.round(p.x - p.w / 2),
+      x1 = Math.round(p.x + p.w / 2);
     const yAgua = GROUND_Y + PIEZAS.nivelAgua;
     const t = this.add
-      .tileSprite(x0, yAgua, p.w, GAME_HEIGHT - yAgua, agua[0])
+      .tileSprite(x0, yAgua, x1 - x0, GAME_HEIGHT - yAgua, agua[0])
       .setOrigin(0)
       .setDepth(-4);
     // Que un cuadro de agua llegue hasta abajo de la pantalla (si se repite en vertical aparece una
     // segunda superficie en el fondo del pozo).
     const altoCuadro = this.textures.get(agua[0]).getSourceImage().height;
-    t.setTileScale(Math.max(PIEZAS.escalaAgua, (GAME_HEIGHT - yAgua) / altoCuadro));
+    const escala = Math.max(PIEZAS.escalaAgua, (GAME_HEIGHT - yAgua) / altoCuadro);
+    t.setTileScale(escala);
     let k = 0;
     this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
-    // Espuma en la superficie y un corte de tierra en cada borde: se tiene que ver claramente
-    // que el camino se termina ahí (sin piedras que parezcan escalones).
-    const g = this.add.graphics().setDepth(-3.5);
-    g.fillStyle(0xd8f0ff, 0.85).fillRect(x0, yAgua, p.w, 3);
-    for (let x = x0 + 8; x < x1 - 20; x += 34) g.fillRect(x, yAgua + 3, 14, 2);
-    for (const [bx, dir] of [
-      [x0, 1],
-      [x1, -1],
-    ]) {
-      // Sombra de la barranca sobre el agua y pasto que cuelga del borde del camino.
-      g.fillStyle(0x0b2f4a, 0.45).fillRect(dir > 0 ? bx : bx - 22, yAgua, 22, GAME_HEIGHT - yAgua);
-      g.fillStyle(0x3f7a30, 1).fillRect(dir > 0 ? bx - 4 : bx - 8, yAgua - 4, 12, 6);
-      g.fillStyle(0x4f8a38, 1);
-      for (let k = 0; k < 5; k++) g.fillRect(bx + dir * (k * 3 - 2) - (dir < 0 ? 3 : 0), yAgua, 3, 6 + ((k * 5) % 11));
+
+    const info = this.cache.json.get(ASSETS.FONDOS_MANIFEST)?.tramos?.[this.tramo.paisaje]?.piezas ?? {};
+    const orillas = info["borde-izq"]?.agua && info["borde-der"]?.agua;
+    if (orillas) {
+      // La orilla se escala como el agua y se ubica con su agua a la altura del agua del pozo; se recorta
+      // un poco después de donde termina la tierra, así el resto del agua es la animada.
+      for (const [nombre, borde, izq] of [
+        ["borde-izq", x0, true],
+        ["borde-der", x1, false],
+      ]) {
+        const { w, h, agua: a } = info[nombre];
+        const img = this.add
+          .image(
+            Math.round(borde - a.x * escala),
+            Math.round(yAgua - a.y * escala),
+            ASSETS.PIEZA(this.tramo.paisaje, nombre)
+          )
+          .setOrigin(0)
+          .setScale(escala)
+          .setDepth(-3.8);
+        const margen = 10;
+        img.setCrop(izq ? 0 : a.x - margen, 0, izq ? a.x + margen : w - a.x + margen, h);
+      }
+      return true;
     }
+    // Sin orillas ilustradas: espuma en la superficie y la sombra de la barranca en cada borde.
+    const g = this.add.graphics().setDepth(-3.5);
+    g.fillStyle(0xd8f0ff, 0.85).fillRect(x0, yAgua, x1 - x0, 3);
+    for (let x = x0 + 8; x < x1 - 20; x += 34) g.fillRect(x, yAgua + 3, 14, 2);
+    g.fillStyle(0x0b2f4a, 0.45);
+    g.fillRect(x0, yAgua, 22, GAME_HEIGHT - yAgua).fillRect(x1 - 22, yAgua, 22, GAME_HEIGHT - yAgua);
     return true;
   }
 
@@ -666,7 +688,6 @@ export class ViajeScene extends Phaser.Scene {
   update(time, delta) {
     const dt = delta / 1000;
     const cam = this.cameras.main;
-    this.parallax.update(cam.scrollX);
     if (this.terminado) return;
 
     const k = this.keys;
