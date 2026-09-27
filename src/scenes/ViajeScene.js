@@ -474,7 +474,8 @@ export class ViajeScene extends Phaser.Scene {
     if (a.avisado) return;
     a.avisado = true;
     // Los animales que ya descubrió en otro tramo no vuelven a contar su dato: solo lo miran.
-    if (this.vistos.has(a.animalId)) return;
+    // (En modo prueba hablan siempre, para poder probar los tramos varias veces.)
+    if (this.vistos.has(a.animalId) && !modoPrueba()) return;
     this.vistos.add(a.animalId);
     this.cartelito(bubbleX, a.getBounds().top - 70, "¡Animal nuevo!", "#8ff09a");
     const top = a.getBounds().top - 6;
