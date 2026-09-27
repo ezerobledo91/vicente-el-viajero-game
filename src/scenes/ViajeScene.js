@@ -568,19 +568,17 @@ export class ViajeScene extends Phaser.Scene {
     b.loop("nadar");
     // Que la ballena y la orca no salten al mismo tiempo.
     const demora = 3200 + (item.x % 1300);
-    const saltar = () => {
-      if (!b.active) return;
-      b.loop("saltar");
-      this.tweens.add({
-        targets: b,
-        y: MAR_COSTA.superficie - 40,
-        duration: 650,
-        yoyo: true,
-        ease: "Sine.Out",
-        onComplete: () => b.active && b.loop("nadar"),
-      });
-    };
-    this.time.addEvent({ delay: demora, loop: true, callback: saltar });
+    // Sin saltos (al subir se mezclaban con la tierra del fondo): chapotean en el lugar,
+    // con un vaivén suave, y cada tanto la ballena sopla.
+    this.tweens.add({ targets: b, y: b.y + 5, duration: 1300, yoyo: true, repeat: -1, ease: "Sine.InOut" });
+    if (b.has("soplar")) {
+      const soplar = () => {
+        if (!b.active) return;
+        b.loop("soplar");
+        this.time.delayedCall(900, () => b.active && b.loop("nadar"));
+      };
+      this.time.addEvent({ delay: demora, loop: true, callback: soplar });
+    }
     Object.assign(b, { animalId: item.id, info: def, avisado: false, camina: false });
     this.animales.push(b);
     return true;
