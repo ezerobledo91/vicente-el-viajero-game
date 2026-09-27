@@ -589,11 +589,139 @@
       }
     },
     "humedal": {
-      "piso": 612,
-      "corte": 603,
-      "alto": 724,
-      "ancho": 4344,
-      "cielo": "#3eabfd"
+      "piso": 359,
+      "corte": 314,
+      "alto": 495,
+      "altoFondo": 724,
+      "fondoDy": -200,
+      "ancho": 8688,
+      "cielo": "#36a9fd",
+      "piezas": {
+        "borde-izq": {
+          "w": 330,
+          "h": 355
+        },
+        "agua-0": {
+          "w": 337,
+          "h": 218
+        },
+        "agua-1": {
+          "w": 337,
+          "h": 218
+        },
+        "agua-2": {
+          "w": 337,
+          "h": 218
+        },
+        "agua-3": {
+          "w": 336,
+          "h": 218
+        },
+        "borde-der": {
+          "w": 329,
+          "h": 355
+        },
+        "piedra-0": {
+          "w": 289,
+          "h": 115,
+          "sup": 14
+        },
+        "piedra-1": {
+          "w": 182,
+          "h": 258,
+          "sup": 44
+        },
+        "piedra-2": {
+          "w": 205,
+          "h": 159,
+          "sup": 27
+        },
+        "piedra-3": {
+          "w": 278,
+          "h": 102,
+          "sup": 12
+        },
+        "piedra-4": {
+          "w": 198,
+          "h": 156,
+          "sup": 25
+        },
+        "piedra-5": {
+          "w": 214,
+          "h": 270,
+          "sup": 51
+        },
+        "piedra-6": {
+          "w": 219,
+          "h": 160,
+          "sup": 20
+        },
+        "piedra-7": {
+          "w": 276,
+          "h": 185,
+          "sup": 54
+        },
+        "plataforma-0": {
+          "w": 214,
+          "h": 184,
+          "sup": 15
+        },
+        "plataforma-1": {
+          "w": 197,
+          "h": 183,
+          "sup": 16
+        },
+        "plataforma-2": {
+          "w": 309,
+          "h": 188,
+          "sup": 12
+        },
+        "plataforma-3": {
+          "w": 267,
+          "h": 184,
+          "sup": 14
+        },
+        "plataforma-4": {
+          "w": 465,
+          "h": 187,
+          "sup": 13
+        },
+        "plataforma-5": {
+          "w": 435,
+          "h": 187,
+          "sup": 11
+        },
+        "tronco-0": {
+          "w": 197,
+          "h": 124,
+          "sup": 12
+        },
+        "tronco-1": {
+          "w": 204,
+          "h": 164,
+          "sup": 52
+        },
+        "tronco-2": {
+          "w": 311,
+          "h": 144,
+          "sup": 30
+        },
+        "tronco-3": {
+          "w": 274,
+          "h": 172,
+          "sup": 59
+        },
+        "tronco-4": {
+          "w": 441,
+          "h": 145,
+          "sup": 31
+        },
+        "tronco-5": {
+          "w": 426,
+          "h": 173,
+          "sup": 60
+        }
+      }
     },
     "selva": {
       "piso": 548,
@@ -652,11 +780,12 @@
       "parada": 300
     },
     "santafe": {
-      "tipo": "panorama",
-      "piso": 596,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#2ca1fd"
+      "alto": 720,
+      "cielo": "#27a5fd",
+      "pie": 690,
+      "parada": 300
     },
     "reconquista": {
       "tipo": "panorama",

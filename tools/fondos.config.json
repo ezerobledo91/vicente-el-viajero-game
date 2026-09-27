@@ -79,9 +79,21 @@
       "corte": 306
     },
     "humedal": {
-      "src": "personajes/paises/argentina/tramos/humedal.png",
-      "piso": 612,
-      "corte": 603
+      "fondo": "personajes/paises/argentina/tramos/humedal/fondo.webp",
+      "fondoDy": -200,
+      "fondoEspejar": true,
+      "suelo": "personajes/paises/argentina/tramos/humedal/suelo.png",
+      "sueloFilas": [314, 495],
+      "piezas": "personajes/paises/argentina/tramos/humedal/piezas.png",
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/humedal/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/humedal/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/humedal/troncos.png"
+      },
+      "piso": 359,
+      "corte": 314
     },
     "selva": {
       "src": "personajes/paises/argentina/tramos/selva.png",
@@ -126,10 +138,10 @@
       "parada": 300
     },
     "santafe": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/ciudades/santafe-costanera.png",
-      "piso": 596,
-      "x": 300
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/santafe-costanera.webp",
+      "pie": 690,
+      "parada": 300
     },
     "reconquista": {
       "tipo": "panorama",

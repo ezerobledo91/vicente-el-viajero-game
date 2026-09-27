@@ -1,0 +1,206 @@
+{
+  "characters": [
+    {
+      "id": "aguara-guazu",
+      "grupo": "animales",
+      "nombre": "Aguará guazú",
+      "facing": "right",
+      "alturaCm": 90,
+      "alturaPx": 110,
+      "texture": "aguara-guazu.png",
+      "frameWidth": 123,
+      "frameHeight": 115,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "chaja",
+      "grupo": "animales",
+      "nombre": "Chajá",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 111,
+      "texture": "chaja.png",
+      "frameWidth": 134,
+      "frameHeight": 140,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ciervo-pantanos",
+      "grupo": "animales",
+      "nombre": "Ciervo de los pantanos",
+      "facing": "right",
+      "alturaCm": 115,
+      "alturaPx": 111,
+      "texture": "ciervo-pantanos.png",
+      "frameWidth": 110,
+      "frameHeight": 115,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mosquito-humedal",
+      "grupo": "animales",
+      "nombre": "Mosquito",
+      "facing": "right",
+      "alturaCm": 12,
+      "alturaPx": 111,
+      "texture": "mosquito-humedal.png",
+      "frameWidth": 111,
+      "frameHeight": 115,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 14,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "rana-criolla",
+      "grupo": "animales",
+      "nombre": "Rana criolla",
+      "facing": "right",
+      "alturaCm": 38,
+      "alturaPx": 113,
+      "texture": "rana-criolla.png",
+      "frameWidth": 256,
+      "frameHeight": 158,
+      "frameCount": 5,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "frames": [
+            2,
+            3,
+            4
+          ],
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yacare-overo",
+      "grupo": "animales",
+      "nombre": "Yacaré overo",
+      "facing": "right",
+      "alturaCm": 40,
+      "alturaPx": 111,
+      "texture": "yacare-overo.png",
+      "frameWidth": 286,
+      "frameHeight": 115,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

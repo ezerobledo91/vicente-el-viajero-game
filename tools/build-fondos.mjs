@@ -249,10 +249,13 @@ async function main() {
     } else {
       // Postal: la ilustración agrandada hasta cubrir toda la pantalla (recorta un poco arriba y abajo).
       // `foco` (0 arriba … 1 abajo) elige qué parte se conserva.
-      const top = Math.round(((img.h * CIUDAD.w) / img.w - CIUDAD.h) * (c.foco ?? 0.5));
+      // Si es más ancha que la pantalla (panorámica), se recorta a los costados: `focoX` (0 izq … 1 der).
+      const ancha = img.w / img.h > CIUDAD.w / CIUDAD.h;
+      const top = ancha ? 0 : Math.round(((img.h * CIUDAD.w) / img.w - CIUDAD.h) * (c.foco ?? 0.5));
+      const left = ancha ? Math.round(((img.w * CIUDAD.h) / img.h - CIUDAD.w) * (c.focoX ?? 0.5)) : 0;
       await sharp(path.join(ROOT, c.src))
-        .resize({ width: CIUDAD.w })
-        .extract({ left: 0, top, width: CIUDAD.w, height: CIUDAD.h })
+        .resize(ancha ? { height: CIUDAD.h } : { width: CIUDAD.w })
+        .extract({ left, top, width: CIUDAD.w, height: CIUDAD.h })
         .webp(WEBP)
         .toFile(file);
       // pie: y de pantalla donde pisan los personajes; parada: x donde se frena Vicente (opcionales).

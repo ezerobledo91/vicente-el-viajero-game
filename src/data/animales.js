@@ -3,6 +3,16 @@
 // Si no tiene sprite, se dibuja con una forma provisoria (`forma`, colores y tamaño en px).
 
 export const ANIMALES = {
+  "aguara-guazu": {
+    sprite: "aguara-guazu",
+    nombre: "Aguará guazú",
+    dato: "Es el zorro más grande de América, con patas larguísimas para ver por encima de los pastos altos.",
+  },
+  "ciervo-pantanos": {
+    sprite: "ciervo-pantanos",
+    nombre: "Ciervo de los pantanos",
+    dato: "Es el ciervo más grande de Sudamérica. Vive en los Esteros del Iberá y tiene pezuñas anchas para no hundirse en el barro.",
+  },
   coipo: {
     sprite: "coipo",
     nombre: "Coipo",
@@ -86,7 +96,7 @@ export const ANIMALES = {
     vuela: true,
   },
   rana: {
-    sprite: "rana",
+    sprite: "rana-criolla",
     nombre: "Rana",
     dato: "Empieza su vida como renacuajo nadando en el agua, ¡y después le salen patas!",
   },
@@ -224,7 +234,7 @@ export const ANIMALES = {
     h: 116,
   },
   yacare: {
-    sprite: "yacare",
+    sprite: "yacare-overo",
     nombre: "Yacaré",
     dato: "Parece un cocodrilo chico y vive en los esteros del Litoral.",
     forma: "reptil",
@@ -260,6 +270,7 @@ export const ANIMALES = {
 // Pájaros (y bichos) que hay que esquivar. `velocidad` en px/seg. `anim`: animación del sprite.
 // `suelo: true` = corre por el piso (hay que saltarlo) en vez de volar.
 export const PAJAROS = {
+  chaja: { nombre: "Chajá", sprite: "chaja", anim: "volar", velocidad: 95 },
   bigua: { nombre: "Biguá", sprite: "bigua", anim: "volar", velocidad: 115 },
   carancho: { nombre: "Carancho", sprite: "carancho", anim: "volar", velocidad: 110 },
   carpintero: { nombre: "Carpintero gigante", sprite: "carpintero", anim: "volar", velocidad: 100 },
@@ -303,7 +314,7 @@ export const PAJAROS = {
     velocidad: 130,
   },
   mosquito: {
-    sprite: "mosquito",
+    sprite: "mosquito-humedal",
     anim: "volar",
     nombre: "Mosquito",
     color: "#3a3a3a",
@@ -378,6 +389,9 @@ export const CAMINANTES = {
   "lobito-rio": { quieto: "sentado" },
   carpincho: { quieto: "sentado" },
   tortuga: { quieto: "escondida" },
+  "aguara-guazu": { quieto: "idle" },
+  "ciervo-pantanos": { quieto: "idle" },
+  yacare: { quieto: "idle" },
   cuis: { quieto: "idle" },
   vizcacha: { quieto: "sentado" },
   vaca: { quieto: "idle" },

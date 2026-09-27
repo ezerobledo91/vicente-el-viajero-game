@@ -1,0 +1,169 @@
+{
+  "_comment": "Kit de animales del humedal / Esteros (Codex): un PNG por animal con todas sus poses.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "humedal.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "aguara-guazu",
+      "nombre": "Aguará guazú",
+      "alturaCm": 90,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/humedal/aguara-guazu.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/humedal/aguara-guazu.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "chaja",
+      "nombre": "Chajá",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/humedal/chaja.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ciervo-pantanos",
+      "nombre": "Ciervo de los pantanos",
+      "alturaCm": 115,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/humedal/ciervo-pantanos.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/humedal/ciervo-pantanos.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mosquito-humedal",
+      "nombre": "Mosquito",
+      "alturaCm": 12,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/humedal/mosquito.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 14,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "rana-criolla",
+      "nombre": "Rana criolla",
+      "alturaCm": 38,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/humedal/rana-criolla.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 2,
+          "fps": 2,
+          "repeat": -1
+        },
+        {
+          "key": "saltar",
+          "label": "saltar",
+          "archivo": "personajes/animales/humedal/rana-criolla.png",
+          "total": 6,
+          "desde": 2,
+          "frames": 3,
+          "fps": 6,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yacare-overo",
+      "nombre": "Yacaré overo",
+      "alturaCm": 40,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/humedal/yacare-overo.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 4,
+          "repeat": -1
+        },
+        {
+          "key": "idle",
+          "label": "idle",
+          "archivo": "personajes/animales/humedal/yacare-overo.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}
