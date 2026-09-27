@@ -36,6 +36,7 @@ export const ASSETS = {
     "assets/animales/pampa.json",
     "assets/animales/rio.json",
     "assets/animales/humedal.json",
+    "assets/animales/selva.json",
     "assets/decoracion/decoracion.json",
     "assets/stickers/stickers.json",
     "assets/stickers/stickers-hd.json",

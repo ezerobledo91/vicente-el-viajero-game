@@ -724,11 +724,139 @@
       }
     },
     "selva": {
-      "piso": 548,
-      "corte": 500,
-      "alto": 724,
-      "ancho": 4344,
-      "cielo": "#2f6c6a"
+      "piso": 361,
+      "corte": 310,
+      "alto": 492,
+      "altoFondo": 724,
+      "fondoDy": -200,
+      "ancho": 8688,
+      "cielo": "#38abfc",
+      "piezas": {
+        "borde-izq": {
+          "w": 329,
+          "h": 364
+        },
+        "agua-0": {
+          "w": 334,
+          "h": 220
+        },
+        "agua-1": {
+          "w": 335,
+          "h": 220
+        },
+        "agua-2": {
+          "w": 335,
+          "h": 220
+        },
+        "agua-3": {
+          "w": 334,
+          "h": 220
+        },
+        "borde-der": {
+          "w": 329,
+          "h": 364
+        },
+        "piedra-0": {
+          "w": 272,
+          "h": 113,
+          "sup": 12
+        },
+        "piedra-1": {
+          "w": 174,
+          "h": 258,
+          "sup": 45
+        },
+        "piedra-2": {
+          "w": 209,
+          "h": 159,
+          "sup": 29
+        },
+        "piedra-3": {
+          "w": 270,
+          "h": 101,
+          "sup": 12
+        },
+        "piedra-4": {
+          "w": 199,
+          "h": 156,
+          "sup": 27
+        },
+        "piedra-5": {
+          "w": 222,
+          "h": 272,
+          "sup": 56
+        },
+        "piedra-6": {
+          "w": 226,
+          "h": 161,
+          "sup": 24
+        },
+        "piedra-7": {
+          "w": 275,
+          "h": 186,
+          "sup": 58
+        },
+        "plataforma-0": {
+          "w": 191,
+          "h": 172,
+          "sup": 10
+        },
+        "plataforma-1": {
+          "w": 181,
+          "h": 169,
+          "sup": 11
+        },
+        "plataforma-2": {
+          "w": 297,
+          "h": 177,
+          "sup": 9
+        },
+        "plataforma-3": {
+          "w": 275,
+          "h": 174,
+          "sup": 7
+        },
+        "plataforma-4": {
+          "w": 472,
+          "h": 182,
+          "sup": 9
+        },
+        "plataforma-5": {
+          "w": 466,
+          "h": 184,
+          "sup": 11
+        },
+        "tronco-0": {
+          "w": 214,
+          "h": 145,
+          "sup": 30
+        },
+        "tronco-1": {
+          "w": 211,
+          "h": 162,
+          "sup": 46
+        },
+        "tronco-2": {
+          "w": 326,
+          "h": 150,
+          "sup": 33
+        },
+        "tronco-3": {
+          "w": 296,
+          "h": 167,
+          "sup": 50
+        },
+        "tronco-4": {
+          "w": 423,
+          "h": 148,
+          "sup": 31
+        },
+        "tronco-5": {
+          "w": 412,
+          "h": 165,
+          "sup": 50
+        }
+      }
     },
     "cataratas": {
       "piso": 592,
@@ -796,11 +924,12 @@
       "parada": 300
     },
     "corrientes": {
-      "tipo": "panorama",
-      "piso": 596,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#25a0fd"
+      "alto": 720,
+      "cielo": "#57a4ea",
+      "pie": 690,
+      "parada": 300
     },
     "posadas": {
       "tipo": "panorama",

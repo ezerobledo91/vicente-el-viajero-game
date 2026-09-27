@@ -1,0 +1,141 @@
+{
+  "characters": [
+    {
+      "id": "coati-selva",
+      "grupo": "animales",
+      "nombre": "Coatí",
+      "facing": "right",
+      "alturaCm": 62,
+      "alturaPx": 111,
+      "texture": "coati-selva.png",
+      "frameWidth": 97,
+      "frameHeight": 115,
+      "frameCount": 7,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "frames": [
+            6
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mariposa-morpho",
+      "grupo": "animales",
+      "nombre": "Mariposa morpho",
+      "facing": "right",
+      "alturaCm": 42,
+      "alturaPx": 111,
+      "texture": "mariposa-morpho.png",
+      "frameWidth": 114,
+      "frameHeight": 128,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 10,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mono-cai",
+      "grupo": "animales",
+      "nombre": "Mono caí",
+      "facing": "right",
+      "alturaCm": 60,
+      "alturaPx": 111,
+      "texture": "mono-cai.png",
+      "frameWidth": 129,
+      "frameHeight": 127,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "frames": [
+            4
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            5
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tucan-selva",
+      "grupo": "animales",
+      "nombre": "Tucán",
+      "facing": "right",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "texture": "tucan-selva.png",
+      "frameWidth": 137,
+      "frameHeight": 137,
+      "frameCount": 6,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

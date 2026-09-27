@@ -1,0 +1,119 @@
+{
+  "_comment": "Kit de animales de la selva misionera (Codex): un PNG por animal con todas sus poses.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/animales",
+  "manifest": "selva.json",
+  "grupo": "animales",
+  "characters": [
+    {
+      "id": "coati-selva",
+      "nombre": "Coatí",
+      "alturaCm": 62,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/selva/coati.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 7,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "archivo": "personajes/animales/selva/coati.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mariposa-morpho",
+      "nombre": "Mariposa morpho",
+      "alturaCm": 42,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/selva/mariposa-morpho.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 10,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "mono-cai",
+      "nombre": "Mono caí",
+      "alturaCm": 60,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/animales/selva/mono-cai.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 4,
+          "fps": 6,
+          "repeat": -1
+        },
+        {
+          "key": "parado",
+          "label": "parado",
+          "archivo": "personajes/animales/selva/mono-cai.png",
+          "total": 6,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/animales/selva/mono-cai.png",
+          "total": 6,
+          "desde": 5,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tucan-selva",
+      "nombre": "Tucán",
+      "alturaCm": 55,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "volar",
+          "label": "volar",
+          "archivo": "personajes/animales/selva/tucan.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 6,
+          "fps": 8,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

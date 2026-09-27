@@ -595,7 +595,9 @@ export class ViajeScene extends Phaser.Scene {
     const enAgua = EN_EL_AGUA.includes(item.id);
     if (enAgua) this.ponerCharco(item.x);
     const vuela = !!def.vuela;
-    const real = !ballena && this.entidad(def.sprite, item.x, vuela ? GROUND_Y - 150 : GROUND_Y + (enAgua ? 10 : 3));
+    const real =
+      !ballena &&
+      this.entidad(def.sprite, item.x, vuela ? GROUND_Y - (def.alturaVuelo ?? 150) : GROUND_Y + (enAgua ? 10 : 3));
     if (real && vuela) {
       real.loop(real.def.animations[0].key);
       this.tweens.add({ targets: real, y: real.y - 30, duration: 1100, yoyo: true, repeat: -1, ease: "Sine.InOut" });

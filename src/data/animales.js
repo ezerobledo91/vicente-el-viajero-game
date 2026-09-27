@@ -90,8 +90,8 @@ export const ANIMALES = {
     dato: "Caza de noche y puede girar la cabeza muchísimo para mirar para atrás.",
   },
   mariposa: {
-    sprite: "mariposa",
-    nombre: "Mariposa",
+    sprite: "mariposa-morpho",
+    nombre: "Mariposa morpho",
     dato: "En Misiones hay cientos de tipos de mariposas de todos los colores.",
     vuela: true,
   },
@@ -116,9 +116,9 @@ export const ANIMALES = {
     dato: "Es el felino más grande de América y vive en la selva de Misiones.",
   },
   mono: {
-    sprite: "mono",
-    nombre: "Mono carayá",
-    dato: "Es un mono aullador: ¡su grito se escucha a kilómetros!",
+    sprite: "mono-cai",
+    nombre: "Mono caí",
+    dato: "Es un mono capuchino de la selva misionera: ¡usa piedras como herramienta para abrir frutos duros!",
   },
   tatu: {
     sprite: "tatu-pampa",
@@ -244,9 +244,11 @@ export const ANIMALES = {
     h: 44,
   },
   tucan: {
-    sprite: "tucan",
+    sprite: "tucan-selva",
     nombre: "Tucán",
     dato: "Tiene un pico enorme y de colores, ¡pero es liviano!",
+    vuela: true,
+    alturaVuelo: 70, // vuela bajito, por debajo de las plataformas
     forma: "erguido",
     color: "#1f1f24",
     panza: "#f7f2e6",
@@ -255,7 +257,7 @@ export const ANIMALES = {
     h: 56,
   },
   coati: {
-    sprite: "coati",
+    sprite: "coati-selva",
     nombre: "Coatí",
     dato: "Tiene la cola con anillos y la nariz larga para buscar comida.",
     forma: "cuadrupedo",
@@ -278,7 +280,7 @@ export const PAJAROS = {
   colibri: { nombre: "Picaflor", sprite: "colibri", anim: "volar", velocidad: 150 },
   loro: { nombre: "Loro", sprite: "loro", anim: "volar", velocidad: 125 },
   libelula: { nombre: "Libélula", sprite: "libelula", anim: "volar", velocidad: 140 },
-  tucan: { nombre: "Tucán", sprite: "tucan", anim: "volar", velocidad: 120 },
+  tucan: { nombre: "Tucán", sprite: "tucan-selva", anim: "volar", velocidad: 120 },
   gaviota: {
     sprite: "gaviota-cocinera",
     anim: "volar",
@@ -407,7 +409,7 @@ export const CAMINANTES = {
   cauquen: { quieto: "comer" },
   liebre: { quieto: "idle" },
   coati: { quieto: "parado" },
-  mono: {},
+  mono: { quieto: "parado" },
   jaguarete: {},
 };
 

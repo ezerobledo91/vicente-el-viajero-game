@@ -96,9 +96,21 @@
       "corte": 314
     },
     "selva": {
-      "src": "personajes/paises/argentina/tramos/selva.png",
-      "piso": 548,
-      "corte": 500
+      "fondo": "personajes/paises/argentina/tramos/selva/fondo.webp",
+      "fondoDy": -200,
+      "fondoEspejar": true,
+      "suelo": "personajes/paises/argentina/tramos/selva/suelo.png",
+      "sueloFilas": [310, 492],
+      "piezas": "personajes/paises/argentina/tramos/selva/piezas.png",
+      "piezasEnFila": true,
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueltas": {
+        "piedra": "personajes/paises/argentina/tramos/selva/piedras.png",
+        "plataforma": "personajes/paises/argentina/tramos/selva/plataformas.png",
+        "tronco": "personajes/paises/argentina/tramos/selva/troncos.png"
+      },
+      "piso": 361,
+      "corte": 310
     },
     "cataratas": {
       "src": "personajes/paises/argentina/tramos/cataratas.png",
@@ -150,10 +162,10 @@
       "parada": 300
     },
     "corrientes": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/ciudades/corrientes-barrio.png",
-      "piso": 596,
-      "x": 520
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/corrientes-costanera.webp",
+      "pie": 690,
+      "parada": 300
     },
     "posadas": {
       "tipo": "panorama",

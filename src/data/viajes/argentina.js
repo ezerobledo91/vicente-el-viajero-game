@@ -743,7 +743,7 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "humedal",
-      animales: ["yacare", "aguara-guazu", "carpincho", "ciervo-pantanos", "mono"],
+      animales: ["yacare", "aguara-guazu", "carpincho", "ciervo-pantanos"],
       entreAnimales: 1800,
       pozosMin: 3,
       pozosGrandesMin: 1,
@@ -755,7 +755,10 @@ export const VIAJE_ARGENTINA = {
     },
     {
       paisaje: "selva",
-      animales: ["tucan", "coati", "mono", "mariposa"],
+      animales: ["coati", "tucan", "mono", "mariposa"],
+      entreAnimales: 1800,
+      pozosMin: 3,
+      pozosGrandesMin: 1,
       pajaro: ["tucan", "abeja"],
       largo: 13500,
       dificultad: 3,
