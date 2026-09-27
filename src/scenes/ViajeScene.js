@@ -44,8 +44,7 @@ const PIEZAS = {
   pastoCentro: 0.16, // parte del bloque del centro que es pasto por encima de donde se pisa
   superficieTronco: 0.3, // parte del tronco por encima de donde se pisa
   escalaAgua: 0.5,
-  nivelAgua: -4, // px respecto del piso donde empieza el agua
-  paredPozo: -24, // desde acá hasta el agua se ve la pared de tierra del pozo (tapa el camino)
+  nivelAgua: -14, // px respecto del piso donde empieza el agua (más negativo = más alto; tapa el camino detrás)
 };
 const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/seg
 const BALLENA_FACTOR = 0.3;
@@ -452,12 +451,6 @@ export class ViajeScene extends Phaser.Scene {
     // Espuma en la superficie y un corte de tierra en cada borde: se tiene que ver claramente
     // que el camino se termina ahí (sin piedras que parezcan escalones).
     const g = this.add.graphics().setDepth(-3.5);
-    // Pared de tierra del fondo del pozo, entre el borde del camino y el agua (más oscura hacia abajo).
-    const yPared = GROUND_Y + PIEZAS.paredPozo;
-    const franjas = [0x5a3a22, 0x4a2f1c, 0x3a2416, 0x2c1b10];
-    const alto = (yAgua - yPared) / franjas.length;
-    franjas.forEach((c, k) => g.fillStyle(c, 1).fillRect(x0, yPared + k * alto, p.w, alto + 1));
-    g.fillStyle(0x4f8a38, 1).fillRect(x0, yPared, p.w, 3);
     g.fillStyle(0xd8f0ff, 0.85).fillRect(x0, yAgua, p.w, 3);
     for (let x = x0 + 8; x < x1 - 20; x += 34) g.fillRect(x, yAgua + 3, 14, 2);
     for (const [bx, dir] of [
