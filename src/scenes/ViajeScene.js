@@ -44,9 +44,7 @@ const PIEZAS = {
   pastoCentro: 0.16, // parte del bloque del centro que es pasto por encima de donde se pisa
   superficieTronco: 0.3, // parte del tronco por encima de donde se pisa
   escalaAgua: 0.5,
-  nivelAgua: -14, // px respecto del piso donde empieza el agua (negativo = un poco más arriba, tapa el camino)
-  escalaOrilla: 0.42,
-  escalaBarranca: 0.45,
+  nivelAgua: -24, // px respecto del piso donde empieza el agua: tapa el camino para que se vea el corte
 };
 const PUA = { cada: 1700, velocidad: 280 }; // abejas: ms entre púa y púa, px/seg
 const BALLENA_FACTOR = 0.3;
@@ -450,16 +448,21 @@ export class ViajeScene extends Phaser.Scene {
     t.setTileScale(PIEZAS.escalaAgua);
     let k = 0;
     this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
-    const poner = (nombre, x, origenX, y, sc, flip = false) => {
-      const key = ASSETS.PIEZA(this.tramo.paisaje, nombre);
-      if (this.textures.exists(key))
-        this.add.image(x, y, key).setOrigin(origenX, 0).setScale(sc).setFlipX(flip).setDepth(-3.5);
-    };
-    // Orillas de piedra sobre el agua y barrancas: el borde der de un bloque va al final del camino.
-    poner("orilla-izq", x0 - 10, 0, yAgua - 22, PIEZAS.escalaOrilla);
-    poner("orilla-der", x1 + 10, 1, yAgua - 22, PIEZAS.escalaOrilla);
-    poner("borde-der", x0 + 6, 1, GROUND_Y - 16, PIEZAS.escalaBarranca);
-    poner("borde-izq", x1 - 6, 0, GROUND_Y - 16, PIEZAS.escalaBarranca);
+    // Espuma en la superficie y un corte de tierra en cada borde: se tiene que ver claramente
+    // que el camino se termina ahí (sin piedras que parezcan escalones).
+    const g = this.add.graphics().setDepth(-3.5);
+    g.fillStyle(0xd8f0ff, 0.85).fillRect(x0, yAgua, p.w, 3);
+    for (let x = x0 + 8; x < x1 - 20; x += 34) g.fillRect(x, yAgua + 3, 14, 2);
+    for (const [bx, dir] of [
+      [x0, 1],
+      [x1, -1],
+    ]) {
+      // Sombra de la barranca sobre el agua y pasto que cuelga del borde del camino.
+      g.fillStyle(0x0b2f4a, 0.45).fillRect(dir > 0 ? bx : bx - 22, yAgua, 22, GAME_HEIGHT - yAgua);
+      g.fillStyle(0x3f7a30, 1).fillRect(dir > 0 ? bx - 4 : bx - 8, yAgua - 4, 12, 6);
+      g.fillStyle(0x4f8a38, 1);
+      for (let k = 0; k < 5; k++) g.fillRect(bx + dir * (k * 3 - 2) - (dir < 0 ? 3 : 0), yAgua, 3, 6 + ((k * 5) % 11));
+    }
     return true;
   }
 
