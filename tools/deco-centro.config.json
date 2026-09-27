@@ -1,0 +1,19 @@
+{
+  "_comment": "Decoración regional (Codex): dibujos sueltos; ids en el orden en que los lee el recortador.",
+  "source": "personajes/decoracion/regional/ambientacion-centro.png",
+  "output": "public/assets/decoracion",
+  "manifest": "deco-centro.json",
+  "grupo": "decoracion",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 24,
+    "h": 24
+  },
+  "auto": {
+    "prefijo": "deco-centro",
+    "cmPorPx": 1,
+    "ids": ["ce-kiosco", "ce-mate", "ce-alambrado", "ce-fardo", "ce-tarro", "ce-cesto", "ce-bicicleta", "ce-banco"]
+  },
+  "characters": []
+}

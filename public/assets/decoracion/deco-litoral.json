@@ -1,0 +1,188 @@
+{
+  "characters": [
+    {
+      "id": "li-tablero",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 1",
+      "facing": "right",
+      "alturaCm": 262,
+      "alturaPx": 262,
+      "texture": "li-tablero.png",
+      "frameWidth": 223,
+      "frameHeight": 266,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-barril",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 2",
+      "facing": "right",
+      "alturaCm": 311,
+      "alturaPx": 311,
+      "texture": "li-barril.png",
+      "frameWidth": 303,
+      "frameHeight": 315,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-cesta-yerba",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 3",
+      "facing": "right",
+      "alturaCm": 208,
+      "alturaPx": 207,
+      "texture": "li-cesta-yerba.png",
+      "frameWidth": 231,
+      "frameHeight": 211,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-canoa",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 4",
+      "facing": "right",
+      "alturaCm": 217,
+      "alturaPx": 215,
+      "texture": "li-canoa.png",
+      "frameWidth": 354,
+      "frameHeight": 219,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-salvavidas",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 5",
+      "facing": "right",
+      "alturaCm": 207,
+      "alturaPx": 207,
+      "texture": "li-salvavidas.png",
+      "frameWidth": 284,
+      "frameHeight": 211,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-cantaro",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 6",
+      "facing": "right",
+      "alturaCm": 215,
+      "alturaPx": 214,
+      "texture": "li-cantaro.png",
+      "frameWidth": 184,
+      "frameHeight": 218,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-mojon-piedra",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 7",
+      "facing": "right",
+      "alturaCm": 245,
+      "alturaPx": 245,
+      "texture": "li-mojon-piedra.png",
+      "frameWidth": 234,
+      "frameHeight": 249,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "li-acordeon",
+      "grupo": "decoracion",
+      "nombre": "deco-litoral 8",
+      "facing": "right",
+      "alturaCm": 187,
+      "alturaPx": 185,
+      "texture": "li-acordeon.png",
+      "frameWidth": 231,
+      "frameHeight": 189,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "_comment": "Decoración regional (Codex): dibujos sueltos; ids en el orden en que los lee el recortador.",
+  "source": "personajes/decoracion/regional/ambientacion-patagonia.png",
+  "output": "public/assets/decoracion",
+  "manifest": "deco-patagonia.json",
+  "grupo": "decoracion",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 24,
+    "h": 24
+  },
+  "auto": {
+    "prefijo": "deco-patagonia",
+    "cmPorPx": 1,
+    "ids": [
+      "pa-manga-viento",
+      "pa-flecha",
+      "pa-tablero",
+      "pa-mate",
+      "pa-binoculares",
+      "pa-lena",
+      "pa-soga-boya",
+      "pa-cajon"
+    ]
+  },
+  "characters": []
+}

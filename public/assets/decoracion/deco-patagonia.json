@@ -1,0 +1,188 @@
+{
+  "characters": [
+    {
+      "id": "pa-manga-viento",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 1",
+      "facing": "right",
+      "alturaCm": 323,
+      "alturaPx": 323,
+      "texture": "pa-manga-viento.png",
+      "frameWidth": 285,
+      "frameHeight": 327,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-flecha",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 2",
+      "facing": "right",
+      "alturaCm": 235,
+      "alturaPx": 235,
+      "texture": "pa-flecha.png",
+      "frameWidth": 188,
+      "frameHeight": 239,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-tablero",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 3",
+      "facing": "right",
+      "alturaCm": 228,
+      "alturaPx": 228,
+      "texture": "pa-tablero.png",
+      "frameWidth": 324,
+      "frameHeight": 232,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-mate",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 4",
+      "facing": "right",
+      "alturaCm": 226,
+      "alturaPx": 226,
+      "texture": "pa-mate.png",
+      "frameWidth": 197,
+      "frameHeight": 230,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-binoculares",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 5",
+      "facing": "right",
+      "alturaCm": 215,
+      "alturaPx": 215,
+      "texture": "pa-binoculares.png",
+      "frameWidth": 186,
+      "frameHeight": 219,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-lena",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 6",
+      "facing": "right",
+      "alturaCm": 153,
+      "alturaPx": 152,
+      "texture": "pa-lena.png",
+      "frameWidth": 247,
+      "frameHeight": 156,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-soga-boya",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 7",
+      "facing": "right",
+      "alturaCm": 127,
+      "alturaPx": 127,
+      "texture": "pa-soga-boya.png",
+      "frameWidth": 250,
+      "frameHeight": 131,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pa-cajon",
+      "grupo": "decoracion",
+      "nombre": "deco-patagonia 8",
+      "facing": "right",
+      "alturaCm": 146,
+      "alturaPx": 146,
+      "texture": "pa-cajon.png",
+      "frameWidth": 250,
+      "frameHeight": 150,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

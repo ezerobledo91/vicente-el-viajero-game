@@ -1,0 +1,28 @@
+{
+  "_comment": "Decoración regional (Codex): dibujos sueltos; ids en el orden en que los lee el recortador.",
+  "source": "personajes/decoracion/regional/transiciones.png",
+  "output": "public/assets/decoracion",
+  "manifest": "deco-transiciones.json",
+  "grupo": "decoracion",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 24,
+    "h": 24
+  },
+  "auto": {
+    "prefijo": "deco-transiciones",
+    "cmPorPx": 1,
+    "ids": [
+      "tr-cartel-madera",
+      "tr-cartel-ruta",
+      "tr-parada",
+      "tr-arco",
+      "tr-poste",
+      "tr-mojon",
+      "tr-guardarrail",
+      "tr-banco"
+    ]
+  },
+  "characters": []
+}

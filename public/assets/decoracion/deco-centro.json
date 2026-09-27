@@ -1,0 +1,188 @@
+{
+  "characters": [
+    {
+      "id": "ce-kiosco",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 1",
+      "facing": "right",
+      "alturaCm": 357,
+      "alturaPx": 357,
+      "texture": "ce-kiosco.png",
+      "frameWidth": 269,
+      "frameHeight": 361,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-mate",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 2",
+      "facing": "right",
+      "alturaCm": 202,
+      "alturaPx": 200,
+      "texture": "ce-mate.png",
+      "frameWidth": 162,
+      "frameHeight": 204,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-alambrado",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 3",
+      "facing": "right",
+      "alturaCm": 225,
+      "alturaPx": 225,
+      "texture": "ce-alambrado.png",
+      "frameWidth": 345,
+      "frameHeight": 229,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-fardo",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 4",
+      "facing": "right",
+      "alturaCm": 198,
+      "alturaPx": 198,
+      "texture": "ce-fardo.png",
+      "frameWidth": 273,
+      "frameHeight": 202,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-tarro",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 5",
+      "facing": "right",
+      "alturaCm": 223,
+      "alturaPx": 223,
+      "texture": "ce-tarro.png",
+      "frameWidth": 140,
+      "frameHeight": 227,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-cesto",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 6",
+      "facing": "right",
+      "alturaCm": 218,
+      "alturaPx": 218,
+      "texture": "ce-cesto.png",
+      "frameWidth": 172,
+      "frameHeight": 222,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-bicicleta",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 7",
+      "facing": "right",
+      "alturaCm": 205,
+      "alturaPx": 204,
+      "texture": "ce-bicicleta.png",
+      "frameWidth": 314,
+      "frameHeight": 208,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "ce-banco",
+      "grupo": "decoracion",
+      "nombre": "deco-centro 8",
+      "facing": "right",
+      "alturaCm": 163,
+      "alturaPx": 162,
+      "texture": "ce-banco.png",
+      "frameWidth": 307,
+      "frameHeight": 166,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

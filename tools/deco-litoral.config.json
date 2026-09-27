@@ -1,0 +1,28 @@
+{
+  "_comment": "Decoración regional (Codex): dibujos sueltos; ids en el orden en que los lee el recortador.",
+  "source": "personajes/decoracion/regional/ambientacion-litoral-misiones.png",
+  "output": "public/assets/decoracion",
+  "manifest": "deco-litoral.json",
+  "grupo": "decoracion",
+  "sueltos": true,
+  "holeTolerance": 0,
+  "minCell": {
+    "w": 24,
+    "h": 24
+  },
+  "auto": {
+    "prefijo": "deco-litoral",
+    "cmPorPx": 1,
+    "ids": [
+      "li-tablero",
+      "li-barril",
+      "li-cesta-yerba",
+      "li-canoa",
+      "li-salvavidas",
+      "li-cantaro",
+      "li-mojon-piedra",
+      "li-acordeon"
+    ]
+  },
+  "characters": []
+}

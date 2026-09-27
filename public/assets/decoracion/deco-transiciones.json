@@ -1,0 +1,188 @@
+{
+  "characters": [
+    {
+      "id": "tr-cartel-madera",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 1",
+      "facing": "right",
+      "alturaCm": 251,
+      "alturaPx": 251,
+      "texture": "tr-cartel-madera.png",
+      "frameWidth": 306,
+      "frameHeight": 255,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-cartel-ruta",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 2",
+      "facing": "right",
+      "alturaCm": 264,
+      "alturaPx": 263,
+      "texture": "tr-cartel-ruta.png",
+      "frameWidth": 272,
+      "frameHeight": 267,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-parada",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 3",
+      "facing": "right",
+      "alturaCm": 252,
+      "alturaPx": 252,
+      "texture": "tr-parada.png",
+      "frameWidth": 270,
+      "frameHeight": 256,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-arco",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 4",
+      "facing": "right",
+      "alturaCm": 290,
+      "alturaPx": 290,
+      "texture": "tr-arco.png",
+      "frameWidth": 345,
+      "frameHeight": 294,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-poste",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 5",
+      "facing": "right",
+      "alturaCm": 290,
+      "alturaPx": 290,
+      "texture": "tr-poste.png",
+      "frameWidth": 189,
+      "frameHeight": 294,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-mojon",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 6",
+      "facing": "right",
+      "alturaCm": 118,
+      "alturaPx": 118,
+      "texture": "tr-mojon.png",
+      "frameWidth": 125,
+      "frameHeight": 122,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-guardarrail",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 7",
+      "facing": "right",
+      "alturaCm": 104,
+      "alturaPx": 104,
+      "texture": "tr-guardarrail.png",
+      "frameWidth": 311,
+      "frameHeight": 108,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "tr-banco",
+      "grupo": "decoracion",
+      "nombre": "deco-transiciones 8",
+      "facing": "right",
+      "alturaCm": 118,
+      "alturaPx": 118,
+      "texture": "tr-banco.png",
+      "frameWidth": 257,
+      "frameHeight": 122,
+      "frameCount": 1,
+      "animations": [
+        {
+          "key": "idle",
+          "label": "idle",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

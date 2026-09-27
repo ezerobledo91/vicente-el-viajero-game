@@ -9,7 +9,7 @@ import { getViaje } from "../data/viajes/index.js";
 import { PAISAJES } from "../data/paisajes.js";
 import { ANIMALES, CAMINANTES, COLECCIONABLES, CUARTOS, EN_EL_AGUA, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
-import { DECORACION } from "../data/decoracion.js";
+import { AMBIENTACION, DECORACION, TRANSICIONES } from "../data/decoracion.js";
 import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
@@ -61,6 +61,16 @@ const ACCIONES = {
   arrojar: { dura: 420, cada: 600, suelta: 230 },
   mochila: { dura: 400, cada: 550, desde: 140, hasta: 330, alcance: 120 },
 };
+// Distancia real entre dos ciudades (km, en línea recta), si tienen lat/lon.
+function distanciaKm(a, b) {
+  if (a?.lat == null || b?.lat == null) return null;
+  const r = Math.PI / 180,
+    dLat = (b.lat - a.lat) * r,
+    dLon = (b.lon - a.lon) * r;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2;
+  return Math.round(6371 * 2 * Math.asin(Math.sqrt(h)));
+}
+
 const TIRO = { vx: 620, vy: -300, gravedad: 1100, alto: 34, vida: 1800 }; // objeto tirado (px, px/seg)
 const BALLENA_FACTOR = 0.3;
 const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
@@ -139,6 +149,8 @@ export class ViajeScene extends Phaser.Scene {
     this.nFiguritas = 0;
     this.rnd = mulberry32(this.tramoIndex * 131 + 7);
     for (const item of this.level.items) this.spawn(item);
+    this.ponerTransiciones();
+    this.ponerAmbientacion();
 
     this.player = new Player(this, 160, GROUND_Y, "vicente", { pxPerCm: PX_PER_CM.viaje }).setDepth(10);
     this.physics.add.collider(this.player, piso);
@@ -349,8 +361,127 @@ export class ViajeScene extends Phaser.Scene {
     }
   }
 
+  // ---------- Transiciones y ambientación (kits de Codex) ----------
+  // Adorno apoyado en el piso, de `altura` px (detrás de Vicente).
+  adorno(key, x, altura, depth = 3) {
+    if (!this.textures.exists(key)) return null;
+    const img = this.add
+      .image(Math.round(x), GROUND_Y + 6, key, 0)
+      .setOrigin(0.5, 1)
+      .setDepth(depth);
+    return img.setScale(altura / img.height);
+  }
+
+  // Líneas de texto centradas en la tabla de un cartel. tabla = [arriba, abajo] en proporción del alto.
+  textoEnTabla(img, [y0, y1], lineas, color, borde) {
+    const top = img.y - img.displayHeight,
+      alto = (y1 - y0) * img.displayHeight,
+      ancho = img.displayWidth * 0.8;
+    const paso = alto / lineas.length;
+    return lineas.map(({ s, size }, k) => {
+      const t = this.add
+        .text(img.x, top + y0 * img.displayHeight + paso * (k + 0.5), s, {
+          fontFamily: FONT,
+          fontSize: `${size}px`,
+          color,
+          stroke: borde,
+          strokeThickness: 3,
+        })
+        .setOrigin(0.5)
+        .setDepth(img.depth + 0.1);
+      if (t.width > ancho) t.setFontSize(Math.floor((size * ancho) / t.width));
+      return t;
+    });
+  }
+
+  // Hay algo del recorrido cerca de x (pozos, rocas, perros, objetos, el cartel, mojones).
+  ocupado(x, margen) {
+    return (
+      this.level.items.some(
+        (it) =>
+          (it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + margen) ||
+          (["roca", "perro", "objeto", "cartel"].includes(it.tipo) && Math.abs(it.x - x) < margen + 60)
+      ) || (this.mojones ?? []).some((m) => Math.abs(m.x - x) < margen + 40)
+    );
+  }
+
+  // Salida (arco o cartel de ruta con los km), mojones con lo que falta y, al llegar, guardarraíl,
+  // banco y parada de colectivo en las ciudades grandes.
+  ponerTransiciones() {
+    const T = TRANSICIONES;
+    const km = distanciaKm(this.desde, this.hasta);
+    const tipo = T.salida[this.tramo.paisaje] ?? "tr-cartel-ruta";
+    const salida = this.adorno(tipo, 360, T.alturas[tipo]);
+    if (salida && tipo === "tr-arco")
+      this.textoEnTabla(salida, [0.03, 0.2], [{ s: `Hacia ${this.hasta.nombre}`, size: 12 }], "#3a2212", "#f6e3c4");
+    else if (salida)
+      this.textoEnTabla(
+        salida,
+        [0.11, 0.44],
+        [{ s: this.hasta.nombre, size: 15 }, ...(km ? [{ s: `${km} km`, size: 13 }] : [])],
+        "#ffffff",
+        "#123a78"
+      );
+    // Mojones: cada tanto, con los km que faltan (la distancia real entre las dos ciudades).
+    this.mojones = [];
+    if (km)
+      for (let x = T.mojonCada; x < this.largo - 1500; x += T.mojonCada) {
+        let mx = x;
+        for (let k = 0; k < 10 && this.ocupado(mx, 60); k++) mx += 80;
+        const falta = Math.max(1, Math.round(km * (1 - mx / this.largo)));
+        const m = this.adorno("tr-mojon", mx, T.alturas["tr-mojon"]);
+        if (!m) break;
+        this.textoEnTabla(m, [0.45, 0.8], [{ s: `${falta}`, size: 11 }], "#2a1d1a", "#f4efe6");
+        this.mojones.push({ x: mx, falta, visto: false });
+      }
+    // Llegada: la ciudad ya está cerca.
+    const fin = this.largo;
+    this.adorno("tr-guardarrail", fin - 640, T.alturas["tr-guardarrail"]);
+    if (T.conParada.includes(this.hasta.id)) this.adorno("tr-parada", fin - 470, T.alturas["tr-parada"]);
+    else this.adorno("tr-poste", fin - 470, T.alturas["tr-poste"]);
+    this.adorno("tr-banco", fin - 90, T.alturas["tr-banco"]);
+  }
+
+  // Adornos de la región al costado del camino, repartidos y sin tapar nada del recorrido.
+  ponerAmbientacion() {
+    const lista = (AMBIENTACION.porPaisaje[this.tramo.paisaje] ?? []).filter((k) => this.textures.exists(k));
+    if (!lista.length) return;
+    for (let x = 900; x < this.largo - 900; x += AMBIENTACION.cada * (0.7 + this.rnd() * 0.6)) {
+      if (this.ocupado(x, 110)) continue;
+      const key = lista[Math.floor(this.rnd() * lista.length)];
+      this.adorno(key, x, AMBIENTACION.alturas[key] ?? 60, 2.5);
+    }
+  }
+
+  // Al pasar un mojón, Vicente se entera de cuánto falta.
+  mirarMojones() {
+    for (const m of this.mojones ?? [])
+      if (!m.visto && this.player.x > m.x) {
+        m.visto = true;
+        this.cartelito(m.x, GROUND_Y - 150, `¡Faltan ${m.falta} km para ${this.hasta.nombre}!`, "#fff2a8");
+      }
+  }
+
+  // El cartel de madera del kit de transiciones, con el nombre de la ciudad escrito por el juego.
+  ponerCartelMadera(x) {
+    const img = this.adorno("tr-cartel-madera", x, TRANSICIONES.alturas["tr-cartel-madera"], 4);
+    this.textoEnTabla(
+      img,
+      [0.06, 0.44],
+      [
+        { s: "Bienvenidos a", size: 9 },
+        { s: this.hasta.nombre, size: 16 },
+        { s: this.hasta.provincia ?? "", size: 8 },
+      ],
+      "#3a2212",
+      "#f6e3c4"
+    );
+    this.cartel = img;
+  }
+
   // Cartel de llegada con el nombre de la ciudad; se balancea un poco para llamar la atención.
   ponerCartel(x) {
+    if (this.textures.exists("tr-cartel-madera")) return this.ponerCartelMadera(x);
     const { h, tabla: t, w } = CARTEL;
     const base = GROUND_Y + 8;
     const c = this.add.container(x, base).setDepth(4);
@@ -775,6 +906,7 @@ export class ViajeScene extends Phaser.Scene {
     }
     this.puas = this.puas.filter((p) => p.active);
     this.moverTiros(time, dt, cam);
+    this.mirarMojones();
     this.golpeMochila(time);
 
     // Coleccionables y corazones
