@@ -9,12 +9,12 @@ import { getViaje } from "../data/viajes/index.js";
 import { PAISAJES } from "../data/paisajes.js";
 import { ANIMALES, CAMINANTES, COLECCIONABLES, CUARTOS, EN_EL_AGUA, PAJAROS, PERRO, VIDAS } from "../data/animales.js";
 import { hasCharacter } from "../systems/characters.js";
-import { AMBIENTACION, DECORACION, TRANSICIONES } from "../data/decoracion.js";
+import { AMBIENTACION, DECORACION, TABLAS, TRANSICIONES, alturaDe } from "../data/decoracion.js";
 import { mulberry32 } from "../systems/levelBuilder.js";
 import { modoPrueba } from "../systems/dev.js";
 import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
-import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe } from "../systems/ajustes.js";
+import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe, getAjustes } from "../systems/ajustes.js";
 import { Editor } from "../systems/editor.js";
 import {
   actualizarViaje,
@@ -86,7 +86,8 @@ export class ViajeScene extends Phaser.Scene {
     super({ key: SCENES.VIAJE, physics: { default: "arcade", arcade: { gravity: { y: GRAVEDAD } } } });
   }
 
-  init({ paisId, tramo, editorX }) {
+  init({ paisId, tramo, editorX, editorSel }) {
+    this.editorSel = editorSel ?? null; // id del adorno elegido en el editor (sigue elegido al redibujar)
     this.paisId = paisId;
     this.tramoIndex = tramo;
     this.editorX = editorX ?? 0; // al reiniciar desde el editor, dónde estaba mirando
@@ -156,6 +157,7 @@ export class ViajeScene extends Phaser.Scene {
     for (const item of this.level.items) this.spawn(item);
     this.ponerTransiciones();
     this.ponerAmbientacion();
+    this.ponerAgregados();
 
     this.player = new Player(this, 160, GROUND_Y, "vicente", { pxPerCm: PX_PER_CM.viaje }).setDepth(10);
     this.physics.add.collider(this.player, piso);
@@ -374,46 +376,71 @@ export class ViajeScene extends Phaser.Scene {
   // ---------- Transiciones y ambientación (kits de Codex) ----------
   // Adorno apoyado en el piso, de `altura` px (detrás de Vicente).
   // Cada adorno tiene un id estable (<textura>#<n>) para que el editor pueda moverlo u ocultarlo.
-  adorno(key, x, altura, depth = 3, { fijo = false } = {}) {
+  // Con el editor también se puede cambiar por otro dibujo (aj.key) o escribirle otro texto (rotular).
+  adorno(key, x, altura, depth = 3, { fijo = false, id: idPropio } = {}) {
     if (!this.textures.exists(key)) return null;
-    const n = (this.cuentaAdornos[key] = (this.cuentaAdornos[key] ?? -1) + 1);
-    const id = `${key}#${n}`;
+    const n = idPropio ? 0 : (this.cuentaAdornos[key] = (this.cuentaAdornos[key] ?? -1) + 1);
+    const id = idPropio ?? `${key}#${n}`;
     const aj = ajusteObjeto(this, this.tramoIndex, id);
     if (aj.oculto && !editorActivo() && !fijo) return null;
+    if (aj.key && aj.key !== key && this.textures.exists(aj.key)) {
+      key = aj.key;
+      altura = alturaDe(key);
+    }
     const bx = Math.round(x),
       by = GROUND_Y + 6;
     const img = this.add
       .image(bx + (aj.dx ?? 0), by + (aj.dy ?? 0), key, 0)
       .setOrigin(0.5, 1)
       .setDepth(depth);
-    Object.assign(img, { editId: id, baseX: bx, baseY: by, adjuntos: [], fijo, altoBase: altura });
+    Object.assign(img, { editId: id, baseX: bx, baseY: by, adjuntos: [], fijo, altoBase: altura, ajuste: aj });
     if (aj.oculto) img.setAlpha(0.35);
     this.editables.push(img);
     altura *= escalaDe(this, key);
     return img.setScale(altura / img.height);
   }
 
-  // Líneas de texto centradas en la tabla de un cartel. tabla = [arriba, abajo] en proporción del alto.
-  textoEnTabla(img, [y0, y1], lineas, color, borde) {
+  // Escribe en la tabla de un cartel (TABLAS en decoracion.js): las líneas que pone el juego o, si se
+  // cambiaron con el editor, las del editor.
+  rotular(img, lineas = []) {
+    const t = img && TABLAS[img.texture.key];
+    if (!t) return [];
+    const propias = img.ajuste?.texto;
+    const tamano = (k) => lineas[k]?.size ?? lineas.at(-1)?.size ?? t.size;
+    if (propias) lineas = propias.map((txt, k) => ({ s: txt, size: tamano(k) }));
+    img.lineas = lineas.map((l) => l.s);
+    if (!lineas.length) return [];
+    const [y0, y1] = t.tabla;
     const top = img.y - img.displayHeight,
       alto = (y1 - y0) * img.displayHeight,
       ancho = img.displayWidth * 0.8;
     const paso = alto / lineas.length;
     return lineas.map(({ s, size }, k) => {
-      const t = this.add
+      const tx = this.add
         .text(img.x, top + y0 * img.displayHeight + paso * (k + 0.5), s, {
           fontFamily: FONT,
           fontSize: `${size}px`,
-          color,
-          stroke: borde,
+          color: t.color,
+          stroke: t.borde,
           strokeThickness: 3,
         })
         .setOrigin(0.5)
-        .setDepth(img.depth + 0.1);
-      if (t.width > ancho) t.setFontSize(Math.floor((size * ancho) / t.width));
-      img.adjuntos?.push(t); // se mueven junto con el cartel en el editor
-      return t;
+        .setDepth(img.depth + 0.1)
+        .setAlpha(img.alpha);
+      if (tx.width > ancho) tx.setFontSize(Math.floor((size * ancho) / tx.width));
+      img.adjuntos.push(tx); // se mueven junto con el cartel en el editor
+      return tx;
     });
+  }
+
+  // Adornos agregados a mano con el editor en este tramo.
+  ponerAgregados() {
+    for (const a of getAjustes(this).agregados?.[this.tramoIndex] ?? []) {
+      const img = this.adorno(a.key, a.x, alturaDe(a.key), 2.6, { id: `nuevo#${a.n}` });
+      if (!img) continue;
+      img.agregado = true;
+      this.rotular(img);
+    }
   }
 
   // Hay algo del recorrido cerca de x (pozos, rocas, perros, objetos, el cartel, mojones).
@@ -434,16 +461,9 @@ export class ViajeScene extends Phaser.Scene {
     const km = distanciaKm(this.desde, this.hasta);
     const tipo = T.salida[this.tramo.paisaje] ?? "tr-cartel-ruta";
     const salida = this.adorno(tipo, 360, T.alturas[tipo]);
-    if (salida && tipo === "tr-arco")
-      this.textoEnTabla(salida, [0.03, 0.2], [{ s: `Hacia ${this.hasta.nombre}`, size: 13 }], "#ffffff", "#3a2212");
+    if (salida && tipo === "tr-arco") this.rotular(salida, [{ s: `Hacia ${this.hasta.nombre}`, size: 13 }]);
     else if (salida)
-      this.textoEnTabla(
-        salida,
-        [0.11, 0.44],
-        [{ s: this.hasta.nombre, size: 15 }, ...(km ? [{ s: `${km} km`, size: 13 }] : [])],
-        "#ffffff",
-        "#123a78"
-      );
+      this.rotular(salida, [{ s: this.hasta.nombre, size: 15 }, ...(km ? [{ s: `${km} km`, size: 13 }] : [])]);
     // Mojones: cada tanto, con los km que faltan (la distancia real entre las dos ciudades).
     this.mojones = [];
     if (km)
@@ -453,15 +473,15 @@ export class ViajeScene extends Phaser.Scene {
         const falta = Math.max(1, Math.round(km * (1 - mx / this.largo)));
         const m = this.adorno("tr-mojon", mx, T.alturas["tr-mojon"]);
         if (!m) continue;
-        this.textoEnTabla(m, [0.45, 0.8], [{ s: `${falta}`, size: 11 }], "#2a1d1a", "#f4efe6");
+        this.rotular(m, [{ s: `${falta}`, size: 11 }]);
         this.mojones.push({ x: mx, falta, visto: false });
       }
     // Llegada: la ciudad ya está cerca.
     const fin = this.largo;
-    this.adorno("tr-guardarrail", fin - 640, T.alturas["tr-guardarrail"]);
-    if (T.conParada.includes(this.hasta.id)) this.adorno("tr-parada", fin - 470, T.alturas["tr-parada"]);
-    else this.adorno("tr-poste", fin - 470, T.alturas["tr-poste"]);
-    this.adorno("tr-banco", fin - 820, T.alturas["tr-banco"]);
+    this.rotular(this.adorno("tr-guardarrail", fin - 640, T.alturas["tr-guardarrail"]));
+    if (T.conParada.includes(this.hasta.id)) this.rotular(this.adorno("tr-parada", fin - 470, T.alturas["tr-parada"]));
+    else this.rotular(this.adorno("tr-poste", fin - 470, T.alturas["tr-poste"]));
+    this.rotular(this.adorno("tr-banco", fin - 820, T.alturas["tr-banco"]));
   }
 
   // Adornos de la región al costado del camino, repartidos y sin tapar nada del recorrido.
@@ -471,7 +491,7 @@ export class ViajeScene extends Phaser.Scene {
     for (let x = 900; x < this.largo - 900; x += AMBIENTACION.cada * (0.7 + this.rnd() * 0.6)) {
       if (this.ocupado(x, 110)) continue;
       const key = lista[Math.floor(this.rnd() * lista.length)];
-      this.adorno(key, x, AMBIENTACION.alturas[key] ?? 60, 2.5);
+      this.rotular(this.adorno(key, x, AMBIENTACION.alturas[key] ?? 60, 2.5));
     }
   }
 
@@ -488,17 +508,11 @@ export class ViajeScene extends Phaser.Scene {
   ponerCartelMadera(x) {
     // (fijo: el editor no lo deja ocultar; sin cartel no se llega a la ciudad)
     const img = this.adorno("tr-cartel-madera", x, TRANSICIONES.alturas["tr-cartel-madera"], 4, { fijo: true });
-    this.textoEnTabla(
-      img,
-      [0.06, 0.44],
-      [
-        { s: "Bienvenidos a", size: 10 },
-        { s: this.hasta.nombre, size: 17 },
-        { s: this.hasta.provincia ?? "", size: 9 },
-      ],
-      "#ffffff",
-      "#3a2212"
-    );
+    this.rotular(img, [
+      { s: "Bienvenidos a", size: 10 },
+      { s: this.hasta.nombre, size: 17 },
+      { s: this.hasta.provincia ?? "", size: 9 },
+    ]);
     this.cartel = img;
   }
 

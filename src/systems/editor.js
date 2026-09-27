@@ -5,11 +5,13 @@
 //   · + / −: tamaño de ese tipo de adorno (en todos los tramos). Supr: ocultarlo en este tramo.
 //     R: volverlo a su lugar.
 //   · Botones de arriba: fondo, suelo, agua de los pozos y orillas del paisaje.
+//   · Agregar (paleta), Cambiar (otro dibujo en su lugar), Texto (T) y Borrar (Supr).
 import Phaser from "phaser";
 import { COLORS, FONT, GAME_WIDTH } from "../config/constants.js";
 import { Button } from "../ui/Button.js";
 import { getViaje } from "../data/viajes/index.js";
 import { getAjustes, guardarAjustes } from "./ajustes.js";
+import { PALETA, TABLAS } from "../data/decoracion.js";
 
 const VELOCIDAD = 900; // px/seg con las flechas
 const PASO = 4; // px por toque en los botones del paisaje
@@ -29,6 +31,9 @@ const BOTONES_PAISAJE = [
   ["Orillas ^", "orillaDy", -PASO],
   ["Orillas v", "orillaDy", PASO],
 ];
+
+const ESTILO_BOTON =
+  "background:#22384d;color:#fff;border:2px solid #35536f;border-radius:8px;cursor:pointer;font-family:inherit;font-size:9px;";
 
 const limpiar = (obj) => {
   for (const [k, v] of Object.entries(obj)) if (!v) delete obj[k];
@@ -59,12 +64,15 @@ export class Editor {
     this.panel(scene);
     this.adornos(scene);
     this.teclas(scene);
+    scene.events.once("shutdown", () => this.cerrar());
+    // Al redibujar sigue elegido lo que estaba elegido (o lo recién agregado).
+    if (scene.editorSel) this.elegir(scene.editables.find((e) => e.editId === scene.editorSel) ?? null);
   }
 
   // ---------- Interfaz ----------
   panel(scene) {
     const fijo = (o) => o.setScrollFactor(0, 0, true).setDepth(100);
-    fijo(scene.add.graphics().fillStyle(0x0b1a2a, 0.85).fillRect(0, 0, GAME_WIDTH, 112));
+    fijo(scene.add.graphics().fillStyle(0x0b1a2a, 0.85).fillRect(0, 0, GAME_WIDTH, 116));
     const texto = (x, y, s, size, color = COLORS.ink) =>
       fijo(scene.add.text(x, y, s, { fontFamily: FONT, fontSize: `${size}px`, color }).setOrigin(0, 0.5));
 
@@ -86,6 +94,17 @@ export class Editor {
     fijo(
       new Button(scene, 190, 58, "Tramo >", () => ir(1), { width: 118, height: 28, fontSize: 8, variant: "secondary" })
     );
+    const acciones = [
+      ["Agregar", () => this.paleta("agregar")],
+      ["Cambiar", () => this.paleta("cambiar")],
+      ["Texto", () => this.editarTexto()],
+      ["Borrar", () => this.borrar()],
+    ];
+    acciones.forEach(([label, fn], k) =>
+      fijo(
+        new Button(scene, 716 + k * 124, 58, label, fn, { width: 118, height: 28, fontSize: 8, variant: "secondary" })
+      )
+    );
     fijo(
       new Button(scene, GAME_WIDTH - 70, 58, "Jugar", () => (location.href = `${location.pathname}?prueba`), {
         width: 118,
@@ -100,9 +119,16 @@ export class Editor {
       10,
       "#ffb83d"
     );
-    this.valores = texto(262, 68, "", 8);
-    this.estado = texto(GAME_WIDTH - 360, 58, "", 8, "#8ff09a");
-    this.elegido = texto(16, 94, "", 8, "#ffffff");
+    this.valores = texto(262, 68, "", 7);
+    this.estado = texto(GAME_WIDTH - 250, 88, "", 8, "#8ff09a");
+    this.elegido = texto(16, 88, "", 8, "#ffffff");
+    this.ayuda = texto(
+      16,
+      106,
+      "Flechas/rueda: moverse · Arrastrar: mover · +/-: tamaño (todos de ese tipo) · T: texto · Supr: borrar/ocultar · R: a su lugar · Shift+flechas: 1 px",
+      7,
+      COLORS.muted
+    );
     this.mostrarValores();
     this.mostrarElegido();
   }
@@ -118,15 +144,13 @@ export class Editor {
   mostrarElegido() {
     const o = this.sel;
     if (!o) {
-      this.elegido.setText(
-        "Flechas/rueda: moverse · Arrastrá un adorno · +/-: tamaño (todos de ese tipo) · Supr: ocultar · R: a su lugar · Shift+flechas: de a 1 px"
-      );
+      this.elegido.setText("Tocá un adorno o cartel para elegirlo.");
       return;
     }
     const a = this.aj.objetos[this.s.tramoIndex]?.[o.editId] ?? {};
     const escala = this.aj.escalas[o.texture.key] ?? 1;
     this.elegido.setText(
-      `${o.editId} · tamaño x${escala.toFixed(2)} · corrido (${a.dx ?? 0}, ${a.dy ?? 0})${a.oculto ? " · OCULTO" : ""}`
+      `${o.agregado ? "Agregado" : o.editId} · ${o.texture.key} · tamaño x${escala.toFixed(2)} · corrido (${a.dx ?? 0}, ${a.dy ?? 0})${a.oculto ? " · OCULTO" : ""}`
     );
   }
 
@@ -219,6 +243,135 @@ export class Editor {
     if (!Object.keys(tramo).length) delete this.aj.objetos[this.s.tramoIndex];
   }
 
+  // ---------- Agregar, cambiar, texto y borrar ----------
+  agregados() {
+    return ((this.aj.agregados ??= {})[this.s.tramoIndex] ??= []);
+  }
+
+  redibujar(sel) {
+    this.guardar();
+    this.reiniciar(this.s.tramoIndex, this.s.cameras.main.scrollX, sel);
+  }
+
+  borrar() {
+    const o = this.sel;
+    if (!o) return;
+    if (!o.agregado) return this.ocultar();
+    const lista = this.agregados();
+    const i = lista.findIndex((a) => `nuevo#${a.n}` === o.editId);
+    if (i >= 0) lista.splice(i, 1);
+    if (!lista.length) delete this.aj.agregados[this.s.tramoIndex];
+    delete this.aj.objetos[this.s.tramoIndex]?.[o.editId];
+    this.ordenar();
+    this.redibujar(null);
+  }
+
+  // Paleta con todos los adornos: para agregar uno nuevo (en el medio de la pantalla) o para poner
+  // otro dibujo en lugar del elegido.
+  paleta(modo) {
+    if (modo === "cambiar" && !this.sel) return this.avisar("Primero elegí qué cambiar", "#ffd27a");
+    const botones = PALETA.map(
+      (k) =>
+        `<button data-k="${k}" style="${ESTILO_BOTON}width:112px;height:112px;margin:4px;vertical-align:top">` +
+        `<img src="assets/decoracion/${k}.png" style="max-width:92px;max-height:76px;display:block;margin:0 auto 6px">` +
+        `<span style="font-size:7px;color:#cfe3ef">${k}</span></button>`
+    ).join("");
+    const titulo = modo === "agregar" ? "Agregar un adorno" : "Cambiar por…";
+    this.abrir(
+      `<div style="margin-bottom:10px;color:#ffb83d">${titulo}</div>${botones}` +
+        `<div style="margin-top:10px"><button data-k="" style="${ESTILO_BOTON}padding:8px 14px">Cancelar</button></div>`,
+      (d) =>
+        d.querySelectorAll("button[data-k]").forEach((b) =>
+          b.addEventListener("click", () => {
+            const k = b.dataset.k;
+            if (!k) return this.cerrar();
+            if (modo === "agregar") this.agregar(k);
+            else this.cambiar(k);
+          })
+        )
+    );
+  }
+
+  agregar(key) {
+    const lista = this.agregados();
+    const n = lista.reduce((m, a) => Math.max(m, a.n), 0) + 1;
+    lista.push({ n, key, x: Math.round(this.s.cameras.main.scrollX + GAME_WIDTH / 2) });
+    this.redibujar(`nuevo#${n}`);
+  }
+
+  cambiar(key) {
+    const o = this.sel;
+    if (o.agregado) {
+      const a = this.agregados().find((a) => `nuevo#${a.n}` === o.editId);
+      if (a) a.key = key;
+    } else {
+      const a = this.ajusteDe(o);
+      if (o.editId.startsWith(`${key}#`))
+        delete a.key; // volvió a ser lo que era
+      else a.key = key;
+    }
+    this.ordenar();
+    this.redibujar(o.editId);
+  }
+
+  editarTexto() {
+    const o = this.sel;
+    if (!o) return this.avisar("Primero elegí un cartel", "#ffd27a");
+    if (!TABLAS[o.texture.key]) return this.avisar("Ese adorno no tiene dónde escribir", "#ffd27a");
+    const escapar = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    const boton = (a, texto) =>
+      `<button data-a="${a}" style="${ESTILO_BOTON}padding:8px 14px;margin:0 4px">${texto}</button>`;
+    this.abrir(
+      `<div style="margin-bottom:10px;color:#ffb83d">Texto del cartel (un renglón por línea)</div>` +
+        `<textarea rows="4" style="width:420px;font-family:inherit;font-size:13px;padding:8px;border-radius:6px">${escapar(
+          (o.lineas ?? []).join("\n")
+        )}</textarea>` +
+        `<div style="margin-top:12px">${boton("ok", "Listo")}${boton("original", "El de siempre")}${boton("no", "Cancelar")}</div>`,
+      (d) => {
+        const area = d.querySelector("textarea");
+        area.focus();
+        d.querySelectorAll("button[data-a]").forEach((b) =>
+          b.addEventListener("click", () => {
+            if (b.dataset.a === "no") return this.cerrar();
+            const a = this.ajusteDe(o);
+            if (b.dataset.a === "original") delete a.texto;
+            else {
+              const lineas = area.value.split("\n").map((l) => l.trim());
+              while (lineas.length && !lineas.at(-1)) lineas.pop();
+              a.texto = lineas;
+            }
+            this.ordenar();
+            this.redibujar(o.editId);
+          })
+        );
+      }
+    );
+  }
+
+  // Ventanita HTML encima del juego (mientras está abierta, el teclado es de la ventanita).
+  abrir(html, armar) {
+    this.cerrar();
+    const d = document.createElement("div");
+    d.style.cssText =
+      "position:fixed;inset:0;background:rgba(5,12,20,.65);display:flex;align-items:center;" +
+      'justify-content:center;z-index:1000;font-family:"Press Start 2P",monospace';
+    d.innerHTML =
+      '<div style="background:#16283a;border:3px solid #ffb83d;border-radius:12px;padding:18px;max-width:920px;' +
+      `max-height:82vh;overflow:auto;color:#fff;font-size:11px;text-align:center">${html}</div>`;
+    d.addEventListener("pointerdown", (e) => e.target === d && this.cerrar());
+    document.body.appendChild(d);
+    this.dom = d;
+    this.s.input.keyboard.manager.enabled = false;
+    armar(d);
+  }
+
+  cerrar() {
+    if (!this.dom) return;
+    this.dom.remove();
+    this.dom = null;
+    this.s.input.keyboard.manager.enabled = true;
+  }
+
   // ---------- Paisaje ----------
   cambiarPaisaje(campo, delta) {
     const p = (this.aj.paisajes[this.paisaje] ??= {});
@@ -245,17 +398,18 @@ export class Editor {
   reiniciarLuego() {
     this.timer?.remove();
     this.timer = this.s.time.delayedCall(REINICIO_MS, () =>
-      this.reiniciar(this.s.tramoIndex, this.s.cameras.main.scrollX)
+      this.reiniciar(this.s.tramoIndex, this.s.cameras.main.scrollX, this.sel?.editId)
     );
   }
 
-  reiniciar(tramo, x) {
+  reiniciar(tramo, x, sel = null) {
+    this.cerrar();
     try {
       history.replaceState(null, "", `${location.pathname}?editor=${tramo}`);
     } catch {
       // Sin historial: no pasa nada, solo no queda recordado al recargar.
     }
-    this.s.scene.restart({ paisId: this.s.paisId, tramo, editorX: x });
+    this.s.scene.restart({ paisId: this.s.paisId, tramo, editorX: x, editorSel: sel });
   }
 
   // ---------- Teclado y cámara ----------
@@ -263,9 +417,11 @@ export class Editor {
     this.shift = scene.input.keyboard.addKey("SHIFT");
     scene.input.on("wheel", (_p, _o, dx, dy) => this.desplazar(dx + dy));
     scene.input.keyboard.on("keydown", (e) => {
+      if (this.dom) return; // escribiendo en un cuadro de texto
       if (e.key === "+" || e.key === "=") this.escalar(ZOOM_TAMANO);
       else if (e.key === "-") this.escalar(1 / ZOOM_TAMANO);
-      else if (e.key === "Delete" || e.key === "Backspace") this.ocultar();
+      else if (e.key === "Delete" || e.key === "Backspace") this.borrar();
+      else if (e.key === "t" || e.key === "T") this.editarTexto();
       else if (e.key === "r" || e.key === "R") this.aSuLugar();
       else if (e.shiftKey && this.sel && e.key.startsWith("Arrow")) {
         const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
@@ -290,7 +446,7 @@ export class Editor {
     this.s.parallax.update(cam.scrollX);
     // Vicente queda parado en pantalla como referencia de tamaño.
     const p = this.s.player;
-    p.setPosition(cam.scrollX + 330, 600);
+    p.setPosition(cam.scrollX + 60, 600).setAlpha(0.85); // en el borde, para no tapar nada
     this.marco.clear();
     if (this.sel?.active) {
       const b = this.sel.getBounds();

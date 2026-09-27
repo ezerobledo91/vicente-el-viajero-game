@@ -92,3 +92,22 @@ export const TRANSICIONES = {
   mojonCada: 3000, // px entre mojones
   conParada: ["buenosaires", "rosario", "santafe", "corrientes", "posadas"],
 };
+
+// Carteles donde se puede escribir (el juego o el editor): parte de la tabla en proporción del alto
+// del dibujo [arriba, abajo], color de la letra y del borde, y tamaño de letra por defecto.
+const MADERA = { color: "#ffffff", borde: "#3a2212", size: 13 };
+export const TABLAS = {
+  "tr-cartel-madera": { ...MADERA, tabla: [0.06, 0.44] },
+  "tr-arco": { ...MADERA, tabla: [0.03, 0.2] },
+  "tr-cartel-ruta": { color: "#ffffff", borde: "#123a78", size: 14, tabla: [0.11, 0.44] },
+  "tr-mojon": { color: "#2a1d1a", borde: "#f4efe6", size: 11, tabla: [0.45, 0.8] },
+  "tr-poste": { ...MADERA, size: 9, tabla: [0.03, 0.43] },
+  "pa-tablero": { ...MADERA, size: 11, tabla: [0.06, 0.54] },
+  "li-tablero": { ...MADERA, size: 10, tabla: [0.05, 0.4] },
+  "pa-flecha": { ...MADERA, size: 9, tabla: [0.08, 0.36] },
+  "li-mojon-piedra": { color: "#2a1d1a", borde: "#f4efe6", size: 10, tabla: [0.2, 0.55] },
+};
+
+// Todo lo que se puede agregar o poner en lugar de otra cosa desde el editor.
+export const PALETA = [...Object.keys(TRANSICIONES.alturas), ...Object.keys(AMBIENTACION.alturas)];
+export const alturaDe = (key) => AMBIENTACION.alturas[key] ?? TRANSICIONES.alturas[key] ?? 80;
