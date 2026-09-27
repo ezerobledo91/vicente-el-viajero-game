@@ -178,10 +178,18 @@
         {
           "key": "interactuar",
           "label": "Interactuar",
-          "frames": 3,
+          "frames": 4,
           "fps": 3,
           "repeat": 1,
           "archivo": "personajes/familia/mama/interactuar.png"
+        },
+        {
+          "key": "abrazo",
+          "label": "Abrazo",
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0,
+          "archivo": "personajes/familia/mama/abrazo.png"
         }
       ],
       "alias": [
@@ -189,7 +197,7 @@
           "key": "idle",
           "label": "Quieta",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [0],
           "fps": 1,
           "repeat": -1
         },
@@ -197,7 +205,7 @@
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [0],
+          "frames": [1],
           "fps": 1,
           "repeat": -1,
           "hidden": true
@@ -225,10 +233,18 @@
         {
           "key": "interactuar",
           "label": "Interactuar",
-          "frames": 3,
+          "frames": 4,
           "fps": 3,
           "repeat": 1,
           "archivo": "personajes/familia/papa/interactuar.png"
+        },
+        {
+          "key": "abrazo",
+          "label": "Abrazo",
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0,
+          "archivo": "personajes/familia/papa/abrazo.png"
         }
       ],
       "alias": [
@@ -236,7 +252,7 @@
           "key": "idle",
           "label": "Quieto",
           "from": "interactuar",
-          "frames": [1],
+          "frames": [0],
           "fps": 1,
           "repeat": -1
         },
@@ -244,7 +260,7 @@
           "key": "saludar",
           "label": "Saludar",
           "from": "interactuar",
-          "frames": [0],
+          "frames": [1],
           "fps": 1,
           "repeat": -1,
           "hidden": true

@@ -788,11 +788,12 @@
       "parada": 300
     },
     "reconquista": {
-      "tipo": "panorama",
-      "piso": 596,
+      "tipo": "postal",
       "ancho": 1280,
-      "alto": 724,
-      "cielo": "#2da5fd"
+      "alto": 720,
+      "cielo": "#2ca3ea",
+      "pie": 650,
+      "parada": 300
     },
     "corrientes": {
       "tipo": "panorama",

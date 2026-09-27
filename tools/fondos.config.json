@@ -144,10 +144,10 @@
       "parada": 300
     },
     "reconquista": {
-      "tipo": "panorama",
-      "src": "personajes/paises/argentina/ciudades/reconquista-casa.png",
-      "piso": 596,
-      "x": 0
+      "tipo": "postal",
+      "src": "personajes/paises/argentina/ciudades/reconquista-casa.webp",
+      "pie": 650,
+      "parada": 300
     },
     "corrientes": {
       "tipo": "panorama",

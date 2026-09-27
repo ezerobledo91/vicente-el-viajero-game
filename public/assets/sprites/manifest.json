@@ -203,11 +203,11 @@
       "rol": "Con Catalina (bebé)",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 160,
+      "alturaPx": 161,
       "texture": "mama.png",
-      "frameWidth": 106,
-      "frameHeight": 165,
-      "frameCount": 11,
+      "frameWidth": 112,
+      "frameHeight": 166,
+      "frameCount": 16,
       "animations": [
         {
           "key": "caminar",
@@ -231,16 +231,29 @@
           "frames": [
             8,
             9,
-            10
+            10,
+            11
           ],
           "fps": 3,
           "repeat": 1
         },
         {
+          "key": "abrazo",
+          "label": "Abrazo",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "idle",
           "label": "Quieta",
           "frames": [
-            9
+            8
           ],
           "fps": 1,
           "repeat": -1,
@@ -250,7 +263,7 @@
           "key": "saludar",
           "label": "Saludar",
           "frames": [
-            8
+            9
           ],
           "fps": 1,
           "repeat": -1,
@@ -265,11 +278,11 @@
       "rol": "Ezequiel",
       "facing": "right",
       "alturaCm": 175,
-      "alturaPx": 160,
+      "alturaPx": 161,
       "texture": "papa.png",
-      "frameWidth": 109,
-      "frameHeight": 165,
-      "frameCount": 11,
+      "frameWidth": 118,
+      "frameHeight": 166,
+      "frameCount": 16,
       "animations": [
         {
           "key": "caminar",
@@ -293,16 +306,29 @@
           "frames": [
             8,
             9,
-            10
+            10,
+            11
           ],
           "fps": 3,
           "repeat": 1
         },
         {
+          "key": "abrazo",
+          "label": "Abrazo",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "idle",
           "label": "Quieto",
           "frames": [
-            9
+            8
           ],
           "fps": 1,
           "repeat": -1,
@@ -312,7 +338,7 @@
           "key": "saludar",
           "label": "Saludar",
           "frames": [
-            8
+            9
           ],
           "fps": 1,
           "repeat": -1,

@@ -31,11 +31,11 @@ const QUIZ_POS = { x: 900, y: 360 };
 // (Rosario ya trae el Monumento a la Bandera en su portada.)
 const MONUMENTOS = {};
 const HOGAR = {
-  casaX: 700,
+  casaX: 800, // la puerta de la casa en la portada de Reconquista
   familia: [
-    { id: "mama", x: 560, dice: "¡Vicente! ¡Llegaste a casa!" },
-    { id: "papa", x: 850, dice: "¡Qué viajero! Contanos todo lo que viste." },
-    { id: "anita", x: 980, dice: "¡Yo también quiero viajar! ¿Me llevás?" },
+    { id: "mama", x: 700, dice: "¡Vicente! ¡Llegaste a casa!" },
+    { id: "papa", x: 880, dice: "¡Qué viajero! Contanos todo lo que viste." },
+    { id: "anita", x: 1020, dice: "¡Yo también quiero viajar! ¿Me llevás?" },
   ],
   vicente: "¡Sí! ¡Vamos juntos hasta la Triple Frontera!",
 };
@@ -160,7 +160,7 @@ export class CiudadScene extends Phaser.Scene {
     // Con la ilustración del barrio de fondo, la casa ya está dibujada; si no, una provisoria.
     if (!this.fondoIlustrado)
       this.add
-        .image(HOGAR.casaX, GROUND_Y + 4, houseTexture(this))
+        .image(HOGAR.casaX, this.pisoY + 4, houseTexture(this))
         .setOrigin(0.5, 1)
         .setDepth(2);
     const yaViaja = this.progreso.companeros.includes("anita");
@@ -168,15 +168,23 @@ export class CiudadScene extends Phaser.Scene {
       .filter((f) => !(yaViaja && f.id === "anita"))
       .map((f) => ({
         ...f,
-        c: new Character(this, f.x, GROUND_Y, f.id, { pxPerCm: PX_PER_CM.viaje }).face("left").setDepth(8),
+        c: new Character(this, f.x, this.pisoY, f.id, { pxPerCm: PX_PER_CM.viaje }).face("left").setDepth(8),
       }));
 
+    // Cada familiar recibe a Vicente con los brazos abiertos (abrazo) y después lo saluda.
+    const recibir = (c) => {
+      const saludar = () => c.has("saludar") && c.loop("saludar");
+      if (c.has("abrazo")) c.perform("abrazo").then(saludar);
+      else saludar();
+    };
     if (yaViaja) {
+      familia.forEach((f) => recibir(f.c));
       await this.say(familia[0].c, "¡Volvieron! ¡Qué lindo verlos!", 2200);
+      familia.forEach((f) => f.c.idle());
       return;
     }
     for (const f of familia) {
-      if (f.c.has("saludar")) f.c.loop("saludar");
+      recibir(f.c);
       await this.say(f.c, f.dice, 2400);
       f.c.idle();
     }
