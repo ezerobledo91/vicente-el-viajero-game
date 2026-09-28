@@ -71,10 +71,10 @@
       "nombre": "Ciervo de los pantanos",
       "facing": "right",
       "alturaCm": 115,
-      "alturaPx": 111,
+      "alturaPx": 139,
       "texture": "ciervo-pantanos.png",
-      "frameWidth": 110,
-      "frameHeight": 115,
+      "frameWidth": 135,
+      "frameHeight": 143,
       "frameCount": 7,
       "animations": [
         {

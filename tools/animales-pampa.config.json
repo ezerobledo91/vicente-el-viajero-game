@@ -169,7 +169,7 @@
       "id": "vaca",
       "nombre": "Vaca",
       "alturaCm": 150,
-      "alturaPx": 110,
+      "alturaPx": 180,
       "facing": "right",
       "archivos": true,
       "animations": [

@@ -127,10 +127,10 @@
       "nombre": "Guanaco",
       "facing": "right",
       "alturaCm": 150,
-      "alturaPx": 111,
+      "alturaPx": 181,
       "texture": "guanaco.png",
-      "frameWidth": 106,
-      "frameHeight": 123,
+      "frameWidth": 171,
+      "frameHeight": 199,
       "frameCount": 5,
       "animations": [
         {

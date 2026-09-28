@@ -99,7 +99,7 @@
       "id": "garza-blanca",
       "nombre": "Garza blanca",
       "alturaCm": 100,
-      "alturaPx": 110,
+      "alturaPx": 120,
       "facing": "right",
       "archivos": true,
       "animations": [

@@ -98,7 +98,7 @@
       "id": "guara",
       "nombre": "Guará",
       "alturaCm": 90,
-      "alturaPx": 100,
+      "alturaPx": 108,
       "facing": "left",
       "archivos": true,
       "animations": [

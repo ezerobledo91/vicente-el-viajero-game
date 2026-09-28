@@ -111,10 +111,10 @@
       "nombre": "Garza blanca",
       "facing": "right",
       "alturaCm": 100,
-      "alturaPx": 110,
+      "alturaPx": 121,
       "texture": "garza-blanca.png",
-      "frameWidth": 127,
-      "frameHeight": 155,
+      "frameWidth": 138,
+      "frameHeight": 169,
       "frameCount": 5,
       "animations": [
         {

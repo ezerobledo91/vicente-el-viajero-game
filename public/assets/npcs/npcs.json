@@ -6,10 +6,10 @@
       "nombre": "Guardaparques",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 111,
+      "alturaPx": 208,
       "texture": "guardaparques.png",
-      "frameWidth": 73,
-      "frameHeight": 115,
+      "frameWidth": 133,
+      "frameHeight": 212,
       "frameCount": 2,
       "animations": [
         {
@@ -38,10 +38,10 @@
       "nombre": "Trabajador patagónico",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 111,
+      "alturaPx": 207,
       "texture": "trabajador-patagonico.png",
-      "frameWidth": 74,
-      "frameHeight": 115,
+      "frameWidth": 136,
+      "frameHeight": 211,
       "frameCount": 2,
       "animations": [
         {
@@ -70,10 +70,10 @@
       "nombre": "Guía costera",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 111,
+      "alturaPx": 196,
       "texture": "guia-costera.png",
-      "frameWidth": 72,
-      "frameHeight": 115,
+      "frameWidth": 124,
+      "frameHeight": 200,
       "frameCount": 2,
       "animations": [
         {
@@ -102,10 +102,10 @@
       "nombre": "Kiosquera",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 111,
+      "alturaPx": 196,
       "texture": "kiosquera.png",
-      "frameWidth": 67,
-      "frameHeight": 115,
+      "frameWidth": 115,
+      "frameHeight": 200,
       "frameCount": 2,
       "animations": [
         {
@@ -134,10 +134,10 @@
       "nombre": "Veterinario rural",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 111,
+      "alturaPx": 208,
       "texture": "veterinario.png",
-      "frameWidth": 67,
-      "frameHeight": 115,
+      "frameWidth": 122,
+      "frameHeight": 212,
       "frameCount": 2,
       "animations": [
         {
@@ -166,10 +166,10 @@
       "nombre": "Visitante del río",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 111,
+      "alturaPx": 208,
       "texture": "visitante-rio.png",
-      "frameWidth": 68,
-      "frameHeight": 115,
+      "frameWidth": 124,
+      "frameHeight": 212,
       "frameCount": 2,
       "animations": [
         {
@@ -198,10 +198,10 @@
       "nombre": "Pescador",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 208,
       "texture": "pescador.png",
-      "frameWidth": 73,
-      "frameHeight": 114,
+      "frameWidth": 133,
+      "frameHeight": 212,
       "frameCount": 2,
       "animations": [
         {
@@ -230,10 +230,10 @@
       "nombre": "Trabajadora de la yerba",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 111,
+      "alturaPx": 196,
       "texture": "yerbatera.png",
-      "frameWidth": 76,
-      "frameHeight": 115,
+      "frameWidth": 131,
+      "frameHeight": 200,
       "frameCount": 2,
       "animations": [
         {
@@ -262,10 +262,10 @@
       "nombre": "Guía de Iguazú",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 112,
+      "alturaPx": 208,
       "texture": "guia-iguazu.png",
-      "frameWidth": 70,
-      "frameHeight": 116,
+      "frameWidth": 128,
+      "frameHeight": 212,
       "frameCount": 2,
       "animations": [
         {

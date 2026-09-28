@@ -26,10 +26,10 @@
         "plataforma": "personajes/paises/argentina/tramos/estepa/plataformas.png",
         "tronco": "personajes/paises/argentina/tramos/estepa/troncos.png"
       },
-      "piso": 606,
-      "corte": 578,
+      "piso": 605,
+      "corte": 556,
       "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
-      "sueloFilas": [50, 136],
+      "sueloFilas": [118, 724],
       "fondoEspejar": true
     },
     "costa": {

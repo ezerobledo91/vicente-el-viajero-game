@@ -7,10 +7,10 @@
       "rol": "8 años · Jugador",
       "facing": "right",
       "alturaCm": 128,
-      "alturaPx": 117,
+      "alturaPx": 155,
       "texture": "vicente.png",
-      "frameWidth": 116,
-      "frameHeight": 123,
+      "frameWidth": 151,
+      "frameHeight": 162,
       "frameCount": 62,
       "animations": [
         {
@@ -249,10 +249,10 @@
       "rol": "Con Catalina (bebé)",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 161,
+      "alturaPx": 196,
       "texture": "mama.png",
-      "frameWidth": 112,
-      "frameHeight": 166,
+      "frameWidth": 136,
+      "frameHeight": 202,
       "frameCount": 16,
       "animations": [
         {
@@ -324,10 +324,10 @@
       "rol": "Ezequiel",
       "facing": "right",
       "alturaCm": 175,
-      "alturaPx": 161,
+      "alturaPx": 211,
       "texture": "papa.png",
-      "frameWidth": 118,
-      "frameHeight": 166,
+      "frameWidth": 152,
+      "frameHeight": 216,
       "frameCount": 16,
       "animations": [
         {

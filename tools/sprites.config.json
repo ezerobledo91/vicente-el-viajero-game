@@ -184,7 +184,7 @@
       ],
       "archivos": true,
       "cuadrosEnLamina": 41,
-      "alturaPx": 116
+      "alturaPx": 154
     },
     {
       "id": "mama",
@@ -239,7 +239,7 @@
       ],
       "archivos": true,
       "cuadrosEnLamina": 7,
-      "alturaPx": 160
+      "alturaPx": 195
     },
     {
       "id": "papa",
@@ -294,7 +294,7 @@
       ],
       "archivos": true,
       "cuadrosEnLamina": 7,
-      "alturaPx": 160
+      "alturaPx": 210
     },
     {
       "id": "anita",

@@ -9,7 +9,7 @@
       "id": "choique-estepa",
       "nombre": "Choique",
       "alturaCm": 120,
-      "alturaPx": 110,
+      "alturaPx": 144,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -69,7 +69,7 @@
       "id": "flamenco-austral",
       "nombre": "Flamenco austral",
       "alturaCm": 110,
-      "alturaPx": 110,
+      "alturaPx": 132,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -119,7 +119,7 @@
       "id": "huemul",
       "nombre": "Huemul",
       "alturaCm": 110,
-      "alturaPx": 110,
+      "alturaPx": 132,
       "facing": "right",
       "archivos": true,
       "animations": [

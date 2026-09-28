@@ -6,10 +6,10 @@
       "nombre": "Choique",
       "facing": "right",
       "alturaCm": 120,
-      "alturaPx": 111,
+      "alturaPx": 145,
       "texture": "choique-estepa.png",
-      "frameWidth": 103,
-      "frameHeight": 127,
+      "frameWidth": 132,
+      "frameHeight": 165,
       "frameCount": 5,
       "animations": [
         {
@@ -76,10 +76,10 @@
       "nombre": "Flamenco austral",
       "facing": "right",
       "alturaCm": 110,
-      "alturaPx": 111,
+      "alturaPx": 133,
       "texture": "flamenco-austral.png",
-      "frameWidth": 143,
-      "frameHeight": 122,
+      "frameWidth": 171,
+      "frameHeight": 145,
       "frameCount": 5,
       "animations": [
         {
@@ -127,10 +127,10 @@
       "nombre": "Huemul",
       "facing": "right",
       "alturaCm": 110,
-      "alturaPx": 110,
+      "alturaPx": 133,
       "texture": "huemul.png",
-      "frameWidth": 115,
-      "frameHeight": 122,
+      "frameWidth": 138,
+      "frameHeight": 146,
       "frameCount": 5,
       "animations": [
         {

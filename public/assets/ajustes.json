@@ -1,1 +1,191 @@
-{}
+{
+  "escalas": {
+    "pa-lena": 1.888,
+    "tr-guardarrail": 1.277,
+    "tr-cartel-madera": 1
+  },
+  "paisajes": {
+    "bosque-fueguino": {
+      "orillaDy": 16,
+      "sueloDy": -8,
+      "orillaDx": 4
+    }
+  },
+  "objetos": {
+    "0": {
+      "tr-arco#0": {
+        "key": "tr-cartel-madera",
+        "dx": -210,
+        "dy": -9,
+        "texto": [
+          "Hacia El Calafate"
+        ]
+      },
+      "pa-binoculares#0": {
+        "oculto": true
+      },
+      "pa-mate#0": {
+        "oculto": true
+      },
+      "pa-mate#1": {
+        "oculto": true
+      },
+      "nuevo#1": {
+        "dx": 101,
+        "dy": -32
+      },
+      "pa-flecha#0": {
+        "dx": 1,
+        "oculto": true
+      },
+      "pa-tablero#0": {
+        "dx": -346,
+        "dy": -25
+      },
+      "nuevo#2": {
+        "dx": -17,
+        "dy": -34
+      },
+      "nuevo#3": {
+        "dx": -296,
+        "dy": -34
+      },
+      "pa-flecha#2": {
+        "oculto": true
+      },
+      "tr-banco#0": {
+        "oculto": true,
+        "dx": -206,
+        "dy": -39
+      },
+      "tr-poste#0": {
+        "oculto": true
+      },
+      "tr-guardarrail#0": {
+        "dy": -35,
+        "dx": -28
+      },
+      "nuevo#4": {
+        "dx": -143,
+        "dy": -42
+      }
+    }
+  },
+  "recorrido": {
+    "0": {
+      "cambios": {
+        "plataforma#0": {
+          "dx": 198
+        },
+        "figurita#1": {
+          "dx": 207,
+          "dy": 8,
+          "oculto": true
+        },
+        "figurita#0": {
+          "dx": 220,
+          "dy": -3
+        },
+        "npc#0": {
+          "dx": 167
+        },
+        "animal#0": {
+          "dx": -79
+        },
+        "figurita#13": {
+          "oculto": true
+        },
+        "figurita#12": {
+          "oculto": true
+        },
+        "figurita#11": {
+          "oculto": true
+        },
+        "figurita#10": {
+          "oculto": true
+        },
+        "figurita#9": {
+          "oculto": true
+        },
+        "perro#2": {
+          "oculto": true
+        },
+        "figurita#48": {
+          "dx": 41,
+          "dy": 154
+        },
+        "figurita#49": {
+          "dx": 21,
+          "dy": 48
+        },
+        "figurita#50": {
+          "dx": -15,
+          "dy": 32
+        },
+        "figurita#39": {
+          "dx": -177,
+          "dy": -136
+        },
+        "figurita#41": {
+          "dx": -519,
+          "dy": -239
+        },
+        "figurita#29": {
+          "oculto": true
+        },
+        "figurita#30": {
+          "oculto": true
+        },
+        "figurita#25": {
+          "oculto": true
+        },
+        "figurita#24": {
+          "oculto": true
+        },
+        "figurita#23": {
+          "oculto": true
+        },
+        "plataforma#14": {
+          "dx": -21,
+          "dy": 3
+        },
+        "figurita#51": {
+          "dx": -29,
+          "dy": -16
+        },
+        "figurita#52": {
+          "dx": -10,
+          "dy": 27
+        },
+        "figurita#53": {
+          "dy": -11,
+          "dx": -1
+        }
+      }
+    }
+  },
+  "agregados": {
+    "0": [
+      {
+        "n": 1,
+        "key": "pa-manga-viento",
+        "x": 4630
+      },
+      {
+        "n": 2,
+        "key": "tr-guardarrail",
+        "x": 7450
+      },
+      {
+        "n": 3,
+        "key": "tr-guardarrail",
+        "x": 7450
+      },
+      {
+        "n": 4,
+        "key": "tr-guardarrail",
+        "x": 11418
+      }
+    ]
+  }
+}

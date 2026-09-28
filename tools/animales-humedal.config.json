@@ -59,7 +59,7 @@
       "id": "ciervo-pantanos",
       "nombre": "Ciervo de los pantanos",
       "alturaCm": 115,
-      "alturaPx": 110,
+      "alturaPx": 138,
       "facing": "right",
       "archivos": true,
       "animations": [

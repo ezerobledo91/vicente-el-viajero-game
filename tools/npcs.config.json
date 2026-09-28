@@ -9,7 +9,7 @@
       "id": "guardaparques",
       "nombre": "Guardaparques",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -39,7 +39,7 @@
       "id": "trabajador-patagonico",
       "nombre": "Trabajador patagónico",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -69,7 +69,7 @@
       "id": "guia-costera",
       "nombre": "Guía costera",
       "alturaCm": 162,
-      "alturaPx": 110,
+      "alturaPx": 195,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -99,7 +99,7 @@
       "id": "kiosquera",
       "nombre": "Kiosquera",
       "alturaCm": 162,
-      "alturaPx": 110,
+      "alturaPx": 195,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -129,7 +129,7 @@
       "id": "veterinario",
       "nombre": "Veterinario rural",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -159,7 +159,7 @@
       "id": "visitante-rio",
       "nombre": "Visitante del río",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -189,7 +189,7 @@
       "id": "pescador",
       "nombre": "Pescador",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -219,7 +219,7 @@
       "id": "yerbatera",
       "nombre": "Trabajadora de la yerba",
       "alturaCm": 162,
-      "alturaPx": 110,
+      "alturaPx": 195,
       "facing": "right",
       "archivos": true,
       "animations": [
@@ -249,7 +249,7 @@
       "id": "guia-iguazu",
       "nombre": "Guía de Iguazú",
       "alturaCm": 172,
-      "alturaPx": 110,
+      "alturaPx": 207,
       "facing": "right",
       "archivos": true,
       "animations": [

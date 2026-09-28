@@ -120,10 +120,10 @@
       "nombre": "Guará",
       "facing": "left",
       "alturaCm": 90,
-      "alturaPx": 101,
+      "alturaPx": 108,
       "texture": "guara.png",
-      "frameWidth": 104,
-      "frameHeight": 105,
+      "frameWidth": 111,
+      "frameHeight": 112,
       "frameCount": 2,
       "animations": [
         {

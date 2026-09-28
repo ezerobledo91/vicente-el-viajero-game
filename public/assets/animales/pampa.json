@@ -189,10 +189,10 @@
       "nombre": "Vaca",
       "facing": "right",
       "alturaCm": 150,
-      "alturaPx": 110,
+      "alturaPx": 180,
       "texture": "vaca.png",
-      "frameWidth": 173,
-      "frameHeight": 115,
+      "frameWidth": 279,
+      "frameHeight": 185,
       "frameCount": 5,
       "animations": [
         {
