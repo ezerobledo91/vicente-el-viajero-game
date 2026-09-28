@@ -54,6 +54,9 @@ export class PreloadScene extends Phaser.Scene {
       this.load.image(ASSETS.FONDO_CIUDAD(id), `${ASSETS.FONDOS_PATH}ciudad-${id}.webp`);
 
     // Mapa, regiones calibradas, banderas y emblemas
+    // Clima (lluvia, niebla, hojas...)
+    for (const key of Object.keys(this.cache.json.get(ASSETS.CLIMA) ?? {}))
+      this.load.image(`clima-${key}`, `assets/clima/${key}.png`);
     this.load.image(ASSETS.MAP_IMAGE, `${ASSETS.MAP_PATH}mundo.png`);
     for (const r of REGIONES.filter((reg) => reg.disponible))
       this.load.json(ASSETS.MAP_REGION(r.id), `${ASSETS.MAP_PATH}${r.id}.json`);

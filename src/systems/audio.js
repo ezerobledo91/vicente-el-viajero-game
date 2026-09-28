@@ -383,3 +383,40 @@ export function alternar(tipo) {
 // Para depurar: estado del audio y estilo que está sonando.
 export const estadoAudio = () => ({ contexto: ctx?.state ?? "sin crear", estilo: actual?.estilo ?? null, pedida });
 if (import.meta.env?.DEV && typeof window !== "undefined") window.__audio = { estadoAudio, efecto };
+
+// ---------- Clima ----------
+// Ruido filtrado que sube, se queda y baja: "lluvia" (agudo y parejo), "viento" (grave, con ráfagas) o
+// "rocio" (el rumor de las cataratas, grave y constante).
+const CLIMA_SONIDO = {
+  lluvia: { tipo: "bandpass", f: 2600, q: 0.6, vol: 0.5 },
+  viento: { tipo: "lowpass", f: 520, q: 1.2, vol: 0.7, barrido: [280, 900] },
+  rocio: { tipo: "lowpass", f: 380, q: 0.5, vol: 0.6 },
+};
+
+export function sonidoClima(nombre, dur) {
+  const c = CLIMA_SONIDO[nombre];
+  if (!c || !prefs.efectos || !listo()) return;
+  const t = ctx.currentTime + 0.02;
+  const buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 2), ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  src.loop = true;
+  const filtro = ctx.createBiquadFilter();
+  filtro.type = c.tipo;
+  filtro.frequency.value = c.f;
+  filtro.Q.value = c.q;
+  if (c.barrido)
+    for (let s = 0; s < dur; s += 1.3)
+      filtro.frequency.linearRampToValueAtTime(c.barrido[Math.round(s / 1.3) % 2], t + s + 1.3);
+  const g = ctx.createGain();
+  const sube = Math.min(1.2, dur / 3);
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(c.vol, t + sube);
+  g.gain.setValueAtTime(c.vol, t + dur - sube);
+  g.gain.linearRampToValueAtTime(0.0001, t + dur);
+  src.connect(filtro).connect(g).connect(master.efectos);
+  src.start(t);
+  src.stop(t + dur + 0.1);
+}

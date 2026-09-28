@@ -16,6 +16,7 @@ import { buildLevel } from "../systems/levelBuilder.js";
 import { createParallax } from "../systems/parallax.js";
 import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe, getAjustes } from "../systems/ajustes.js";
 import { Editor } from "../systems/editor.js";
+import { Clima } from "../systems/clima.js";
 import { aplicarRecorrido } from "../systems/recorrido.js";
 import { NOMBRE_OBJETO, NPCS } from "../data/npcs.js";
 import {
@@ -216,6 +217,8 @@ export class ViajeScene extends Phaser.Scene {
           this.contarEstrella();
         }
       });
+      // L: el próximo evento de clima ya (para probarlos).
+      this.input.keyboard.on("keydown-L", () => this.clima?.siguiente());
       this.input.keyboard.on("keydown-V", () => {
         this.vidasInfinitas = !this.vidasInfinitas;
         this.cartelito(
@@ -231,6 +234,7 @@ export class ViajeScene extends Phaser.Scene {
       return;
     }
     this.editor = null;
+    this.clima = new Clima(this, this.tramo.paisaje, GROUND_Y);
     this.scene.launch(SCENES.VIAJE_HUD, { viaje: this });
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.scene.stop(SCENES.VIAJE_HUD));
     this.time.delayedCall(400, () => this.decir(this.player, `¡Vamos a ${this.hasta.nombre}!`, 2200));

@@ -80,7 +80,7 @@ export class ViajeHudScene extends Phaser.Scene {
       txt(
         GAME_WIDTH / 2,
         150,
-        "PRUEBA · N: ir al final · V: vidas infinitas · E: +10 estrellas",
+        "PRUEBA · N: ir al final · V: vidas infinitas · E: +10 estrellas · L: clima",
         10,
         "#ff6b8a",
         0.5

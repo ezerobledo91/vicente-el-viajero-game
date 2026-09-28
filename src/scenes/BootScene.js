@@ -15,6 +15,7 @@ export class BootScene extends Phaser.Scene {
     for (const ruta of ASSETS.HOJAS) this.load.json(ASSETS.HOJA(ruta), ruta);
     this.load.json(ASSETS.FONDOS_MANIFEST, `${ASSETS.FONDOS_PATH}fondos.json`);
     this.load.json(ASSETS.AJUSTES, "assets/ajustes.json");
+    this.load.json(ASSETS.CLIMA, "assets/clima/clima.json");
   }
 
   create() {

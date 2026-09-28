@@ -53,6 +53,7 @@ export const ASSETS = {
   // Fondos ilustrados (npm run fondos).
   FONDOS_PATH: "assets/fondos/",
   FONDOS_MANIFEST: "fondos-manifest",
+  CLIMA: "clima-manifest", // efectos de clima recortados (npm run clima)
   AJUSTES: "ajustes", // ajustes del editor de tramos (public/assets/ajustes.json)
   FONDO: (paisaje, capa) => `fondo-${paisaje}-${capa}`,
   FONDO_CIUDAD: (id) => `fondo-ciudad-${id}`,

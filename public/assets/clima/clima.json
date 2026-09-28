@@ -1,0 +1,194 @@
+{
+  "bosque-fueguino-hojas": {
+    "w": 291,
+    "h": 175
+  },
+  "bosque-fueguino-hojas-2": {
+    "w": 318,
+    "h": 200
+  },
+  "bosque-fueguino-niebla": {
+    "w": 389,
+    "h": 142
+  },
+  "bosque-fueguino-llovizna": {
+    "w": 349,
+    "h": 234
+  },
+  "bosque-fueguino-nieve": {
+    "w": 333,
+    "h": 232
+  },
+  "bosque-fueguino-remolino": {
+    "w": 250,
+    "h": 206
+  },
+  "estepa-rafaga": {
+    "w": 397,
+    "h": 110
+  },
+  "estepa-rafaga-2": {
+    "w": 392,
+    "h": 111
+  },
+  "estepa-polvo": {
+    "w": 280,
+    "h": 97
+  },
+  "estepa-mata-rodadora": {
+    "w": 311,
+    "h": 125
+  },
+  "estepa-piedritas": {
+    "w": 388,
+    "h": 143
+  },
+  "estepa-rafaga-3": {
+    "w": 318,
+    "h": 87
+  },
+  "costa-espuma": {
+    "w": 329,
+    "h": 185
+  },
+  "costa-espuma-2": {
+    "w": 283,
+    "h": 215
+  },
+  "costa-viento": {
+    "w": 299,
+    "h": 229
+  },
+  "costa-salpicadura": {
+    "w": 246,
+    "h": 165
+  },
+  "costa-lluvia": {
+    "w": 229,
+    "h": 259
+  },
+  "costa-rocio": {
+    "w": 371,
+    "h": 290
+  },
+  "pampa-polen": {
+    "w": 324,
+    "h": 175
+  },
+  "pampa-polen-2": {
+    "w": 332,
+    "h": 195
+  },
+  "pampa-lluvia": {
+    "w": 272,
+    "h": 274
+  },
+  "pampa-barro": {
+    "w": 276,
+    "h": 150
+  },
+  "pampa-niebla": {
+    "w": 411,
+    "h": 144
+  },
+  "pampa-hojas": {
+    "w": 375,
+    "h": 227
+  },
+  "rio-brisa": {
+    "w": 355,
+    "h": 174
+  },
+  "rio-brisa-2": {
+    "w": 317,
+    "h": 176
+  },
+  "rio-lluvia": {
+    "w": 299,
+    "h": 341
+  },
+  "rio-ondas": {
+    "w": 343,
+    "h": 166
+  },
+  "rio-niebla": {
+    "w": 426,
+    "h": 174
+  },
+  "rio-gotas": {
+    "w": 361,
+    "h": 274
+  },
+  "humedal-neblina": {
+    "w": 425,
+    "h": 196
+  },
+  "humedal-neblina-2": {
+    "w": 375,
+    "h": 212
+  },
+  "humedal-lluvia": {
+    "w": 276,
+    "h": 332
+  },
+  "humedal-ondas": {
+    "w": 375,
+    "h": 261
+  },
+  "humedal-luces": {
+    "w": 335,
+    "h": 215
+  },
+  "humedal-semillas": {
+    "w": 286,
+    "h": 229
+  },
+  "selva-rayos": {
+    "w": 337,
+    "h": 479
+  },
+  "selva-rayos-2": {
+    "w": 332,
+    "h": 476
+  },
+  "selva-lluvia": {
+    "w": 260,
+    "h": 402
+  },
+  "selva-gotas": {
+    "w": 333,
+    "h": 304
+  },
+  "selva-humedad": {
+    "w": 508,
+    "h": 202
+  },
+  "selva-hojas": {
+    "w": 299,
+    "h": 328
+  },
+  "cataratas-rocio": {
+    "w": 429,
+    "h": 306
+  },
+  "cataratas-rocio-2": {
+    "w": 351,
+    "h": 342
+  },
+  "cataratas-vapor": {
+    "w": 297,
+    "h": 454
+  },
+  "cataratas-gotas": {
+    "w": 289,
+    "h": 368
+  },
+  "cataratas-arcoiris": {
+    "w": 423,
+    "h": 298
+  },
+  "cataratas-espuma": {
+    "w": 346,
+    "h": 435
+  }
+}
