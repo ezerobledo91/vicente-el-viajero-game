@@ -735,7 +735,10 @@ export class ViajeScene extends Phaser.Scene {
     // Que un cuadro de agua llegue hasta abajo de la pantalla (si se repite en vertical aparece una
     // segunda superficie en el fondo del pozo).
     const altoCuadro = this.textures.get(agua[0]).getSourceImage().height;
-    const escala = Math.max(PIEZAS.escalaAgua, (GAME_HEIGHT - yAgua) / altoCuadro);
+    // (cada cuadro ocupa un número entero de píxeles: si no, se nota una rayita donde se repite)
+    const anchoCuadro = this.textures.get(agua[0]).getSourceImage().width;
+    const escala0 = Math.max(PIEZAS.escalaAgua, (GAME_HEIGHT - yAgua) / altoCuadro);
+    const escala = Math.ceil(anchoCuadro * escala0) / anchoCuadro;
     t.setTileScale(escala);
     let k = 0;
     this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });

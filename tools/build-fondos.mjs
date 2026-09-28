@@ -95,6 +95,30 @@ async function cortarPiezas(id, file, enFila = false, nombres = null) {
     }
     if (n > 2000) cajas.push({ x0, y0, x1, y1 });
   }
+  // Láminas con las celdas pegadas (orillas y aguas que empalman sin costura): se cortan en columnas
+  // iguales, y a cada una se le recorta solo lo transparente de arriba y de abajo (y de los costados
+  // en las orillas). Al agua no se le saca el borde: ya viene hecha para repetirse.
+  let celdasIguales = false;
+  if (nombres && cajas.length < nombres.length) {
+    celdasIguales = true;
+    cajas.length = 0;
+    const cw = W / nombres.length;
+    for (let j = 0; j < nombres.length; j++) {
+      const cx0 = Math.round(j * cw),
+        cx1 = Math.round((j + 1) * cw) - 1;
+      let x0 = cx1,
+        x1 = cx0,
+        y0 = H,
+        y1 = -1;
+      for (let y = 0; y < H; y++)
+        for (let x = cx0; x <= cx1; x++)
+          if (data[(y * W + x) * 4 + 3] > 40) {
+            ((x0 = Math.min(x0, x)), (x1 = Math.max(x1, x)), (y0 = Math.min(y0, y)), (y1 = Math.max(y1, y)));
+          }
+      if (nombres[j].startsWith("agua")) ((x0 = cx0), (x1 = cx1));
+      cajas.push({ x0, y0, x1, y1 });
+    }
+  }
   const filas = [];
   if (enFila) filas.push(cajas.sort((a, b) => a.x0 - b.x0));
   else
@@ -111,7 +135,7 @@ async function cortarPiezas(id, file, enFila = false, nombres = null) {
       const nombre = nombres ? nombres[j] : enFila ? NOMBRES_PIEZAS.flat()[j] : NOMBRES_PIEZAS[k]?.[j];
       if (!nombre) continue;
       // A los cuadros de agua se les recorta el borde (suelen tener un marco claro que al repetirse arma una grilla).
-      const m = nombre.startsWith("agua") ? RECORTE_AGUA : 0;
+      const m = nombre.startsWith("agua") && !celdasIguales ? RECORTE_AGUA : 0;
       const w = c.x1 - c.x0 + 1 - 2 * m,
         h = c.y1 - c.y0 + 1 - 2 * m;
       await sharp(path.join(ROOT, file))

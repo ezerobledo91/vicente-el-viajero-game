@@ -14,7 +14,8 @@
         "tronco": "personajes/paises/argentina/tramos/bosque-fueguino/troncos.png"
       },
       "piezasEnFila": true,
-      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"]
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
+      "sueloFilas": [189, 724]
     },
     "estepa": {
       "fondo": "personajes/paises/argentina/tramos/estepa/fondo.webp",
@@ -105,7 +106,7 @@
       "fondoDy": -200,
       "fondoEspejar": true,
       "suelo": "personajes/paises/argentina/tramos/selva/suelo.png",
-      "sueloFilas": [310, 492],
+      "sueloFilas": [135, 724],
       "piezas": "personajes/paises/argentina/tramos/selva/piezas.png",
       "piezasEnFila": true,
       "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
@@ -114,15 +115,15 @@
         "plataforma": "personajes/paises/argentina/tramos/selva/plataformas.png",
         "tronco": "personajes/paises/argentina/tramos/selva/troncos.png"
       },
-      "piso": 361,
-      "corte": 310
+      "piso": 186,
+      "corte": 135
     },
     "cataratas": {
       "fondo": "personajes/paises/argentina/tramos/cataratas/fondo.webp",
       "fondoDy": -200,
       "fondoEspejar": true,
       "suelo": "personajes/paises/argentina/tramos/cataratas/suelo.png",
-      "sueloFilas": [303, 449],
+      "sueloFilas": [138, 724],
       "piezas": "personajes/paises/argentina/tramos/cataratas/piezas.png",
       "piezasEnFila": true,
       "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
@@ -132,8 +133,8 @@
         "plataforma": "personajes/paises/argentina/tramos/selva/plataformas.png",
         "tronco": "personajes/paises/argentina/tramos/selva/troncos.png"
       },
-      "piso": 343,
-      "corte": 303
+      "piso": 178,
+      "corte": 138
     }
   },
   "ciudades": {
