@@ -14,8 +14,7 @@
         "tronco": "personajes/paises/argentina/tramos/bosque-fueguino/troncos.png"
       },
       "piezasEnFila": true,
-      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"],
-      "sueloFilas": [189, 724]
+      "piezasNombres": ["borde-izq", "agua-0", "agua-1", "agua-2", "agua-3", "borde-der"]
     },
     "estepa": {
       "fondo": "personajes/paises/argentina/tramos/estepa/fondo.webp",

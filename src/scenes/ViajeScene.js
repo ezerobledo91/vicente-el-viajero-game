@@ -94,6 +94,7 @@ export class ViajeScene extends Phaser.Scene {
     this.tramoIndex = tramo;
     this.editorX = editorX ?? 0; // al reiniciar desde el editor, dónde estaba mirando
     this.editables = []; // adornos que se pueden mover y agrandar con el editor
+    this.aguas = []; // capas de agua de los pozos (se desplazan despacio)
     this.cuentaAdornos = {};
     // La escena se reutiliza entre tramos: se limpia lo que quedó del anterior.
     this.vidasInfinitas = false;
@@ -718,62 +719,94 @@ export class ViajeScene extends Phaser.Scene {
     return { key, sup: Math.round(alto * PIEZAS.superficieTronco) };
   }
 
-  // Pozo con agua animada. Si el paisaje trae orillas ilustradas (borde con agua del lado de adentro),
-  // se ponen en cada borde; si no, solo el agua con una línea de espuma y la sombra de la barranca.
+  // Pozo con agua: un cuadro que empalma consigo mismo y se desplaza despacio (con una segunda capa más
+  // transparente que va para el otro lado, para que brille), y en cada borde una barranca hecha con los
+  // mismos píxeles del suelo (así la tierra y el tamaño siempre coinciden con el camino).
   dibujarPozoIlustrado(p) {
-    const agua = [0, 1, 2, 3].map((k) => ASSETS.PIEZA(this.tramo.paisaje, `agua-${k}`));
-    if (!this.textures.exists(agua[0])) return false;
+    const paisaje = this.tramo.paisaje;
+    const keyAgua = [ASSETS.PIEZA(paisaje, "agua"), ASSETS.PIEZA(paisaje, "agua-0")].find((k) =>
+      this.textures.exists(k)
+    );
+    if (!keyAgua) return false;
+    const ajuste = ajustePaisaje(this, paisaje);
     // En píxeles enteros (igual que la cámara), para que no tiemble al caminar.
     const x0 = Math.round(p.x - p.w / 2),
       x1 = Math.round(p.x + p.w / 2);
-    const ajuste = ajustePaisaje(this, this.tramo.paisaje);
     const yAgua = GROUND_Y + PIEZAS.nivelAgua + (ajuste.aguaDy ?? 0);
-    const t = this.add
-      .tileSprite(x0, yAgua, x1 - x0, GAME_HEIGHT - yAgua, agua[0])
-      .setOrigin(0)
-      .setDepth(-4);
-    // Que un cuadro de agua llegue hasta abajo de la pantalla (si se repite en vertical aparece una
-    // segunda superficie en el fondo del pozo).
-    const altoCuadro = this.textures.get(agua[0]).getSourceImage().height;
-    // (cada cuadro ocupa un número entero de píxeles: si no, se nota una rayita donde se repite)
-    const anchoCuadro = this.textures.get(agua[0]).getSourceImage().width;
-    const escala0 = Math.max(PIEZAS.escalaAgua, (GAME_HEIGHT - yAgua) / altoCuadro);
-    const escala = Math.ceil(anchoCuadro * escala0) / anchoCuadro;
-    t.setTileScale(escala);
-    let k = 0;
-    this.time.addEvent({ delay: 180, loop: true, callback: () => t.active && t.setTexture(agua[(k = (k + 1) % 4)]) });
+    const alto = GAME_HEIGHT - yAgua;
+    // Un cuadro llega hasta abajo de la pantalla y ocupa un número entero de píxeles de ancho.
+    const img = this.textures.get(keyAgua).getSourceImage();
+    const e0 = Math.max(PIEZAS.escalaAgua, alto / img.height);
+    const escala = Math.ceil(img.width * e0) / img.width;
+    const capa = (alpha, factor, depth) =>
+      this.add
+        .tileSprite(x0, yAgua, x1 - x0, alto, keyAgua)
+        .setOrigin(0)
+        .setDepth(depth)
+        .setAlpha(alpha)
+        .setTileScale(escala * factor);
+    const abajo = capa(1, 1, -4),
+      arriba = capa(0.3, 1.3, -3.95);
+    arriba.tilePositionX = 137; // que no coincida con la de abajo
+    this.aguas.push({ abajo, arriba });
 
-    const info = this.cache.json.get(ASSETS.FONDOS_MANIFEST)?.tramos?.[this.tramo.paisaje]?.piezas ?? {};
-    const orillas = info["borde-izq"]?.agua && info["borde-der"]?.agua;
-    if (orillas) {
-      // La orilla se escala como el agua y se ubica con su agua a la altura del agua del pozo; se recorta
-      // un poco después de donde termina la tierra, así el resto del agua es la animada.
-      for (const [nombre, borde, izq] of [
-        ["borde-izq", x0, true],
-        ["borde-der", x1, false],
-      ]) {
-        const { w, h, agua: a } = info[nombre];
-        const img = this.add
-          .image(
-            Math.round(borde - a.x * escala + (izq ? -1 : 1) * (ajuste.orillaDx ?? 0)),
-            Math.round(yAgua - a.y * escala + (ajuste.orillaDy ?? 0)),
-            ASSETS.PIEZA(this.tramo.paisaje, nombre)
-          )
-          .setOrigin(0)
-          .setScale(escala)
-          .setDepth(-3.8);
-        const margen = 10;
-        img.setCrop(izq ? 0 : a.x - margen, 0, izq ? a.x + margen : w - a.x + margen, h);
-      }
-      return true;
+    // Sombra de las barrancas sobre el agua y una línea de espuma en la superficie.
+    const g = this.add.graphics().setDepth(-3.7);
+    for (let k = 1; k <= 8; k++) {
+      g.fillStyle(0x0b2f4a, 0.05);
+      g.fillRect(x0, yAgua, 6 + k * 5, alto).fillRect(x1 - 6 - k * 5, yAgua, 6 + k * 5, alto);
     }
-    // Sin orillas ilustradas: espuma en la superficie y la sombra de la barranca en cada borde.
-    const g = this.add.graphics().setDepth(-3.5);
-    g.fillStyle(0xd8f0ff, 0.85).fillRect(x0, yAgua, x1 - x0, 3);
-    for (let x = x0 + 8; x < x1 - 20; x += 34) g.fillRect(x, yAgua + 3, 14, 2);
-    g.fillStyle(0x0b2f4a, 0.45);
-    g.fillRect(x0, yAgua, 22, GAME_HEIGHT - yAgua).fillRect(x1 - 22, yAgua, 22, GAME_HEIGHT - yAgua);
+    g.fillStyle(0xe8f6ff, 0.75).fillRect(x0, yAgua, x1 - x0, 2);
+    if (this.parallax.suelo && this.textures.exists(this.parallax.suelo.key)) {
+      this.barranca(x0, yAgua, 1, ajuste);
+      this.barranca(x1, yAgua, -1, ajuste);
+    }
     return true;
+  }
+
+  // Barranca: la tierra del suelo sigue un poco sobre el agua y baja en diagonal irregular, más oscura
+  // abajo y en el borde. dir 1 = el pozo está a la derecha de x (borde izquierdo), -1 = a la izquierda.
+  barranca(x, yAgua, dir, ajuste) {
+    const { key, y: sueloY } = this.parallax.suelo;
+    const src = this.textures.get(key).getSourceImage();
+    const ancho = Math.max(12, 46 + (ajuste.orillaDx ?? 0));
+    const top = yAgua - 4 + (ajuste.orillaDy ?? 0);
+    const H = GAME_HEIGHT - top;
+    const wx0 = dir > 0 ? x : x - ancho; // x del mundo donde empieza la barranca
+    const tkey = `barranca-${this.tramo.paisaje}-${wx0}-${top}-${ancho}`;
+    if (!this.textures.exists(tkey)) {
+      const tex = this.textures.createCanvas(tkey, ancho, H);
+      const ctx = tex.getContext();
+      // La misma tira del suelo que hay en ese lugar (la textura se repite desde x = 0 del mundo).
+      const tw = src.width;
+      for (let dx = 0, sx = ((wx0 % tw) + tw) % tw; dx < ancho; sx = 0) {
+        const w = Math.min(ancho - dx, tw - sx);
+        ctx.drawImage(src, sx, top - sueloY, w, H, dx, 0, w, H);
+        dx += w;
+      }
+      const datos = ctx.getImageData(0, 0, ancho, H);
+      const d = datos.data;
+      for (let r = 0; r < H; r++) {
+        const t = r / H;
+        const borde =
+          3 + Math.pow(t, 0.7) * ancho * 0.92 + Math.sin(r * 0.31 + x) * 2.5 + Math.sin(r * 0.09 + x * 0.3) * 4;
+        for (let c = 0; c < ancho; c++) {
+          const dist = dir > 0 ? c : ancho - 1 - c; // cuánto se mete sobre el agua
+          const q = (r * ancho + c) * 4;
+          if (dist > borde) {
+            d[q + 3] = 0;
+            continue;
+          }
+          const k = borde - dist < 2.5 ? 0.5 : 1 - 0.4 * t - 0.25 * (dist / Math.max(1, borde));
+          d[q] *= k;
+          d[q + 1] *= k;
+          d[q + 2] *= k;
+        }
+      }
+      ctx.putImageData(datos, 0, 0);
+      tex.refresh();
+    }
+    this.add.image(wx0, top, tkey).setOrigin(0).setDepth(-3.6);
   }
 
   dibujarPozo(p) {
@@ -971,6 +1004,12 @@ export class ViajeScene extends Phaser.Scene {
     for (const h of this.corazones) if (h.active && toca(h, 0.9)) this.juntarVida(h);
     for (const o of this.objetos) if (o.active && toca(o, 1)) this.agarrarObjeto(o);
     this.mirarNpcs();
+    // El agua de los pozos corre despacio (la de arriba, más transparente, para el otro lado).
+    for (const w of this.aguas) {
+      w.abajo.tilePositionX += 14 * dt;
+      w.arriba.tilePositionX -= 9 * dt;
+      w.arriba.tilePositionY = Math.sin(time * 0.0012) * 6;
+    }
 
     // Perros trampolín: si Vicente cae encima, rebota alto. De costado no pasa nada.
     for (const d of this.perros) if (toca(d, 0.8) && cayendoSobre(d, 30)) this.rebotarEnPerro(d);

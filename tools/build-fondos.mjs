@@ -143,6 +143,26 @@ async function cortarPiezas(id, file, enFila = false, nombres = null) {
         .png()
         .toFile(path.join(salida, nombre + ".png"));
       piezas[nombre] = { w, h };
+      // "agua": un solo cuadro que empalma consigo mismo (el cuadro y su reflejo, lado a lado). Se toma
+      // la parte del medio del primer cuadro (en las láminas de celdas pegadas los bordes traen un
+      // pedacito de la celda vecina). El juego lo desplaza despacio: no hay saltos entre cuadros.
+      if (nombre === "agua-0") {
+        const mx = Math.round(w * 0.1);
+        const centro = await sharp(path.join(salida, nombre + ".png"))
+          .extract({ left: mx, top: 0, width: w - 2 * mx, height: h })
+          .png()
+          .toBuffer();
+        const reflejo = await sharp(centro).flop().png().toBuffer();
+        const cw = w - 2 * mx;
+        await sharp({ create: { width: cw * 2, height: h, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+          .composite([
+            { input: centro, left: 0, top: 0 },
+            { input: reflejo, left: cw, top: 0 },
+          ])
+          .png()
+          .toFile(path.join(salida, "agua.png"));
+        piezas.agua = { w: cw * 2, h };
+      }
       if (nombre === "borde-izq" || nombre === "borde-der")
         Object.assign(piezas[nombre], await aguaDeOrilla(path.join(salida, nombre + ".png"), nombre === "borde-izq"));
     }

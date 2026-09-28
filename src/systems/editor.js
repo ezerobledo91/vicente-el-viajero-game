@@ -49,10 +49,10 @@ const BOTONES_PAISAJE = [
   ["Suelo v", "sueloDy", PASO],
   ["Agua ^", "aguaDy", -PASO],
   ["Agua v", "aguaDy", PASO],
-  ["Orillas <>", "orillaDx", PASO],
-  ["Orillas ><", "orillaDx", -PASO],
-  ["Orillas ^", "orillaDy", -PASO],
-  ["Orillas v", "orillaDy", PASO],
+  ["Barranca +", "orillaDx", PASO],
+  ["Barranca -", "orillaDx", -PASO],
+  ["Barranca ^", "orillaDy", -PASO],
+  ["Barranca v", "orillaDy", PASO],
 ];
 
 const ESTILO_BOTON =
@@ -173,7 +173,7 @@ export class Editor {
     const p = this.aj.paisajes[this.paisaje] ?? {};
     const v = (k) => `${p[k] > 0 ? "+" : ""}${p[k] ?? 0}`;
     this.valores.setText(
-      `${this.paisaje} · fondo ${v("fondoDy")} · suelo ${v("sueloDy")} · agua ${v("aguaDy")} · orillas ${v("orillaDx")} / ${v("orillaDy")}`
+      `${this.paisaje} · fondo ${v("fondoDy")} · suelo ${v("sueloDy")} · agua ${v("aguaDy")} · barranca ${v("orillaDx")} / ${v("orillaDy")}`
     );
   }
 

@@ -345,6 +345,9 @@ function createImageParallax(scene, paisajeId, info, { width, groundY }) {
   ];
   return {
     imagen: true,
+    // Dónde está el suelo (para armar las barrancas de los pozos con sus mismos píxeles): la textura
+    // se repite desde x = 0 del mundo y arranca en y en pantalla.
+    suelo: { key: ASSETS.FONDO(paisajeId, "suelo"), y: layers[1].tile.y },
     update(scrollX) {
       // En píxeles enteros, igual que la cámara (si no, el camino tiembla contra lo que está en el mundo).
       for (const l of layers) l.tile.tilePositionX = Math.round(scrollX * l.factor);
