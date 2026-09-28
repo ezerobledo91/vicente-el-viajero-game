@@ -6,9 +6,10 @@
 // `etiqueta` (opcional): dónde va el nombre en el mapa del viaje ("izq", "der", "arriba", "abajo").
 //
 // Tramos: `paisaje` (src/data/paisajes.js), `animales` nativos (src/data/animales.js),
-// `objeto` que tira Vicente (tecla X, uno por región), `pajaro` que hay que esquivar (uno o una lista:
-// se van alternando), `tesoro` (uno por tramo, bien escondido), `especial` (otro coleccionable difícil
-// de alcanzar), `largo` en píxeles y `dificultad` de 1 a 3.
+// `objeto` que tira Vicente (tecla X, uno por región; se lo regala el personaje `npc` del tramo),
+// `pajaro` que hay que esquivar (uno o una lista: se van alternando), `tesoro` (uno por tramo, bien
+// escondido), `especial` (otro coleccionable difícil de alcanzar), `largo` en píxeles y `dificultad`
+// de 1 a 3.
 
 export const VIAJE_ARGENTINA = {
   pais: "ar",
@@ -673,6 +674,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "bosque-fueguino",
       objeto: "objeto-nieve",
+      npc: "guardaparques",
       pozosMin: 3,
       pozosGrandesMin: 1,
       animales: ["castor", "zorro", "cauquen", "guanaco", "buho", "liebre"],
@@ -686,6 +688,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "estepa",
       objeto: "objeto-calafate",
+      npc: "trabajador-patagonico",
       animales: ["choique", "zorro-gris", "flamenco", "huemul", "piche", "guanaco"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -699,6 +702,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "costa",
       objeto: "objeto-caracola",
+      npc: "guia-costera",
       animales: ["pinguino", "lobo-marino", "ballena", "elefante-marino", "mara", "orca"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -712,6 +716,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "pampa",
       objeto: "objeto-avion",
+      npc: "kiosquera",
       animales: ["hornero", "vaca", "vizcacha", "lechucita", "tatu", "cuis"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -725,6 +730,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "rio",
       objeto: "objeto-canto-rodado",
+      npc: "visitante-rio",
       animales: ["carpincho", "garza", "coipo", "lobito-rio", "tortuga"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -738,6 +744,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "humedal",
       objeto: "objeto-vaina",
+      npc: "veterinario",
       animales: ["carpincho", "garza", "ciervo-pantanos", "rana", "yacare"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -751,6 +758,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "humedal",
       objeto: "objeto-naranja",
+      npc: "pescador",
       animales: ["yacare", "aguara-guazu", "carpincho", "ciervo-pantanos"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -764,6 +772,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "selva",
       objeto: "objeto-guayaba",
+      npc: "yerbatera",
       animales: ["coati", "tucan", "mono", "mariposa"],
       entreAnimales: 1800,
       pozosMin: 3,
@@ -777,6 +786,7 @@ export const VIAJE_ARGENTINA = {
     {
       paisaje: "cataratas",
       objeto: "objeto-basalto",
+      npc: "guia-iguazu",
       animales: ["coati", "jaguarete", "tucan"],
       pajaro: ["tucan", "abeja"],
       largo: 14000,

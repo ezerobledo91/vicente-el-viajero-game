@@ -16,12 +16,13 @@ import { getViaje } from "../data/viajes/index.js";
 import { getAjustes, guardarAjustes } from "./ajustes.js";
 import { PALETA, TABLAS } from "../data/decoracion.js";
 import { ANIMALES } from "../data/animales.js";
+import { NPCS } from "../data/npcs.js";
 import { TIPOS_RECORRIDO, idNuevo } from "./recorrido.js";
 
 // Modo del editor (queda al redibujar el tramo): "adornos" o "recorrido".
 let modo = "adornos";
 // Los que van siempre apoyados en el piso (solo se mueven para los costados).
-const EN_EL_PISO = ["pozo", "roca", "perro", "animal"];
+const EN_EL_PISO = ["pozo", "roca", "perro", "animal", "npc"];
 const ICONOS = {
   figurita: "⭐",
   vida: "❤️",
@@ -32,6 +33,7 @@ const ICONOS = {
   perro: "🐶",
   pajaro: "🐦",
   animal: "🐾",
+  npc: "🧑",
 };
 
 const VELOCIDAD = 900; // px/seg con las flechas
@@ -441,6 +443,7 @@ export class Editor {
 
   nombreDe(it) {
     if (it.tipo === "animal") return `Animal: ${ANIMALES[it.id]?.nombre ?? it.id}`;
+    if (it.tipo === "npc") return `Personaje: ${NPCS[it.id]?.nombre ?? it.id}${it.regala ? " (regala el objeto)" : ""}`;
     if (it.tipo === "figurita" && it.especial)
       return it.especial.startsWith("tesoro-") ? "Tesoro" : `Especial (${it.especial})`;
     return TIPOS_RECORRIDO[it.tipo]?.nombre ?? it.tipo;
@@ -459,6 +462,7 @@ export class Editor {
         roca: [g - 35, 80, 70],
         perro: [g - 30, 70, 60],
         animal: [g - 50, 90, 100],
+        npc: [g - 70, 70, 140],
         pajaro: [y, 60, 40],
       }[it.tipo] ?? [y, 40, 40];
       const m = scene.add
@@ -559,7 +563,7 @@ export class Editor {
   paletaRecorrido() {
     const opciones = [
       ...Object.entries(TIPOS_RECORRIDO)
-        .filter(([tipo]) => tipo !== "animal")
+        .filter(([tipo]) => tipo !== "animal" && tipo !== "npc")
         .map(([tipo, t]) => ({ tipo, texto: t.nombre, icono: ICONOS[tipo] })),
       ...[...new Set(this.s.tramo.animales)].map((especie) => ({
         tipo: "animal",
@@ -567,6 +571,7 @@ export class Editor {
         texto: ANIMALES[especie]?.nombre ?? especie,
         icono: ICONOS.animal,
       })),
+      ...Object.entries(NPCS).map(([especie, p]) => ({ tipo: "npc", especie, texto: p.nombre, icono: ICONOS.npc })),
     ];
     const botones = opciones
       .map(

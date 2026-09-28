@@ -1,0 +1,279 @@
+{
+  "_comment": "Personajes regionales (Codex): 3 por lámina, cada uno quieto y saludando.",
+  "source": "personajes/premios/stickers-argentina.png",
+  "output": "public/assets/npcs",
+  "manifest": "npcs.json",
+  "grupo": "npcs",
+  "characters": [
+    {
+      "id": "guardaparques",
+      "nombre": "Guardaparques",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 1,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "trabajador-patagonico",
+      "nombre": "Trabajador patagónico",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guia-costera",
+      "nombre": "Guía costera",
+      "alturaCm": 162,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/patagonia.png",
+          "total": 6,
+          "desde": 5,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "kiosquera",
+      "nombre": "Kiosquera",
+      "alturaCm": 162,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 1,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "veterinario",
+      "nombre": "Veterinario rural",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "visitante-rio",
+      "nombre": "Visitante del río",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/centro.png",
+          "total": 6,
+          "desde": 5,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pescador",
+      "nombre": "Pescador",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 0,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 1,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yerbatera",
+      "nombre": "Trabajadora de la yerba",
+      "alturaCm": 162,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 2,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 3,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guia-iguazu",
+      "nombre": "Guía de Iguazú",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "facing": "right",
+      "archivos": true,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 4,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "archivo": "personajes/npcs/litoral-misiones.png",
+          "total": 6,
+          "desde": 5,
+          "frames": 1,
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

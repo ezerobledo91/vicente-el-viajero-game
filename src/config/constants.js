@@ -47,6 +47,7 @@ export const ASSETS = {
     "assets/tesoros/tesoros.json",
     "assets/lugares/lugares.json",
     "assets/objetos/objetos.json",
+    "assets/npcs/npcs.json",
   ],
   HOJA: (ruta) => `hoja-${ruta}`,
   // Fondos ilustrados (npm run fondos).

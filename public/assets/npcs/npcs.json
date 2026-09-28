@@ -1,0 +1,292 @@
+{
+  "characters": [
+    {
+      "id": "guardaparques",
+      "grupo": "npcs",
+      "nombre": "Guardaparques",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 111,
+      "texture": "guardaparques.png",
+      "frameWidth": 73,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "trabajador-patagonico",
+      "grupo": "npcs",
+      "nombre": "Trabajador patagónico",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 111,
+      "texture": "trabajador-patagonico.png",
+      "frameWidth": 74,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guia-costera",
+      "grupo": "npcs",
+      "nombre": "Guía costera",
+      "facing": "right",
+      "alturaCm": 162,
+      "alturaPx": 111,
+      "texture": "guia-costera.png",
+      "frameWidth": 72,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "kiosquera",
+      "grupo": "npcs",
+      "nombre": "Kiosquera",
+      "facing": "right",
+      "alturaCm": 162,
+      "alturaPx": 111,
+      "texture": "kiosquera.png",
+      "frameWidth": 67,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "veterinario",
+      "grupo": "npcs",
+      "nombre": "Veterinario rural",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 111,
+      "texture": "veterinario.png",
+      "frameWidth": 67,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "visitante-rio",
+      "grupo": "npcs",
+      "nombre": "Visitante del río",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 111,
+      "texture": "visitante-rio.png",
+      "frameWidth": 68,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "pescador",
+      "grupo": "npcs",
+      "nombre": "Pescador",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 110,
+      "texture": "pescador.png",
+      "frameWidth": 73,
+      "frameHeight": 114,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "yerbatera",
+      "grupo": "npcs",
+      "nombre": "Trabajadora de la yerba",
+      "facing": "right",
+      "alturaCm": 162,
+      "alturaPx": 111,
+      "texture": "yerbatera.png",
+      "frameWidth": 76,
+      "frameHeight": 115,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    },
+    {
+      "id": "guia-iguazu",
+      "grupo": "npcs",
+      "nombre": "Guía de Iguazú",
+      "facing": "right",
+      "alturaCm": 172,
+      "alturaPx": 112,
+      "texture": "guia-iguazu.png",
+      "frameWidth": 70,
+      "frameHeight": 116,
+      "frameCount": 2,
+      "animations": [
+        {
+          "key": "quieto",
+          "label": "quieto",
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "repeat": -1
+        },
+        {
+          "key": "saludar",
+          "label": "saludar",
+          "frames": [
+            1
+          ],
+          "fps": 1,
+          "repeat": -1
+        }
+      ]
+    }
+  ]
+}

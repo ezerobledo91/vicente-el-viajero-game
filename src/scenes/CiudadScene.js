@@ -21,6 +21,7 @@ import { RAREZAS, STICKERS, stickersDeCiudad } from "../data/stickers.js";
 import { hasCharacter } from "../systems/characters.js";
 import { modoPrueba } from "../systems/dev.js";
 import { houseTexture } from "../systems/placeholders.js";
+import { NPCS, NPC_CIUDAD } from "../data/npcs.js";
 import { GROUND_Y } from "./ViajeScene.js";
 
 const PREGUNTAS_POR_CIUDAD = 5;
@@ -52,6 +53,7 @@ export class CiudadScene extends Phaser.Scene {
     // Phaser reutiliza la misma escena en cada ciudad: hay que limpiar lo que quedó de la anterior.
     this.saltado = false;
     this.quiz = null;
+    this.npc = null;
   }
 
   create() {
@@ -219,13 +221,35 @@ export class CiudadScene extends Phaser.Scene {
   }
 
   // ---------- Preguntas ----------
+  // Un personaje de la zona se presenta y es el que hace las preguntas.
+  async presentarNpc() {
+    const id = NPC_CIUDAD[this.ciudad.id];
+    if (this.npc || !id || !hasCharacter(this, id)) return;
+    this.npc = new Character(this, this.paradaX + 150, this.pisoY, id, { pxPerCm: PX_PER_CM.viaje })
+      .face("left")
+      .setDepth(9);
+    this.npc.loop("saludar");
+    efecto("descubrir");
+    await this.say(
+      this.npc,
+      `¡Hola, Vicente! Soy ${NPCS[id].nombre}. ¿Te animás a unas preguntas sobre ${this.ciudad.nombre}?`,
+      2800
+    );
+    this.npc.loop("quieto");
+  }
+
   async preguntas() {
+    await this.presentarNpc();
     musica("pensar");
     this.quiz?.destroy();
     this.quiz = new QuizPanel(this, QUIZ_POS.x, QUIZ_POS.y, {
       onRespuesta: (ok) => {
         efecto(ok ? "correcto" : "error");
         this.vicente.perform(ok ? "festejo" : "aburrido");
+        if (ok && this.npc) {
+          this.npc.loop("saludar");
+          this.time.delayedCall(700, () => this.npc?.active && this.npc.loop("quieto"));
+        }
       },
     }).setDepth(20);
     this.vicente.perform("pensar");

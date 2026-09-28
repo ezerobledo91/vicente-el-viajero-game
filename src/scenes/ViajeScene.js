@@ -17,6 +17,7 @@ import { createParallax } from "../systems/parallax.js";
 import { ajusteObjeto, ajustePaisaje, editorActivo, escalaDe, getAjustes } from "../systems/ajustes.js";
 import { Editor } from "../systems/editor.js";
 import { aplicarRecorrido } from "../systems/recorrido.js";
+import { NOMBRE_OBJETO, NPCS } from "../data/npcs.js";
 import {
   actualizarViaje,
   animalesVistos,
@@ -154,6 +155,7 @@ export class ViajeScene extends Phaser.Scene {
     this.moviles = []; // plataformas que se mueven
     this.figuritas = [];
     this.objetos = []; // objetos para tirar que están en el camino
+    this.npcs = []; // personajes de la región
     this.corazones = [];
     this.perros = [];
     this.pajaros = [];
@@ -292,6 +294,13 @@ export class ViajeScene extends Phaser.Scene {
         this.flotar(o, y);
         o.brillo = brillo;
         this.objetos.push(o);
+        break;
+      }
+      case "npc": {
+        const c = this.entidad(item.id, item.x, GROUND_Y + 3, { anim: "quieto", mirando: "left", depth: 5 });
+        if (!c) break;
+        Object.assign(c, { npcId: item.id, regala: !!item.regala, saludo: false });
+        this.npcs.push(c);
         break;
       }
       case "roca":
@@ -455,7 +464,7 @@ export class ViajeScene extends Phaser.Scene {
       this.level.items.some(
         (it) =>
           (!it.oculto && it.tipo === "pozo" && Math.abs(it.x - x) < it.w / 2 + margen) ||
-          (["roca", "perro", "objeto", "cartel"].includes(it.tipo) && Math.abs(it.x - x) < margen + 60)
+          (["roca", "perro", "objeto", "npc", "cartel"].includes(it.tipo) && Math.abs(it.x - x) < margen + 60)
       ) || (this.mojones ?? []).some((m) => Math.abs(m.x - x) < margen + 40)
     );
   }
@@ -958,6 +967,7 @@ export class ViajeScene extends Phaser.Scene {
     for (const s of this.figuritas) if (s.active && toca(s, 1)) this.juntar(s);
     for (const h of this.corazones) if (h.active && toca(h, 0.9)) this.juntarVida(h);
     for (const o of this.objetos) if (o.active && toca(o, 1)) this.agarrarObjeto(o);
+    this.mirarNpcs();
 
     // Perros trampolín: si Vicente cae encima, rebota alto. De costado no pasa nada.
     for (const d of this.perros) if (toca(d, 0.8) && cayendoSobre(d, 30)) this.rebotarEnPerro(d);
@@ -1191,6 +1201,46 @@ export class ViajeScene extends Phaser.Scene {
     this.chispas(o.x, o.y, 14, 0xfff2a8);
     if (!this.conObjeto) this.cartelito(o.x, o.y - 40, "¡Ahora podés tirar! (X)", "#ffd27a");
     this.conObjeto = true;
+  }
+
+  // Personajes de la región: cuando Vicente llega, lo saludan, le cuentan algo del lugar y (el del
+  // tramo) le regalan el objeto para tirar.
+  mirarNpcs() {
+    for (const n of this.npcs) {
+      if (n.saludo || Math.abs(this.player.x - n.x) > 170) continue;
+      n.saludo = true;
+      n.face(this.player.x < n.x ? "left" : "right").loop("saludar");
+      let texto = NPCS[n.npcId]?.frase ?? "¡Hola, Vicente!";
+      if (n.regala && this.tramo.objeto && this.textures.exists(this.tramo.objeto)) {
+        texto += `\n¡Tomá, te regalo ${NOMBRE_OBJETO[this.tramo.objeto] ?? "esto"}!`;
+        this.time.delayedCall(1200, () => this.recibirObjeto(n));
+      }
+      efecto("descubrir");
+      this.decir(n, texto, 4200, 12);
+      this.time.delayedCall(4200, () => n.active && n.loop("quieto"));
+    }
+  }
+
+  // El objeto pasa de la mano del personaje a Vicente.
+  recibirObjeto(n) {
+    if (this.terminado) return;
+    const o = this.add.image(n.x, n.y - n.displayHeight * 0.55, this.tramo.objeto, 0).setDepth(11);
+    o.setScale(40 / o.height);
+    this.tweens.add({
+      targets: o,
+      x: this.player.x,
+      y: this.player.y - this.player.displayHeight * 0.6,
+      duration: 500,
+      ease: "Quad.InOut",
+      onComplete: () => {
+        o.destroy();
+        efecto("especial");
+        this.chispas(this.player.x, this.player.y - 80, 14, 0xfff2a8);
+        if (!this.conObjeto)
+          this.cartelito(this.player.x, this.player.getTopCenter().y - 30, "¡Ahora podés tirar! (X)", "#ffd27a");
+        this.conObjeto = true;
+      },
+    });
   }
 
   // Con un golpe se le cae el objeto: sale volando y hay que volver a encontrar otro.

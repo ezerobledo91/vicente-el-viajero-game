@@ -1,6 +1,7 @@
 // Cambios hechos con el editor sobre el recorrido que arma el generador (ajustes.recorrido[tramo]):
 //   cambios: { "<tipo>#<n>": { dx, dy, dw, oculto } }  dx/dy en px (dy positivo = más alto), dw = ancho
-//   nuevos:  [{ n, tipo, x, y, w, especie, oculto }]     cosas agregadas a mano
+//   nuevos:  [{ n, tipo, x, y, w, especie, oculto }]     cosas agregadas a mano (especie: qué animal
+//                                                        o qué personaje)
 // Se aplica antes de armar el tramo, así el piso (pozos) y la física salen bien solos.
 import { LEVEL } from "./levelBuilder.js";
 
@@ -15,6 +16,7 @@ export const TIPOS_RECORRIDO = {
   perro: { nombre: "Perro trampolín", color: 0xe0a060, nuevo: {} },
   pajaro: { nombre: "Pájaro", color: 0xff8a40, nuevo: { y: 120 } },
   animal: { nombre: "Animal", color: 0x5fd068, nuevo: {} },
+  npc: { nombre: "Personaje", color: 0xb57bff, nuevo: {} },
 };
 
 export const idNuevo = (a) => `nuevo-${a.tipo}#${a.n}`;
@@ -43,6 +45,7 @@ export function aplicarRecorrido(items, rec, { conOcultos = false } = {}) {
     if (a.y != null) base.y = a.y;
     if (a.w != null) base.w = a.w;
     if (a.tipo === "animal") Object.assign(base, { id: a.especie, rango: LEVEL.animalRango });
+    if (a.tipo === "npc") base.id = a.especie; // los agregados charlan pero no regalan el objeto
     salida.push(base);
   }
   return salida.sort((a, b) => a.x - b.x);
