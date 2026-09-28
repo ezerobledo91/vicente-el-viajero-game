@@ -75,6 +75,9 @@ function distanciaKm(a, b) {
   return Math.round(6371 * 2 * Math.asin(Math.sqrt(h)));
 }
 
+// Personajes de la región: cuánto caminan (px/seg y px a cada lado) y cada cuánto hacen su gesto (ms).
+const NPC_MOV = { velocidad: 38, rango: 90, gesto: 6500 };
+
 const TIRO = { vx: 620, vy: -300, gravedad: 1100, alto: 34, vida: 1800 }; // objeto tirado (px, px/seg)
 const BALLENA_FACTOR = 0.3;
 const FONDO_FACTOR = 0.4; // velocidad del fondo ilustrado (igual que en parallax.js)
@@ -298,9 +301,18 @@ export class ViajeScene extends Phaser.Scene {
         break;
       }
       case "npc": {
-        const c = this.entidad(item.id, item.x, GROUND_Y + 3, { anim: "quieto", mirando: "left", depth: 5 });
+        const c = this.entidad(item.id, item.x, GROUND_Y + 3, { anim: "caminar", mirando: "left", depth: 5 });
         if (!c) break;
-        Object.assign(c, { npcId: item.id, regala: !!item.regala, saludo: false });
+        // Camina un poco para un lado y para el otro alrededor de su lugar, y cada tanto hace su gesto.
+        Object.assign(c, {
+          npcId: item.id,
+          regala: !!item.regala,
+          saludo: false,
+          ocupado: false,
+          base: item.x,
+          vx: -NPC_MOV.velocidad,
+          proximoGesto: 2500 + (item.x % 3000),
+        });
         this.npcs.push(c);
         break;
       }
@@ -1003,7 +1015,7 @@ export class ViajeScene extends Phaser.Scene {
     for (const s of this.figuritas) if (s.active && toca(s, 1)) this.juntar(s);
     for (const h of this.corazones) if (h.active && toca(h, 0.9)) this.juntarVida(h);
     for (const o of this.objetos) if (o.active && toca(o, 1)) this.agarrarObjeto(o);
-    this.mirarNpcs();
+    this.mirarNpcs(time, dt);
     // El agua de los pozos corre despacio (la de arriba, más transparente, para el otro lado).
     for (const w of this.aguas) {
       w.abajo.tilePositionX += 14 * dt;
@@ -1247,20 +1259,53 @@ export class ViajeScene extends Phaser.Scene {
 
   // Personajes de la región: cuando Vicente llega, lo saludan, le cuentan algo del lugar y (el del
   // tramo) le regalan el objeto para tirar.
-  mirarNpcs() {
+  mirarNpcs(time, dt) {
     for (const n of this.npcs) {
-      if (n.saludo || Math.abs(this.player.x - n.x) > 170) continue;
-      n.saludo = true;
-      n.face(this.player.x < n.x ? "left" : "right").loop("saludar");
-      let texto = NPCS[n.npcId]?.frase ?? "¡Hola, Vicente!";
-      if (n.regala && this.tramo.objeto && this.textures.exists(this.tramo.objeto)) {
-        texto += `\n¡Tomá, te regalo ${NOMBRE_OBJETO[this.tramo.objeto] ?? "esto"}!`;
-        this.time.delayedCall(1200, () => this.recibirObjeto(n));
+      if (!n.active) continue;
+      if (!n.saludo && Math.abs(this.player.x - n.x) < 170) {
+        this.charlarNpc(n);
+        continue;
       }
-      efecto("descubrir");
-      this.decir(n, texto, 4200, 12);
-      this.time.delayedCall(4200, () => n.active && n.loop("quieto"));
+      if (n.ocupado) continue;
+      // Su gesto (mirar con los binoculares, tomar mate, señalar...) cada tanto, parado.
+      if (time > n.proximoGesto) {
+        n.proximoGesto = time + NPC_MOV.gesto * (0.8 + Math.random() * 0.5);
+        n.ocupado = true;
+        n.perform("extra").then(() => {
+          n.ocupado = false;
+          if (n.active) n.loop("caminar");
+        });
+        continue;
+      }
+      n.x += n.vx * dt;
+      if (Math.abs(n.x - n.base) > NPC_MOV.rango && Math.sign(n.x - n.base) === Math.sign(n.vx)) {
+        n.vx = -n.vx;
+        n.face(n.vx < 0 ? "left" : "right");
+      }
     }
+  }
+
+  // Vicente llega: se frena, lo mira, le cuenta algo del lugar y (el del tramo) le entrega el objeto.
+  charlarNpc(n) {
+    n.saludo = n.ocupado = true;
+    n.face(this.player.x < n.x ? "left" : "right");
+    let texto = NPCS[n.npcId]?.frase ?? "¡Hola, Vicente!";
+    if (n.regala && this.tramo.objeto && this.textures.exists(this.tramo.objeto)) {
+      texto += `\n¡Tomá, te regalo ${NOMBRE_OBJETO[this.tramo.objeto] ?? "esto"}!`;
+      this.time.delayedCall(700, () =>
+        n.perform("entregar").then(() => {
+          this.recibirObjeto(n);
+          if (n.active) n.loop("saludar");
+        })
+      );
+    } else n.loop("saludar");
+    efecto("descubrir");
+    this.decir(n, texto, 4200, 12);
+    this.time.delayedCall(4400, () => {
+      if (!n.active) return;
+      n.ocupado = false;
+      n.loop("caminar").face(n.vx < 0 ? "left" : "right");
+    });
   }
 
   // El objeto pasa de la mano del personaje a Vicente.

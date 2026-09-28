@@ -1,5 +1,5 @@
 {
-  "_comment": "Personajes regionales (Codex): 3 por lámina, cada uno quieto y saludando.",
+  "_comment": "Personajes regionales (Codex): caminar (8), entregar (4) y un movimiento propio (4). La tira la arma tools/npcs-armar.mjs.",
   "source": "personajes/premios/stickers-argentina.png",
   "output": "public/assets/npcs",
   "manifest": "npcs.json",
@@ -14,11 +14,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/guardaparques.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/guardaparques.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/guardaparques.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 0,
+          "archivo": "personajes/npcs/guardaparques.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -26,9 +56,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 1,
+          "archivo": "personajes/npcs/guardaparques.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -44,11 +74,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/trabajador-patagonico.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/trabajador-patagonico.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/trabajador-patagonico.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 2,
+          "archivo": "personajes/npcs/trabajador-patagonico.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -56,9 +116,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 3,
+          "archivo": "personajes/npcs/trabajador-patagonico.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -74,11 +134,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/guia-costera.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/guia-costera.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/guia-costera.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 4,
+          "archivo": "personajes/npcs/guia-costera.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -86,9 +176,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/patagonia.png",
-          "total": 6,
-          "desde": 5,
+          "archivo": "personajes/npcs/guia-costera.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -104,11 +194,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/kiosquera.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/kiosquera.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/kiosquera.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 0,
+          "archivo": "personajes/npcs/kiosquera.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -116,9 +236,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 1,
+          "archivo": "personajes/npcs/kiosquera.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -134,11 +254,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/veterinario.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/veterinario.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/veterinario.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 2,
+          "archivo": "personajes/npcs/veterinario.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -146,9 +296,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 3,
+          "archivo": "personajes/npcs/veterinario.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -164,11 +314,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/visitante-rio.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/visitante-rio.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/visitante-rio.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 4,
+          "archivo": "personajes/npcs/visitante-rio.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -176,9 +356,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/centro.png",
-          "total": 6,
-          "desde": 5,
+          "archivo": "personajes/npcs/visitante-rio.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -194,11 +374,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/pescador.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/pescador.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/pescador.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 0,
+          "archivo": "personajes/npcs/pescador.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -206,9 +416,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 1,
+          "archivo": "personajes/npcs/pescador.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -224,11 +434,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/yerbatera.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/yerbatera.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/yerbatera.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 2,
+          "archivo": "personajes/npcs/yerbatera.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -236,9 +476,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 3,
+          "archivo": "personajes/npcs/yerbatera.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -254,11 +494,41 @@
       "archivos": true,
       "animations": [
         {
+          "key": "caminar",
+          "label": "caminar",
+          "archivo": "personajes/npcs/guia-iguazu.png",
+          "total": 16,
+          "desde": 0,
+          "frames": 8,
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "archivo": "personajes/npcs/guia-iguazu.png",
+          "total": 16,
+          "desde": 8,
+          "frames": 4,
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "archivo": "personajes/npcs/guia-iguazu.png",
+          "total": 16,
+          "desde": 12,
+          "frames": 4,
+          "fps": 4,
+          "repeat": 0
+        },
+        {
           "key": "quieto",
           "label": "quieto",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 4,
+          "archivo": "personajes/npcs/guia-iguazu.png",
+          "total": 16,
+          "desde": 12,
           "frames": 1,
           "fps": 1,
           "repeat": -1
@@ -266,9 +536,9 @@
         {
           "key": "saludar",
           "label": "saludar",
-          "archivo": "personajes/npcs/litoral-misiones.png",
-          "total": 6,
-          "desde": 5,
+          "archivo": "personajes/npcs/guia-iguazu.png",
+          "total": 16,
+          "desde": 11,
           "frames": 1,
           "fps": 1,
           "repeat": -1

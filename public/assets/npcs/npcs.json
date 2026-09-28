@@ -8,15 +8,55 @@
       "alturaCm": 172,
       "alturaPx": 208,
       "texture": "guardaparques.png",
-      "frameWidth": 133,
-      "frameHeight": 212,
-      "frameCount": 2,
+      "frameWidth": 181,
+      "frameHeight": 213,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -25,7 +65,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -38,17 +78,57 @@
       "nombre": "Trabajador patagónico",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 207,
+      "alturaPx": 208,
       "texture": "trabajador-patagonico.png",
-      "frameWidth": 136,
-      "frameHeight": 211,
-      "frameCount": 2,
+      "frameWidth": 149,
+      "frameHeight": 214,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -57,7 +137,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -70,17 +150,57 @@
       "nombre": "Guía costera",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 196,
+      "alturaPx": 197,
       "texture": "guia-costera.png",
-      "frameWidth": 124,
-      "frameHeight": 200,
-      "frameCount": 2,
+      "frameWidth": 164,
+      "frameHeight": 203,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -89,7 +209,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -102,17 +222,57 @@
       "nombre": "Kiosquera",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 196,
+      "alturaPx": 198,
       "texture": "kiosquera.png",
-      "frameWidth": 115,
-      "frameHeight": 200,
-      "frameCount": 2,
+      "frameWidth": 164,
+      "frameHeight": 203,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -121,7 +281,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -134,17 +294,57 @@
       "nombre": "Veterinario rural",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 208,
+      "alturaPx": 211,
       "texture": "veterinario.png",
-      "frameWidth": 122,
-      "frameHeight": 212,
-      "frameCount": 2,
+      "frameWidth": 168,
+      "frameHeight": 217,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -153,7 +353,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -166,17 +366,57 @@
       "nombre": "Visitante del río",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 208,
+      "alturaPx": 207,
       "texture": "visitante-rio.png",
-      "frameWidth": 124,
-      "frameHeight": 212,
-      "frameCount": 2,
+      "frameWidth": 185,
+      "frameHeight": 216,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -185,7 +425,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -198,17 +438,57 @@
       "nombre": "Pescador",
       "facing": "right",
       "alturaCm": 172,
-      "alturaPx": 208,
+      "alturaPx": 212,
       "texture": "pescador.png",
-      "frameWidth": 133,
-      "frameHeight": 212,
-      "frameCount": 2,
+      "frameWidth": 168,
+      "frameHeight": 218,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -217,7 +497,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -230,17 +510,57 @@
       "nombre": "Trabajadora de la yerba",
       "facing": "right",
       "alturaCm": 162,
-      "alturaPx": 196,
+      "alturaPx": 198,
       "texture": "yerbatera.png",
-      "frameWidth": 131,
-      "frameHeight": 200,
-      "frameCount": 2,
+      "frameWidth": 158,
+      "frameHeight": 203,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -249,7 +569,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
@@ -264,15 +584,55 @@
       "alturaCm": 172,
       "alturaPx": 208,
       "texture": "guia-iguazu.png",
-      "frameWidth": 128,
-      "frameHeight": 212,
-      "frameCount": 2,
+      "frameWidth": 160,
+      "frameHeight": 215,
+      "frameCount": 18,
       "animations": [
+        {
+          "key": "caminar",
+          "label": "caminar",
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 9,
+          "repeat": -1
+        },
+        {
+          "key": "entregar",
+          "label": "entregar",
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 6,
+          "repeat": 0
+        },
+        {
+          "key": "extra",
+          "label": "extra",
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 4,
+          "repeat": 0
+        },
         {
           "key": "quieto",
           "label": "quieto",
           "frames": [
-            0
+            16
           ],
           "fps": 1,
           "repeat": -1
@@ -281,7 +641,7 @@
           "key": "saludar",
           "label": "saludar",
           "frames": [
-            1
+            17
           ],
           "fps": 1,
           "repeat": -1
